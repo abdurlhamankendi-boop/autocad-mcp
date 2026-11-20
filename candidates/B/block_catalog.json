@@ -1,0 +1,306 @@
+{
+ "bed_double": {
+  "path": "C:\\ProgramData\\Autodesk\\ACA 2027\\enu\\AEC Content\\Metric\\Design\\Domestic Furniture\\Bedroom\\Double - plain.dwg",
+  "scale": 25.4,
+  "w": 1600.0,
+  "d": 2000.0,
+  "offx": -800.0,
+  "offy": -2000.0
+ },
+ "bed_single": {
+  "path": "C:\\ProgramData\\Autodesk\\ACA 2027\\enu\\AEC Content\\Metric\\Design\\Furniture\\Home\\Single_bed_90x210.dwg",
+  "scale": 25.4,
+  "w": 900.0,
+  "d": 2100.0,
+  "offx": -0.0,
+  "offy": -2100.0
+ },
+ "wardrobe": {
+  "path": "C:\\ProgramData\\Autodesk\\ACA 2027\\enu\\AEC Content\\Metric\\Design\\Domestic Furniture\\Bedroom\\Closet - Double door.dwg",
+  "scale": 25.4,
+  "w": 800.0,
+  "d": 520.0,
+  "offx": -400.0,
+  "offy": -520.0
+ },
+ "bedside": {
+  "path": "C:\\ProgramData\\Autodesk\\ACA 2027\\enu\\AEC Content\\Metric\\Design\\Furniture\\Home\\Bedside_Table.dwg",
+  "scale": 25.4,
+  "w": 400.0,
+  "d": 400.0,
+  "offx": -200.0,
+  "offy": -400.0
+ },
+ "dresser": {
+  "path": "C:\\ProgramData\\Autodesk\\ACA 2027\\enu\\AEC Content\\Metric\\Design\\Domestic Furniture\\Bedroom\\Dresser.dwg",
+  "scale": 25.4,
+  "w": 647.1,
+  "d": 914.4,
+  "offx": 0.0,
+  "offy": -457.2
+ },
+ "sofa": {
+  "path": "C:\\ProgramData\\Autodesk\\ACA 2027\\enu\\AEC Content\\Metric\\Design\\Domestic Furniture\\Sofas\\Classic.dwg",
+  "scale": 25.4,
+  "w": 1800.0,
+  "d": 800.0,
+  "offx": -900.0,
+  "offy": -800.0
+ },
+ "sofa_l": {
+  "path": "C:\\ProgramData\\Autodesk\\ACA 2027\\enu\\AEC Content\\Metric\\Design\\Domestic Furniture\\Sofas\\L-shape.dwg",
+  "scale": 25.4,
+  "w": 1800.0,
+  "d": 1800.0,
+  "offx": -900.0,
+  "offy": -1800.0
+ },
+ "coffee_table": {
+  "path": "C:\\ProgramData\\Autodesk\\ACA 2027\\enu\\AEC Content\\Metric\\Design\\Furniture\\Home\\Coffee_table_elliptical_1200x700.dwg",
+  "scale": 25.4,
+  "w": 1200.0,
+  "d": 700.0,
+  "offx": -600.0,
+  "offy": -350.0
+ },
+ "dining": {
+  "path": "C:\\ProgramData\\Autodesk\\ACA 2027\\enu\\AEC Content\\Metric\\Design\\Furniture\\Home\\Dining_area_rectangular_4_person.dwg",
+  "scale": 25.4,
+  "w": 1555.1,
+  "d": 1200.0,
+  "offx": -777.5,
+  "offy": -0.0
+ },
+ "wc": {
+  "path": "C:\\ProgramData\\Autodesk\\ACA 2027\\enu\\AEC Content\\Metric\\Design\\Bathroom\\Toilet\\Flush - Modern.dwg",
+  "scale": 25.4,
+  "w": 520.0,
+  "d": 400.0,
+  "offx": -0.0,
+  "offy": -200.0
+ },
+ "bath": {
+  "path": "C:\\ProgramData\\Autodesk\\ACA 2027\\enu\\AEC Content\\Metric\\Design\\Bathroom\\Bath\\Tub - Rectangular 1700x800.dwg",
+  "scale": 25.4,
+  "w": 1700.0,
+  "d": 800.0,
+  "offx": 0.0,
+  "offy": -400.0
+ },
+ "basin": {
+  "path": "C:\\ProgramData\\Autodesk\\ACA 2027\\enu\\AEC Content\\Metric\\Design\\Bathroom\\Basin\\Oval.Dwg",
+  "scale": 25.4,
+  "w": 450.2,
+  "d": 468.0,
+  "offx": -0.0,
+  "offy": -234.0
+ },
+ "fridge": {
+  "path": "C:\\ProgramData\\Autodesk\\ACA 2027\\enu\\AEC Content\\Metric\\Design\\Appliances\\Kitchen\\Fridge_Freezer.dwg",
+  "scale": 25.4,
+  "w": 572.0,
+  "d": 515.0,
+  "offx": -28.569971501424924,
+  "offy": -515.0
+ },
+ "hob": {
+  "path": "C:\\ProgramData\\Autodesk\\ACA 2027\\enu\\AEC Content\\Metric\\Design\\Appliances\\Kitchen\\Ceramic_hob_6M.dwg",
+  "scale": 25.4,
+  "w": 570.0,
+  "d": 500.0,
+  "offx": -285.0,
+  "offy": -555.0
+ },
+ "dishwasher": {
+  "path": "C:\\ProgramData\\Autodesk\\ACA 2027\\enu\\AEC Content\\Metric\\Design\\Appliances\\Kitchen\\Dishwasher_6M.dwg",
+  "scale": 25.4,
+  "w": 600.0,
+  "d": 600.0,
+  "offx": 0.0,
+  "offy": -600.0
+ },
+ "sink_unit": {
+  "path": "C:\\ProgramData\\Autodesk\\ACA 2027\\enu\\AEC Content\\Metric\\Design\\Kitchen Fittings\\Base Cabinet\\Base_Cabinet-Double_Door_Sink_Unit.dwg",
+  "scale": 25.4,
+  "w": 914.4,
+  "d": 635.0,
+  "offx": -457.2,
+  "offy": -635.0
+ },
+ "fia_bed": {
+  "pack": "Furniture-pack-2-and-3__FIA_Furniture_Cad_Blocks_03.dwg",
+  "block": "PNL 15C Bed Plan",
+  "w": 1942.7,
+  "d": 2325.0,
+  "offx": 0.0,
+  "offy": 0.0,
+  "scale": 1.0,
+  "source": "First In Architecture furniture pack, metric"
+ },
+ "fia_sofa_long": {
+  "pack": "Furniture-pack-2-and-3__FIA_Furniture_Cad_Blocks_03.dwg",
+  "block": "ZC 504 Sofa Plan",
+  "w": 3400.0,
+  "d": 1000.0,
+  "offx": 0.0,
+  "offy": 0.0,
+  "scale": 1.0,
+  "source": "First In Architecture furniture pack, metric"
+ },
+ "fia_sofa_3": {
+  "pack": "Furniture-pack-2-and-3__FIA_Furniture_Cad_Blocks_02.dwg",
+  "block": "CT 03 Sofa plan",
+  "w": 2520.0,
+  "d": 940.0,
+  "offx": 0.0,
+  "offy": 0.0,
+  "scale": 1.0,
+  "source": "First In Architecture furniture pack, metric"
+ },
+ "fia_sofa_2": {
+  "pack": "Furniture-pack-2-and-3__FIA_Furniture_Cad_Blocks_02.dwg",
+  "block": "AS 02 Sofa Plan",
+  "w": 1870.0,
+  "d": 990.0,
+  "offx": 0.0,
+  "offy": 0.0,
+  "scale": 1.0,
+  "source": "First In Architecture furniture pack, metric"
+ },
+ "fia_sofa_ph": {
+  "pack": "Furniture-pack-2-and-3__FIA_Furniture_Cad_Blocks_02.dwg",
+  "block": "PH 03 Sofa Plan",
+  "w": 2950.0,
+  "d": 900.0,
+  "offx": 0.0,
+  "offy": 0.0,
+  "scale": 1.0,
+  "source": "First In Architecture furniture pack, metric"
+ },
+ "fia_sofa_ke": {
+  "pack": "Furniture-pack-2-and-3__FIA_Furniture_Cad_Blocks_02.dwg",
+  "block": "KE 02 Sofa Plan",
+  "w": 1900.0,
+  "d": 820.0,
+  "offx": 0.0,
+  "offy": 0.0,
+  "scale": 1.0,
+  "source": "First In Architecture furniture pack, metric"
+ },
+ "fia_armchair": {
+  "pack": "Furniture-pack-2-and-3__FIA_Furniture_Cad_Blocks_02.dwg",
+  "block": "SW01M Arm chair Plan",
+  "w": 750.0,
+  "d": 1050.0,
+  "offx": 0.0,
+  "offy": 0.0,
+  "scale": 1.0,
+  "source": "First In Architecture furniture pack, metric"
+ },
+ "fia_recliner": {
+  "pack": "Furniture-pack-2-and-3__FIA_Furniture_Cad_Blocks_03.dwg",
+  "block": "NH 01 Recliner chair Plan",
+  "w": 700.0,
+  "d": 1484.5,
+  "offx": 0.0,
+  "offy": 0.0,
+  "scale": 1.0,
+  "source": "First In Architecture furniture pack, metric"
+ },
+ "fia_tbl_round": {
+  "pack": "Furniture-pack-2-and-3__FIA_Furniture_Cad_Blocks_03.dwg",
+  "block": "Circular Table Plan",
+  "w": 1500.0,
+  "d": 1500.0,
+  "offx": 0.0,
+  "offy": 0.0,
+  "scale": 1.0,
+  "source": "First In Architecture furniture pack, metric"
+ },
+ "fia_tbl_dining": {
+  "pack": "Furniture-pack-2-and-3__FIA_Furniture_Cad_Blocks_02.dwg",
+  "block": "SP09C Table Plan",
+  "w": 2100.0,
+  "d": 900.0,
+  "offx": 0.0,
+  "offy": 0.0,
+  "scale": 1.0,
+  "source": "First In Architecture furniture pack, metric"
+ },
+ "fia_tbl_coffee": {
+  "pack": "Furniture-pack-2-and-3__FIA_Furniture_Cad_Blocks_02.dwg",
+  "block": "OP 11 Table Plan",
+  "w": 1000.0,
+  "d": 1000.0,
+  "offx": 0.0,
+  "offy": 0.0,
+  "scale": 1.0,
+  "source": "First In Architecture furniture pack, metric"
+ },
+ "fia_tbl_low": {
+  "pack": "Furniture-pack-2-and-3__FIA_Furniture_Cad_Blocks_03.dwg",
+  "block": "Sumo Table Plan",
+  "w": 2100.0,
+  "d": 2100.0,
+  "offx": 0.0,
+  "offy": 0.0,
+  "scale": 1.0,
+  "source": "First In Architecture furniture pack, metric"
+ },
+ "fia_tbl_toast": {
+  "pack": "Furniture-pack-2-and-3__FIA_Furniture_Cad_Blocks_03.dwg",
+  "block": "Toast Table Plan",
+  "w": 2000.0,
+  "d": 800.0,
+  "offx": 0.0,
+  "offy": 0.0,
+  "scale": 1.0,
+  "source": "First In Architecture furniture pack, metric"
+ },
+ "shower": {
+  "path": "C:\\ProgramData\\Autodesk\\ACA 2027\\enu\\AEC Content\\Metric\\Design\\Bathroom\\Shower\\3D Shower.dwg",
+  "scale": 1.0,
+  "w": 900.0,
+  "d": 900.0,
+  "offx": 0.0,
+  "offy": 0.0
+ },
+ "shower_seat": {
+  "path": "C:\\ProgramData\\Autodesk\\ACA 2027\\enu\\AEC Content\\Metric\\Design\\Bathroom\\Shower\\3D Shower - And Seat.dwg",
+  "scale": 1.0,
+  "w": 1200.0,
+  "d": 900.0,
+  "offx": 0.0,
+  "offy": 0.0
+ },
+ "fia_chair": {
+  "pack": "Furniture-pack-2-and-3__FIA_Furniture_Cad_Blocks_03.dwg",
+  "block": "Brera Chair Plan",
+  "w": 500.6,
+  "d": 550.5,
+  "offx": 0.0,
+  "offy": 0.0,
+  "scale": 1.0,
+  "source": "First In Architecture furniture pack, metric"
+ },
+ "fia_chair_cc": {
+  "pack": "Furniture-pack-2-and-3__FIA_Furniture_Cad_Blocks_02.dwg",
+  "block": "CC 01 Chair Plan",
+  "w": 491.6,
+  "d": 530.0,
+  "offx": 0.0,
+  "offy": 0.0,
+  "scale": 1.0,
+  "source": "First In Architecture furniture pack, metric"
+ },
+ "fia_stool": {
+  "pack": "Furniture-pack-2-and-3__FIA_Furniture_Cad_Blocks_03.dwg",
+  "block": "UL 304 Stool Plan",
+  "w": 530.0,
+  "d": 530.0,
+  "offx": 0.0,
+  "offy": 0.0,
+  "scale": 1.0,
+  "source": "First In Architecture furniture pack, metric"
+ }
+}

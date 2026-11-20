@@ -1,0 +1,2418 @@
+{
+ "acad_3d_boolean": {
+  "annotations": {
+   "destructive_hint": true,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "3D boolean"
+  },
+  "description": "Combine two 3D solids. The result stays in solid A; solid B is CONSUMED.",
+  "input_schema": {
+   "properties": {
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "handle_a": {
+     "description": "Entity handle (hex) as returned by the draw/summarize tools. Handles are unique only within one drawing.",
+     "maxLength": 16,
+     "minLength": 1,
+     "pattern": "^[0-9A-Fa-f]+$",
+     "title": "Handle A",
+     "type": "string"
+    },
+    "handle_b": {
+     "description": "Entity handle (hex) as returned by the draw/summarize tools. Handles are unique only within one drawing.",
+     "maxLength": 16,
+     "minLength": 1,
+     "pattern": "^[0-9A-Fa-f]+$",
+     "title": "Handle B",
+     "type": "string"
+    },
+    "operation": {
+     "default": "union",
+     "enum": [
+      "union",
+      "subtract",
+      "intersect"
+     ],
+     "title": "Operation",
+     "type": "string"
+    }
+   },
+   "required": [
+    "handle_a",
+    "handle_b"
+   ],
+   "title": "acad_3d_booleanArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_3d_booleanDictOutput",
+   "type": "object"
+  },
+  "title": "3D boolean"
+ },
+ "acad_3d_box": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "3D box"
+  },
+  "description": "Create a 3D solid box centred on `center` (x = length, y = width, z = height).",
+  "input_schema": {
+   "properties": {
+    "center": {
+     "description": "CENTRE of the box (not its base): base z = centre z - h/2.",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "Center",
+     "type": "array"
+    },
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "height": {
+     "description": "Length in drawing units (mm for the villa).",
+     "exclusiveMinimum": 0,
+     "title": "Height",
+     "type": "number"
+    },
+    "layer": {
+     "default": "",
+     "description": "Existing layer for the new entity; empty = current layer. A missing layer is an error and nothing is drawn.",
+     "title": "Layer",
+     "type": "string"
+    },
+    "length": {
+     "description": "Length in drawing units (mm for the villa).",
+     "exclusiveMinimum": 0,
+     "title": "Length",
+     "type": "number"
+    },
+    "width": {
+     "description": "Length in drawing units (mm for the villa).",
+     "exclusiveMinimum": 0,
+     "title": "Width",
+     "type": "number"
+    }
+   },
+   "required": [
+    "center",
+    "length",
+    "width",
+    "height"
+   ],
+   "title": "acad_3d_boxArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_3d_boxDictOutput",
+   "type": "object"
+  },
+  "title": "3D box"
+ },
+ "acad_3d_cylinder": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "3D cylinder"
+  },
+  "description": "Create a 3D solid cylinder (axis along Z) centred on `center`.",
+  "input_schema": {
+   "properties": {
+    "center": {
+     "description": "CENTRE of the cylinder: base z = centre z - h/2.",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "Center",
+     "type": "array"
+    },
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "height": {
+     "description": "Length in drawing units (mm for the villa).",
+     "exclusiveMinimum": 0,
+     "title": "Height",
+     "type": "number"
+    },
+    "layer": {
+     "default": "",
+     "description": "Existing layer for the new entity; empty = current layer. A missing layer is an error and nothing is drawn.",
+     "title": "Layer",
+     "type": "string"
+    },
+    "radius": {
+     "description": "Length in drawing units (mm for the villa).",
+     "exclusiveMinimum": 0,
+     "title": "Radius",
+     "type": "number"
+    }
+   },
+   "required": [
+    "center",
+    "radius",
+    "height"
+   ],
+   "title": "acad_3d_cylinderArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_3d_cylinderDictOutput",
+   "type": "object"
+  },
+  "title": "3D cylinder"
+ },
+ "acad_3d_sphere": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "3D sphere"
+  },
+  "description": "Create a 3D solid sphere (the villa's probe primitive).",
+  "input_schema": {
+   "properties": {
+    "center": {
+     "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "Center",
+     "type": "array"
+    },
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "layer": {
+     "default": "",
+     "description": "Existing layer for the new entity; empty = current layer. A missing layer is an error and nothing is drawn.",
+     "title": "Layer",
+     "type": "string"
+    },
+    "radius": {
+     "description": "Length in drawing units (mm for the villa).",
+     "exclusiveMinimum": 0,
+     "title": "Radius",
+     "type": "number"
+    }
+   },
+   "required": [
+    "center",
+    "radius"
+   ],
+   "title": "acad_3d_sphereArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_3d_sphereDictOutput",
+   "type": "object"
+  },
+  "title": "3D sphere"
+ },
+ "acad_activate_drawing": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": true,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Activate drawing"
+  },
+  "description": "Switch AutoCAD's active drawing tab.",
+  "input_schema": {
+   "properties": {
+    "name": {
+     "description": "Drawing name as acad_list_drawings shows it (or full path / stem).",
+     "title": "Name",
+     "type": "string"
+    }
+   },
+   "required": [
+    "name"
+   ],
+   "title": "acad_activate_drawingArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_activate_drawingDictOutput",
+   "type": "object"
+  },
+  "title": "Activate drawing"
+ },
+ "acad_add_aligned_dimension": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Add aligned dimension"
+  },
+  "description": "Add an aligned dimension (parallel to the measured points). Uses the\ncurrent DIMSTYLE (see acad_add_linear_dimension about DIMSCALE).",
+  "input_schema": {
+   "properties": {
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "layer": {
+     "default": "",
+     "description": "Existing layer for the new entity; empty = current layer. A missing layer is an error and nothing is drawn.",
+     "title": "Layer",
+     "type": "string"
+    },
+    "point1": {
+     "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "Point1",
+     "type": "array"
+    },
+    "point2": {
+     "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "Point2",
+     "type": "array"
+    },
+    "text_position": {
+     "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "Text Position",
+     "type": "array"
+    }
+   },
+   "required": [
+    "point1",
+    "point2",
+    "text_position"
+   ],
+   "title": "acad_add_aligned_dimensionArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_add_aligned_dimensionDictOutput",
+   "type": "object"
+  },
+  "title": "Add aligned dimension"
+ },
+ "acad_add_hatch": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Add hatch"
+  },
+  "description": "Hatch the area enclosed by one or more existing closed entities. A hatch\nthat fails to build is deleted, not left empty in the drawing.",
+  "input_schema": {
+   "properties": {
+    "associative": {
+     "default": true,
+     "title": "Associative",
+     "type": "boolean"
+    },
+    "boundary_handles": {
+     "description": "Closed boundary entities (closed polylines, circles) in the same drawing.",
+     "items": {
+      "description": "Entity handle (hex) as returned by the draw/summarize tools. Handles are unique only within one drawing.",
+      "maxLength": 16,
+      "minLength": 1,
+      "pattern": "^[0-9A-Fa-f]+$",
+      "type": "string"
+     },
+     "minItems": 1,
+     "title": "Boundary Handles",
+     "type": "array"
+    },
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "layer": {
+     "default": "",
+     "description": "Existing layer for the new entity; empty = current layer. A missing layer is an error and nothing is drawn.",
+     "title": "Layer",
+     "type": "string"
+    },
+    "pattern": {
+     "default": "ANSI31",
+     "description": "acad.pat name: ANSI31, SOLID, NET, AR-CONC, ...",
+     "title": "Pattern",
+     "type": "string"
+    },
+    "scale": {
+     "default": 1.0,
+     "description": "Pattern scale; ~100 for 1:100 in a mm drawing.",
+     "exclusiveMinimum": 0,
+     "title": "Scale",
+     "type": "number"
+    }
+   },
+   "required": [
+    "boundary_handles"
+   ],
+   "title": "acad_add_hatchArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_add_hatchDictOutput",
+   "type": "object"
+  },
+  "title": "Add hatch"
+ },
+ "acad_add_linear_dimension": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Add linear dimension"
+  },
+  "description": "Add a rotated linear dimension. It uses the current DIMSTYLE: ISO-25's\n2.5-unit text is invisible at 1:100 in a mm drawing unless DIMSCALE is 100.",
+  "input_schema": {
+   "properties": {
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "layer": {
+     "default": "",
+     "description": "Existing layer for the new entity; empty = current layer. A missing layer is an error and nothing is drawn.",
+     "title": "Layer",
+     "type": "string"
+    },
+    "point1": {
+     "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "Point1",
+     "type": "array"
+    },
+    "point2": {
+     "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "Point2",
+     "type": "array"
+    },
+    "rotation": {
+     "default": 0.0,
+     "description": "Degrees: 0 = horizontal, 90 = vertical.",
+     "title": "Rotation",
+     "type": "number"
+    },
+    "text_position": {
+     "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "Text Position",
+     "type": "array"
+    }
+   },
+   "required": [
+    "point1",
+    "point2",
+    "text_position"
+   ],
+   "title": "acad_add_linear_dimensionArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_add_linear_dimensionDictOutput",
+   "type": "object"
+  },
+  "title": "Add linear dimension"
+ },
+ "acad_close_orphans": {
+  "annotations": {
+   "destructive_hint": true,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Close orphan drawings"
+  },
+  "description": "Close unsaved DrawingN documents WITHOUT saving. Only a document whose name\nis 'Drawing<digits>.dwg' AND that was never saved to disk qualifies; a saved\ndrawing is never closed, whatever its name. Each is re-checked immediately\nbefore it is closed. dry_run=True lists what would be closed.",
+  "input_schema": {
+   "properties": {
+    "dry_run": {
+     "default": false,
+     "title": "Dry Run",
+     "type": "boolean"
+    },
+    "include_active": {
+     "default": false,
+     "description": "Also close the ACTIVE drawing if it is an orphan (off by default: someone may be working in it).",
+     "title": "Include Active",
+     "type": "boolean"
+    },
+    "names": {
+     "anyOf": [
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Only these (e.g. ['Drawing3.dwg']); omit for every orphan.",
+     "title": "Names"
+    }
+   },
+   "title": "acad_close_orphansArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_close_orphansDictOutput",
+   "type": "object"
+  },
+  "title": "Close orphan drawings"
+ },
+ "acad_copy_entity": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Copy entity"
+  },
+  "description": "Copy an entity and offset the copy by from_point -> to_point.",
+  "input_schema": {
+   "properties": {
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "from_point": {
+     "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "From Point",
+     "type": "array"
+    },
+    "handle": {
+     "description": "Entity handle (hex) as returned by the draw/summarize tools. Handles are unique only within one drawing.",
+     "maxLength": 16,
+     "minLength": 1,
+     "pattern": "^[0-9A-Fa-f]+$",
+     "title": "Handle",
+     "type": "string"
+    },
+    "to_point": {
+     "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "To Point",
+     "type": "array"
+    }
+   },
+   "required": [
+    "handle",
+    "from_point",
+    "to_point"
+   ],
+   "title": "acad_copy_entityArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_copy_entityDictOutput",
+   "type": "object"
+  },
+  "title": "Copy entity"
+ },
+ "acad_create_layer": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": true,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Create layer"
+  },
+  "description": "Create a layer, or fetch it if it already exists (its colour is changed\nonly when `color` is given). Optionally make it current.",
+  "input_schema": {
+   "properties": {
+    "activate": {
+     "default": false,
+     "title": "Activate",
+     "type": "boolean"
+    },
+    "color": {
+     "anyOf": [
+      {
+       "description": "ACI colour 1-255 (7 = white/black). Omit to leave an existing layer's colour alone (new layers get 7).",
+       "maximum": 255,
+       "minimum": 1,
+       "type": "integer"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Color"
+    },
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "name": {
+     "maxLength": 255,
+     "minLength": 1,
+     "title": "Name",
+     "type": "string"
+    }
+   },
+   "required": [
+    "name"
+   ],
+   "title": "acad_create_layerArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_create_layerDictOutput",
+   "type": "object"
+  },
+  "title": "Create layer"
+ },
+ "acad_draw_arc": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Draw arc"
+  },
+  "description": "Draw an arc counter-clockwise from start_angle to end_angle (degrees).",
+  "input_schema": {
+   "properties": {
+    "center": {
+     "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "Center",
+     "type": "array"
+    },
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "end_angle": {
+     "description": "Degrees, CCW from east.",
+     "title": "End Angle",
+     "type": "number"
+    },
+    "layer": {
+     "default": "",
+     "description": "Existing layer for the new entity; empty = current layer. A missing layer is an error and nothing is drawn.",
+     "title": "Layer",
+     "type": "string"
+    },
+    "radius": {
+     "description": "Length in drawing units (mm for the villa).",
+     "exclusiveMinimum": 0,
+     "title": "Radius",
+     "type": "number"
+    },
+    "start_angle": {
+     "description": "Degrees, CCW from east.",
+     "title": "Start Angle",
+     "type": "number"
+    }
+   },
+   "required": [
+    "center",
+    "radius",
+    "start_angle",
+    "end_angle"
+   ],
+   "title": "acad_draw_arcArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_draw_arcDictOutput",
+   "type": "object"
+  },
+  "title": "Draw arc"
+ },
+ "acad_draw_circle": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Draw circle"
+  },
+  "description": "Draw a circle in model space. Radius in drawing units (mm for the villa).",
+  "input_schema": {
+   "properties": {
+    "center": {
+     "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "Center",
+     "type": "array"
+    },
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "layer": {
+     "default": "",
+     "description": "Existing layer for the new entity; empty = current layer. A missing layer is an error and nothing is drawn.",
+     "title": "Layer",
+     "type": "string"
+    },
+    "radius": {
+     "description": "Length in drawing units (mm for the villa).",
+     "exclusiveMinimum": 0,
+     "title": "Radius",
+     "type": "number"
+    }
+   },
+   "required": [
+    "center",
+    "radius"
+   ],
+   "title": "acad_draw_circleArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_draw_circleDictOutput",
+   "type": "object"
+  },
+  "title": "Draw circle"
+ },
+ "acad_draw_ellipse": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Draw ellipse"
+  },
+  "description": "Draw an ellipse from its centre, major-axis vector and minor/major ratio.",
+  "input_schema": {
+   "properties": {
+    "center": {
+     "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "Center",
+     "type": "array"
+    },
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "layer": {
+     "default": "",
+     "description": "Existing layer for the new entity; empty = current layer. A missing layer is an error and nothing is drawn.",
+     "title": "Layer",
+     "type": "string"
+    },
+    "major_axis": {
+     "description": "Vector from the centre to the major-axis endpoint.",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "Major Axis",
+     "type": "array"
+    },
+    "radius_ratio": {
+     "description": "minor / major",
+     "exclusiveMinimum": 0,
+     "maximum": 1,
+     "title": "Radius Ratio",
+     "type": "number"
+    }
+   },
+   "required": [
+    "center",
+    "major_axis",
+    "radius_ratio"
+   ],
+   "title": "acad_draw_ellipseArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_draw_ellipseDictOutput",
+   "type": "object"
+  },
+  "title": "Draw ellipse"
+ },
+ "acad_draw_line": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Draw line"
+  },
+  "description": "Draw a line in model space between two points (drawing units, mm for the villa).",
+  "input_schema": {
+   "properties": {
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "end": {
+     "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "End",
+     "type": "array"
+    },
+    "layer": {
+     "default": "",
+     "description": "Existing layer for the new entity; empty = current layer. A missing layer is an error and nothing is drawn.",
+     "title": "Layer",
+     "type": "string"
+    },
+    "start": {
+     "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "Start",
+     "type": "array"
+    }
+   },
+   "required": [
+    "start",
+    "end"
+   ],
+   "title": "acad_draw_lineArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_draw_lineDictOutput",
+   "type": "object"
+  },
+  "title": "Draw line"
+ },
+ "acad_draw_polyline": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Draw polyline"
+  },
+  "description": "Draw a lightweight (2D) polyline through the given vertices.",
+  "input_schema": {
+   "properties": {
+    "closed": {
+     "default": false,
+     "title": "Closed",
+     "type": "boolean"
+    },
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "layer": {
+     "default": "",
+     "description": "Existing layer for the new entity; empty = current layer. A missing layer is an error and nothing is drawn.",
+     "title": "Layer",
+     "type": "string"
+    },
+    "points": {
+     "description": "Vertices [[x, y], ...]; z is ignored (lightweight polylines are 2D).",
+     "items": {
+      "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+      "items": {
+       "type": "number"
+      },
+      "maxItems": 3,
+      "minItems": 2,
+      "type": "array"
+     },
+     "minItems": 2,
+     "title": "Points",
+     "type": "array"
+    }
+   },
+   "required": [
+    "points"
+   ],
+   "title": "acad_draw_polylineArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_draw_polylineDictOutput",
+   "type": "object"
+  },
+  "title": "Draw polyline"
+ },
+ "acad_draw_rectangle": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Draw rectangle"
+  },
+  "description": "Draw an axis-aligned rectangle as a closed polyline from two opposite corners.",
+  "input_schema": {
+   "properties": {
+    "corner1": {
+     "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "Corner1",
+     "type": "array"
+    },
+    "corner2": {
+     "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "Corner2",
+     "type": "array"
+    },
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "layer": {
+     "default": "",
+     "description": "Existing layer for the new entity; empty = current layer. A missing layer is an error and nothing is drawn.",
+     "title": "Layer",
+     "type": "string"
+    }
+   },
+   "required": [
+    "corner1",
+    "corner2"
+   ],
+   "title": "acad_draw_rectangleArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_draw_rectangleDictOutput",
+   "type": "object"
+  },
+  "title": "Draw rectangle"
+ },
+ "acad_draw_text": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Draw text"
+  },
+  "description": "Place single-line text (insertion point = left baseline).",
+  "input_schema": {
+   "properties": {
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "height": {
+     "default": 0.0,
+     "description": "Text height in drawing units; 0 = automatic: 2.5 mm on paper at plot_scale, e.g. 250 in a mm drawing at 1:100.",
+     "minimum": 0,
+     "title": "Height",
+     "type": "number"
+    },
+    "layer": {
+     "default": "",
+     "description": "Existing layer for the new entity; empty = current layer. A missing layer is an error and nothing is drawn.",
+     "title": "Layer",
+     "type": "string"
+    },
+    "plot_scale": {
+     "default": 100,
+     "maximum": 10000,
+     "minimum": 1,
+     "title": "Plot Scale",
+     "type": "integer"
+    },
+    "position": {
+     "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "Position",
+     "type": "array"
+    },
+    "text": {
+     "minLength": 1,
+     "title": "Text",
+     "type": "string"
+    }
+   },
+   "required": [
+    "text",
+    "position"
+   ],
+   "title": "acad_draw_textArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_draw_textDictOutput",
+   "type": "object"
+  },
+  "title": "Draw text"
+ },
+ "acad_erase": {
+  "annotations": {
+   "destructive_hint": true,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Erase entity"
+  },
+  "description": "Delete one entity by handle. Destructive; AutoCAD's own UNDO still works.\n`drawing` is required when more than one drawing is open.",
+  "input_schema": {
+   "properties": {
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "handle": {
+     "description": "Entity handle (hex) as returned by the draw/summarize tools. Handles are unique only within one drawing.",
+     "maxLength": 16,
+     "minLength": 1,
+     "pattern": "^[0-9A-Fa-f]+$",
+     "title": "Handle",
+     "type": "string"
+    }
+   },
+   "required": [
+    "handle"
+   ],
+   "title": "acad_eraseArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_eraseDictOutput",
+   "type": "object"
+  },
+  "title": "Erase entity"
+ },
+ "acad_export_pdf": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": true,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Plot layout to PDF"
+  },
+  "description": "Plot one layout of a drawing to PDF with 'DWG To PDF.pc3'.\n\nUses the project's proven sequence (plot_sheets.py): ConfigName, THEN\nRefreshPlotDeviceInfo (it resets media and scale, so it must come first),\nthen media, plot type, scale, centring, rotation, style sheet;\nBACKGROUNDPLOT=0 so the file exists on return. Afterwards every changed\nsetting is put back -- the layout's plot settings, BACKGROUNDPLOT,\nQuietErrorMode, the active layout and the active drawing -- and nothing is\nsaved. AutoCAD may still flag the drawing as modified (DBMOD) after the\nrestore; both values are returned. Returns file size and page count.",
+  "input_schema": {
+   "properties": {
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "layout": {
+     "default": "Model",
+     "description": "'Model' or a paper-space layout name.",
+     "title": "Layout",
+     "type": "string"
+    },
+    "media": {
+     "default": "ISO_full_bleed_A3_(420.00_x_297.00_MM)",
+     "description": "Canonical media name of 'DWG To PDF.pc3'.",
+     "title": "Media",
+     "type": "string"
+    },
+    "overwrite": {
+     "default": true,
+     "title": "Overwrite",
+     "type": "boolean"
+    },
+    "path": {
+     "description": "Output .pdf path (absolute).",
+     "title": "Path",
+     "type": "string"
+    },
+    "plot_type": {
+     "default": "extents",
+     "description": "extents = everything drawn (right for model space); layout = the paper-space sheet; display = what is on screen.",
+     "enum": [
+      "extents",
+      "layout",
+      "display"
+     ],
+     "title": "Plot Type",
+     "type": "string"
+    },
+    "rotation": {
+     "default": 0,
+     "enum": [
+      0,
+      90,
+      180,
+      270
+     ],
+     "title": "Rotation",
+     "type": "integer"
+    },
+    "scale": {
+     "default": "fit",
+     "description": "'fit' or '1:N' (paper mm : drawing units, e.g. 1:100 for a mm drawing).",
+     "pattern": "^(fit|\\s*1\\s*:\\s*\\d+(\\.\\d+)?\\s*)$",
+     "title": "Scale",
+     "type": "string"
+    },
+    "style_sheet": {
+     "default": "PLAN-MONO.ctb",
+     "description": "Plot style table (.ctb); empty = leave as is. PLAN-MONO.ctb maps every colour to black at its lineweight.",
+     "title": "Style Sheet",
+     "type": "string"
+    }
+   },
+   "required": [
+    "path"
+   ],
+   "title": "acad_export_pdfArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_export_pdfDictOutput",
+   "type": "object"
+  },
+  "title": "Plot layout to PDF"
+ },
+ "acad_insert_block": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Insert block"
+  },
+  "description": "Insert a block reference and return its handle and final bounding box.\nWith `footprint`, use the villa's insert-measure-scale-move method: AutoCAD's\nown unit conversion on insert is not consistent between drawings (one came\nin 25.4x oversize), so the result is measured rather than trusted.",
+  "input_schema": {
+   "properties": {
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "footprint": {
+     "anyOf": [
+      {
+       "description": "Optional [x0, y0, x1, y1] (drawing units). If given, the block is inserted, MEASURED, scaled uniformly to fit and moved so its bounding box starts at (x0, y0); `position` and `scale` are then ignored.",
+       "items": {
+        "type": "number"
+       },
+       "maxItems": 4,
+       "minItems": 4,
+       "type": "array"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "title": "Footprint"
+    },
+    "layer": {
+     "default": "",
+     "description": "Existing layer for the new entity; empty = current layer. A missing layer is an error and nothing is drawn.",
+     "title": "Layer",
+     "type": "string"
+    },
+    "name": {
+     "description": "A block defined in the drawing, or a .dwg path.",
+     "title": "Name",
+     "type": "string"
+    },
+    "position": {
+     "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "Position",
+     "type": "array"
+    },
+    "rotation": {
+     "default": 0.0,
+     "description": "Degrees CCW.",
+     "title": "Rotation",
+     "type": "number"
+    },
+    "scale": {
+     "default": 1.0,
+     "exclusiveMinimum": 0,
+     "title": "Scale",
+     "type": "number"
+    }
+   },
+   "required": [
+    "name",
+    "position"
+   ],
+   "title": "acad_insert_blockArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_insert_blockDictOutput",
+   "type": "object"
+  },
+  "title": "Insert block"
+ },
+ "acad_list_blocks": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": true,
+   "open_world_hint": false,
+   "read_only_hint": true,
+   "title": "List block definitions"
+  },
+  "description": "List block definitions in a drawing (skips *Model_Space, *Paper_Space and\nanonymous blocks), with entity count, xref and dynamic flags, and the\ndrawing's units (INSUNITS).",
+  "input_schema": {
+   "properties": {
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    }
+   },
+   "title": "acad_list_blocksArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_list_blocksDictOutput",
+   "type": "object"
+  },
+  "title": "List block definitions"
+ },
+ "acad_list_drawings": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": true,
+   "open_world_hint": false,
+   "read_only_hint": true,
+   "title": "List open drawings"
+  },
+  "description": "List every drawing open in AutoCAD: name (use it as `drawing`), full path,\nwhether it has unsaved changes, whether it was ever saved to disk, read-only,\nactive, and whether it is an unsaved DrawingN orphan. AutoCAD sitting on its\nStart tab has zero open documents.",
+  "input_schema": {
+   "properties": {},
+   "title": "acad_list_drawingsArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_list_drawingsDictOutput",
+   "type": "object"
+  },
+  "title": "List open drawings"
+ },
+ "acad_list_layers": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": true,
+   "open_world_hint": false,
+   "read_only_hint": true,
+   "title": "List layers"
+  },
+  "description": "List all layers of a drawing with on/frozen/locked state and ACI colour.",
+  "input_schema": {
+   "properties": {
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    }
+   },
+   "title": "acad_list_layersArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_list_layersDictOutput",
+   "type": "object"
+  },
+  "title": "List layers"
+ },
+ "acad_list_orphans": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": true,
+   "open_world_hint": false,
+   "read_only_hint": true,
+   "title": "List orphan drawings"
+  },
+  "description": "List unsaved 'DrawingN.dwg' documents that were never saved to disk --\ntypically left behind when a pipeline stage (villa_3d_build, villa_load)\nretried its whole job and called Documents.Add again.",
+  "input_schema": {
+   "properties": {},
+   "title": "acad_list_orphansArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_list_orphansDictOutput",
+   "type": "object"
+  },
+  "title": "List orphan drawings"
+ },
+ "acad_measure_entity": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": true,
+   "open_world_hint": false,
+   "read_only_hint": true,
+   "title": "Measure entity"
+  },
+  "description": "Report an entity's type, layer, bounding box and the geometric properties\nits type has (length, area, radius, volume, measurement, text, block name,\nrotation in degrees).",
+  "input_schema": {
+   "properties": {
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "handle": {
+     "description": "Entity handle (hex) as returned by the draw/summarize tools. Handles are unique only within one drawing.",
+     "maxLength": 16,
+     "minLength": 1,
+     "pattern": "^[0-9A-Fa-f]+$",
+     "title": "Handle",
+     "type": "string"
+    }
+   },
+   "required": [
+    "handle"
+   ],
+   "title": "acad_measure_entityArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_measure_entityDictOutput",
+   "type": "object"
+  },
+  "title": "Measure entity"
+ },
+ "acad_mirror": {
+  "annotations": {
+   "destructive_hint": true,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Mirror entity"
+  },
+  "description": "Mirror an entity across the line through point1 and point2 (optionally\ndeleting the original).",
+  "input_schema": {
+   "properties": {
+    "delete_original": {
+     "default": false,
+     "title": "Delete Original",
+     "type": "boolean"
+    },
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "handle": {
+     "description": "Entity handle (hex) as returned by the draw/summarize tools. Handles are unique only within one drawing.",
+     "maxLength": 16,
+     "minLength": 1,
+     "pattern": "^[0-9A-Fa-f]+$",
+     "title": "Handle",
+     "type": "string"
+    },
+    "point1": {
+     "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "Point1",
+     "type": "array"
+    },
+    "point2": {
+     "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "Point2",
+     "type": "array"
+    }
+   },
+   "required": [
+    "handle",
+    "point1",
+    "point2"
+   ],
+   "title": "acad_mirrorArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_mirrorDictOutput",
+   "type": "object"
+  },
+  "title": "Mirror entity"
+ },
+ "acad_move": {
+  "annotations": {
+   "destructive_hint": true,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Move entity"
+  },
+  "description": "Move an entity by the vector from_point -> to_point (drawing units).",
+  "input_schema": {
+   "properties": {
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "from_point": {
+     "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "From Point",
+     "type": "array"
+    },
+    "handle": {
+     "description": "Entity handle (hex) as returned by the draw/summarize tools. Handles are unique only within one drawing.",
+     "maxLength": 16,
+     "minLength": 1,
+     "pattern": "^[0-9A-Fa-f]+$",
+     "title": "Handle",
+     "type": "string"
+    },
+    "to_point": {
+     "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "To Point",
+     "type": "array"
+    }
+   },
+   "required": [
+    "handle",
+    "from_point",
+    "to_point"
+   ],
+   "title": "acad_moveArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_moveDictOutput",
+   "type": "object"
+  },
+  "title": "Move entity"
+ },
+ "acad_new_drawing": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "New drawing"
+  },
+  "description": "Create a new, unsaved drawing (DrawingN.dwg) and return its name. The new\ndrawing is identified by diffing the document list, not via ActiveDocument.",
+  "input_schema": {
+   "properties": {
+    "template": {
+     "default": "",
+     "description": "Optional .dwt template path; empty = AutoCAD's default.",
+     "title": "Template",
+     "type": "string"
+    }
+   },
+   "title": "acad_new_drawingArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_new_drawingDictOutput",
+   "type": "object"
+  },
+  "title": "New drawing"
+ },
+ "acad_offset": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Offset curve"
+  },
+  "description": "Offset a curve (line, arc, circle, polyline) by a distance.",
+  "input_schema": {
+   "properties": {
+    "distance": {
+     "description": "Drawing units; negative offsets to the other side.",
+     "title": "Distance",
+     "type": "number"
+    },
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "handle": {
+     "description": "Entity handle (hex) as returned by the draw/summarize tools. Handles are unique only within one drawing.",
+     "maxLength": 16,
+     "minLength": 1,
+     "pattern": "^[0-9A-Fa-f]+$",
+     "title": "Handle",
+     "type": "string"
+    }
+   },
+   "required": [
+    "handle",
+    "distance"
+   ],
+   "title": "acad_offsetArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_offsetDictOutput",
+   "type": "object"
+  },
+  "title": "Offset curve"
+ },
+ "acad_open_drawing": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": true,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Open drawing"
+  },
+  "description": "Open a drawing file and make it active. If it is already open, it is\nactivated instead of opened twice. The result's `drawing` is the name to\npass to other tools (resolved by path after Open, never via ActiveDocument).",
+  "input_schema": {
+   "properties": {
+    "path": {
+     "description": "Absolute path of a .dwg or .dxf file.",
+     "title": "Path",
+     "type": "string"
+    },
+    "read_only": {
+     "default": false,
+     "title": "Read Only",
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "path"
+   ],
+   "title": "acad_open_drawingArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_open_drawingDictOutput",
+   "type": "object"
+  },
+  "title": "Open drawing"
+ },
+ "acad_purge_and_audit": {
+  "annotations": {
+   "destructive_hint": true,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Purge and audit"
+  },
+  "description": "PurgeAll (remove unreferenced definitions) and/or AUDIT with fixes.\n\nDRY RUN BY DEFAULT: lists block definitions that nothing references (model\nspace, paper space or another block) -- the ones PurgeAll would remove --\nplus table sizes. PurgeAll also drops unused layers, linetypes, styles and\nAEC styles, which the dry run does not enumerate. A real run needs\n`drawing` when several are open, is not saved, and reports what went.",
+  "input_schema": {
+   "properties": {
+    "audit": {
+     "default": true,
+     "title": "Audit",
+     "type": "boolean"
+    },
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "dry_run": {
+     "default": true,
+     "description": "True (default) only reports; False really purges/audits.",
+     "title": "Dry Run",
+     "type": "boolean"
+    },
+    "max_entities": {
+     "default": 100000,
+     "maximum": 500000,
+     "minimum": 1000,
+     "title": "Max Entities",
+     "type": "integer"
+    },
+    "purge": {
+     "default": true,
+     "title": "Purge",
+     "type": "boolean"
+    }
+   },
+   "title": "acad_purge_and_auditArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_purge_and_auditDictOutput",
+   "type": "object"
+  },
+  "title": "Purge and audit"
+ },
+ "acad_rotate": {
+  "annotations": {
+   "destructive_hint": true,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Rotate entity"
+  },
+  "description": "Rotate an entity about a base point.",
+  "input_schema": {
+   "properties": {
+    "angle": {
+     "description": "Degrees CCW.",
+     "title": "Angle",
+     "type": "number"
+    },
+    "base_point": {
+     "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "Base Point",
+     "type": "array"
+    },
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "handle": {
+     "description": "Entity handle (hex) as returned by the draw/summarize tools. Handles are unique only within one drawing.",
+     "maxLength": 16,
+     "minLength": 1,
+     "pattern": "^[0-9A-Fa-f]+$",
+     "title": "Handle",
+     "type": "string"
+    }
+   },
+   "required": [
+    "handle",
+    "base_point",
+    "angle"
+   ],
+   "title": "acad_rotateArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_rotateDictOutput",
+   "type": "object"
+  },
+  "title": "Rotate entity"
+ },
+ "acad_save": {
+  "annotations": {
+   "destructive_hint": true,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Save drawing"
+  },
+  "description": "Save a drawing in place, or SaveAs to a new path (DWG 2018 for .dwg, DXF\n2018 for .dxf). Refuses to SaveAs onto a file that another open drawing\nuses. Returns the drawing's name after the save.",
+  "input_schema": {
+   "properties": {
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "overwrite": {
+     "default": false,
+     "description": "Allow SaveAs over an existing file.",
+     "title": "Overwrite",
+     "type": "boolean"
+    },
+    "path": {
+     "default": "",
+     "description": "Empty = save in place. Otherwise SaveAs to this .dwg/.dxf path: the OPEN DOCUMENT IS RENAMED to it (it is not a copy), so later saves go to the new path.",
+     "title": "Path",
+     "type": "string"
+    }
+   },
+   "title": "acad_saveArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_saveDictOutput",
+   "type": "object"
+  },
+  "title": "Save drawing"
+ },
+ "acad_scale": {
+  "annotations": {
+   "destructive_hint": true,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Scale entity"
+  },
+  "description": "Uniformly scale an entity about a base point.",
+  "input_schema": {
+   "properties": {
+    "base_point": {
+     "description": "[x, y] or [x, y, z] in drawing units (villa drawings: millimetres).",
+     "items": {
+      "type": "number"
+     },
+     "maxItems": 3,
+     "minItems": 2,
+     "title": "Base Point",
+     "type": "array"
+    },
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "factor": {
+     "exclusiveMinimum": 0,
+     "title": "Factor",
+     "type": "number"
+    },
+    "handle": {
+     "description": "Entity handle (hex) as returned by the draw/summarize tools. Handles are unique only within one drawing.",
+     "maxLength": 16,
+     "minLength": 1,
+     "pattern": "^[0-9A-Fa-f]+$",
+     "title": "Handle",
+     "type": "string"
+    }
+   },
+   "required": [
+    "handle",
+    "base_point",
+    "factor"
+   ],
+   "title": "acad_scaleArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_scaleDictOutput",
+   "type": "object"
+  },
+  "title": "Scale entity"
+ },
+ "acad_screenshot": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": true,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Screenshot AutoCAD"
+  },
+  "description": "Capture the AutoCAD main window to a PNG and return it inline (downscaled\nto max_inline_width) plus a JSON line with path, size and capture method.\nUse it for visual QA, or to see which dialog is blocking AutoCAD.",
+  "input_schema": {
+   "properties": {
+    "drawing": {
+     "default": "",
+     "description": "Optional: activate this drawing first (uses COM). Empty = capture as is, without COM -- works even while AutoCAD is wedged by a dialog.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "include_image": {
+     "default": true,
+     "title": "Include Image",
+     "type": "boolean"
+    },
+    "max_inline_width": {
+     "default": 1600,
+     "maximum": 3840,
+     "minimum": 320,
+     "title": "Max Inline Width",
+     "type": "integer"
+    },
+    "path": {
+     "description": "Where to save the PNG (absolute path).",
+     "title": "Path",
+     "type": "string"
+    }
+   },
+   "required": [
+    "path"
+   ],
+   "title": "acad_screenshotArguments",
+   "type": "object"
+  },
+  "output_schema": null,
+  "title": "Screenshot AutoCAD"
+ },
+ "acad_send_command": {
+  "annotations": {
+   "destructive_hint": true,
+   "idempotent_hint": false,
+   "open_world_hint": true,
+   "read_only_hint": false,
+   "title": "Send raw command (escape hatch)"
+  },
+  "description": "ESCAPE HATCH: type raw input at the AutoCAD command line. Use the typed\ntools whenever one exists.\n\nWaits for AutoCAD to be idle before sending and refuses if it is not. After\nsending, waits for it to be idle again and reports completed=False if the\ncommand is still at a prompt: then finish or cancel it (Esc in AutoCAD)\nbefore anything else -- a command stuck at a prompt makes COM reject every\ncall. Command-line quirk: a SPACE is Enter, so names with spaces cannot be\ntyped at prompts. SendCommand activates the target drawing. Commands that\nlaunch programs or load code (SHELL, STARTAPP, NETLOAD, APPLOAD, (load ...),\nQUIT, ...) are refused as a guardrail, not a security boundary.",
+  "input_schema": {
+   "properties": {
+    "command": {
+     "description": "Command-line input. Newline = Enter; one is appended if missing. Example: '_.ZOOM\\n_E'.",
+     "minLength": 1,
+     "title": "Command",
+     "type": "string"
+    },
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "wait_s": {
+     "default": 30.0,
+     "description": "How long to wait for the command to finish.",
+     "maximum": 600,
+     "minimum": 1,
+     "title": "Wait S",
+     "type": "number"
+    }
+   },
+   "required": [
+    "command"
+   ],
+   "title": "acad_send_commandArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_send_commandDictOutput",
+   "type": "object"
+  },
+  "title": "Send raw command (escape hatch)"
+ },
+ "acad_set_layer": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": true,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Set current layer"
+  },
+  "description": "Make an existing layer current.",
+  "input_schema": {
+   "properties": {
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "name": {
+     "minLength": 1,
+     "title": "Name",
+     "type": "string"
+    }
+   },
+   "required": [
+    "name"
+   ],
+   "title": "acad_set_layerArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_set_layerDictOutput",
+   "type": "object"
+  },
+  "title": "Set current layer"
+ },
+ "acad_status": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": true,
+   "open_world_hint": false,
+   "read_only_hint": true,
+   "title": "AutoCAD status"
+  },
+  "description": "Check whether AutoCAD is reachable and describe one drawing.\n\nReports application/version, whether AutoCAD is idle, how many drawings are\nopen (and how many are unsaved DrawingN orphans), and for the named (or\nactive) drawing: path, unsaved changes, current layer, model-space entity\ncount and units. Never fails just because AutoCAD is busy or closed: those\nstates come back as fields (connected=False, busy=True).",
+  "input_schema": {
+   "properties": {
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    }
+   },
+   "title": "acad_statusArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_statusDictOutput",
+   "type": "object"
+  },
+  "title": "AutoCAD status"
+ },
+ "acad_summarize_entities": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": true,
+   "open_world_hint": false,
+   "read_only_hint": true,
+   "title": "Summarize entities"
+  },
+  "description": "Count model-space entities by type and describe the first `limit` (handle,\nlayer, length/area/radius/text). Walks every entity over COM, so it is slow\non big drawings; for a villa sheet with a DXF twin, dxf_info is far cheaper.",
+  "input_schema": {
+   "properties": {
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    },
+    "limit": {
+     "default": 200,
+     "description": "How many entities to describe in detail; all are counted.",
+     "maximum": 5000,
+     "minimum": 0,
+     "title": "Limit",
+     "type": "integer"
+    }
+   },
+   "title": "acad_summarize_entitiesArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_summarize_entitiesDictOutput",
+   "type": "object"
+  },
+  "title": "Summarize entities"
+ },
+ "acad_wait_idle": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": true,
+   "open_world_hint": false,
+   "read_only_hint": true,
+   "title": "Wait until AutoCAD is idle"
+  },
+  "description": "Wait until AutoCAD is quiescent (GetAcadState().IsQuiescent, falling back\nto CMDACTIVE == 0): no command, prompt or modal dialog active. Returns\nidle=False with the last state if it does not settle within timeout_s.",
+  "input_schema": {
+   "properties": {
+    "timeout_s": {
+     "default": 30.0,
+     "maximum": 600,
+     "minimum": 1,
+     "title": "Timeout S",
+     "type": "number"
+    }
+   },
+   "title": "acad_wait_idleArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_wait_idleDictOutput",
+   "type": "object"
+  },
+  "title": "Wait until AutoCAD is idle"
+ },
+ "acad_zoom_extents": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": true,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Zoom extents"
+  },
+  "description": "Zoom the drawing's current viewport to its extents (activates the drawing:\nZoomExtents is an application-level call on the active drawing).",
+  "input_schema": {
+   "properties": {
+    "drawing": {
+     "default": "",
+     "description": "Open drawing to act on, by document name as acad_list_drawings shows it (e.g. 'VILLA_A102.dwg'); a full path or the bare stem also matches. Empty = the active drawing. The result names the drawing actually used.",
+     "title": "Drawing",
+     "type": "string"
+    }
+   },
+   "title": "acad_zoom_extentsArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "acad_zoom_extentsDictOutput",
+   "type": "object"
+  },
+  "title": "Zoom extents"
+ },
+ "dxf_extract_text": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": true,
+   "open_world_hint": false,
+   "read_only_hint": true,
+   "title": "Extract DXF text"
+  },
+  "description": "Pull every TEXT/MTEXT string (and optionally block attributes) out of a\nDXF, with layer, layout and position.",
+  "input_schema": {
+   "properties": {
+    "include_attributes": {
+     "default": true,
+     "description": "Also block attribute values (ATTRIB).",
+     "title": "Include Attributes",
+     "type": "boolean"
+    },
+    "include_paperspace": {
+     "default": false,
+     "title": "Include Paperspace",
+     "type": "boolean"
+    },
+    "path": {
+     "description": "Path to a .dxf file.",
+     "title": "Path",
+     "type": "string"
+    }
+   },
+   "required": [
+    "path"
+   ],
+   "title": "dxf_extract_textArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "properties": {
+    "result": {
+     "items": {
+      "additionalProperties": true,
+      "type": "object"
+     },
+     "title": "Result",
+     "type": "array"
+    }
+   },
+   "required": [
+    "result"
+   ],
+   "title": "dxf_extract_textOutput",
+   "type": "object"
+  },
+  "title": "Extract DXF text"
+ },
+ "dxf_info": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": true,
+   "open_world_hint": false,
+   "read_only_hint": true,
+   "title": "DXF summary"
+  },
+  "description": "Summarise a DXF: version, units, true model-space extents (computed, not\nthe header's often-sentinel $EXTMIN/$EXTMAX), layers, entity counts, layouts,\nblock definitions and the most-inserted blocks.",
+  "input_schema": {
+   "properties": {
+    "path": {
+     "description": "Path to a .dxf file.",
+     "title": "Path",
+     "type": "string"
+    }
+   },
+   "required": [
+    "path"
+   ],
+   "title": "dxf_infoArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "dxf_infoDictOutput",
+   "type": "object"
+  },
+  "title": "DXF summary"
+ },
+ "dxf_list_entities": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": true,
+   "open_world_hint": false,
+   "read_only_hint": true,
+   "title": "List DXF entities"
+  },
+  "description": "List entities of one layout, optionally filtered by type and/or layer,\nwith key geometry (points in drawing units).",
+  "input_schema": {
+   "properties": {
+    "dxftype": {
+     "default": "",
+     "description": "e.g. LINE, LWPOLYLINE, INSERT; empty = all",
+     "title": "Dxftype",
+     "type": "string"
+    },
+    "layer": {
+     "default": "",
+     "title": "Layer",
+     "type": "string"
+    },
+    "layout": {
+     "default": "Model",
+     "description": "'Model' or a paper-space layout name.",
+     "title": "Layout",
+     "type": "string"
+    },
+    "limit": {
+     "default": 200,
+     "maximum": 10000,
+     "minimum": 1,
+     "title": "Limit",
+     "type": "integer"
+    },
+    "path": {
+     "description": "Path to a .dxf file.",
+     "title": "Path",
+     "type": "string"
+    }
+   },
+   "required": [
+    "path"
+   ],
+   "title": "dxf_list_entitiesArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "properties": {
+    "result": {
+     "items": {
+      "additionalProperties": true,
+      "type": "object"
+     },
+     "title": "Result",
+     "type": "array"
+    }
+   },
+   "required": [
+    "result"
+   ],
+   "title": "dxf_list_entitiesOutput",
+   "type": "object"
+  },
+  "title": "List DXF entities"
+ },
+ "villa_run": {
+  "annotations": {
+   "destructive_hint": true,
+   "idempotent_hint": false,
+   "open_world_hint": false,
+   "read_only_hint": false,
+   "title": "Run villa pipeline stage"
+  },
+  "description": "Run one pipeline stage as a subprocess (the same Python as this server;\nBlender for render) and report exit code, a verdict, the lines that signal\ntrouble, and output tails; the full log is saved to a file.\n\nproject=None runs the villa's design; project='fairway' (a name under\nprojects\\, or an absolute folder) runs the script through run_project.py\nagainst that design, writing to VILLA_OUT or Desktop\\<OUT_NAME>; the\nresult's 'project' names the design and folder. Regenerates (overwrites)\nthat stage's outputs there. COM stages (build3d, verify3d, load, verify)\nhold this server's AutoCAD lock for their whole run, so no acad_* call can\ninterleave with them. The scripts exit 0 even when a check fails, so the\nverdict also reads their output: 'ok' / 'verified' (every check printed\nVERIFIED) / 'failed' / 'unverified' (a probe errored) / 'error' (non-zero\nexit) / 'timeout'; elevations is 'ok' only when its 'N/N checks passed'\nline shows every check passed. Check villa_status first; after build3d or\nload, acad_list_orphans shows DrawingN documents a whole-job retry left.",
+  "input_schema": {
+   "properties": {
+    "dry_run": {
+     "default": false,
+     "description": "Return the commands without running them.",
+     "title": "Dry Run",
+     "type": "boolean"
+    },
+    "project": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Which design. Omit (None) for the villa. Otherwise a project name under projects\\ (e.g. 'fairway'), or an absolute folder holding villa_design.py.",
+     "title": "Project"
+    },
+    "render_args": {
+     "anyOf": [
+      {
+       "items": {
+        "type": "string"
+       },
+       "type": "array"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "render only: --samples N, --res WxH, --views a,b, --hdri stem, --sun-az deg, --no-render",
+     "title": "Render Args"
+    },
+    "stage": {
+     "description": "plans=villa_cad.py, colour=villa_colour.py, elevations=villa_elevations.py (A-201..A-204, A-301), gltf=villa_gltf.py, build3d=villa_3d_build.py (COM), verify3d=villa_3d_verify.py + villa_pool_check.py + villa_window_check.py (COM), load=villa_load.py (COM), verify=villa_verify.py (COM), render=Blender villa_blender.py",
+     "enum": [
+      "plans",
+      "colour",
+      "elevations",
+      "gltf",
+      "build3d",
+      "verify3d",
+      "load",
+      "verify",
+      "render"
+     ],
+     "title": "Stage",
+     "type": "string"
+    },
+    "timeout_s": {
+     "default": 0,
+     "description": "0 = the stage's default.",
+     "maximum": 7200,
+     "minimum": 0,
+     "title": "Timeout S",
+     "type": "integer"
+    }
+   },
+   "required": [
+    "stage"
+   ],
+   "title": "villa_runArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "villa_runDictOutput",
+   "type": "object"
+  },
+  "title": "Run villa pipeline stage"
+ },
+ "villa_status": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": true,
+   "open_world_hint": false,
+   "read_only_hint": true,
+   "title": "Villa output freshness"
+  },
+  "description": "Which outputs of a design are out of date -- the villa's, or with\nproject='fairway' (a name under projects\\, or an absolute folder) that\nproject's? For every pipeline stage: its code (the script plus every\nlocal module it imports, found by parsing imports -- the project folder\nfirst, then the pipeline), data and input files; each output's age; and\na state:\n\n  fresh / stale (older than a source) / missing / stale (upstream) (an\n  input comes from a stage that is itself stale); verify stages report\n  verified / failed / unverified / stale from their last villa_run; the\n  elevations stage reports failed when its sheets come from a failed run.\n\nSheet files follow the design's sheet list (e.g. the Fairway's B1 plan).\nAlso lists stages to re-run in pipeline order, and files in the output\nfolder that no stage produces and that predate villa_design.py (probably\nsuperseded). Output folder: VILLA_OUT if set, else (villa only) VILLA_DIR,\nelse Desktop\\<OUT_NAME> / Desktop\\Villa. Reads file times only: no\nAutoCAD, nothing written.",
+  "input_schema": {
+   "properties": {
+    "project": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Which design. Omit (None) for the villa. Otherwise a project name under projects\\ (e.g. 'fairway'), or an absolute folder holding villa_design.py.",
+     "title": "Project"
+    }
+   },
+   "title": "villa_statusArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "villa_statusDictOutput",
+   "type": "object"
+  },
+  "title": "Villa output freshness"
+ },
+ "villa_validate": {
+  "annotations": {
+   "destructive_hint": false,
+   "idempotent_hint": true,
+   "open_world_hint": false,
+   "read_only_hint": true,
+   "title": "Validate villa design"
+  },
+  "description": "Validate a design in-process, freshly re-importing its villa_design.py\nand villa_furniture_spec.py -- the villa's, or with project='fairway' (a\nname under projects\\, or an absolute folder) that project's:\n\n  * villa_design.validate(): FATAL / MAJOR / NOTE issues (openings cut\n    through walls, reachability, forecourt, stair, circulation, and the\n    Dubai Building Code checks of villa_dbc, reported again under 'dbc');\n  * villa_design.probes(): the solid/void probes both 3D verifiers ask;\n  * villa_furniture_spec.check(): furniture inside rooms, clear of door\n    swings, with researched clearances -- per floor (B1, GF, FF, AX, RF).\n\nEvery pipeline module is re-imported bound to that design (the project\nfolder first on sys.path, then the pipeline); 'project' names the design\nfile used. ok=True only with no fatal, no major and no furniture issues.\nPure Python: no AutoCAD, nothing written. Coordinates are mm.",
+  "input_schema": {
+   "properties": {
+    "include_probes": {
+     "default": false,
+     "description": "Also list every 3D probe (name, expect, x, y, z, r).",
+     "title": "Include Probes",
+     "type": "boolean"
+    },
+    "project": {
+     "anyOf": [
+      {
+       "type": "string"
+      },
+      {
+       "type": "null"
+      }
+     ],
+     "default": null,
+     "description": "Which design. Omit (None) for the villa. Otherwise a project name under projects\\ (e.g. 'fairway'), or an absolute folder holding villa_design.py.",
+     "title": "Project"
+    }
+   },
+   "title": "villa_validateArguments",
+   "type": "object"
+  },
+  "output_schema": {
+   "additionalProperties": true,
+   "title": "villa_validateDictOutput",
+   "type": "object"
+  },
+  "title": "Validate villa design"
+ }
+}

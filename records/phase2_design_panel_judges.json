@@ -1,0 +1,530 @@
+{
+ "candidates": [
+  {
+   "candidate": "A - minimal surgery",
+   "folder": "C:\\Users\\lsire\\autocad-mcp\\candidates\\A",
+   "validation": "python villa_design.py -> \"VALIDATION: 0 fatal, 0 major\". The only line is: [NOTE ] no rooms on the roof: the 33.6 m2 pavilion is not built and is excluded from GFA. Report header: AX 4 rooms, net 21.6 m2 | GF 13 rooms, net 176.0 m2 | FF 11 rooms, net 143.4 m2 | gross AX 32.4 + GF 216.7 + FF 180.4 = GFA 429.4 m2 = 4622 sq ft (brief 418 m2, +2.7%) | coverage 31% | pool 40 m2 | terrace 1200 mm | stair rise 205.0 mm. The extra audit (_audit.py) gives: dedicated corridor 20.9 m2 = 5.7% of GIA (limit 8%), forecourt 5500 mm, annex 1550 mm from the villa, no external step inside the pool shell, and probes(), envelope() and pool_parts() all still compute (53 probes).",
+   "furniture": "python villa_furniture_spec.py -> \"ground 54 items, first 47 items / 0 issue(s) / clean.\" The 12 ANNEX (floor AX) items are checked too, because BY_FLOOR picks up the new ANNEX list; the script's header line just doesn't count them. Every room has its fixtures: all four en-suites have wc + basin + shower, and the master and bedroom 2 also have a bath. The maid bath and driver bath each have wc + basin + shower. The guest WC has wc + basin. The show kitchen has sink_unit + hob + fridge, and the dirty kitchen has a sink_unit. The formal dining has a fia_tbl_dining with 8 fia_chair.",
+   "gfa_m2": 429.4,
+   "changes": [
+    "Worked only in C:\\Users\\lsire\\autocad-mcp\\candidates\\A (copies of villa_design.py, villa_furniture_spec.py, block_catalog.json; the catalogue is unchanged). No check function, threshold, MIN_AREA value or REQUIRED entry was changed.",
+    "ROOM SWAP (east pavilion): STUDY 16400-20600 x 11400-16750 becomes FORMAL DINING (guest). It sits beside the majlis and is reached from the hall through a new MAJLIS LOBBY.",
+    "ROOM SWAP (west pavilion): old FORMAL DINING 3400-7600 x 11400-16750 becomes SHOW KITCHEN (family). It has a west galley, an island with stools, a 4-seat breakfast table and a new 900 garden door to the terrace.",
+    "STUDY removed as a room (it is not in REQUIRED); a study nook (desk + chair) goes on the FF landing under its north window.",
+    "New GF guest cluster: MAJLIS LOBBY 14750-17650 x 16900-18200 (circulation), with doors from the hall and to the dining, the majlis and the guest WC. GUEST WC moved out of the hall to 17800-20600 x 16900-18200.",
+    "WOMEN'S MAJLIS changed from 14750-20600 x 16900-23600 to 14750-20600 x 18350-22750 (25.7 m2 net). Its street wall is pulled back 850 so the car porch fits. It keeps its direct door from the hall, and the old majlis->study door is gone.",
+    "New GF service block in the old north-west kitchen area. DIRTY KITCHEN 3400-6250 x 16900-19800 has a west service door, a pass door into the show kitchen galley and a door to the back corridor. PANTRY 3400-6250 x 19950-21550 opens off the dirty kitchen. BACK CORRIDOR 6400-9250 x 16900-18100 connects the hall, show kitchen, dirty kitchen and laundry. LAUNDRY 6400-9250 x 18250-20350. MAID ROOM 6400-9250 x 20500-23600, reached via the laundry, with a north window. MAID BATH 3400-6250 x 21700-23600, off the maid room, with a north window.",
+    "ENTRANCE HALL north wall set back from 23600 to 22750, making an 850 entry recess continuous with the majlis recess. Entrance door is now 1400 wide at x 11600-13000 in that wall.",
+    "STAIR (and STAIR VOID) moved from x 11400-13500 to x 9400-11500, against the hall's west wall. It is otherwise unchanged: dog-leg, 20 risers at 205, same y 19200-22600. Previously its half-landing stood 1000 mm inside the front door. Now the door opens onto a clear 2.95 m wide hall on the axis that runs straight to the living and pool.",
+    "FAMILY LIVING south window replaced by a 4800 SLIDE (x 9600-14400) to the terrace. Hall-to-living OPEN is now x 11700-14200. Furniture regrouped so the route from the hall to the slide stays clear.",
+    "Pool/garden levels: POOL_TW 700 -> 900 (and so POOL_CREST 896 and GARDEN_Z 900), POOL_FL -700 -> -500 (still 1.4 m deep). At +700 the new living slide generated a 1200 landing that filled the whole terrace, plus a step that landed inside the pool. At +900 the living floor, terrace and water are one level, which is the level threshold materials_spec s2 asks for. Weir, basin, basin floor/water level and the pool plan are unchanged.",
+    "Porch/forecourt: PORCH 3400-10600 x 23400-28600 -> 15400-20900 x 23150-28650 (5500 x 5500) in front of the recessed majlis. Forecourt measured from the house is 5500, and the porch no longer overlaps the house. GATE moved to x 15900-20400.",
+    "New ANNEX on floor AX at the north-west corner, on the north and west boundaries. Outline 0-9400 x 25550-29000, 32.4 m2, 1550 from the villa, 4.75 m high. Rooms: DRIVER ROOM 400-3750 (8.9 m2, window facing down the west side yard), DRIVER BATH 3900-5400 (off the driver room), PLANT 5550-7350 (1000 door), STORE 7500-9000. Each room has its own door onto the service court, and each room is furnished.",
+    "FF: CORRIDOR narrowed from 1700 to 1200 (16900-18100). The north rooms moved down to 18250. BEDROOM 2 runs out to 23600, stacking on the GF service block. LANDING (9400-13600 x 18250-22750) and MASTER (13750-20600 x 18250-22750) stack on the recessed hall and majlis. New LINEN 18150-20600 x 16900-18100 fills the old FF notch over the guest WC.",
+    "FF en-suites resized and refitted. MASTER ENSUITE 18000-20600 x 18250-21250: bath, shower, wc, 2 basins, door moved to its north wall. BEDROOM 2 ENS 3400-5900 x 18250-21000: bath, shower, wc, basin (it had no basin before). BEDROOM 3 ENS 3400-5900 x 11400-13400 and BEDROOM 4 ENS 18100-20600 x 11400-13400 are 2.5 x 2.0 with shower, wc, basin (they had no shower before). Bedroom doors and windows moved to match; all bedrooms now have double beds.",
+    "ZONE/ROLE added for every new room: majlis lobby (circ/lobby), back corridor (circ/corridor), laundry, maid_room, maid_bath, pantry, linen, driver_room, driver_bath, store, plant (all service). STUDY entries dropped. ENSUITE_OF unchanged. The unused 'STUDY' key was left in MIN_AREA; nothing was relaxed.",
+    "SHADES added, one canopy per pavilion per storey so the three pavilions still read separately. GF canopies at +3300..3500: west 1450 deep (covers the kitchen door), living 1450 deep (the 2.4 m slide needs 1440), east 1000 deep. FF canopies at +7400..7600: west and east, 1000 deep.",
+    "FIN_ARRAYS: kept the west pavilion array. Added a west FF-only array over bedroom 2 and its en-suite (z 4500-8700, bracketed off the slab so the service steps pass underneath). Added a 3-fin screen (x 1500-1780) beyond the service-door landing. Added a full-height east array at x 21250-21700, y 11700-22900 covering the dining, majlis, bedroom 4 and master windows.",
+    "Furniture lists rewritten for GROUND (54 items) and FIRST (47), plus a new ANNEX list (12). Stand-ins where the catalogue has nothing suitable: washer and dryer use the 600x600 dishwasher footprint, shelving and the plant controls cabinet use the wardrobe carcass, and the pantry freezer uses the fridge footprint.",
+    "Added preview.py, which draws the plans from the data (rooms with name/net area/size, zone colours, walls from fabric(), doors/slides/windows/opens colour-coded with swings, stair, furniture footprints, dashed shades and fins, voids, pool/basin, porch, gate, external steps, plot and setback lines, north arrow). Also added _audit.py (corridor %, steps vs pool, wall stacking, annex gap, forecourt)."
+   ],
+   "rationale": "I kept the building's structure and changed what the rooms are for. The footprint, the three south pavilions with their 700 light slots, the double-height living with its void, the north bar, the stair type, the pool and the first-floor bedroom arrangement are all as before.\n\nThe plan now splits along its length. The east side is for guests: the women's majlis, a small lobby, the guest WC and the formal dining in the east pavilion. The west side is for family and service: the show kitchen in the west pavilion, opening to the garden, with the dirty kitchen, pantry, laundry and maid quarters behind it. The centre runs from the entrance recess through a clear hall into the double-height living, out through a 4.8 m slide to the terrace and pool.\n\nEvery access failure is fixed by doors and room roles, not by new building:\n- Guests reach the majlis and the dining through circulation only.\n- Family reaches the kitchen through the back corridor.\n- Food and coffee go dirty kitchen -> back corridor -> hall -> majlis lobby -> dining or majlis, never through a family room.\n- The maid has her own route: service door -> dirty kitchen -> laundry -> maid room -> bath.\n\nThe only real reshaping is on the street front. The hall and majlis are set back 850 mm. That gives a 5.5 m forecourt for two cars in front of the majlis and an entry recess, while the service block stays at the street line and screens the north-west service court. The annex (driver, bath, plant, store) sits in that court on the boundary, with every room entered from outside.\n\nMoving the stair 2 m west fixes a real fault: the front door used to open 1 m from the end of the stair. Raising the water and terrace 200 mm fixes another: the living slide would otherwise have put a step into the pool.\n\nExternal walls stack GF-to-FF everywhere except the corridor wall along the double-height void, which was already like that. The pool, weir, basin, 20-riser dog-leg, double-height living, 4 bedrooms with en-suites and 8-seat dining are all kept. GFA is 429 m2 (+2.7% on the 418 m2 brief).",
+   "previews": [
+    "C:\\Users\\lsire\\autocad-mcp\\candidates\\A\\preview_GF.png",
+    "C:\\Users\\lsire\\autocad-mcp\\candidates\\A\\preview_FF.png",
+    "C:\\Users\\lsire\\autocad-mcp\\candidates\\A\\preview.py"
+   ],
+   "known_weaknesses": [
+    "The study is gone as a room. The east pavilion it occupied became the formal dining, and only a desk nook on the FF landing replaces it. The swap has no other way to give the west pavilion a family-only route.",
+    "Service crosses the south end of the entrance hall, about 5 m, on its way to the majlis lobby, in full view of the opening into the family living. The check allows it (the hall is circulation). A true back-of-house service corridor to the east side would need the bigger replan this strategy avoids.",
+    "The maid room's only window faces north onto the 1.55 m service court, looking at the annex store wall about 4.75 m high. It has a window but poor daylight and outlook. At 8.8 m2 it is also below the researched 9-12 m2. The driver room was put at the far west specifically so its window does not face hers.",
+    "The women's majlis is 25.7 m2 net, just above the 25 m2 minimum (it was 39 m2). It lost area to the porch recess and the lobby/WC strip, and it now has windows only on the east face, none to the street or porch.",
+    "The water, terrace and garden were raised from +700 to +900 (POOL_TW, POOL_FL, and GARDEN_Z through POOL_TW). This is my reading of 'pool/garden constants only if the strategy needs it'. villa_landscape_spec.md still says +700 and needs updating. The balance-tank water level (-500) is now 1.4 m below the crest, against the researched 150-300 mm. That gap already existed (1.2 m) and is not checked.",
+    "External wall that does not stack: the FF corridor's south wall (x 9100-14900, y 16500-16900) stands over the edge of the double-height living and needs a transfer beam. This was already the case; everything else stacks.",
+    "Service-door fins: the west service door passes check 16 only because of a free-standing 3-fin screen 20 mm beyond its landing. It is a real privacy/sun screen, but it is placed where the check looks for fins. Similarly, the west FF fins stop at +4500 so the steps can run underneath and need brackets off the slab edge.",
+    "Entrance door centre is at x 12300, 300 mm east of the landscape water axis (x 12000), because the relocated 2100-wide stair ends at x 11500. The pedestrian gate and rill described in villa_landscape_spec.md (old gate x 15400-16600, which now falls in the car porch) are not modelled and need re-siting on the axis.",
+    "Furniture stand-ins: washer and dryer = dishwasher block, shelving and the plant controls cabinet = wardrobe block, pantry freezer = fridge block. The plant room holds no real equipment, and at 4.8 m2 it is far below the landscape spec's 12 m2 pool plant room. That spec's -2800 plant room / semi-basement is still not built.",
+    "Annex landings (1200 deep, +150) take up most of the 1.55 m service court in front of the annex doors, so the walking route along the court is effectively on the landings.",
+    "The Dubai Building Code rules file (C:\\Users\\lsire\\.claude\\skills\\architectural-cad\\references\\dubai_villa_rules.json) did not exist at any point during this run, so no DBC-specific values were checked beyond what villa_design.py already encodes (K.5.2.3 annex rules, setbacks).",
+    "Possible check gaps, reported rather than worked around: check 10 counts only rooms named 'CORRIDOR' as dedicated corridor, so a lobby or back hall can escape it (here the real corridors are named CORRIDOR and the total is 5.7%). Check 16 runs only for GF/FF/RF, so annex openings are never shade-checked. external_steps() does not test whether a flight lands in the pool, which is what forced the level change. Also, SUNKEN COURT (x 15000-16000, y 17500-22500) is still declared in VOIDS with no floors; it now sits under the majlis/lobby and should be removed or re-sited before any builder cuts it."
+   ]
+  },
+  {
+   "candidate": "B (\"service wing\")",
+   "folder": "C:\\Users\\lsire\\autocad-mcp\\candidates\\B",
+   "validation": "python villa_design.py (run from candidates\\B):\nAX:  4 rooms   net   21.1 m2   habitable    9.1 m2\nGF: 13 rooms   net  171.1 m2   habitable  109.3 m2\nFF: 11 rooms   net  138.6 m2   habitable   92.3 m2\ngross: AX 31.0  +  GF 211.0  +  FF 174.7  =  GFA 416.7 m2 = 4485 sq ft   (brief 418 m2)\ncoverage 30%   pool 40 m2   terrace 1200 mm   stair rise 205.0 mm\nVALIDATION: 0 fatal, 0 major\nFull issue list (1):\n  [NOTE ] no rooms on the roof: the 33.6 m2 pavilion is not built and is excluded from GFA\nThe forecourt is measured at 5500 mm, so it raises no NOTE. Dedicated corridor is 15.4 m2, 4.4% of GIA 354.4 m2. Halls and landing total 46.2 m2.\nExtra checks, from a scratch script:\n- external_steps(): no tread lands in the pool, the annex or the house.\n- GF and FF outlines are identical apart from the double-height pavilion. There are no single-storey roofs and no overhangs.\n- The annex is 1550 mm from the villa.\n- probes() returns 53 probes, including the weir, basin and double-height probes.",
+   "furniture": "python villa_furniture_spec.py: \"ground 44 items, first 42 items / 0 issue(s) / clean.\" The ANNEX list adds 9 more items, and check() covers them (BY_FLOOR picks up ANNEX).\n- All 4 en-suites have wc, basin and shower; the master also has a bath. The bedroom 2 en-suite now has a basin.\n- Guest WC has wc and basin. Maid bath and driver bath each have wc, basin and shower.\n- Formal dining seats 8 fia_chair: 3 per side and 1 at each end of a 2100 table.\n- Both kitchens have sink_unit; the show kitchen also has hob and fridge.\n- Every non-circulation room has furniture, including the new pantry, laundry, maid room, driver room, store and plant room. The entrance hall has a console.",
+   "gfa_m2": 416.7,
+   "changes": [
+    "Pulled the street face back on BOTH floors to y 23150 (GF rooms end 22750, FF rooms end 22750, walls stacked). It was 24000 on GF and 23200 on FF. The forecourt is now 28650-23150 = 5500. PORCH_Y0/Y1 changed from 23400/28600 to 23150/28650, so the porch starts at the house face. PORCH_X0/X1 and GATE are unchanged.",
+    "Pool and garden raised 200 mm: POOL_TW 700->900 (GARDEN_Z follows), POOL_FL -700->-500, BASIN_FL -1400->-1200, BASIN_WL -500->-300. Crest -4, depth 1.4 m and basin depth relationships are unchanged. Reason: the living and kitchen slides need a level threshold. At +700, external_steps() put the living slide's 200 mm step tread 300 mm inside the pool.",
+    "GF re-planned into zones. SERVICE wing (NW): DIRTY KITCHEN 13.0 m2 (3400-6350 x 18350-22750) with its own service door off the car porch and a street window. PANTRY 2.3 m2 as a butler's pass-through to the show kitchen. LAUNDRY 4.2 m2. MAID ROOM 8.0 m2, opening off the laundry (never off a kitchen or guest route), with a street window. MAID BATH 3.0 m2 with wc, basin and shower.",
+    "GF FAMILY: SHOW KITCHEN in the west garden pavilion (22.5 m2) with a 3.0 m slide to a breakfast terrace. FAMILY LIVING double-height (31.0 m2) with a 4.8 m SLIDE to the pool terrace. BACK HALL 6.2 m2 (circulation) links the hall, living, show kitchen and dirty kitchen without crossing a guest room.",
+    "GF CENTRE: ENTRANCE HALL 26.9 m2 with the front door on the x 12000 axis, a sidelight and the stair. It meets the living through a 3.4 m glazed internal SLIDE, not an open arch, so guests walking to the majlis do not pass an open family room.",
+    "GF GUEST wing (E): WOMEN'S MAJLIS 25.3 m2 on the street side, doored straight off the hall. GUEST LOBBY 2.9 m2 off the hall serves the GUEST WC 3.3 m2 and the FORMAL DINING 22.5 m2 in the east garden pavilion. Service reaches the majlis and dining via dirty kitchen -> back hall -> hall -> guest lobby, crossing no family or private room.",
+    "Removed from GF: the study (moved to FF), the old show-kitchen-in-the-bar, and the pantry->dining and majlis->study doors.",
+    "FF re-planned. CORRIDOR 3400-16250 x 16900-18100 (1.2 m). LANDING cut back to the stair plus its arrival strip (10.1 m2). BEDROOM 2 19.1 m2 (NW) with nested en-suite 4.8. STUDY 15.8 m2 (street side, family zone). BEDROOM 4 19.3 m2 (NE) with en-suite 5.0. MASTER BEDROOM 21.1 m2 net, now in the SE pavilion facing the garden, with a nested MASTER ENSUITE 6.2 (bath + shower + wc + basin). BEDROOM 3 16.9 m2 (SW) with en-suite 4.8. Every bedroom doors off the corridor; every en-suite off its bedroom. The bedroom 2 en-suite door comes from the wardrobe bay, because the bed would otherwise block it.",
+    "New ANNEX (floor AX) on the street and east boundaries: outline 16800-24000 x 24700-29000 = 31.0 m2, 1550 mm from the villa, 4.75 m high. Rooms: PLANT ROOM 5.8, STORE 3.1, DRIVER BATH 3.1 (wc/basin/shower), DRIVER ROOM 9.1. All doors open south into the service gap. The driver's only window looks down the east side strip. The west wall (pedestrian gate) and the street wall are blank.",
+    "STAIR moved from (11400,19200,13500,22600) to (12800,19350,14900,22750), against the hall's east and north walls, so the axial view from the front door runs clear to the living and pool. STAIR VOID moved with it. Still a 20-riser dog-leg.",
+    "VOIDS: dropped the inert 'SUNKEN COURT' entry. It had no floors and sat inside the north bar. DOUBLE-HEIGHT VOLUME and both LIGHT SLOTs are unchanged.",
+    "SHADES added (previously empty). Five 150 mm eyebrows/canopies, soffit 2.7 m above FFL (+3600 GF, +7700 FF) per DBC K.5.2.5.1(a): GF west 1500 deep (over the kitchen slide), GF living canopy 1500 deep, GF east 1000, FF west 1000, FF east 1000.",
+    "FIN_ARRAYS emptied. The final design has NO east- or west-facing openings. The villa's E/W faces sit on the 3 m side-setback lines, and dubai_villa_rules.json (K-SB-05, K-PRJ-02..04) flags any fin there as non-compliant, including the old x 2300-2750 west array. Side walls are blank.",
+    "OPENINGS rewritten. Doors are 1000 wide (about 915 clear, DBC K.5.5); bathroom doors are 800 (about 710 clear); front door is a 1400 pivot. All windows are on the north or south faces. Every habitable room is 12.5-45% glazed (gross).",
+    "ZONE and ROLE entries added for every new room (back hall/guest lobby = circ; pantry, laundry, maid, driver, store, plant = service; roles laundry, maid_room, maid_bath, driver_room, driver_bath, store, plant, lobby). REQUIRED, MIN_AREA, ENSUITE_OF, ENTRY_ROOM, all checks and all thresholds are untouched.",
+    "villa_furniture_spec.py: GROUND and FIRST rewritten for the new plan; ANNEX list added. The file's check() and helpers are unchanged.",
+    "Added preview_plans.py, which draws GF+annex and FF from the data: zones colour-filled, net areas, openings colour-coded with door swings, furniture, shades, stair, voids, plot/setback/porch/gate lines, north arrow."
+   ],
+   "rationale": "The plan follows strategy B across the 18 m north bar: service to the west, entrance in the centre, guests to the east. The three garden pavilions hold the show kitchen, the double-height living and the formal dining.\n\n**Site**\n- The site logic lines up with the existing gates. The car porch and vehicle gate are at the west, so the service door opens straight off the porch and groceries go from the car into the dirty kitchen.\n- The pedestrian gate is at the east, on the majlis side, as villa_landscape_spec.md intends.\n- The driver annex is in the NE corner on the street boundary, which DBC K.5.2.3/K.5.2.4 permits. It turns a blank wall to the guests' path and to the house.\n\n**Routes**\n- Every route passes the checker's rules without shortcuts:\n  - Guests reach the majlis directly from the hall, and the dining and WC through a small guest lobby.\n  - Family reach the living through the glazed screen and the kitchen through the back hall.\n  - Service reaches the guest rooms through circulation only, never a family room.\n  - The maid's room opens off the laundry, not a kitchen.\n- The stair moved against the hall's east wall. The front door on the x 12000 axis now looks through the glazed screen, the double-height living and the 4.8 m slide to the pool, which is the water-axis idea of the project.\n\n**Massing and stacking**\n- GF and FF outlines are identical except the double-height pavilion, so every external wall stacks. The old design had an 800 mm single-storey band along the street.\n- Pulling both floors back to 23150 turns the fatal 4650 forecourt into 5500, with no note raised.\n- GFA is 416.7 m2 (AX 31.0 + GF 211.0 + FF 174.7), 0.3% under the 418 m2 brief.\n\n**Dubai Building Code**\n- I read dubai_villa_rules.json once it appeared and changed the design to follow it:\n  - No fins in the side setbacks, so no east/west windows.\n  - Eyebrows at 2.7 m above floor.\n  - Doors about 915 mm clear.\n  - Kitchens and bedrooms at least 10% glazed.\n- To keep the dirty kitchen daylit (its only free wall was on the setback line), I re-planned the service wing. The dirty kitchen now carries the service door and a street window.\n\n**Iteration by eye (preview PNGs)**\n- Bedroom 2's bed blocked its en-suite door; the en-suite door was moved.\n- Guests passed an open living room on the way to the majlis; the arch became a glazed screen.\n- The driver's door and window faced the guests' path; the annex was re-planned so they face south.\n- The landing had a dead 5 m2 alcove; it went to bedroom 2 and the study.\n- The maid room and bath sat at the brief minima; they gained area from the oversized dirty kitchen.",
+   "previews": [
+    "C:\\Users\\lsire\\autocad-mcp\\candidates\\B\\preview_GF.png",
+    "C:\\Users\\lsire\\autocad-mcp\\candidates\\B\\preview_FF.png",
+    "C:\\Users\\lsire\\autocad-mcp\\candidates\\B\\preview_plans.py"
+   ],
+   "known_weaknesses": [
+    "The STUDY is on the FIRST floor (15.8 m2, street window), not in the ground-floor family centre as the strategy asked. The GF (about 176 m2 internal after pulling the street face back to 23150) cannot hold majlis 25 + dining 20 + show kitchen 20 + study 14 + living 31 + hall/stair + the service wing. The only wall the centre bar has to the outside is the street wall, and the front door needs it. The fix would be the NOTE-level 5000 forecourt (face at 23650) plus a deeper bar.",
+    "Service reaches the guest rooms by crossing the south end of the entrance hall: about 4.6 m, circulation only, in front of the glazed living screen. It passes check 12, but it is not the research's ideal of a dedicated service passage with a discreet door into the majlis. The majlis door is 4.5 m into the hall, beside that screen.",
+    "Raising the pool and garden to +900 (to get level thresholds) lowers the effective height of the 2.4 m rear and side boundary walls by 200 mm when seen from the garden, and needs more fill. villa_landscape_spec.md levels and the hard-coded 'TW +700' label in villa_svg.py are now stale. The builders read GARDEN_Z/POOL_TW, so the geometry follows.",
+    "Inherited pool issues, not fixed: the house-side pool deck is 1200 including coping, while DBC (per the rules file) wants 1.2 m clear excluding coping. The living slide opens straight onto the pool with no barrier, so it needs self-closing or alarmed doors or a fence.",
+    "Stair kept at 20 risers x 205 mm with 250 goings, as instructed. DBC Part K (rules file) limits risers to 100-180 mm with treads of at least 280 mm, so a compliant stair needs 23 risers and a longer well. The instruction and the Dubai code conflict here.",
+    "No east or west windows, and FIN_ARRAYS is empty. The E/W elevations are blank walls, and the bronze fin screen described in villa_materials_spec.md section 5 is gone. The majlis gets light from one north window only: 12.5% gross, about 10.0% after frame. Its eastern 550 mm looks at the annex's blank west end 1.55 m away.",
+    "Checker vs Dubai code conflict: check 16 demands fins in front of any E/W opening, but the villa's E/W faces sit exactly on the 3 m side-setback lines, where DBC K.5.2.4/K.5.2.5.1 allows no fin. Any E/W window therefore either fails check 16 or breaches DBC. I resolved it by having no E/W openings; the check itself is untouched.",
+    "Annex: its west wall is about 200 mm east of the pedestrian gate hard-coded at x 15400-16600 in villa_colour.py. The plant room is more than 15 m of pipe run from the pool basin, over the landscape spec's target, so pool pumps and filters may want a separate pit by the basin. Check 18 compares footprints for the 60% rule; the rules file notes DBC uses GA.",
+    "The service-door steps (1.6 x 2.4 m, from external_steps) land in the west end of the car porch. The porch keeps 5.7 m clear width for two cars (minimum 5500).",
+    "Service rooms sit at the low end of the research ranges: maid room 8.0 m2 (9-12), maid bath 3.0 (3.5-4.5), laundry 4.2 (8-12), pantry 2.3 (a pass-through butler's pantry). Laundry and maid bath are internal and need mechanical extract. The guest lobby (2.9 m2, 3 doors) is tight, and the guest WC is long and narrow (2850 x 1150).",
+    "Stand-in blocks, because the catalogue has no laundry or plant equipment: laundry washer/dryer = 'dishwasher' 600x600; plant control cabinet = 'wardrobe'; pantry servery and store shelving = sink_unit / wardrobe.",
+    "Checker gaps noticed: (a) furniture clearance strips are tested against the host room rectangle, so a strip can run through a nested en-suite wall. I caught this by eye in bedroom 2 and fixed it. (b) The 550 mm WC/basin clearance is below DBC K.5.7's 750. (c) Check 15 only requires one window; the 10% glazing was verified separately with a scratch script.",
+    "The FF corridor (15.4 m2, 12.85 m long) gets daylight only at the landing. Its south wall is a 400 mm wall on the slab edge above the GF hall/living partition, not over a GF external wall; the old plan had the same arrangement. The double-height living's south wall above the 2.4 m slide head is solid to the roof, because window and slide heights are fixed constants.",
+    "Dropped the inert 'SUNKEN COURT' VOIDS entry (floors ()). No consumer indexes VOIDS by position, but anyone expecting it by name will not find it."
+   ]
+  },
+  {
+   "candidate": "C - privacy first",
+   "folder": "C:\\Users\\lsire\\autocad-mcp\\candidates\\C",
+   "validation": "python villa_design.py -> \"VALIDATION: 0 fatal, 0 major\". Full issue list: [NOTE ] no rooms on the roof: the 33.6 m2 pavilion is not built and is excluded from GFA. Summary lines: AX 5 rooms net 32.6 | GF 14 rooms net 183.7 | FF 11 rooms net 149.6; gross AX 45.0 + GF 217.8 + FF 185.9 = GFA 448.7 m2 (4830 sq ft, brief 418, +7.3%); coverage 31%; pool 40 m2; terrace 1500 mm; stair rise 205.0 mm; forecourt 5550 mm (no forecourt NOTE). Sanity checks I ran as well: the envelope has no single-storey roof; 57 probes are generated; 17 external step boxes, none in the car porch or the pool water; the annex is 2800 mm from the villa (45.0 m2 against a 130.7 m2 limit); every external opening faces the side I expected.",
+   "furniture": "python villa_furniture_spec.py -> \"ground 52 items, first 43 items, annex 13 items / 0 issue(s) / clean.\" Every room has furniture, including all the new ones. Formal dining has an fia_tbl_dining with 8 fia_chair (3 on each side and one at each end), with 820-1250 mm clear to the walls, and no door swings into the room. All four en-suites have wc, basin and a shower (the master has a bath). The maid bath and driver bath each have wc, basin and shower. The show kitchen and dirty kitchen each have sink, hob and fridge.",
+   "gfa_m2": 448.7,
+   "changes": [
+    "Created candidates/C with copies of villa_design.py, villa_furniture_spec.py and block_catalog.json (the catalog is unchanged). No check function, threshold or REQUIRED entry was changed or removed.",
+    "Replanned the whole house as one block, 18.0 x 12.1 m, outline x 3000-21000, y 11000-23100. The north face moved from 24000 to 23100, so the forecourt measured by check 8 is 28650-23100 = 5550 mm. The 700 mm light slots are removed (SLOT_A/SLOT_B = None; LIGHT SLOT and SUNKEN COURT voids deleted, since there is no basement). Grid constants updated to match: NB_Y1 23100, WW_X1 8700, EW_X0 15300. LV_X0/LV_X1 stay at 8700/15300 and WG_Y0/WG_Y1 at 11000/16500.",
+    "GF north bar (the public front), west to east: STUDY 14.2; FAMILY HALL 21.1 (ENTRY_ROOM, holds the stair, with a nested FAMILY WC 3.0); MAJLIS 25.2 (renamed from WOMEN'S MAJLIS); GUEST FOYER 7.0; GUEST WC 4.1; FORMAL DINING 20.8.",
+    "GF south band, west to east: SHOW KITCHEN 29.7 (kitchen plus family table, open into the living); FAMILY LIVING 31.0 (double height, 4.6 m SLIDE to the terrace); service block with PANTRY 4.2, DIRTY KITCHEN 7.7, SERVICE LOBBY 5.0 (service door on the south face), and MAID ROOM 8.0 with a nested MAID BATH 2.7.",
+    "Three separate entrances. The family door is at x 6050-7250, into the family hall and next to the stair. The guest door is at x 15600-17000, into the guest foyer, which leads only to the majlis, guest WC and dining. The service door opens from a walled service yard into the service lobby. The two street doors sit either side of the car porch, so their 2.4 m landings and steps never land where a car is parked.",
+    "FF layout: the four bedrooms sit on the four corners, each with a nested en-suite, all opening off one CORRIDOR (13.6 m2, 3.4% of GIA) that runs along the double-height void. Master 20.8 (SW, south and west windows); Bedroom 3 20.8 (SE); Bedroom 2 14.6 (NW, west window); Bedroom 4 14.6 (NE, east window). A new FAMILY LOUNGE 30.6 (zone family, role family_lounge) takes the middle of the street front. LANDING 10.0 is over the GF stair.",
+    "No bedroom has a window facing the street. The only north windows on FF are two small en-suite windows, the landing window and the lounge windows.",
+    "New ANNEX on floor AX in the south-east service yard: PLANT 10.4 (pool plant, about 2 m from the balance tank), LAUNDRY 4.7, STORE 3.2 (entered from the laundry), DRIVER ROOM 8.6 (own door and window, no internal link to the house), DRIVER BATH 5.8. Outline is 45.0 m2 and stands 2800 mm from the villa.",
+    "AX_FL changed from 150 to 850. The annex stands in the +700 garden (ground_at) and at +150 its floor was 550 mm below the yard. The check-18 height becomes 5450 mm, under the 5500 limit.",
+    "PORCH_X0/X1 = 9400/15100 (5.7 m wide, two cars), PORCH_Y0/Y1 = 23150/28600. GATE_X0/X1 = 9700/14500, centred on the axis. Added GUEST_GATE (15700-16900) and SERVICE_GATE (21800-23400) constants. The service gate leads to the east side passage, which is 1950 mm clear past the fins.",
+    "Pool: POOL_X0/X1 = 8850/15150 and POOL_Y1 = 9500. The new living-room slide is 200 mm above the garden, so external_steps() generates a 300 mm step beyond the 1200 landing; on the old 1200 terrace that step stood in the water. The terrace is now 1500 (the researched figure 'where people walk'). The pool is 300 wider instead of shorter, 6.3 x 6.3 = 39.7 m2 as before. The weir and basin are unchanged.",
+    "ZONE and ROLE rewritten for every room. New roles: family_wc, guest_foyer, service_lobby, family_lounge, maid_room, maid_bath, laundry, store, plant, driver_room, driver_bath. ENTRY_ROOM = {GF: FAMILY HALL, FF: LANDING}. STAIR = (7250, 19200, 9350, 22600), still a 20-riser dog-leg.",
+    "MIN_AREA extended; no entry was lowered. MAJLIS 25, MAID ROOM 7.5, MAID BATH 2.5, LAUNDRY 4, DRIVER ROOM 7.5, DRIVER BATH 2, STORE 3, PLANT 4. The old WOMEN'S MAJLIS entry is left in place.",
+    "OPENINGS fully rewritten: 31 on GF, 23 on FF, 6 on AX. Service to the guests runs pantry -> dining -> majlis, and never crosses the family hall. The pantry also has a service door into the family living. The majlis has a host door from the family hall.",
+    "SHADES are four boxes. A continuous 1500 mm GF garden canopy at +3400 over the kitchen window and the living slide (the slide needs 1440). A 1500 mm service canopy over the service door and maid window. A 1000 mm hood at +7450 over the master's south window, and another over bedroom 3's.",
+    "FIN_ARRAYS: west array x 2300-2750 and east array x 21250-21700, both y 11600-22500, 180 mm fins at 600 centres, from ground to RF. They cover every east- and west-facing window. No external door faces east or west.",
+    "Furniture: GROUND, FIRST and a new ANNEX list, rewritten room by room. The majlis has perimeter seating for about 10. Several door swings were redirected so no leaf opens onto furniture: majlis-to-dining swings into the majlis, and foyer-to-dining swings into the foyer.",
+    "Added preview_plans.py. It draws GF with the annex, and FF, from the data only: rooms by zone with net areas, doors/slides/windows/openings colour-coded with swings, furniture footprints, the stair, voids, shades and fins dashed, plot, boundary wall, gates, setback line, car porch with two cars, pool, basin, external steps, service-yard wall and north arrow."
+   ],
+   "rationale": "The plan is arranged by who may see what. The north bar is the only part of the house that faces the street, and it has three thresholds kept apart by the parked cars.\n\n- **Family door (west of the porch):** opens into a hall that holds the stair, the family WC and the study, and leads straight into the family kitchen and the double-height living. The family goes upstairs without passing any guest room.\n- **Guest door (east of the porch):** opens into a 7 m2 foyer whose only doors lead to the majlis, the guest WC and the formal dining. A guest never sees the hall, the stair, the living or the garden.\n- **Formal dining:** faces east, through fins, onto the walled side passage, not onto the pool garden. Family members can use the garden while guests are dining.\n- **Service:** has its own gate, a side passage and a walled yard. The service lobby leads to the dirty kitchen, then the pantry, then the dining and on to the majlis. Food and coffee reach the guests without crossing the family hall, kitchen or living. The pantry also has a door into the family living for family meals.\n- **Staff:** the maid room opens off the service lobby, never off the kitchen or a guest corridor. The driver lives in the annex at the far end of the service yard, with his own bath and no internal link. The laundry separates his room from the maid's side of the yard.\n\nUpstairs the rule is simple: no bedroom has a window on the street.\n\n- The master and bedroom 3 look south under hoods. Bedrooms 2 and 4 look west and east through the fins.\n- The street front of the first floor is a family lounge. It is where the family sits when men are in the majlis below, which is a real Gulf use.\n\nThe forecourt is a true 5.55 m by 5.7 m two-car porch, not a figure typed into the data. The ground floor stays raised 900 mm, so a passer-by's sightline hits ceilings.\n\nThe double-height living and the pool keep the axis:\n- The living's 4.6 m slide opens onto a 1.5 m terrace under a 1.5 m canopy, onto a 6.3 x 6.3 m overflow pool with the weir and basin unchanged.\n- The pool plant sits about 2 m from the balance tank.\n\nEvery first-floor external wall stands on a ground-floor external wall; the one exception is the ring around the double-height void, listed below. There is no single-storey roof. Every habitable room, including the maid and driver rooms, has daylight. Circulation is short: every family room opens off the hall, every guest room off the foyer, every bedroom off one corridor.",
+   "previews": [
+    "C:\\Users\\lsire\\autocad-mcp\\candidates\\C\\preview_GF.png",
+    "C:\\Users\\lsire\\autocad-mcp\\candidates\\C\\preview_FF.png",
+    "C:\\Users\\lsire\\autocad-mcp\\candidates\\C\\preview_plans.py"
+   ],
+   "known_weaknesses": [
+    "GFA is 448.7 m2, which is +7.3% on the 418 m2 brief: inside the +/-10% band but in its upper half. The 30.6 m2 family lounge and the 45 m2 annex are what put it there. Shrinking or dropping the lounge would bring it to about 415, but then the first-floor corridor wall would have to be carried on a transfer beam over the majlis.",
+    "The master bedroom (20.8 m2 net plus a 6.8 m2 en-suite, no dressing room) is the same size as bedroom 3. The two south wings are fixed at 5.3 x 5.35 m by the double-height volume. The master only just passes its 20 m2 minimum and is far below the researched 55-75 m2 luxury suite.",
+    "The majlis is 25.2 m2 (4.35 x 5.8 m), just over the 25 m2 minimum and at the bottom of the researched 25-35 m2 range for a women's majlis. As the only majlis it is small for 12-16 guests; it seats about 10.",
+    "The majlis windows face the car porch, which starts 50 mm from the house face. A planter or kerb strip is needed in front of that wall in reality.",
+    "The first-floor walls around the double-height void (x 8700-9100, x 14900-15300 and y 16500-16900) are 400 mm thick. Below them the ground floor has only 150 mm partitions (kitchen/living at x 8950-9100, living/pantry and maid room at x 14900-15050, hall/living at y 16750-16900), so those walls partly overhang the kitchen, pantry, maid room and living ceilings. Those partitions need to be thickened to walls or given down-stand beams. These are the only first-floor walls that do not stack on ground-floor external walls. The original design had the same condition.",
+    "The family living takes daylight only through its 4.6 m south slide. A clerestory in the double-height south wall at first-floor level cannot be declared, because openings belong to rooms on a floor and there is no first-floor room there. For the same reason the corridor has no internal window into the double-height space: the validator treats the void as outside and would demand a south shade inside the room. This is arguably a gap in the checks, not in the design.",
+    "The maid room shares a wall with the family living (acoustics). Its south window and the service door open onto the same yard the driver crosses to reach the annex, so a high sill or screen is needed.",
+    "Annex level: AX_FL is now 850, which is correct for this garden-level service yard. An annex placed in the street-level forecourt would need 150 again, and the single LEVEL['AX'] cannot serve both.",
+    "The service-yard wall (x 16300, between the pool garden and the service yard) and the wall between the guest court and the service passage (x 21000, north of the house) are drawn only in the preview. villa_design.py has no data type for landscape or boundary walls, so the 3D builders will not make them.",
+    "The pool, now 6.3 x 6.3 m, has only about 750 mm between its shell and the service-yard wall, so the researched 3.8 m lounging strip east of the pool is gone. Lounging moves to the 6 m-wide west garden.",
+    "The plant room is 10.4 m2, against the landscape spec's 12 m2 minimum for a pool plant room.",
+    "The catalog has no washer, dryer or plant-equipment blocks. The laundry uses two 600x600 'dishwasher' footprints as stand-ins for a washer and dryer. The plant room uses a sink_unit (utility/backwash sink) and a wardrobe (chemicals cabinet).",
+    "The study is 2.45 x 5.8 m: it passes its 14 m2 minimum but is narrow. Bedrooms 2 and 4 are 14.6 m2, only just over 14.",
+    "The dirty kitchen is a 2.2 m-deep galley with about 1.0 m between its two runs, less than the researched 1200 mm between opposing kitchen runs. The furniture checker does not test that clearance.",
+    "Check 8 measures the forecourt only across the car porch's x-range. The guest court in front of the foyer is 5.55 m deep too, because the whole north face is at 23100.",
+    "dubai_villa_rules.json did not exist in C:\\Users\\lsire\\.claude\\skills\\architectural-cad\\references while I worked, so no DBC value was checked against it. I did not verify that DBC K.5.2.3 allows the staff annex in the rear/side zone of the garden."
+   ]
+  }
+ ],
+ "builder": {
+  "build": {
+   "summary": "The builders and sheet generators now read villa_design's new data language: the annex floor (AX) and any other standalone floor, SLIDE sliding doors, SHADES and FIN_ARRAYS, and V.opening_z. I did not edit villa_design.py or villa_furniture_spec.py. The shared logic is in the new module villa_geom.py, which computes everything from villa_design, so the glTF track, the AutoCAD track and the sheets all take the same answers from one place.\n\nOn the current design, the new villa_gltf builds exactly the same model as before. I compared all 18 material groups against the original script (run from a backup copy, in memory, nothing exported), and volume and bounds match for every one. Probes pass 45/45, up from 38: the extra 7 are the first fin and 6 fixed wall/slab check points, now computed from the geometry. The groups.json written to the temp folder also matches the issued one. The COM scripts were only syntax-checked and statically checked; none of them was run or imported, and AutoCAD was not touched.\n\nWhat changed:\n- **villa_geom.py (new):**\n  - `out_dir()` redirects all output when the VILLA_OUT environment variable is set. Unset, output still goes to Desktop\\Villa as before.\n  - `standalone_floors()` and `storey(fl)` handle any floor outside the two-storey house (GF+FF). Each gets a floor slab, walls up to CEIL, a roof slab and a parapet at its own LEVEL, plus a stone base if it stands above the ground. A roof pavilion (RF) gets a floor slab only where it overhangs the house roof, and the house parapet is cut where it stands (`roof_parapet`).\n  - `cut_box(o)` cuts every opening at V.opening_z(), so a SLIDE is cut from floor to head like a door.\n  - `infill(o)` gives windows and SLIDEs a glass pane and external doors a leaf. `frame(o)` gives SLIDEs the same bronze frame as windows plus a centre meeting stile.\n  - `fin_boxes()`, `shade_boxes()` and `solar_boxes()` come from V.fins() and V.SHADES; `overhead(sheet)` lists what each plan sheet shows dashed.\n  - `sheet_floors()` puts AX on the GF sheets; `ground_floors()`, `footprint()` and `annex_footprint()` cover house plus annex for site plans and landscape.\n  - `probes()` extends V.probes() with checks on each standalone floor (slab, roof, parapet, wall, clear to ceiling), on each SLIDE (open at floor and at head), and on each shade box and the first fin. `controls()` computes the solid-wall check points instead of using typed coordinates.\n  - Title-block numbers: `validation()` / `validation_text()` (real validate() and furniture counts), `area_text()` (net vs gross per floor), `site_text()` (GFA, footprint, cover), `project_line()`, `design_date()`, `forecourt()` (measured the way check 8 measures it), `pool_text()`, `furniture()` / `sheet_furniture()` (including optional ANNEX and ROOF lists).\n- **villa_gltf.py:** builds standalone storeys and cuts every opening via `cut_box`. The `range(9)`/2300 fin loop is replaced by fins + shades in the 'fins' (bronze) group. SLIDEs get a pane and frame. The terrain is cut around the annex. `verify()` uses G.probes() and G.controls() and now also checks the boundary group, as AutoCAD does. SILL/HEAD/DOOR_H survive only as aliases taken from V, in case something imports them. building()/boundary()/landscape() return the same group keys.\n- **villa_3d_build.py:** the same changes line for line. Shades and fins go on the existing A-SHDE-3D layer; prism() returns None for an empty footprint.\n- **villa_cad.py:**\n  - The GF sheet draws the annex: walls, openings, labels, overall dimensions and landings.\n  - SLIDEs are drawn as jambs, two overlapping glazed leaves and a slider arrow, with no swing arc.\n  - Fins and shades are dashed outlines on a new layer A-SHDE-OVHD.\n  - The title block prints the real counts (\"VALIDATION 5 FATAL / 22 MAJOR FURNITURE 5 ISSUE(S)\"), net vs gross areas per floor, and a computed project line and date.\n  - The site plan now shows computed GFA, footprint, cover, forecourt and pool figures (it had typed 421.1 m2 and 5200 x 7200). It also draws the annex, and trees that would overlap a building are left out.\n  - `furniture_manifest()` includes ANNEX and ROOF items and adds a `sheet` key; unknown blocks are skipped with a message.\n  - An A-104 roof plan is produced only once RF has rooms.\n- **villa_colour.py:** `ground_surfaces()` treats house plus annex as built area, so no lawn is laid inside the annex. The GF presentation sheet and the site plan draw the annex rooms, walls, openings and furniture, SLIDEs, dashed shading and the computed title block.\n- **villa_svg.py:** the GF plate shows the annex and its furniture, SLIDEs and dashed shading. Room labels now show net area, matching the DXF sheets. Site and section numbers are computed. Plates go to VILLA_OUT when it is set; otherwise to the current folder as before.\n- **villa_load.py / villa_verify.py:** annex (AX) furniture is placed on and checked against the A-102/A-102P sheets. A-104 sheets are included only when RF has rooms. shower and shower_seat go on the fixtures layer. Output folder via `G.out_dir()`.\n- **villa_3d_verify.py:** uses G.probes() and the computed controls.\n- **villa_window_check.py:** uses V.opening_z on every floor and probes every A-WALL-3D solid, not just the first. Doors and SLIDEs also get a second probe near floor level.\n\nThe synthetic test patches villa_design in memory only:\n- a DRIVER ROOM on AX, placed 1600 mm clear of the house's street face, with an external door, a street window and two annex furniture items;\n- the family living's south window replaced by a 4800 mm SLIDE;\n- one SHADES box over the SLIDE;\n- FIN_ARRAYS kept.\n\nIt proves:\n- the annex walls, slab, roof and parapet sit at LEVEL[\"AX\"] and the room is open floor to ceiling;\n- the annex door and window are cut, and the door has a landing;\n- the SLIDE is open through the full wall thickness from the floor (including below where a window sill would be) up to its head, with glass from the floor, no door leaf, and a meeting stile;\n- the shade box is in the 'fins' group;\n- no terrain or lawn is laid inside the annex;\n- all 56 probes pass and the export works;\n- villa_cad and villa_colour draw it, the manifest includes the annex items, and villa_svg draws it.\n\nFive of these checks fail when run against the original villa_gltf, so they do detect the old behaviour. A third test class covers a roof pavilion on RF. All output from every run went to %TEMP%; the issued files in Desktop\\Villa and the project's plate_*.svg still have their old timestamps.",
+   "files_changed": [
+    "C:\\Users\\lsire\\autocad-mcp\\villa_geom.py (new)",
+    "C:\\Users\\lsire\\autocad-mcp\\tests\\test_builders_offline.py (new)",
+    "C:\\Users\\lsire\\autocad-mcp\\villa_gltf.py",
+    "C:\\Users\\lsire\\autocad-mcp\\villa_3d_build.py",
+    "C:\\Users\\lsire\\autocad-mcp\\villa_cad.py",
+    "C:\\Users\\lsire\\autocad-mcp\\villa_colour.py",
+    "C:\\Users\\lsire\\autocad-mcp\\villa_svg.py",
+    "C:\\Users\\lsire\\autocad-mcp\\villa_load.py",
+    "C:\\Users\\lsire\\autocad-mcp\\villa_verify.py",
+    "C:\\Users\\lsire\\autocad-mcp\\villa_3d_verify.py",
+    "C:\\Users\\lsire\\autocad-mcp\\villa_window_check.py"
+   ],
+   "tests": [
+    {
+     "command": "python villa_design.py ; python villa_furniture_spec.py   (unchanged files, run first for the baseline)",
+     "result": "VALIDATION: 5 fatal, 22 major; furniture 5 issue(s), as the task stated"
+    },
+    {
+     "command": "python %TEMP%\\villa_bt\\baseline.py %TEMP%\\villa_bt\\orig %TEMP%\\villa_bt\\baseline_orig.json   (ORIGINAL villa_gltf from a backup copy: building+boundary+verify+landscape in memory, no export)",
+     "result": "18 groups, probes 38/38, 2 s; volumes and bounds recorded"
+    },
+    {
+     "command": "set VILLA_OUT=%TEMP%\\villa_bt\\out_current ; python villa_cad.py",
+     "result": "A-102 187 entities, A-103 213, A-101 76; furniture manifest 52 blocks (GF 24, FF 28); title blocks: VALIDATION  5 FATAL / 22 MAJOR   FURNITURE 5 ISSUE(S); written to %TEMP%\\villa_bt\\out_current"
+    },
+    {
+     "command": "set VILLA_OUT=%TEMP%\\villa_bt\\out_current ; python villa_colour.py",
+     "result": "A-101P 167 entities, A-102P 226, A-103P 273; same computed title-block line; written to temp"
+    },
+    {
+     "command": "set VILLA_OUT=%TEMP%\\villa_bt\\out_current ; python villa_svg.py",
+     "result": "plate_site/gf/ff/section.svg written to temp (6,493 / 16,611 / 18,423 / 8,622 bytes)"
+    },
+    {
+     "command": "set VILLA_OUT=%TEMP%\\villa_bt\\out_current ; python villa_gltf.py",
+     "result": "probes 45/45 as designed (38 design + fin 0 + 6 derived controls); 18 groups exported; villa.glb 635 KB, villa.step 3204 KB; written to temp\\render. First attempt reported 44/45 because the boundary-wall check point could not be seen; fixed by including the boundary group in verify(), as villa_3d_verify already does."
+    },
+    {
+     "command": "python %TEMP%\\villa_bt\\baseline.py C:\\Users\\lsire\\autocad-mcp %TEMP%\\villa_bt\\baseline_new.json  + JSON diff against baseline_orig.json",
+     "result": "18 groups compared, differences [] (volumes to 0.1 L and bounding boxes identical); probes ok"
+    },
+    {
+     "command": "diff of %TEMP%\\villa_bt\\out_current\\render\\groups.json against the issued Desktop\\Villa\\render\\groups.json",
+     "result": "18 vs 18 groups, 0 mismatched (tolerance 0.5 mm)"
+    },
+    {
+     "command": "python tests\\test_builders_offline.py   (VILLA_OUT unset, so it defaults to %TEMP%\\villa_builders_test)",
+     "result": "Ran 16 tests in ~8 s, OK. Probes 45/45 current, 56/56 synthetic, 51/51 roof pavilion; synthetic glTF export written to %TEMP%\\villa_builders_test\\synthetic\\render"
+    },
+    {
+     "command": "python -m unittest tests.test_builders_offline",
+     "result": "Ran 16 tests in 8.0 s, OK"
+    },
+    {
+     "command": "python %TEMP%\\villa_bt\\mutation_run.py   (the 5 synthetic glTF tests with the ORIGINAL villa_gltf loaded in its place; output to temp)",
+     "result": "5 failed of 5 (annex missing, annex door not cut, SLIDE given a door leaf not glass, shade box missing, terrain laid inside the annex): the tests do detect the old behaviour"
+    },
+    {
+     "command": "python -m py_compile on all owned files + python %TEMP%\\villa_bt\\namecheck.py on all owned files and the test (AST check for undefined names and for V./G./F./CC./PD./SVG. attributes that do not exist; nothing imported from the checked files)",
+     "result": "compile exit 0; 11 files, 0 problems"
+    },
+    {
+     "command": "python %TEMP%\\villa_bt\\render_dxf.py on the synthetic VILLA_A102/A102P/A101.dxf and crops of the current A-102 (PNG, temp)",
+     "result": "Inspected visually: annex with door swing, window and dimensions on A-102/A-102P; SLIDE drawn as two leaves plus slider arrow, no arc; dashed shade box and fins; computed title block; annex and trees on the site plan"
+    },
+    {
+     "command": "Get-ChildItem Desktop\\Villa\\VILLA_A10*.dxf, furniture_manifest.json, render\\groups.json, render\\villa.glb, project plate_*.svg",
+     "result": "All still carry their 2026-09-25 timestamps: no issued file was overwritten"
+    }
+   ],
+   "open_issues": [
+    "Not run (COM/AutoCAD): villa_3d_build.py, villa_3d_verify.py, villa_window_check.py, villa_load.py and villa_verify.py were changed by reading and mirroring the glTF logic, then syntax/name-checked only. The main agent should run: python villa_cad.py; python villa_colour.py; python villa_3d_build.py; python villa_3d_verify.py (current design: design probes 39/39 including 'fin 0', fabric solid 6/6); python villa_window_check.py (now 56 probes: 37 at opening centres plus 19 floor-level probes for doors and open passages); python villa_load.py; python villa_verify.py.",
+    "villa_3d_verify's solid-wall check points are now computed, so their coordinates differ from the old typed ones: north wall (17050, 23800, GF+1500), west wall (3200, 23250), east wall (20800, 11650, FF+1500), ground slab (12000, 20250), roof slab (12000, 16825). They pass in the glTF model; each 250 mm probe sphere fills about 94% of its 400 mm wall, as the old ones did.",
+    "Found in villa_design.external_steps() (a designers' file, not mine): the outside landing is 1200 mm, the same as the south terrace between the glass and the pool. So a SLIDE on a south GF wall (as in the synthetic test) gets a landing that fills the whole terrace and a step box standing on the pool edge (y 9500-9800, z 700-800).",
+    "Shades are in the glTF 'fins' group, not a new 'shades' group, because villa_blender.ASSIGN (not my file) only maps 'fins' to bronze; a new group would render without a material. building() therefore returns the same keys as before, which suits the concurrent elevations generator.",
+    "Title-block DATE is now the modification date of villa_design.py (the design data), not a typed date. REV letters and the '1:100 @ A1' scale remain text.",
+    "Cosmetic: on the south face, the dimension chains (offsets of 1500/3300 mm, unchanged) overlap the outlines of the external landings and shades.",
+    "villa_svg room labels now show net area (they showed each room's full rectangle, which includes a nested en-suite); the project's plate_*.svg files were not regenerated.",
+    "A roof plan (A-104/A-104P) is produced, loaded and verified only once RF has rooms. acad_launch.py, acad_restart.py and villa_show.py (not mine) still hard-code the six current sheets, and villa_pool_check.py still hard-codes its output folder (it ignores VILLA_OUT).",
+    "The pedestrian gate (x 15400-16600) and the site-plan tree positions are still typed in the builders, not in villa_design; trees that would overlap a building are now left out, not moved. Nothing checks an annex placed across the gate.",
+    "dubai_villa_rules.json did not exist when checked; the builders do not use it.",
+    "A long nested path under the scratchpad failed on Windows (probably the 260-character limit), so all test and temp output went to %TEMP%\\villa_bt and %TEMP%\\villa_builders_test. Backups of the nine original owned files are in %TEMP%\\villa_bt\\orig."
+   ]
+  },
+  "review": "No blockers and no majors in the builder's files, so I edited nothing. Every requirement (1)\u2013(7) is met. On the current design the glTF model is identical to the original, the sheets change only where intended, all probes pass, and no test writes into the Villa folder.\n\n**What I ran (all offline, no COM, output to `%TEMP%\\vrev\\...`):**\n- **Baseline:** `python villa_design.py` gives 5 fatal / 22 major, and `python villa_furniture_spec.py` gives 5 issues. Both match the task.\n- **Builder's tests:** `python tests\\test_builders_offline.py` and `python -m unittest tests.test_builders_offline` both ran 16 tests, OK. Probes pass 45/45 on the current design, 56/56 on the synthetic one and 51/51 on the roof pavilion. With VILLA_OUT set to the Villa folder, the test refuses to run.\n- **Current design, VILLA_OUT set to temp:** `villa_cad.py` (A-102 has 187 entities, A-103 213, A-101 76; manifest 52 blocks), `villa_colour.py`, `villa_svg.py` and `villa_gltf.py` (probes 45/45, 18 groups exported).\n- **glTF equivalence:** I rebuilt the model with the original villa_gltf and villa_colour from the backups and compared each group by the volume of the difference between old and new. All 18 groups differ by exactly 0.000000 m\u00b3 with identical bounds. The temp `groups.json` also matches the issued one (18/18).\n- **Sheets vs the original generators:** I ran the original `villa_cad`/`villa_colour` into temp and compared layer, entity and text counts. The only changes are intended:\n  - title-block lines: real counts (\"VALIDATION 5 FATAL / 22 MAJOR FURNITURE 5 ISSUE(S)\"), net vs gross per floor, a computed date;\n  - 9 dashed fin outlines on A-SHDE-OVHD on each plan sheet;\n  - the site plans now show 4650 x 7200 for the forecourt (was a typed 5200 x 7200) and draw the external steps;\n  - the furniture manifest is identical apart from the new `sheet` key.\n  \n  On the SVG plates: dashed fins added, room labels changed to net area, forecourt figure computed.\n- **COM verify simulated on the glTF model:** I reproduced villa_3d_verify's test (sphere overlap, void < 0.02, solid > 0.9) and villa_window_check's (R 120, blocked if > 0.05) with exact overlap volumes. Nothing fails on the current design (39 probes + 6 controls, 56 window probes), the synthetic design (50 + 6, 60 window probes) or my own stress design. The derived wall controls fill 0.944, like the old typed ones.\n- **My stress design (in memory only):** a 3-room annex with an internal door, a bathroom with wc, basin and shower, touching the north-east boundary; 3 sliding doors on the ground-floor south face with shades; one sliding door on the first-floor east face; an extra east fin array. It builds, probes 71/71, exports, and every sheet and plate is drawn. Each sliding door has glass from the floor, no door leaf, and no wall left below sill height. No terrain is laid inside the annex.\n- **Static checks:** all owned files compile, with no missing attributes on the design, geometry, colour, furniture, plan or SVG modules. No original function name was lost. `titleblock`'s 4th argument was renamed `gia` \u2192 `areas`, stays positional and still accepts a number; villa_elevations calls it correctly.\n- **Villa folder:** I snapshotted it before my runs and checked again after: nothing changed, and the project `plate_*.svg` files are untouched.\n\n**villa_3d_build.py vs villa_gltf.py:** annex and roof-pavilion storeys, levels, slab, stone base, roof, parapet, the house roof parapet cut where a pavilion stands, openings cut via `G.cut_box`, glazing via `G.infill` (on the L-GLAZ and L-DOOR layers), fins and shades on A-SHDE-3D, and the terrain cut around the annex all match line for line. For the current design, every solid it produces is identical to the old script's.\n\n**Minor findings (none blocking):**\n1. **Site plan footprint label mixes two figures:** `villa_cad.py:390,398` and `villa_svg.py:355-359`. The footprint is the house only but the cover % includes the annex. My stress design printed \"226.3 m2 FOOTPRINT 35.4% SITE COVER\"; 35.4% belongs to 246.6 m\u00b2. No effect today; it will be wrong as soon as an annex exists. Fix: use `S[\"footprint\"]`, or give the house its own cover %.\n2. **No frames in AutoCAD:** villa_3d_build has never built window frames, so a sliding door's frame and meeting stile exist only in glTF. The cut and the glass pane do match.\n3. **SVG section still has typed labels:** \"6400 CLEAR\", \"CANTILEVER 3000\", \"TW +700\" and \"POOL 1400 CONSTANT\" at `villa_svg.py:398,427,430,431`. The builder's claim that section numbers are computed covers only the level tags and the 7800 dimension. These labels predate the builder's work.\n4. **villa_load.py:97:** `BLOCKS_DIR` follows VILLA_OUT, so a redirected AutoCAD run would not find the block libraries.\n5. **Sheet date:** `villa_geom.design_date()` is the file date of villa_design.py, so a copy or OneDrive sync resets it.\n6. **A-102P shows no steps:** the presentation plan (`villa_colour.plan`) does not draw the external landings; this predates the builder's work.\n\n**Designer-side (villa_design.py, not the builder's files):** I confirmed the builder's finding. `external_steps()` uses a 1200 mm landing (line 571), and the south terrace is also 1200 mm. A sliding door on the ground-floor south wall therefore gets a landing that fills the whole terrace, and its step box sits over the pool water (y 9500\u20139800, z 700\u2013800). No probe catches this.\n\n**For the main agent to run (AutoCAD):** `villa_cad.py`, `villa_colour.py`, `villa_3d_build.py`, `villa_3d_verify.py`, `villa_window_check.py`, `villa_load.py`, `villa_verify.py`. From the simulation, expect 39/39 design probes plus 6/6 solid checks, and 56 window probes all cut through.\n\nFiles are in C:\\Users\\lsire\\autocad-mcp:\n- villa_geom.py\n- villa_gltf.py\n- villa_3d_build.py\n- villa_cad.py\n- villa_colour.py\n- villa_svg.py\n- villa_load.py\n- villa_verify.py\n- villa_3d_verify.py\n- villa_window_check.py\n- tests\\test_builders_offline.py\n\nMy review scripts and outputs are in C:\\Users\\lsire\\AppData\\Local\\Temp\\vrev:\n- equiv.py\n- cmp_dxf.py\n- svgcmp.py\n- fillcheck.py\n- stress.py\n- out_stress\\"
+ },
+ "judged": [
+  {
+   "lens": "Gulf programme and privacy: zoning (guest/family/private/service), majlis and formal dining separation and service route, maid/driver/laundry placement and dignity (daylight, own bathroom, service entrance), privacy from the street and neighbours, family use of the garden, parking for two cars. Method: re-ran both validators in each folder, diffed all check code and thresholds against the original, looked at all six preview PNGs, and traced routes, sightlines, window sills and staff outlooks from the data with a scratch script (no COM). Note: C:\\Users\\lsire\\.claude\\skills\\architectural-cad\\references\\dubai_villa_rules.json now exists (138 KB). Its K-SB-05 and K-PRJ-03/04 flag ground-standing fins in the 3 m side setback as non-compliant, and K-PARK-03 gives an open bay as 3.0 x 5.5 m.",
+   "scores": [
+    {
+     "candidate": "C - privacy first",
+     "score": 7.5,
+     "disqualified": false,
+     "strengths": [
+      "The only candidate with true Gulf entrance discipline: three separate thresholds and three gates. Family door x 6050-7250 opens into the FAMILY HALL, which holds the stair, family WC and study. Guest door x 15600-17000 opens into the GUEST FOYER (7.0 m2) and lines up with GUEST_GATE 15700-16900, so guests never cross the car porch. Service uses SERVICE_GATE 21800-23400, the east passage and the service yard to reach the SERVICE LOBBY door on the south face.",
+      "A guest never sees family space. The foyer's only doors lead to the MAJLIS, GUEST WC and FORMAL DINING. The family hall, stair and living are reachable only through the host door (x 10250-10400, y 19600-20600).",
+      "The service route to the guests never enters a hall or any family room: SERVICE LOBBY -> DIRTY KITCHEN -> PANTRY -> FORMAL DINING -> MAJLIS. The pantry also has a door into the FAMILY LIVING for family meals. This is the research's 'discreet service door' pattern.",
+      "The formal dining faces east (2700 window, sill 1.8 m above the passage) onto the side passage, not the pool garden. The family can use the garden while guests dine; in A and B the dining's 3 m south window looks straight onto the pool.",
+      "No FF bedroom has a street window. The street front of the FF is a 30.6 m2 FAMILY LOUNGE, a real Gulf use as the family retreat while men are in the majlis. The master (SW) and bedroom 3 (SE) face the garden.",
+      "The maid room (8.0 m2) opens off the SERVICE LOBBY, never off a kitchen or guest corridor. It has its own bath (2.7 m2) and a south window.",
+      "The driver room (8.6 m2 plus a 5.8 m2 bath) has no internal link to the house. Its only window faces north up the east passage, away from the pool garden.",
+      "The pool garden is protected from staff and guests by plan (dining east, service yard east of x 16300). Pool plant is about 2 m from the balance tank.",
+      "Two cars are drawn in a 5.7 x 5.45 m porch between the two street doors, so neither door's steps land in the bays."
+     ],
+     "problems": [
+      "The LAUNDRY is in the annex (19050-20600 x 4800-7800). Its door (x 19300-20200) is about 800 mm from the DRIVER ROOM door (x 21000-21900) on the same yard. The maid must go outside to a building shared with the male driver for daily laundry. Laundry from the FF bedrooms also travels family hall -> living -> pantry -> dirty kitchen -> service lobby -> yard.",
+      "The maid room's only window (x 16900-18300, south) has its sill just 1100 mm above the +700 service yard. It faces the annex 2.8 m away, where the driver's and laundry doors open, so anyone standing in the yard sees into her room. In A and B the maid sill is 1.8 m above outside ground.",
+      "The driver lives in the rear garden zone (annex at 16500-24000 x 2200-8200). The Gulf norm is male staff at the front by the gate and cars.",
+      "The separation from the pool garden relies on a service-yard wall at x 16300 and a guest-court wall at x 21000. Both are drawn only in preview_plans.py and are not in villa_design.py, so the 3D builds will not have them.",
+      "The maid room shares its west wall with the FAMILY LIVING (x 14900-15050): an acoustic and privacy problem.",
+      "The MAJLIS windows (2 x 1400, north) look onto the car porch, which starts 50 mm from the house face.",
+      "BEDROOM 2 and BEDROOM 4 have only E/W windows (2300 wide), facing the neighbours 6 m away. Perpendicular fins do not block a straight-across view. The full-height fins at x 2300-2750 and x 21250-21700 stand in the side setback, which the DBC rules file flags as non-compliant (K-SB-05, K-PRJ-03).",
+      "The porch is 5.7 x 5.45 m, just under 2 x 3.0 x 5.5 m for two open bays (K-PARK-03).",
+      "Only one garden opening, the 4.6 m living slide. The 29.7 m2 show kitchen has a 4200 south window but no garden door.",
+      "Only one majlis, 25.2 m2 (4.35 x 5.8), seating about 10. Minimum size. The maid bath is internal. GFA is +7.3%."
+     ]
+    },
+    {
+     "candidate": "B (\"service wing\")",
+     "score": 6,
+     "disqualified": false,
+     "strengths": [
+      "Best separation of the male and female staff. The maid (NW, 6500-10150 x 20550-22750) and the driver (NE annex, 21000-23600 x 25100-28600) are about 11 m apart, on opposite sides of the forecourt, and their doors do not face each other.",
+      "Best maid daylight and dignity. The 2400 north window has its sill 1.8 m above ground (no one sees in) and 5.9 m of open outlook. The maid room opens off the LAUNDRY, not a kitchen. The maid bath has wc, basin and shower.",
+      "The service door (DIRTY KITCHEN, north face, x 3600-4600) opens straight off the car porch through the vehicle gate. Groceries go from the car to the dirty kitchen without using the guest path; the pedestrian gate is on the majlis side. It also works as the family's arrival-by-car door, through DIRTY KITCHEN -> BACK HALL.",
+      "Best neighbour privacy: there are no E/W windows at all, and FIN_ARRAYS is empty. This also complies with the DBC rules on setback fins.",
+      "Widest parking: porch 7.2 x 5.5 m (x 3400-10600). About 5.7 m stays clear beside the service steps.",
+      "The master bedroom (21.1 m2) faces the garden (south, 3200 window). Two family garden openings: living 4.8 m slide and kitchen 3.0 m slide.",
+      "The hall-to-living link is a closable glazed SLIDE (x 10800-14200), not an open arch. A GUEST LOBBY serves the WC and dining."
+     ],
+     "problems": [
+      "The front door (x 11300-12700) is on the axis through the glazed slide into the FAMILY LIVING and out to the pool, which is deliberate. A guest at the door looks into the family living and garden; this is the opposite of Gulf practice, which puts a screen at the entry.",
+      "The BACK HALL is OPEN to both the ENTRANCE HALL (x 10150-10300) and the FAMILY LIVING (x 9250-10050), a second unclosable view into the family room.",
+      "Service to both the majlis and the dining crosses about 4.6 m of the ENTRANCE HALL in front of the living screen: DIRTY KITCHEN -> BACK HALL -> ENTRANCE HALL -> GUEST LOBBY. The majlis door (x 14900-15050, y 18300-19300) is 4.5 m into the hall. There is no dedicated service door to the guests.",
+      "The FORMAL DINING's 3000 south window looks straight onto the pool garden, so guests overlook the family garden.",
+      "BEDROOM 2 and BEDROOM 4 have only street-facing (north) windows.",
+      "The maid window faces the car court, so she looks at parked cars (fumes, noise, the driver washing cars). The maid bath (3.0) and laundry (4.2) are internal, small, and need mechanical extract.",
+      "The driver's window (x 22500-23450, south) looks 24.7 m down the east side strip toward the pool garden. His route to the cars at the west porch runs in front of the majlis window and the front door.",
+      "No separate guest entrance and no dedicated family entrance. The study is upstairs. The only majlis is 25.3 m2."
+     ]
+    },
+    {
+     "candidate": "A - minimal surgery",
+     "score": 4.5,
+     "disqualified": false,
+     "strengths": [
+      "Clear east/west split: MAJLIS LOBBY, GUEST WC, WOMEN'S MAJLIS and FORMAL DINING on the east; show kitchen and service block on the west.",
+      "The maid's quarters work well operationally. LAUNDRY (6.0) sits between the BACK CORRIDOR and the MAID ROOM. The maid reaches the stair through circulation only (laundry -> back corridor -> hall). The MAID BATH (5.4) is the only daylit maid bath of the three (north window).",
+      "Strong family-garden access: a 4.8 m living slide plus a 900 door from the show kitchen to the terrace.",
+      "The car porch (15400-20900 x 23150-28650) sits in front of a windowless majlis street wall, so there are no car fumes or views into the majlis."
+     ],
+     "problems": [
+      "The front door (x 11600-13000) opens on axis with a 2.5 m OPEN arch (x 11700-14200) into the FAMILY LIVING and on to the pool. Of the three, this gives guests the least separation from family space, and the arch cannot be closed.",
+      "Service to both the majlis and the dining crosses the south end of the ENTRANCE HALL (about 5 m) directly past that open arch: DIRTY KITCHEN -> BACK CORRIDOR -> ENTRANCE HALL -> MAJLIS LOBBY.",
+      "Worst staff dignity. The MAID ROOM window (x 7100-8700) and the MAID BATH window (x 4300-5300) face north 1.55 m from the 4.75 m annex (plant and store walls): little daylight and no outlook. The driver's door (x 2600-3500) and the plant and store doors open onto that same 1.55 m court, mostly filled by +150 landings, so the driver walks at arm's length under the maid's room and bath windows.",
+      "No service gate. The only gate is the vehicle gate at x 15900-20400 (east), so deliveries cross the whole forecourt past the front door, then the service court, to the west-face service door (y 18650-19550).",
+      "The driver's window (x 800-2300, south) looks 25 m down the west side yard toward the pool garden. That yard also links the service door to the garden with no gate.",
+      "The WOMEN'S MAJLIS (25.7) has only an east window (3200), facing the neighbour through fins that the DBC rules flag as a setback breach.",
+      "The FF MASTER BEDROOM and BEDROOM 2 each have a 2600 street window. BEDROOMS 3 and 4 have 2700 E/W windows facing the neighbours.",
+      "The FORMAL DINING's 3000 south window looks over the pool garden.",
+      "The porch is 5.5 m wide (less than 6.0 for two bays). No pedestrian or guest gate is modelled. The study is lost and the maid room is 8.8 m2."
+     ]
+    }
+   ],
+   "winner": "C - privacy first",
+   "grafts": [
+    "From A and B: bring the LAUNDRY back into the house service block, between the dirty kitchen or service lobby and the maid room, as A (6400-9250 x 18250-20350) and B (off the dirty kitchen, maid room off it) do. The annex then holds only the driver room, driver bath, plant and store, and the maid never has to use a building whose door is 800 mm from the driver's.",
+    "From B: move the male driver to the front. Put a driver room and bath on the street boundary at the NE corner by C's own SERVICE_GATE (x 21800-23400), as B's NE annex does, with the door facing away from the house. Keep the pool plant by the balance tank in the rear. Male staff then no longer live in the rear garden zone or share the maid's yard.",
+    "From A and B: give the maid room a sill 1.8 m above the outside ground. In A and B the GF is raised 900 over ground at 0; in C the maid window sits 1.1 m over the +700 yard. Alternatively, turn it into a high-level window or screen it, so no one standing in the service yard can see in.",
+    "From A: daylight the maid bath with its own small high window, as A's MAID BATH does (north, 1000 wide). C's maid bath is internal.",
+    "From A (900 door) or B (3.0 m slide): add a garden door from C's 29.7 m2 SHOW KITCHEN to the terrace, so the family has a second way to the pool besides the living slide.",
+    "From B: B found that ground-standing fins in the 3 m side setback breach the DBC rules file (K-SB-05, K-PRJ-03/04). Replace C's full-height E/W fin arrays with compliant screening, or give BEDROOM 2 and 4 obscured or high-level E/W glazing plus a north-south light source. Their only windows currently face the neighbours straight across.",
+    "From B: widen C's porch to at least 6.0 m (B has 7.2 m) and deepen it to 5.5 m, to meet 2 x 3.0 x 5.5 m open bays (K-PARK-03). Add a planter or kerb strip in front of the majlis windows so cars do not park 50 mm from them.",
+    "Own-lens fix, not a graft: put C's service-yard wall (x 16300) and guest-court wall (x 21000) into villa_design.py as data so the builders create them. At present the separation between the pool garden and the service yard exists only in the preview drawing."
+   ]
+  },
+  {
+   "lens": "Architectural quality: plan clarity, room proportions, circulation length, daylight and views, how the living relates to the terrace, pool and garden, how the south and street elevations read (rhythm of openings, shading built into the architecture rather than added on), whether the double-height volume and three-pavilion concept survive, and whether the furniture is usable. All three candidates were re-run from their folders: villa_design.py gives 0 fatal / 0 major for each, and villa_furniture_spec.py gives 0 issues for each. validate(), checks_brief() and the furniture check() have zero code diff against the original; the only change is one print line in C. No threshold, MIN_AREA entry, REQUIRED entry or FIXTURES entry was lowered, so none is disqualified. On top of the previews, I computed room proportions, glazing per room, door-to-door walking distances and rough south/north elevations from each candidate's envelope, openings, shades and fins. dubai_villa_rules.json now exists. It marks full-height fins inside the 3 m side setback as non-compliant (K-SB-05, K-PRJ-02/03/04), which affects A's and C's east/west glazing strategy.",
+   "scores": [
+    {
+     "candidate": "A - minimal surgery",
+     "score": 6.5,
+     "disqualified": false,
+     "strengths": [
+      "Three-pavilion concept intact: 700 mm light slots at x 8000-8700 and 15300-16000 kept, double-height living (9100-14900 x 11000-16500) kept. Each pavilion gets its own canopy per storey (GF +3300-3500 at 1450/1450/1000 deep; FF +7400-7600 at 1000 deep), so the three volumes still read separately on the south elevation.",
+      "Level threshold: pool/terrace/garden raised to +900, so the living floor, terrace and water are one plane through the 4.8 m slide (x 9600-14400). This is the key move in villa_materials_spec s2.",
+      "Stair moved to the hall's west wall (9400-11500). The 30.4 m2 entrance hall (5.2 x 5.85) now opens clear onto the living through a 2.5 m opening. The 850 mm recess of the hall/majlis street wall gives a real covered entry bay and a 5.5 x 5.5 m porch in front of the majlis.",
+      "Guest cluster is legible. The women's majlis (25.7 m2) has its own hall door plus a door from the majlis lobby, and the lobby serves the formal dining (22.5 m2, 8 chairs, south and east windows) and the guest WC. Service to the lobby is about 12 m from the dirty kitchen.",
+      "Best first-floor daylight of A and B. Every bedroom is dual-aspect (bed 2 N+W, bed 3 S+W, bed 4 S+E, master N+E) and every en-suite has a window. The master en-suite has bath, shower and two basins; there is a linen store at the corridor end.",
+      "Most complete furniture (54 GF / 47 FF / 12 annex): kitchen island with stools plus a 4-seat breakfast table, living group kept clear of the hall-to-slide route, double beds everywhere.",
+      "The annex on the north-west boundary (0-9400 x 25550-29000) closes a service court behind the service wing, so service, driver and plant stay off the guest side."
+     ],
+     "problems": [
+      "The family zone is split. The show kitchen (3400-7600 x 11400-16750) has no link to the family living. The route runs kitchen -> back corridor -> public entrance hall -> living, about 15 m door to door, and the light slot sits between the two rooms.",
+      "Dark rooms: the 30.4 m2 entrance hall has no window at all. The dirty kitchen (3400-6250 x 16900-19800) has no window and four doors in 8.3 m2, so it works as a lobby rather than a kitchen. Pantry and laundry are also windowless.",
+      "The maid room (6400-9250 x 20500-23600) has only a north window onto the 1.55 m service court, facing the 4.75 m annex wall. Poor daylight and outlook.",
+      "Wrong bedroom hierarchy. The master (13750-20600 x 18250-22750, 22.2 m2) faces the street and east fins with no garden or pool view, and is smaller than bedroom 2 (23.6 m2). Bedrooms 3 and 4 get only 1200 mm south windows toward the pool, while their 2700 mm windows face the side setbacks.",
+      "The water axis is slightly broken: front door centre x 12300, hall-to-living opening x 11700-14200 (centre 12950), pool centre 12000. No pedestrian gate is modelled, and the old gate position now lies inside the car porch.",
+      "The west facade is fragmented shading added on: full-height pavilion fins, FF-only fins floating at z 4500-8700 over the service block, and a free-standing 3-fin screen at x 1500-1780 placed where check 16 looks. All the fins stand 250-1500 mm inside the 3 m side setback, which the rules file marks non-compliant (K-SB-05/K-PRJ-03). The majlis's only window (east) and the bedroom east/west windows depend on those fins.",
+      "The study is deleted as a room (only a desk nook on the landing). The majlis lobby is 2.9 x 1.3 with four doors. The south elevation reads busy: pairs of 1200 windows under 5 m wide eyebrows on the first floor, and a window plus door in the kitchen pavilion.",
+      "The unused SUNKEN COURT void (15000-16000 x 17500-22500) is still in VOIDS, under the majlis and lobby."
+     ]
+    },
+    {
+     "candidate": "B (\"service wing\")",
+     "score": 7.5,
+     "disqualified": false,
+     "strengths": [
+      "All three parts of the concept survive. The slots are kept, the double-height living is kept, and the GF and FF outlines are identical apart from the double-height pavilion, so each pavilion reads as a clean two-storey volume with no single-storey street band.",
+      "Purest water axis. Front door x 11300-12700 on x 12000 -> hall -> 3.4 m glazed internal slide -> living -> 4.8 m slide (9600-14400) -> pool (9000-15000). The stair moved to 12800-14900 against the hall's east and north walls to clear the view. The glazed screen shields the family living while keeping the vista.",
+      "Level threshold at +900 (the materials spec s2 idea). The show kitchen in the west pavilion has a 3.0 m slide to a breakfast terrace, the best kitchen-to-garden link of the three.",
+      "Clear three-band ground floor: service to the west, hall and living in the centre, guests to the east. The 6.2 m2 back hall ties show kitchen, dirty kitchen and living together without crossing a guest room. The pantry is a butler's pass between the two kitchens.",
+      "Principal rooms all face the garden. The master (21.1 m2 plus a 6.2 m2 en-suite with bath and shower) moved into the south-east pavilion over the pool; bedroom 3 is in the south-west pavilion; living, kitchen and dining open south.",
+      "Calmest south elevation. One centred opening per pavilion per storey (GF slide 3000 / slide 4800 / window 3000; FF 2700 / 3200) under 150 mm eyebrows at the 2.7 m door-head datum (+3600, +7700), which matches the materials spec grid. The shading reads as part of the building.",
+      "Coherent service wing. The dirty kitchen (13 m2) has a street window and a service door off the car porch. The maid room (8.0 m2, 2400 street window) opens off the laundry, not a kitchen. The garden is intact across the full width, and GFA is 416.7 m2 (-0.3%).",
+      "Robust against the Dubai code: no east/west openings means no fins in the side setbacks, which the rules file forbids."
+     ],
+     "problems": [
+      "No east or west openings at all. Both side elevations are blank walls about 13.5 x 8.7 m, the bronze fin screen of materials spec s5 is gone, and every room is single-aspect.",
+      "First-floor circulation has no daylight. The corridor (3400-16250 x 16900-18100, 12.85 m long) and the landing (10.1 m2) have no window. The master en-suite (6.2 m2) and bedroom 3 en-suite (4.8 m2), laundry and maid bath are internal.",
+      "The women's majlis (25.3 m2) is lit by one 2100 mm north window (12.5% gross), part of which faces the annex's blank end 1.55 m away. Guests and service share its only door, at x 14750, about 4.5 m into the hall beside the living screen.",
+      "Longest service routes: dirty kitchen -> majlis about 19 m and -> formal dining about 20 m, crossing the south end of the entrance hall in front of the glazed living screen.",
+      "The street face is one flat plane at y 23150 on both floors, with no entry recess or loggia (the landscape spec wants a compression moment). The 4.75 m annex on the north-east boundary (16800-24000) dominates the street corner beside the pedestrian gate.",
+      "The study went to the first floor (15.8 m2). The guest lobby is 2.9 m2 with three doors and the guest WC is 2.85 x 1.15. The ground floor has no family WC, so family members use the guest WC through the hall.",
+      "The double-height volume's south wall above the slide head is solid to the roof, about 6 m of blank wall (shared by all three candidates)."
+     ]
+    },
+    {
+     "candidate": "C - privacy first",
+     "score": 5,
+     "disqualified": false,
+     "strengths": [
+      "Clearest first-floor plan of the three. Four corner bedrooms, each with a windowed nested en-suite, are arranged symmetrically round a 1.4 m corridor (13.6 m2) along the double-height void. A 30.6 m2 family lounge on the street front is a real Gulf use while men are in the majlis below.",
+      "Most daylight. The master (south 4000 + west 1700), study, kitchen and bedroom 3 are dual-aspect. All en-suites, the landing and the family hall have windows.",
+      "A true family zone. The 29.7 m2 show kitchen with its family table opens directly into the double-height living, and there is a family WC off the family hall.",
+      "Strict guest separation: the guest foyer leads only to the majlis, guest WC and dining. The service route is the shortest of the three (dirty kitchen -> pantry -> dining, about 8.4 m).",
+      "The most composed street elevation: symmetric first-floor windows, two doors either side of a centred porch, no annex on the street. The full-height east/west fin screens read as a continuous facade layer, and the 1500 mm terrace sits under a 1500 mm canopy."
+     ],
+     "problems": [
+      "The three-pavilion concept is deleted (SLOT_A/SLOT_B = None): one 18 x 12.1 m block. The continuous GF canopy (x 3200-14700) runs across the old pavilion divisions.",
+      "The water axis is broken at the entry. The car porch (9400-15100) and vehicle gate (9700-14500) sit on the x 12000 axis, neither front door is on it, and the family hall reaches the living only through a roughly 1.3 m corner opening.",
+      "The garden is given to service. The service-yard wall at x 16300 runs about 750 mm from the pool shell, and the 45 m2 annex sits in the south-east garden, so the researched east lounging strip is gone. The service door (19200-20400) and the maid-room window are on the south garden facade, and the annex stands in front of the east third of the south elevation.",
+      "Bad views from key rooms. Bedroom 3 (south-east, 20.8 m2) looks down onto the service yard and annex roof. The formal dining faces the side passage through fins, not the garden. The majlis windows face parked cars that start 50 mm from its wall.",
+      "The dirty kitchen (east) is about 14 m from the show kitchen (west), and family meals from the pantry go through a door into the family living. The pantry has three doors in 4.2 m2 with overlapping swings.",
+      "The majlis is a through-room with three doors (family hall, foyer, dining), and service reaches it only through the formal dining.",
+      "The kitchen has no garden door (a 4200 window only). The living slide steps 200 mm down to a +700 pool, so the one-level threshold is lost.",
+      "Weak bedroom hierarchy and narrow rooms. The master is the same size as bedroom 3 (20.8 m2), the study is 2.45 m wide, and bedrooms 2/4 are 3.6 m wide and lit only through fins onto the 3 m setback. The full-height fins in both side setbacks are non-compliant per the rules file, so those windows are at risk. GFA +7.3%."
+     ]
+    }
+   ],
+   "winner": "B (\"service wing\")",
+   "grafts": [
+    "From A: set the hall's street wall back about 850 mm for the door bay only (between B's maid room and the stair, around x 10600-12800), keeping the 1400 pivot door on x 12000. This gives B's flat y 23150 facade the covered entry and compression moment the landscape spec asks for, and some depth in the street elevation.",
+    "From A: add a second majlis door from B's GUEST LOBBY (14750-17300 x 16900-18050, which already shares a wall with the majlis). Coffee and food then enter the majlis from the lobby instead of through the guests' hall door beside the living screen.",
+    "From A and C: add a north window to B's landing and stair over the stair at FF level (A has a 1400 landing window, C a 1300). B's 12.85 m corridor and 10.1 m2 landing currently have no daylight. Since FF is the top floor, rooflights over the corridor and over the internal master and bedroom 3 en-suites are the natural companion fix.",
+    "From C: add a small family WC off B's back hall/pantry strip, as C does off its family hall. At present the only GF WC sits behind the guest lobby, so family members in the living or kitchen use the guest route.",
+    "From C: a 1500 mm terrace where people walk. Shift the pool 300 mm south and widen it 300 mm to hold about 40 m2, as C did, under B's existing 1500 mm living canopy, keeping B's +900 level threshold.",
+    "From A: a master en-suite with two basins as well as bath and shower, and A's linen cupboard at the corridor end, which fits where B's corridor ends outside the master door at x 16250.",
+    "From A: the per-pavilion canopy discipline is already shared, so keep B's 2.7 m datum. Do not take C's continuous canopy or A's free-standing fin screen. Any future east/west window in B should use fins or deep reveals kept within the wall line, which K-PRJ-03 allows."
+   ]
+  },
+  {
+   "lens": "Buildability and compliance. I re-ran both validators in each candidate folder and AST-diffed every top-level function and assignment against the originals in C:\\Users\\lsire\\autocad-mcp. Beyond the validators I checked:\n- wall stacking FF over GF, using the fabric() differences;\n- spans, stair geometry and void, annex and setbacks;\n- where external_steps() lands relative to the pool, porch, house and annex.\n\nI also ran the COM-free villa_dbc.py, which reads dubai_villa_rules.json (146 rules), against each candidate. For reference, the original scores 10 FATAL / 3 MAJOR on villa_dbc.py. The rules file appeared at 01:55, after A (01:12) and C (01:20) had finished, so only B could use it. Scores are nonetheless on outcome.\n\nI viewed all six preview PNGs. I did not use COM at any point.",
+   "scores": [
+    {
+     "candidate": "B (\"service wing\")",
+     "score": 8,
+     "disqualified": false,
+     "strengths": [
+      "Re-run result: villa_design.py gives 0 fatal, 0 major, with 1 NOTE (roof pavilion not built). villa_furniture_spec.py gives 0 issues (44 GF + 42 FF + 9 annex items, and the annex list really is in BY_FLOOR).",
+      "AST diff: no function body changed. REQUIRED, MIN_AREA, FIXTURES, MIN_DINING_SEATS and BRIEF_GFA are identical to the originals. Only data changed, plus POOL_TW/FL, BASIN_FL/WL and PORCH_Y.",
+      "Best compliance outcome. villa_dbc gives 30 FATAL / 3 MAJOR, against 39/4 for A and 37/4 for C.",
+      "B is the only candidate with zero setback or projection fatals. FIN_ARRAYS is empty and there are no E/W openings, so nothing structural stands in the 3 m side setbacks (K-SB-05, K-PRJ-03/04).",
+      "Every habitable room is at least 3 m wide and has at least 10% net glazing.",
+      "23 of B's door fatals come from 1000 openings (900 clear vs 915) and 800 wet-room doors (700 vs 710). These are 10-15 mm shortfalls against the checker's assumed 100 mm frame loss, and are trivially fixable.",
+      "Cleanest stacking. GF and FF outlines are identical (3000-21000 x 11000-23150), with 0 m2 single-storey roof and 0 m2 overhang.",
+      "The only FF external wall not on a GF wall is the inherited corridor wall at 9130-14870 x 16500-16720 over FAMILY LIVING (1.26 m2). The original had 10.0 m2, including three 5.1-5.8 m street-wall runs over GF rooms.",
+      "Spans are all at or under 5.8 m; only FAMILY LIVING (5800 x 5350) exceeds 5 m.",
+      "Stair: 20-riser dog-leg with the void identical to the stair (12800-14900 x 19350-22750). It sits wholly inside the ENTRANCE HALL on GF and the LANDING on FF.",
+      "The pool and basin were raised coherently: TW 900, FL -500, BASIN_FL -1200, BASIN_WL -300. The original relationships are kept, and both garden slides have level thresholds with no step boxes near the water.",
+      "Removed the inert SUNKEN COURT void.",
+      "Annex (16800-24000 x 24700-29000) meets the encoded rules:\n- 1550 mm from the villa;\n- 4750 high;\n- 31.0 m2, which is 10% of GA;\n- on the N and E boundaries;\n- every opening faces south into the site, none in a boundary wall.",
+      "GFA is 416.7 m2, -0.3% on the brief and the closest of the three."
+     ],
+     "problems": [
+      "The service-door flight (external_steps boxes 5-9, 3300-4900 x 23150-25550, z 0-900) lands inside the car porch. That leaves about 5.7 m clear, below the 6.0 m needed for two DBC 3.0 m open bays (K-PARK-03). villa_dbc does not see steps, so it reports 2 bays.",
+      "The stair at 12800-14900 x 19350-22750 is 100 mm from the entrance door (11300-12700). It is 50 mm from the majlis door (x 14900-15050, y 18300-19300), which sits right at the stair's south end, where both flights start and finish. The stair foot and the majlis doorway share the same metre.",
+      "The annex landings (1200 deep, from external_steps) fill the 1550 mm service gap, leaving about 350 mm to the majlis wall at y 23150.",
+      "FFL +900 equals TWL +900, so the level threshold needs a slot drain against overflow.",
+      "FORMAL DINING south window has a 900 sill facing the pool (K-POOL-01).",
+      "Inherited, not fixed:\n- 1200 deck includes the coping (K-POOL-09: 59% of the deck ring missing);\n- pool depth 1.4 m (K-POOL-03);\n- no POOL_BARRIER or GUARDS declared.",
+      "Stair kept at 205 mm risers / 250 mm goings. DBC K-STR-03/05 needs 23 risers at 178 with 280 treads; B acknowledged this.",
+      "Check 10 does not count BACK HALL (6.2 m2) or GUEST LOBBY (2.9 m2) because neither is named CORRIDOR. It would still pass at 6.9% of GIA.",
+      "LAUNDRY (4.2 m2) and MAID BATH (3.0 m2) are internal rooms and need mechanical extract.",
+      "The pedestrian gate hard-coded in villa_colour.py (15400-16600) is 200 mm from the annex's west wall.",
+      "The plant room is 5.8 m2 and more than 15 m of pipe run from the balance basin."
+     ]
+    },
+    {
+     "candidate": "A - minimal surgery",
+     "score": 6,
+     "disqualified": false,
+     "strengths": [
+      "Re-run result: villa_design.py gives 0 fatal, 0 major, with 1 NOTE. villa_furniture_spec.py gives 0 issues (54 + 47 + 12 annex items, and the annex is counted in BY_FLOOR).",
+      "AST diff: no function, REQUIRED, MIN_AREA, FIXTURES or other threshold changed. Only data and constants changed (POOL_TW, POOL_FL, PORCH, GATE, STAIR, SHADES, FIN_ARRAYS).",
+      "Good stacking. GF and FF both bound 3000-21000 x 11000-24000, with 0 m2 single-storey roof and 0 m2 overhang. Bedroom 2 now runs out to y 24000 over the GF service block.",
+      "The only unsupported FF external wall is the inherited corridor wall over FAMILY LIVING (1.26 m2, down from 10.0 m2 in the original).",
+      "Spans are at or under 5.85 m (FF BEDROOM 2 is 5850 x 5350).",
+      "Stair: 20-riser dog-leg at 9400-11500 x 19200-22600, with the void identical to the stair. It is contained in the ENTRANCE HALL and the LANDING, and the back-corridor door is well clear of the stair foot.",
+      "Annex (0-9400 x 25550-29000) meets both villa_design and villa_dbc:\n- 1550 mm from the villa;\n- 4750 high;\n- 10% of GA;\n- on the N and W boundaries;\n- doors and window all face south.",
+      "Level threshold at the new 4.8 m living slide (TW +900), so no step lands in the pool. 53 probes compute.",
+      "GFA is 429.4 m2, +2.7%. Corridor is 5.7% of GIA, and BACK CORRIDOR is honestly counted by check 10."
+     ],
+     "problems": [
+      "villa_dbc gives 39 FATAL / 4 MAJOR, the worst of the three.",
+      "Four fin arrays stand in the 3 m side setbacks (K-SB-05, K-PRJ-03, K-PRJ-04):\n- west x 2300-2750 over 11700-16680;\n- a hung FF-only array at x 2300-2750 over 18800-23500, starting at z 4500 and bracketed off the slab;\n- a free-standing 3-fin screen at x 1500-1780, only 1.5 m from the boundary;\n- a new full-height east array at x 21250-21700 over 11700-22900.",
+      "The majlis (east windows only), the dining and bedrooms 2-4 all depend on those fins. The conflict between check 16 and the DBC is therefore built into the plan.",
+      "The 3-fin screen sits exactly at check 16's 1500 mm reach limit in front of the service door. It was placed where the check looks, not where shade is needed (A admits this). It does not weaken the check, but it is check-fitting.",
+      "Twelve doors use 900 or 800 openings, giving 800 or 700 mm clear against the 915 required. Examples: SHOW KITCHEN and DIRTY KITCHEN external doors, the three BACK CORRIDOR doors, LAUNDRY->MAID ROOM, CORRIDOR->LINEN.",
+      "The porch is 15400-20900, only 5500 wide. That is one DBC open bay (K-PARK-03 MAJOR).",
+      "SHOW KITCHEN and FORMAL DINING south windows have 900 sills facing the pool (K-POOL-01).",
+      "A stale SUNKEN COURT void (15000-16000 x 17500-22500, floors ()) is left in VOIDS, sitting under the majlis and the lobby. A builder could cut it.",
+      "POOL_TW was raised to +900 but BASIN_FL and BASIN_WL were left at -1400 and -500. The balance water is now 1.4 m below the crest, the weir-sheet water box got taller, and the relationship is inconsistent.",
+      "FFL equals TWL (+900), so the threshold needs drainage.",
+      "The annex landings fill 1200 of the 1550 mm court (about 350 mm left to the villa wall at y 24000). The maid room's only window faces that court.",
+      "The entrance door (11600-13000) is 180 mm from the stair.",
+      "The pedestrian gate hard-coded in villa_colour.py (15400-16600) now falls inside the new vehicle gate and porch (15400-20900).",
+      "Stair still 205 / 250 (DBC fatal, common to all three)."
+     ]
+    },
+    {
+     "candidate": "C - privacy first",
+     "score": 4.5,
+     "disqualified": false,
+     "strengths": [
+      "Re-run result: villa_design.py gives 0 fatal, 0 major, with 1 NOTE. villa_furniture_spec.py gives 0 issues (52 + 43 + 13 annex items).",
+      "No function body changed. REQUIRED, FIXTURES and every existing MIN_AREA value are untouched.",
+      "GF and FF outlines are identical (3000-21000 x 11000-23100): 0 m2 single-storey roof, 0 m2 overhang, 57 probes.",
+      "Annex (16500-24000 x 2200-8200):\n- 2800 mm from the villa;\n- AX_FL 850, i.e. 150 above the +700 garden per ground_at;\n- top at 5450, under 5500;\n- on the east boundary;\n- openings face north into the service yard.\nThe 10.4 m2 plant room sits about 2 m from the balance tank.",
+      "Forecourt is 5550 mm and no steps land in the porch. The family-door and guest-door flights sit either side of it.",
+      "Spans are at or under 5.8 m."
+     ],
+     "problems": [
+      "C is the only candidate to edit a threshold table. It added 8 new MIN_AREA keys, including 'MAJLIS', which was needed after renaming WOMEN'S MAJLIS; nothing was lowered. That is additive, not a weakening, so C is not disqualified.",
+      "The renames (ENTRANCE HALL to FAMILY HALL, and ENTRY_ROOM) change what check 12 tests. It now reaches the guest rooms from the family hall through the majlis host door, not from the guest door C describes.",
+      "Worst stacking: 3.50 m2 of FF external wall has no GF wall under it. The double-height ring walls at x 8700-9100 (5.3 m over SHOW KITCHEN) and x 15080-15300 (4.9 m over PANTRY and MAID ROOM), plus the corridor wall over FAMILY LIVING, need three transfer beams. A and B need one.",
+      "Pool-edge safety fault. The living slide is at +900 with the garden at +700, so external_steps puts a 1200 landing at 9800-11000 and a +800 step at y 9500-9800 right on the pool wall.",
+      "That step's nosing is the water edge (POOL_Y1 = 9500), with no deck at all. The claimed '1500 terrace' is fully used up, and K-POOL-09 reports 55% of the deck ring missing.",
+      "villa_dbc gives 37 FATAL / 4 MAJOR, including the only room-size fatal: STUDY is 2450 wide against 3000 (K-ROOM-01).",
+      "Both full-height fin arrays (x 2300-2750 and x 21250-21700, y 11600-22500) stand in the side setbacks. BEDROOM 2, BEDROOM 4 and FORMAL DINING are lit only through W/E windows, so the check-16/DBC conflict cannot be resolved without replanning.",
+      "The MAID BATH door is 700 (600 clear vs 710).",
+      "The porch is 5700 wide, which is one DBC bay.",
+      "SHOW KITCHEN and MAID ROOM south windows have 900 sills facing the pool.",
+      "GFA is 448.7 m2 (+7.3%), in the upper half of the band.",
+      "SLOT_A and SLOT_B are set to None and the grid constants were rewritten. The current builders don't read them (grep shows only the legacy villa_3d.py has its own copies), but it is fragile.",
+      "The service-yard wall (x 16300) and the guest-court wall exist only in preview_plans.py, so the 3D builders will not build them. The pool shell is about 750 mm from that yard wall.",
+      "The majlis windows open onto a porch that starts 50 mm off the house face.",
+      "The family door (6050-7250) is 100 mm from the stair."
+     ]
+    }
+   ],
+   "winner": "B (\"service wing\")",
+   "grafts": [
+    "From C: widen B's house-side terrace to at least 1600, as C did with TERRACE 1500, by moving POOL_Y1 south. That leaves 1.2 m clear deck excluding the 400 coping (K-POOL-09). B can take this without C's step fault because B's threshold is level.",
+    "From C: put a pool plant room or pit beside the balance basin, as C's 10.4 m2 PLANT is about 2 m from the tank. B's 5.8 m2 plant room is more than 15 m of pipe run away in the NE annex.",
+    "From C: declare the pedestrian and service gates as data (C's GUEST_GATE and SERVICE_GATE constants). villa_colour.py's hard-coded 15400-16600 pedestrian gate, 200 mm from B's annex, can then follow villa_design.py.",
+    "From A: rename B's BACK HALL to BACK CORRIDOR, as A named its back corridor, so check 10 counts it honestly. The corridor share is still about 6.9% of GIA including the guest lobby.",
+    "From A: keep an _audit.py-style regression script (corridor %, steps vs pool, wall stacking, annex gap, forecourt). Extend it to flag external steps inside the car porch, which is B's one geometric clash.",
+    "Fix B's own weak spots before promotion (these are fixes, not grafts):\n- turn the dirty-kitchen service flight along the facade, or move that door, so no step lands in the 7.2 m porch and two 3.0 m DBC bays stay clear;\n- widen door openings to 1015 and 810 to beat villa_dbc's 100 mm frame allowance;\n- declare FORMAL DINING's south window in FIXED_GLAZING or raise its sill to 1200;\n- declare POOL_SHALLOW_FL, POOL_BARRIER and GUARDS;\n- add a threshold drain at the level slides.",
+    "Plan B's stair for DBC now: 23 risers at 178 mm with 280 treads needs a well about 4.1 m deep. In B's hall that means moving the majlis door (x 14900, y 18300-19300) off the stair foot."
+   ]
+  }
+ ]
+}

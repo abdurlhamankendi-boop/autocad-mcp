@@ -1,0 +1,1128 @@
+{
+ "research:autocad": {
+  "model_id": "claude-haiku-5-5",
+  "findings": [
+   {
+    "id": "ezdxf-1.4.5-final",
+    "title": "ezdxf 1.4.5 final release on PyPI",
+    "claim": "PyPI project page for ezdxf 1.4.5 lists the release as 'Released: Oct 16, 2026'. The PyPI JSON endpoint also reports info.version = 1.4.5. Opened via WebFetch; the date came from a summarizing model, so confirm on the page. Changelog content for 1.4.5 could not be read (readthedocs history 404, NEWS.md 404, JSON truncated).",
+    "url": "https://pypi.org/project/ezdxf/1.4.5/ (also https://pypi.org/pypi/ezdxf/json)",
+    "date": "2026-10-16 (as shown on PyPI release page, opened)",
+    "is_new": true,
+    "relevance": "high",
+    "negative_claim": false,
+    "action": "Bump the pipeline's ezdxf pin to 1.4.5 only after reading the changelog on the PyPI or GitHub release page; the changelog was not verified here."
+   },
+   {
+    "id": "ezdxf-1.4.5b2",
+    "title": "ezdxf 1.4.5b2 pre-release",
+    "claim": "PyPI ezdxf project release history lists 1.4.5b2 dated Oct 10, 2026 (between 1.4.5b1 on Sep 30 and the final 1.4.5). Opened via WebFetch with summarizing model; the 1.4.5b2 detail page itself failed to load.",
+    "url": "https://pypi.org/project/ezdxf/",
+    "date": "2026-10-10 (as shown in release history, opened)",
+    "is_new": true,
+    "relevance": "medium",
+    "negative_claim": false,
+    "action": "Treat as superseded by 1.4.5 final; no action unless testing pre-releases."
+   },
+   {
+    "id": "ezdxf-github-releases",
+    "title": "ezdxf GitHub releases page shows no releases",
+    "claim": "The GitHub releases page for mozman/ezdxf shows 'There aren't any releases here', so no version tags or pre-release dates could be read from GitHub. This is a negative claim about the page as opened, not a verified absence of tags.",
+    "url": "https://github.com/mozman/ezdxf/releases",
+    "date": "unknown",
+    "is_new": false,
+    "relevance": "low",
+    "negative_claim": true,
+    "action": "Use PyPI or the readthedocs changelog, not GitHub releases, when checking ezdxf versions."
+   },
+   {
+    "id": "autocad-2027-1-blog-date",
+    "title": "AutoCAD 2027.1 update: Autodesk Assistant and collaboration changes",
+    "claim": "The CAD Tutor repost of the AutoCAD Blog announcement ('the AutoCAD 2027.1 update has arrived') is marked 'Posted August 4' with no year shown. It describes a more visible Autodesk Assistant with proactive tips and starter prompts, Checkout and Connected Support Files changes, and Lengthen, faster ARRAY editing, and SAVEAS changes. The Autodesk blog itself returned HTTP 403 to WebFetch, so it was not opened.",
+    "url": "https://www.cadtutor.net/forum/topic/99229-autocad-20271%C2%A0now-available-smarter%C2%A0autodesk%C2%A0ai-assistance%C2%A0and%C2%A0smoother-collaboration%C2%A0/ (primary: https://www.autodesk.com/blogs/autocad/autocad-2027-1/ not opened, 403)",
+    "date": "Aug 4 (year not shown; likely 2026, unverified)",
+    "is_new": false,
+    "relevance": "high",
+    "negative_claim": false,
+    "action": "Not new in the Oct 7-16 window. Confirm the year and content on the Autodesk blog before citing it. Do not treat as a new update."
+   },
+   {
+    "id": "autodesk-2027-release-notes",
+    "title": "AutoCAD 2027 release notes page (base release)",
+    "claim": "The Autodesk AutoCAD 2027 release notes page, opened via WebFetch, shows a single date of March 25, 2026. It shows no 2027.1 update notes or other dated entries. This is a negative claim about that page as opened.",
+    "url": "https://help.autodesk.com/cloudhelp/2027/ENU/AutoCAD-ReleaseNotes/files/AUTOCAD_2027_RELEASE_NOTES.html",
+    "date": "2026-03-25 (as shown on page, opened)",
+    "is_new": false,
+    "relevance": "medium",
+    "negative_claim": true,
+    "action": "Check the 2027.1 update notes elsewhere on help.autodesk.com; this page did not show them."
+   },
+   {
+    "id": "autodesk-mcp-status",
+    "title": "No Autodesk AutoCAD-control MCP server found at GA",
+    "claim": "Search snippets found no announcement that an Autodesk-built AutoCAD MCP server (live drawing control) has reached general availability. The Autodesk Product Help MCP Server (read-only help-doc access, announced around April 2026 per snippets) is the only Autodesk MCP found. Autodesk Platform Services sample MCP servers exist on GitHub, GA status unknown. Pages were not opened. This negative claim is UNVERIFIED.",
+    "url": "https://cgpress.org/archives/autodesk-releases-mcp-server-for-product-help-documentation.html (snippet only; not opened)",
+    "date": "April 2026 (snippet, not opened)",
+    "is_new": false,
+    "relevance": "medium",
+    "negative_claim": true,
+    "action": "Do not assume Autodesk has an official AutoCAD MCP. Check the Autodesk Platform Services GitHub org and the Autodesk release notes directly before concluding."
+   },
+   {
+    "id": "oda-mcp-prerelease",
+    "title": "ODA MCP Servers still listed as pre-release, Coming Q3 2026",
+    "claim": "The ODA page, opened, is labeled 'Pre-release \u00b7 Coming Q3 2026' and shows no GA status. No specific launch day is given. The page has no visible publication date. No general-availability announcement was found in searches. Whether the Q3 2026 launch happened is UNVERIFIED.",
+    "url": "https://www.opendesign.com/node/4662",
+    "date": "unknown (page shows no publication date; Q3 2026 target)",
+    "is_new": false,
+    "relevance": "high",
+    "negative_claim": true,
+    "action": "Check ODA directly for GA status and whether the ODA Sustaining tier membership is required before planning any pipeline use."
+   },
+   {
+    "id": "oda-mcp-faq",
+    "title": "ODA MCP Servers FAQ: DWG, STEP, IFC at launch",
+    "claim": "The ODA FAQ, opened, is dated August 17, 2026. It says the servers launch in September 2026 with no specific day. At launch they cover DWG, STEP and IFC, with DWG having the most write-back. Revit and Navisworks need separate Extension purchases, and DGN, Revit and Navisworks are planned to follow. Access requires ODA Sustaining tier or higher.",
+    "url": "https://www.opendesign.com/blog/2026/august/oda-mcp-servers-faq.md",
+    "date": "2026-08-17 (FAQ date, opened)",
+    "is_new": false,
+    "relevance": "high",
+    "negative_claim": false,
+    "action": "Not new in the window. Use this FAQ as the reference for the ODA licensing and format scope."
+   },
+   {
+    "id": "autocad-mcp-pro-status",
+    "title": "autocad-mcp-pro: latest still 1.6.0 (Sep 24)",
+    "claim": "The PyPI page, opened, shows 1.6.0 as latest, dated September 24, 2026. The history shows 1.5.1 on Aug 7, 1.5.0 on Aug 6, 1.4.0 on Jul 23. The GitHub releases page for U-C4N/Autocad-MCP, opened, lists v1.6.0 (24 Sep) as Latest, with no later release. No release after Oct 7 found.",
+    "url": "https://pypi.org/project/autocad-mcp-pro/ and https://github.com/U-C4N/Autocad-MCP/releases",
+    "date": "2026-09-24 (opened)",
+    "is_new": false,
+    "relevance": "high",
+    "negative_claim": false,
+    "action": "No change since the 1.6.0 known from 2026-10-08. Keep the pin at 1.6.0."
+   },
+   {
+    "id": "best-cad-mcp-status",
+    "title": "best-cad-mcp: latest still 1.7.2 (Sep 23)",
+    "claim": "The PyPI page, opened, shows 1.7.2 as latest, dated Sep 23, 2026. The history lists 1.7.1 on Sep 19, 1.7.0 and 1.6.1 on Aug 8, and a batch of 1.4.x and 1.3.5 releases in June 2026. No release after Oct 7 found.",
+    "url": "https://pypi.org/project/best-cad-mcp/",
+    "date": "2026-09-23 (opened)",
+    "is_new": false,
+    "relevance": "medium",
+    "negative_claim": false,
+    "action": "No change since the 1.7.2 known from 2026-10-08."
+   },
+   {
+    "id": "third-party-autocad-mcp-activity",
+    "title": "Third-party AutoCAD MCP repos show no Oct 2026 release in search",
+    "claim": "Search results found no October 2026 release for the third-party AutoCAD MCP repos (emptykot acad-cmd, puran-water/autocad-mcp, vigneshpbmenon/autocad-mcp-server, NNDK fork). A gittrend listing (not opened) gives a last push of Feb 20, 2026 for puran-water. Negative claim is UNVERIFIED because only aggregator pages were seen, not the repos.",
+    "url": "https://gittrend.io/repo/puran-water/autocad-mcp (snippet only; not opened)",
+    "date": "2026-02-20 (last push per snippet, not opened)",
+    "is_new": false,
+    "relevance": "low",
+    "negative_claim": true,
+    "action": "Open each GitHub repo's releases and commits pages directly before adding any to the pipeline."
+   },
+   {
+    "id": "libredwg-status",
+    "title": "LibreDWG: no official 0.14 announcement found",
+    "claim": "The GNU LibreDWG manual labeled 0.13.4 with a March 2026 date appears in search snippets, but the gnu.org page returned HTTP 429 and was not opened. A 0.14 series appears only on a release-tracking mirror with unclear version reliability. No official 0.14 announcement was found. Negative claim UNVERIFIED.",
+    "url": "https://www.gnu.org/software/libredwg/ (429, not opened); https://www.gnu.org/software/libredwg/manual/html_node/Overview.html (snippet)",
+    "date": "March 2026 (manual date per snippet, not opened)",
+    "is_new": false,
+    "relevance": "low",
+    "negative_claim": true,
+    "action": "Check the LibreDWG Savannah release page for 0.13.x or 0.14 before pinning."
+   },
+   {
+    "id": "autocad-training-october-2026",
+    "title": "AutoCAD training courses in October 2026 (paid, mostly)",
+    "claim": "Search snippets show paid live AutoCAD courses with October 2026 sessions: Yestermorrow Intro to AutoCAD (Oct 13 to Nov 5, $850), Penn State Scranton AutoCAD Level 2 (Oct 6 to 22), Imagine It AutoCAD Advanced (Oct 26 to 28). Free options are self-paced (SourceCAD, Udemy). No Autodesk Academy October offering was found. These are snippet-only, not opened, and the listing dates are not publication dates.",
+    "url": "https://yestermorrow.org/learn/courses/intro-autocad/intro-autocad-oct-13-2026 (snippet); https://www.imaginit.com/training/find-a-class-and-enroll/class-schedules/CourseId/2419 (snippet)",
+    "date": "unknown (session dates in snippets; publication dates not seen)",
+    "is_new": false,
+    "relevance": "low",
+    "negative_claim": false,
+    "action": "Check Autodesk Learning and the individual course pages for prices and dates before recommending training to the team."
+   }
+  ],
+  "gaps": [
+   "Autodesk blog (autodesk.com/blogs/autocad/autocad-2027-1/) returned 403 and was not opened; the 2027.1 date and year remain unverified.",
+   "No AutoCAD or Autodesk news dated 2026-10-07 to 2026-10-16 was found beyond ezdxf 1.4.5 and 1.4.5b2.",
+   "ezdxf 1.4.5 changelog content was not read: readthedocs history returned 404, NEWS.md on raw.githubusercontent returned 404, and the PyPI JSON was truncated.",
+   "LibreDWG official release page returned 429 and was not opened.",
+   "ODA MCP Servers GA status after the Q3 2026 target is unverified; the ODA page opened still said pre-release.",
+   "PyPI detail pages were summarized by a model via WebFetch; dates should be confirmed on the page before publication.",
+   "The Autodesk Assistant feature list came only from the CAD Tutor repost, not the primary Autodesk blog."
+  ]
+ },
+ "research:pools-render": {
+  "model_id": "claude-haiku-5-5",
+  "findings": [
+   {
+    "id": "F01",
+    "title": "Dubai Municipality homepage footer (returned for GU34 pool-plan guideline URL)",
+    "claim": "The URL I requested (DM-HSD-GU34 pool-plan technical guidelines PDF) returned the Dubai Municipality homepage instead of the PDF. The footer shows 'Page last modified: 16 October 2026'. This date describes that homepage only and does not confirm any pool rule.",
+    "url": "https://www.dm.gov.ae/wp-content/uploads/2024/07/DM-HSD-GU34-ASPP2_Technical-Guidelines-for-Approval-of-Swimming-Pool-Plans_V4.pdf",
+    "date": "2026-10-16 (page footer, seen by opening the page)",
+    "is_new": true,
+    "relevance": "low",
+    "negative_claim": false,
+    "action": "Opened the page via WebFetch. Content mismatch: the GU34 PDF text was NOT read. Retry the PDF URL in a browser and extract the text; do not rely on this date for pool rules."
+   },
+   {
+    "id": "F02",
+    "title": "Blender download page: 5.2.2 LTS and 5.3 status",
+    "claim": "Download page lists 'v5.2.2 LTS' as the latest release, 'Released September 15, 2026', shows a 'Download Blender 5.3 Beta' button, and says 5.3 is 'Expected November 10, 2026'. No release candidate is mentioned on the page.",
+    "url": "https://www.blender.org/download/",
+    "date": "2026-09-15 (5.2.2 release date shown on page); page snapshot date unknown",
+    "is_new": false,
+    "relevance": "high",
+    "negative_claim": true,
+    "action": "Opened the page via WebFetch. Negative claim (no RC mentioned) is verified only for this page snapshot, not for Blender's full release schedule. 5.2.2 is before the 2026-10-07 window, so not new."
+   },
+   {
+    "id": "F03",
+    "title": "Blender 5.3 Release Notes (developer docs)",
+    "claim": "Blender 5.3 release notes page says the release 'is currently in Beta until November 4, 2026' and links to a milestone schedule. The only headline item I read was a draw_instanced compatibility note. No separate final date is stated on this page.",
+    "url": "https://developer.blender.org/docs/release_notes/5.3/",
+    "date": "unknown (page undated; reached via 301 redirect from blender.org/download/releases/5-3/)",
+    "is_new": false,
+    "relevance": "high",
+    "negative_claim": false,
+    "action": "Opened the page via WebFetch. The Nov 4 beta-end date differs in framing from the 2026-11-10 date on the download page. Both are unverified against the milestone schedule itself, so is_new is set false because the page date is unknown."
+   },
+   {
+    "id": "F04",
+    "title": "Twinmotion 2026.2 Preview release notes",
+    "claim": "Preview notes say Twinmotion 2026.2 Preview 'is now available' from the Epic Games launcher. Headline items: Dynamic sky in Realistic mode, a Night sky setting with moon and Milky Way, MegaLights shadows (needs hardware ray tracing), Cryptomattes EXR export, and Interchange import (legacy importer removed). The page gives no final-release date and says performance work is planned 'for the next release'.",
+    "url": "https://dev.epicgames.com/documentation/twinmotion/twinmotion-2026-2-preview-release-notes?lang=en-US",
+    "date": "unknown (no date on page)",
+    "is_new": false,
+    "relevance": "high",
+    "negative_claim": true,
+    "action": "Opened the page via WebFetch. Negative claim: no final 2026.2 release date appears on this page. This is unverified beyond this page. The DXF removal is already in the known list and is not re-reported. Night sky and cryptomattes are useful for pool and garden renders."
+   },
+   {
+    "id": "F05",
+    "title": "Twinmotion release notes index",
+    "claim": "Index lists six entries: 2026.2 Release Notes, 2026.1, 2025.2, 2025.1, 2024.1 and 2023. None has a date on the index. The 2026.2 entry is described as 'Release Notes for Twinmotion 2026.2 builds'. The index does not list a separate 2026.2 Preview entry.",
+    "url": "https://dev.epicgames.com/documentation/twinmotion/release-notes-for-twinmotion",
+    "date": "unknown (no dates on page)",
+    "is_new": false,
+    "relevance": "medium",
+    "negative_claim": true,
+    "action": "Opened the page via WebFetch. Negative claim: no dates shown for any entry, so the final 2026.2 release date is not established from this page. Check the 2026.2 builds notes URL directly."
+   },
+   {
+    "id": "F06",
+    "title": "Chaos press releases page",
+    "claim": "Most recent entry is dated May 27, 2026: Veras is included with Enscape, V-Ray and Corona. Earlier 2026 entries include V-Ray 7 Update 3 (Apr 15) and Veras 4.0 (Feb 10). No press releases dated September or October 2026 appear on the page.",
+    "url": "https://www.chaos.com/press-releases",
+    "date": "2026-05-27 (latest entry seen on page)",
+    "is_new": false,
+    "relevance": "medium",
+    "negative_claim": true,
+    "action": "Opened the page via WebFetch. Negative claim (no Sep/Oct 2026 press releases) is verified only for this page. Chaos blog or product pages may carry newer items that this page does not list."
+   },
+   {
+    "id": "F07",
+    "title": "Enscape what's-new page: Envision 1.5, animated water incl. pools",
+    "claim": "Page lists Envision 1.5 with a one-click Enscape live link, removal of the 2GB scene limit, Revit 2027 support, and real-time animated water that covers 'oceans, rivers, and pools'. Veras AI is listed on all plans. The page shows no version or release dates.",
+    "url": "https://www.chaos.com/enscape/whats-new",
+    "date": "unknown (no dates on page; only copyright 2026)",
+    "is_new": false,
+    "relevance": "high",
+    "negative_claim": true,
+    "action": "Opened the page via WebFetch. Negative claim: no dated September or October 2026 items are shown on this page. The pool-water feature is directly relevant to infinity-pool renders."
+   },
+   {
+    "id": "F08",
+    "title": "Unreal Engine 5.8 timing and UE6 early-access date (secondary)",
+    "claim": "Article dated 18.06.2026 says Epic released UE 5.8 at State of Unreal 2026. It says 5.8 is expected to be the last UE5 update, and that early access to Unreal Engine 6 'will open in late 2027', with full release 12 to 18 months later.",
+    "url": "https://wnhub.io/news/engines/item-51157",
+    "date": "2026-06-18 (article date shown on page)",
+    "is_new": false,
+    "relevance": "medium",
+    "negative_claim": false,
+    "action": "Opened the page via WebFetch. Secondary news source, not Epic. The UE6 timing needs confirmation from Epic's own post before use in a plan. UE 5.8 itself is already in the known list."
+   },
+   {
+    "id": "F09",
+    "title": "Unreal Engine MCP plugin page (Claude marketplace)",
+    "claim": "Plugin listed as 'Unreal Engine MCP', made by Epic Games, with no version or last-updated date on the page. Requires the ModelContextProtocol and AllToolsets plugins enabled, and the server started with ModelContextProtocol.StartServer.",
+    "url": "https://claude.com/plugins/unreal-engine-skills-for-claude-code",
+    "date": "unknown (no plugin date; footer shows copyright 2026)",
+    "is_new": false,
+    "relevance": "medium",
+    "negative_claim": true,
+    "action": "Opened the page via WebFetch. Negative claim: no update dated in the window is shown. The EpicGames GitHub repo returned HTTP 403 and was not read, so no release or commit date is confirmed."
+   },
+   {
+    "id": "F10",
+    "title": "Dubai Municipality private pool safety guideline (GU80) - not readable",
+    "claim": "The PDF on the DM media server is an encrypted, compressed PDF (AESV2). The fetch returned raw binary and no text. I could not extract fence height, gate, depth-marking, or drain-cover rules. The fetch tool also saved a 1.4 MB copy to a local tool-results path, which I did not open.",
+    "url": "https://dmpmedia.dm.gov.ae/uploads/2022/03/DM-HSD-GU80_PRSPS2_Private-Swimming-Pools-Safety-Guidelines_V1-1.pdf",
+    "date": "unknown (2022/03 is from the URL path, not seen on the document)",
+    "is_new": false,
+    "relevance": "high",
+    "negative_claim": true,
+    "action": "Opened via WebFetch but text was NOT extracted. Negative claim: I did not verify the document's current contents or version. A human should open the PDF and extract the text before the spec uses any pool safety number."
+   },
+   {
+    "id": "F11",
+    "title": "Gulf News: 90 cm pool fence and lockable door (Dubai circular)",
+    "claim": "Article reports a Dubai Municipality Buildings Department circular that set 'a minimum 90cm fence around swimming pools'. It also says pools 'have to have a lockable door and a warning system to protect children'. The article's own date line is not visible; the only date shown is 'Last updated: September 16, 2018'.",
+    "url": "https://gulfnews.com/uae/new-safety-standards-for-balconies-pools-1.1281313",
+    "date": "2018-09-16 (last-updated stamp on page)",
+    "is_new": false,
+    "relevance": "high",
+    "negative_claim": false,
+    "action": "Opened the page via WebFetch. Secondary news report of a circular. The 90 cm figure must be checked against the current DM guideline, which I could not read (see F10). It may predate current rules."
+   },
+   {
+    "id": "F12",
+    "title": "Dubizzle Dubai pool drawing approval article",
+    "claim": "Lists the approval documents (pool section, pipe layouts, pump room with turnover calculations, drainage scheme, equipment specs), the e-Permit steps, and that private pools need a chlorine feeder or automated injection system. Diving board rules include a 5 m clear headspace and 2.5 m minimum depth for boards up to 1 m. The article gives no fence or gate figures.",
+    "url": "https://www.dubizzle.com/blog/property/swimming-pool-drawing-approval-dubai/",
+    "date": "unknown (only footer '\u00a9 2024')",
+    "is_new": false,
+    "relevance": "medium",
+    "negative_claim": true,
+    "action": "Opened the page via WebFetch. Secondary source that names Dubai Municipality as the approving authority. Negative claim: no fence height or gate requirement appears on this page."
+   },
+   {
+    "id": "F13",
+    "title": "Aqua Magazine: vanishing-edge pocket guide (catch basin rule of thumb)",
+    "claim": "Article gives the rule of thumb that the basin should be 'as wide as the dam wall is tall', which the author calls excessive in many cases. It says the basin must be large enough for water in transit and bather surges. It gives no numeric surge volumes, basin dimensions, or leveling tolerance; it says the edge should be 'as spot-on level as humanly possible'.",
+    "url": "https://www.aquamagazine.com/builder/article/15120187/a-pocket-guide-to-building-vanishing-edgepools",
+    "date": "2011-06-15 (publication date shown on page)",
+    "is_new": false,
+    "relevance": "high",
+    "negative_claim": true,
+    "action": "Opened the page via WebFetch. Negative claim: the article gives no numeric sizing or tolerance values, so no primary sizing number is supported by this source. Trade source, dated 2011."
+   },
+   {
+    "id": "F14",
+    "title": "Wisconsin SPS 390.11 vanishing-edge code (US state, not Dubai)",
+    "claim": "Snippet of the Wisconsin code says a single vanishing-edge wall may cover up to 50% of basin perimeter if adjacent water is at least 5 ft deep, and a dry-side catch ledge at least 3 ft wide (or equivalent) is included within 3 ft vertically of the wall top.",
+    "url": "https://docs.legis.wisconsin.gov/document/administrativecode/SPS 390.11(3)(a)",
+    "date": "unknown (search snippet only; page not opened)",
+    "is_new": false,
+    "relevance": "medium",
+    "negative_claim": false,
+    "action": "Search snippet only, NOT opened. Use only as an example of edge-detailing logic; it does not apply in Dubai. Verify the text at docs.legis.wisconsin.gov before citing."
+   },
+   {
+    "id": "F15",
+    "title": "ANSI/APSP/ICC-7 2013 (infinity edge scope) - listing only",
+    "claim": "ANSI webstore listing for ANSI/APSP/ICC-7 2013 says the scope includes infinity edge basins, covering circulation-system design and entrapment protection. The listing is labeled 'Historical'. The weir and leveling clauses were not visible.",
+    "url": "https://webstore.ansi.org/standards/apsp/ansiapspicc2013-1508182",
+    "date": "2013 (edition year from listing; page date unknown)",
+    "is_new": false,
+    "relevance": "high",
+    "negative_claim": true,
+    "action": "Search snippet only, NOT opened. Negative claim: I could not confirm the current edition or any weir/vanishing-edge numbers from this listing. Buy or read the current edition for numeric rules."
+   },
+   {
+    "id": "F16",
+    "title": "PoolDial balance-tank calculator (vendor claim, unverified)",
+    "claim": "Vendor calculator says tank size can be estimated from surge displacement, evaporation, a wave reserve of about 1% of pool volume, and a 25% safety factor. The method was not checked against an independent standard.",
+    "url": "https://pooldial.com/balance-tank-calculator",
+    "date": "unknown (search snippet only; page not opened)",
+    "is_new": false,
+    "relevance": "low",
+    "negative_claim": false,
+    "action": "Search snippet only, NOT opened. Commercial vendor claim; treat as an unverified rule of thumb, not a design basis."
+   }
+  ],
+  "gaps": [
+   "No item dated 2026-10-07 to 2026-10-16 was verified as new for Blender, Unreal/Epic skill, Twinmotion, Chaos (Enscape/V-Ray/Corona/Veras), or D5. Searches returned only older or undated pages. This is a negative result on the sources I opened, not proof that no news exists.",
+   "Twinmotion 2026.2 final release date: not found. The preview notes and index page show no final date.",
+   "Dubai pool safety rules (fence height, gate type, depth markings, drain covers, barrier from house): the DM GU80 PDF is encrypted and could not be read; the GU34 PDF URL returned the DM homepage. Current DM numbers are unverified. The only numeric fence figure found (90 cm) is from a 2018-dated secondary news report.",
+   "Infinity-edge weir tolerances and catch-basin or balance-tank sizing: no primary standard with numeric values was opened. ANSI/APSP/ICC-7 text was not accessible; Watershapes vanishing-edge article returned HTTP 403; EpicGames GitHub repo returned HTTP 403.",
+   "Forum sizing examples (troublefreepool) were anecdotal and not opened; not used as findings.",
+   "The Blender 5.3 developer release-notes page and download page both have undated snapshots. The 2026-11-10 (download page) and Nov 4 beta-end (developer docs) dates differ in framing; neither is confirmed against the official milestone schedule.",
+   "Twinmotion 2026.2 DXF removal was re-confirmed on the preview notes page but is already in the known list, so it was not re-reported.",
+   "A 1.4 MB PDF was saved by the fetch tool to a local tool-results folder during the DM fetch. It was not opened or run."
+  ]
+ },
+ "research:claude-skills": {
+  "model_id": "claude-haiku-5-5",
+  "findings": [
+   {
+    "id": "cc-2.1.301",
+    "title": "Claude Code v2.1.301 (latest in window)",
+    "claim": "Changelog lists 2.1.301 as released Oct 15, 2026. Items: CLAUDE_CODE_RETRY_WATCHDOG_MAX_USAGE_LIMIT_WAIT_MS for unattended retry mode; fixes to skills vanishing after /rewind, plugin/skill hook ask-prompts, workflow scripts being refused after a Bash cd; a fix where switching to a smaller-context model could spend usage credits; OpenTelemetry tool_decision now carries classifier_verdict and permission_mode.",
+    "url": "https://code.claude.com/docs/en/changelog (also https://github.com/anthropics/claude-code/releases and raw CHANGELOG.md)",
+    "date": "2026-10-15 (releases page shows '15 Oct, 19:22' with no year; year assumed 2026)",
+    "is_new": true,
+    "relevance": "high",
+    "negative_claim": false,
+    "action": "Opened the official changelog and releases pages. Use for agent cost-control notes (usage-credit fix) and unattended workflow runs. Verify the version on the team's installed build before relying on it."
+   },
+   {
+    "id": "cc-2.1.299",
+    "title": "Claude Code v2.1.299: skills metadata to mod hooks, claude plugin eval --disallow-tools, /usage warnings",
+    "claim": "Changelog entry dated October 14, 2026. Adds skill frontmatter, source, plugin name and file path to the skill.prompt mod hook; adds --disallow-tools and disallowed_tools to claude plugin eval; adds /usage warnings for max effort, workflows, always-on context and large tool results; adds CLAUDE_CODE_DISABLE_FILE_MENTIONS; idle compaction for conversations over 200K tokens idle about 54 minutes.",
+    "url": "https://code.claude.com/docs/en/changelog",
+    "date": "2026-10-14",
+    "is_new": true,
+    "relevance": "high",
+    "negative_claim": false,
+    "action": "Opened the official changelog page. Relevant to skill packaging, plugin evals and cost control. Test claude plugin eval --disallow-tools before using it in the architectural-cad skill evals."
+   },
+   {
+    "id": "cc-2.1.296",
+    "title": "Claude Code v2.1.296: CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL and autoCompactWindow for subagents",
+    "claim": "Changelog entry dated October 9, 2026. Adds CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL to run every workflow agent on one model; adds autoCompactWindow to subagent frontmatter and --agents definitions; updates /cost, the status line, --max-budget-usd and SDK cost figures.",
+    "url": "https://code.claude.com/docs/en/changelog",
+    "date": "2026-10-09",
+    "is_new": true,
+    "relevance": "high",
+    "negative_claim": false,
+    "action": "Opened the official changelog page. Directly relevant to pinned per-job model routing (Haiku/Sonnet/Opus) and cost control. The env var can force one model on all workflow agents, which overrides per-agent pins, so check pinned cad-* agents against it."
+   },
+   {
+    "id": "cc-2.1.295",
+    "title": "Claude Code v2.1.295: subagents preload at most 32 skills; plugin install warnings",
+    "claim": "Changelog entry dated October 8, 2026. Subagents now preload at most 32 skills from the skills field, each once; adds a warning to claude plugin install, enable, disable and marketplace add; improves the built-in plugin-authoring skill; fixes forked skills invoked from workflow subagents not returning results; fixes skill allowed-tools and effort being dropped.",
+    "url": "https://code.claude.com/docs/en/changelog",
+    "date": "2026-10-08",
+    "is_new": true,
+    "relevance": "high",
+    "negative_claim": false,
+    "action": "Opened the official changelog page. Caps skill preloading for subagents; check whether any pinned cad-* subagent lists more than 32 skills."
+   },
+   {
+    "id": "cc-2.1.300",
+    "title": "Claude Code v2.1.300: workflow agent prompt/model rewriting, $.ui.view for agents, /advisor on AWS",
+    "claim": "Changelog entry dated October 14, 2026. Adds support for rewriting a workflow agent's prompt and model; adds $.ui.view({ agentId }) for mods to show an agent transcript; improves mod sharing in the built-in plugin-authoring skill; a Havoptic summary adds /advisor on Claude Platform on AWS.",
+    "url": "https://code.claude.com/docs/en/changelog ; secondary: https://www.havoptic.com/r/claude-code-2.1.300 (not opened)",
+    "date": "2026-10-14",
+    "is_new": true,
+    "relevance": "medium",
+    "negative_claim": false,
+    "action": "Opened the official changelog page for the core items. The /advisor line comes from the Havoptic aggregator listing (dated Oct 14, 2026 there) and was not verified on a primary page."
+   },
+   {
+    "id": "cc-2.1.294",
+    "title": "Claude Code v2.1.294: instruction-style prompt hooks fixed on Stop and SubagentStop",
+    "claim": "Changelog entry dated October 8, 2026. Fixes prompt and agent hooks written as instructions that allowed actions they should block; improves how prompt hooks on Stop and SubagentStop are judged so Claude stops early less often.",
+    "url": "https://code.claude.com/docs/en/changelog",
+    "date": "2026-10-08",
+    "is_new": true,
+    "relevance": "medium",
+    "negative_claim": false,
+    "action": "Opened the official changelog. Relevant if the pipeline uses Stop hooks as guardrails. Note: the 2026-10-08 research covered only up to 2.1.293, so this is new."
+   },
+   {
+    "id": "claude-blog-agent-automations",
+    "title": "Building effective agent automations (Claude Managed Agents)",
+    "claim": "Post dated Oct 08, 2026. Walkthrough for scheduled agents on Claude Managed Agents with a per-run spending cap set via budget in deployment.md; runs that hit the cap pause with a budget_reached stop reason; advises starting the cap at three to five times a normal run's cost. Uses the claude-api skill for setup.",
+    "url": "https://claude.dev/blog/building-effective-agent-automations/",
+    "date": "2026-10-08",
+    "is_new": true,
+    "relevance": "high",
+    "negative_claim": false,
+    "action": "Opened the post. Useful as a concrete pattern for per-run budget caps in the multi-agent pipeline. Managed Agents, not local Claude Code, so check applicability before adopting."
+   },
+   {
+    "id": "claude-blog-dashboards-motion",
+    "title": "Build live dashboards and animate explainers with Claude",
+    "claim": "Listed on claude.com resources with date Oct 8, 2026 and categories Claude Code and Design.",
+    "url": "https://claude.com/resources/articles/dashboards-and-motion",
+    "date": "2026-10-08",
+    "is_new": true,
+    "relevance": "medium",
+    "negative_claim": false,
+    "action": "Seen only in the claude.com listing (not opened). Check whether it covers producing HTML or visual deliverables from Claude Code, which could be relevant to presentation output."
+   },
+   {
+    "id": "claude-code-review-ga",
+    "title": "Code Review is now generally available; plus Claude Code team code-review post",
+    "claim": "Listed on claude.com with date Oct 15, 2026 (category Claude Code). A companion post 'How the Claude Code team does code review' is listed Oct 16, 2026 at claude.dev/blog/solving-code-review-at-anthropic/.",
+    "url": "https://claude.com/resources/articles/code-review-is-now-generally-available",
+    "date": "2026-10-15",
+    "is_new": true,
+    "relevance": "low",
+    "negative_claim": false,
+    "action": "Seen only in the claude.com listing (not opened). Low relevance to CAD or architecture work."
+   },
+   {
+    "id": "claude-blog-eval-hillclimb",
+    "title": "Automating eval design and hillclimbing with Claude",
+    "claim": "Listed Oct 7, 2026 on the claude.com listing, but the post page itself shows Published Sep 28, 2026. It covers /claude-api build-eval and hillclimb commands and treats the claude-api skill as a hillclimbing target (pass rate 66% to about 88%). It does not mention claude plugin eval.",
+    "url": "https://claude.dev/blog/automating-eval-design-and-hillclimbing/",
+    "date": "2026-09-28 (post page); listing said 2026-10-07",
+    "is_new": false,
+    "relevance": "medium",
+    "negative_claim": false,
+    "action": "Opened the post. Date conflict: the post's own date is before the window, so do not count it as new. Skill-eval pattern is useful for the architectural-cad skill evals."
+   },
+   {
+    "id": "anthropic-news-negative",
+    "title": "No Claude Code, skills, or plugin announcement on anthropic.com/news in window (negative)",
+    "claim": "The anthropic.com/news index shows six items dated Oct 7 to Oct 16, 2026: Haiku 5.5 (Oct 7), usage policy update, Cyber Mission, Genesis Mission commitment (Oct 8), Singapore office (Oct 14), midterms policy and independent evaluators update (Oct 14 and 15). None is about Claude Code, skills, plugins, subagents or cost controls.",
+    "url": "https://www.anthropic.com/news",
+    "date": "2026-10-15 (latest item seen)",
+    "is_new": false,
+    "relevance": "low",
+    "negative_claim": true,
+    "action": "Opened the index page only, not each post. Negative claim is UNVERIFIED beyond the index listing. Release-level changes are in the changelog, not the news page."
+   },
+   {
+    "id": "autodesk-blog-negative",
+    "title": "No Autodesk developer blog posts dated Oct 7-16, 2026 (negative)",
+    "claim": "The blog.autodesk.io listing's newest post is dated Oct 1, 2026 ('Place a valve on an SLINE from code'). None of the ten most recent posts is about MCP, AI agents or Autodesk Assistant.",
+    "url": "https://blog.autodesk.io/",
+    "date": "2026-10-01 (newest seen)",
+    "is_new": false,
+    "relevance": "medium",
+    "negative_claim": true,
+    "action": "Opened the blog listing (page 1 of 604). Negative claim is limited to the top 10 posts and to titles and tags, not full articles. Autodesk newsroom and AutoCAD release notes were not checked."
+   },
+   {
+    "id": "imaginit-autocad-advanced",
+    "title": "AutoCAD: Advanced (LIVE Online) at Imaginit",
+    "claim": "Course page shows sessions Nov 4, 5 and 6, 2026, 9 AM to 5 PM Central, $1,445 excluding tax. A search snippet had said Oct 26-28, which this page contradicts.",
+    "url": "https://www.imaginit.com/training/find-a-class-and-enroll/class-schedules/CourseId/2419",
+    "date": "2026-11-04 (session date; no publication date shown)",
+    "is_new": false,
+    "relevance": "medium",
+    "negative_claim": false,
+    "action": "Opened the page. Not a new offering as far as can be shown, and no publication date is shown. Confirm with the provider before enrolling."
+   },
+   {
+    "id": "ledet-autocad-courses",
+    "title": "Ledet AutoCAD 101, 301 and Advanced Bootcamp class schedules",
+    "claim": "Search snippet only: AutoCAD 101 starts Oct 5, 2026; AutoCAD 301 and Advanced Bootcamp start Oct 12, 2026; prices $1,799 and $2,599. Not opened.",
+    "url": "https://www.ledet.com/courses/autodesk-autocad-301-advanced/",
+    "date": "unknown (snippet; seen in search results, not opened)",
+    "is_new": false,
+    "relevance": "low",
+    "negative_claim": false,
+    "action": "Unverified snippet only. Dates fall before or at the start of the window and are not new. Open the pages before using them."
+   },
+   {
+    "id": "graduateschool-autocad-masterclass",
+    "title": "AutoCAD Masterclass (Graduate School) with ACP exam prep",
+    "claim": "Search snippet only: live online program at $1,495 covering exam prep for the Autodesk Certified Professional in AutoCAD for Design and Drafting; sessions Sep 8 to Oct 29 and Nov 2 to Dec 28, 2026.",
+    "url": "https://www.graduateschool.edu/courses/autocad-masterclass/september-28-2026--1390",
+    "date": "unknown (snippet; not opened)",
+    "is_new": false,
+    "relevance": "low",
+    "negative_claim": false,
+    "action": "Snippet only; not opened. Not a new offering from the window as far as can be shown."
+   },
+   {
+    "id": "negative-cad-skills-window",
+    "title": "No CAD/BIM-specific Claude Code skill or plugin announced in window (negative, unverified)",
+    "claim": "Searches for Claude Code skills or plugins for CAD, BIM or architecture in Oct 2026 returned only third-party blogs and marketplace listings (ArchiCAD, Revit), none dated in the window. No Anthropic or Autodesk or Graphisoft primary announcement was found.",
+    "url": "https://archgyan.com/topic/archicad/ ; https://claudemarketplaces.com/skills/membranedev/application-skills/autodesk-revit",
+    "date": "unknown (not dated in the window on the pages seen)",
+    "is_new": false,
+    "relevance": "medium",
+    "negative_claim": true,
+    "action": "UNVERIFIED negative. Only search snippets and secondary blogs checked; no vendor docs pages or Autodesk or Graphisoft developer sites were opened. Treat as no evidence found, not as proof none exists."
+   },
+   {
+    "id": "negative-plugin-marketplace-window",
+    "title": "No official Oct 2026 plugin marketplace or skill-sharing announcement found (negative, unverified)",
+    "claim": "Searches for an Oct 2026 Claude plugin marketplace or skills-sharing announcement returned only older or third-party material. The only dated marketplace items are changelog entries 2.1.295 to 2.1.301 (plugin install warnings, marketplace fixes, plugin eval flag).",
+    "url": "https://code.claude.com/docs/en/changelog",
+    "date": "2026-10-08 to 2026-10-15 (changelog entries)",
+    "is_new": false,
+    "relevance": "low",
+    "negative_claim": true,
+    "action": "UNVERIFIED negative. The claude.com blog and changelog were opened; no dedicated marketplace post was in the window. Plugin marketplace docs were not opened, so a page-level announcement could still exist."
+   }
+  ],
+  "gaps": [
+   "Individual Claude Code docs pages for skills, plugins and subagents were not opened, so skill-packaging and marketplace features are known only from changelog bullets.",
+   "The GitHub releases page and raw CHANGELOG show no year, so 2026 was assumed for the Oct dates; code.claude.com/docs/en/changelog gave dates with year.",
+   "The Havoptic aggregator listed Claude Code 2.1.294 as Oct 7 in one snippet and Oct 8 on its page; the official changelog says Oct 8.",
+   "Ledet, Graduate School and Noble Desktop course pages were not opened; Autodesk Learning and Autodesk University pages were not checked.",
+   "The claude.com dashboards post (Oct 8) and Code Review GA post (Oct 15) were seen only in a listing, not opened.",
+   "No CAD-specific Claude skill, plugin, or Autodesk or Graphisoft developer announcement was verified inside the window.",
+   "The Dubai-specific training and skill angle was not searched; nothing in this angle covers local (UAE) trainings."
+  ]
+ },
+ "research:trainings": {
+  "model_id": "claude-haiku-5-5",
+  "findings": [
+   {
+    "id": "f01",
+    "title": "Architosh: AU 2026 analysis, Autodesk Assistant going agentic",
+    "claim": "Says Autodesk is reworking Assistant into a cross-platform tool with Personal Pulse, Assistant Spaces and Assistant Builder, with a standalone expanded platform expected in 2027 and still in preview. Pricing and licensing are not expected until 2027. The article body does not mention MCP, AutoCAD training or webinars.",
+    "url": "https://architosh.com/2026/10/au2026-autodesk-shifts-ai-from-chatbots-to-agentic-ecosystems/",
+    "date": "2026-10-07",
+    "is_new": true,
+    "relevance": "medium",
+    "negative_claim": false,
+    "action": "Opened page. Only in-window item with a verified date. Context for Autodesk Assistant roadmap, not a training offer."
+   },
+   {
+    "id": "f02",
+    "title": "Anthropic: Claude Frontier Academy (Frontier Deployed Engineer Residency)",
+    "claim": "Anthropic commits $100M to train 10,000 Frontier Deployed Engineers by end-2027. The first program is a 4-day intensive (3 days in person, graded day 4) that earns a Claude Resident Engineer badge, then a 12-week residency leading a real deployment. Entry is by employer nomination. Cohorts are described as running in San Francisco, New York and London, and first FDE credentials are expected early 2027. The announcement does not state participant pricing (negative, page-level). The claude.com program page is undated, says the program is in early access, and does not give cohort cities.",
+    "url": "https://anthropic.com/news/claude-frontier-academy",
+    "date": "2026-10-02",
+    "is_new": false,
+    "relevance": "high",
+    "negative_claim": false,
+    "action": "Opened anthropic.com announcement (byline Oct 2, 2026) and claude.com/programs/frontier-academy. Just before the window, so is_new=false. Enterprise nomination track, not a self-serve course."
+   },
+   {
+    "id": "f03",
+    "title": "Anthropic Webinars page: upcoming live sessions and recurring Claude Code workshops",
+    "claim": "Lists dated live sessions: Oct 21 2026 Tokenomics on AWS (controlling Claude spend, cost per task for API agents); Oct 22 2026 a Claude roadmap review (parsed title looks garbled, verify on the page); Oct 29 2026 a PE portfolio session. Recurring: Virtual Claude Code Workshop, Claude Code: Advanced (90 min) and Claude Code: Foundations. On-demand: Building with the Claude 5.5 Family and a 3-part multi-agent orchestration series. No skills- or MCP-specific session appears among the 21 of 112 resources shown (negative, partial page). Times, time zones and prices are not shown. Items dated Oct 13 and Oct 14 are tagged on demand despite future dates.",
+    "url": "https://claude.com/resources/webinars",
+    "date": "unknown (listing undated; event dates Oct 21, Oct 22, Oct 29 2026)",
+    "is_new": false,
+    "relevance": "high",
+    "negative_claim": false,
+    "action": "Opened page via WebFetch. Listing shows only 21 of 112 resources, so not exhaustive. Announcement dates are not shown, so is_new=false."
+   },
+   {
+    "id": "f04",
+    "title": "Anthropic: Virtual Claude Code Workshop (with Tenex)",
+    "claim": "A 1.5-hour live online session for engineers who work in codebases they did not write. Participants take a ticket to a pull request in about 90 minutes and write a CLAUDE.md and a skill for their own repos. The page offers multiple sessions chosen at registration. It shows no specific dates and no price.",
+    "url": "https://claude.com/resources/webinars/recurring-virtual-claude-code-workshop",
+    "date": "unknown (no publication date on page)",
+    "is_new": false,
+    "relevance": "high",
+    "negative_claim": false,
+    "action": "Opened page. The anthropic.com URL returned a 301 redirect to this claude.com URL, which I followed. Best-fit live training for building skills in the window's topic area."
+   },
+   {
+    "id": "f05",
+    "title": "Claude Academy (formerly Anthropic Academy): free course catalog",
+    "claim": "The fetched academy.claude.com homepage shows AI Fluency courses (4h and 3.5h) and a beta human-agent teams course. It shows no Claude Code, MCP, Agent Skills or Claude Tag course card. Secondary blogs say the rename was announced Aug 20 2026, the catalog reached 26-27 courses, MCP has 10- and 11-lesson courses, and a Claude Tag course was added in October. Those secondary claims are unverified. Negative: no skills or Claude Tag course on the homepage I fetched.",
+    "url": "https://academy.claude.com",
+    "date": "unknown (homepage shows only copyright 2026; rename date Aug 20 2026 is from secondary sources)",
+    "is_new": false,
+    "relevance": "high",
+    "negative_claim": true,
+    "action": "Opened academy.claude.com homepage only. Did not open the full catalog or the Skilljar course pages. Secondary blogs were not opened; their course counts and dates conflict."
+   },
+   {
+    "id": "f06",
+    "title": "Autodesk webinar: MCP for Transportation (AI-powered infrastructure design)",
+    "claim": "Search results show a webinar titled MCP for Transportation: Bringing AI-Powered Automation to Infrastructure Design, with an Oct 14 date only in the URL slug. It is aimed at infrastructure design with MCP. The page returned 403, so format, price, speakers and whether it covers AutoCAD or Civil 3D are unverified. A second search could not confirm it.",
+    "url": "https://www.autodesk.com/webinars/aec/mcp-transportation-ai-infra-design-oct14",
+    "date": "unknown (URL slug suggests 2026-10-14; not confirmed on page)",
+    "is_new": false,
+    "relevance": "high",
+    "negative_claim": false,
+    "action": "Search snippet only. WebFetch returned HTTP 403. Verify the date and registration on the Autodesk page before sharing."
+   },
+   {
+    "id": "f07",
+    "title": "Autodesk Fusion blog: Changes to Autodesk Assistant in Fusion beginning October 6",
+    "claim": "Title seen in search results says Autodesk Assistant changes in Fusion start Oct 6. Related search summaries say Fusion gained local, data and compute MCP servers at AU 2026. These are not verified, and Fusion is not AutoCAD.",
+    "url": "https://www.autodesk.com/products/fusion-360/blog/changes-to-autodesk-assistant-in-autodesk-fusion-beginning-october-6th/",
+    "date": "unknown (title references Oct 6 2026)",
+    "is_new": false,
+    "relevance": "medium",
+    "negative_claim": false,
+    "action": "Search snippet only. Did not open the page. Oct 6 is one day before the window."
+   },
+   {
+    "id": "f08",
+    "title": "ODA MCP Servers FAQ (DWG, STEP, IFC reading over MCP)",
+    "claim": "Published Aug 17 2026. Launch is September 2026, embedded in the Open IFC Viewer and Open STEP Viewer. Formats at launch are DWG, STEP and IFC, with DGN, Revit and Navisworks to follow. Access needs ODA Sustaining tier or above, and Revit and Navisworks need an Extension. The page lists no dated webinars or demos (negative, page-level).",
+    "url": "https://www.opendesign.com/blog/2026/august/oda-mcp-servers-faq.md",
+    "date": "2026-08-17",
+    "is_new": false,
+    "relevance": "high",
+    "negative_claim": false,
+    "action": "Opened page via WebFetch. Launch date is a month only, not a specific day."
+   },
+   {
+    "id": "f09",
+    "title": "Autodesk University 2026 Digital Pass (free on-demand sessions)",
+    "claim": "AU 2026 digital dates were Sept 15-17 2026. A free Digital Pass gives access to livestreams and on-demand keynotes and sessions. The page does not say how long recordings stay available (negative, page-level).",
+    "url": "https://conferences.autodesk.com/flow/autodesk/au2026/web/page/overview",
+    "date": "unknown (page undated; event dates Sept 15-17 2026)",
+    "is_new": false,
+    "relevance": "high",
+    "negative_claim": false,
+    "action": "Opened page via WebFetch. Event already past, so this is a source of free recordings rather than a new event."
+   },
+   {
+    "id": "f10",
+    "title": "Autodesk blog: Watch AU 2026 AutoCAD sessions on demand",
+    "claim": "Lists AU 2026 AutoCAD sessions available on demand. Search snippets name an AI session on generating AutoLISP and C# .NET code, EDU1915 on AI tools in AutoCAD 2027 toolsets, and AU2135, an AutoCAD roadmap session. The snippets do not give access terms.",
+    "url": "https://www.autodesk.com/blogs/autocad/watch-now-au-2026-autocad-sessions-on-demand/",
+    "date": "unknown",
+    "is_new": false,
+    "relevance": "high",
+    "negative_claim": false,
+    "action": "Search snippet only. WebFetch returned HTTP 403, so session contents and dates are unverified."
+   },
+   {
+    "id": "f11",
+    "title": "Autodesk: What's New in AutoCAD 2027 webinar (AI automation)",
+    "claim": "Autodesk regional page lists a live What's New in AutoCAD 2027 webinar covering AI-powered automation, cloud collaboration and smarter drafting. A third-party listing shows a 30-minute version on June 30 (date unverified). A tech-preview Autodesk Assistant with MCP-based CAD Standards checking is mentioned in one unverified source.",
+    "url": "https://www.autodesk.com/eu/webinars/autocad/whats-new-in-autocad-2027",
+    "date": "unknown",
+    "is_new": false,
+    "relevance": "medium",
+    "negative_claim": false,
+    "action": "Search snippet only. Did not open the page. Mixed date signals in the results."
+   },
+   {
+    "id": "f12",
+    "title": "Autodesk Product Help MCP Server (free, read-only)",
+    "claim": "Autodesk release says a new read-only service gives external AI agents access to help content for more than 110 Autodesk products, at no cost. It gives no setup steps beyond a link to Autodesk MCP docs.",
+    "url": "https://adsknews.autodesk.com/en/news/product-help-mcp-server/",
+    "date": "2026-04-09",
+    "is_new": false,
+    "relevance": "medium",
+    "negative_claim": false,
+    "action": "Opened page via WebFetch. Published in April, outside the window."
+   },
+   {
+    "id": "f13",
+    "title": "Autodesk DevCon 2026: MCP connected engineering workflows and Design and Make Marketplace",
+    "claim": "A VIKTOR blog post says DevCon 2026 showcased MCP integration with Autodesk Assistant. It also says a Design and Make Marketplace will let developers publish agents, tools and MCP servers. A separate search snippet mentions a DevCon MCP workshop with a C# track. This is a general developer workshop, not CAD-specific.",
+    "url": "https://www.viktor.ai/blog/239/autodesk-devcon-2026-ai-mcp-connected-engineering-workflows",
+    "date": "unknown",
+    "is_new": false,
+    "relevance": "medium",
+    "negative_claim": false,
+    "action": "Search snippet only. Did not open the page. Date and workshop schedule unverified."
+   },
+   {
+    "id": "f14",
+    "title": "Big 5 Global 2026 (Dubai construction show), upcoming within 6 weeks",
+    "claim": "Official Big 5 Global page lists Nov 23-26 2026 at Dubai World Trade Centre, with Monday to Thursday hours. This is a trade show, not a training event, and it falls inside the 6-week lookahead.",
+    "url": "https://www.big5global.com/?p=64246",
+    "date": "unknown (no publication date on page; event dates Nov 23-26 2026)",
+    "is_new": false,
+    "relevance": "medium",
+    "negative_claim": false,
+    "action": "Opened page via WebFetch. Dates corroborated by a third-party listing in search results."
+   },
+   {
+    "id": "f15",
+    "title": "BIM World Munich 2026 (upcoming, Nov 24-25)",
+    "claim": "Official site gives 24-25 Nov 2026 at ICM Munich. It describes a 2-day congress plus trade fair, with themed tracks on circularity, facility management and infrastructure. No published agenda or AI track appears on the page (negative), and the tickets link shows no prices.",
+    "url": "https://www.bim-world.de/",
+    "date": "unknown (no publication date on page; event dates Nov 24-25 2026)",
+    "is_new": false,
+    "relevance": "low",
+    "negative_claim": false,
+    "action": "Opened page via WebFetch. Upcoming event in the 6-week lookahead."
+   },
+   {
+    "id": "f16",
+    "title": "MEAEC BuildTechXchange Riyadh (Oct 14 2026, AI and BIM integration)",
+    "claim": "Search snippet says delegate applications are open for a Riyadh summit on Oct 14 2026 covering AI, automation and AI-BIM integration. Attendance is vetted and limited to end users. It is in Saudi Arabia, not Dubai.",
+    "url": "unknown (no URL returned in search results)",
+    "date": "2026-10-14 (event date from search snippet)",
+    "is_new": false,
+    "relevance": "low",
+    "negative_claim": false,
+    "action": "Search snippet only. Could not open a page or confirm the URL. Verify before sharing."
+   },
+   {
+    "id": "f17",
+    "title": "GITEX Global 2026 is in December, not October (negative check)",
+    "claim": "GITEX Global 2026 runs Dec 7-11 2026 at Expo City Dubai (Summit Dec 7, Expo Dec 8-11). It is NOT in October 2026 (negative claim). This rests on search snippets from multiple sites and was not checked on gitex.com.",
+    "url": "https://www.therecursive.com/gitex-global-2026-moves-to-expo-city/",
+    "date": "unknown (article undated in snippet; event Dec 7-11 2026)",
+    "is_new": false,
+    "relevance": "low",
+    "negative_claim": true,
+    "action": "Search snippet only. Did not open the page. Negative claim is UNVERIFIED against the primary gitex.com source."
+   }
+  ],
+  "gaps": [
+   "Only one finding (Architosh, Oct 7) has a verified date inside the Oct 7-16 window. No Anthropic or Autodesk training was confirmed as announced in the window.",
+   "All autodesk.com blog and webinar pages I tried (AU 2026 AutoCAD sessions, AU attend-from-anywhere, MCP for Transportation, AU product announcements) returned HTTP 403 to WebFetch. Those findings rest on search snippets and are unverified.",
+   "Full Claude Academy catalog and Skilljar course pages (anthropic.skilljar.com) were not opened. Claims about 26-27 courses, MCP course lengths, and a Claude Tag course are secondary-source only.",
+   "Autodesk Learning (learning site) and Autodesk Community webinar pages were not opened. The Coursera free AutoCAD exam-prep claim is from a low-quality careers page and is unverified.",
+   "No Dubai-specific AI or BIM training (for example Dubai Municipality or DLD programs) was searched, since the brief was limited to Claude, Autodesk and MCP-for-CAD angles.",
+   "Negative claims: no October 2026 Claude skills or MCP course found (UNVERIFIED, based on a partial homepage fetch and search); no dedicated AutoCAD Assistant training series found (UNVERIFIED, search only); no CAD/BIM MCP event dated Oct 7-16 found (UNVERIFIED, search only).",
+   "Listing-page dates conflict: Anthropic webinars page tags Oct 13 and Oct 14 items as on demand despite future dates. Times, time zones and prices are not shown for most sessions.",
+   "Anthropic Frontier Academy cohort locations differ by source: the anthropic.com announcement names San Francisco, New York and London, while the claude.com program page gives no cities."
+  ]
+ },
+ "verify:autocad": {
+  "validator_model_id": "claude-opus-5-5",
+  "verdicts": [
+   {
+    "id": "ezdxf-1.4.5-final",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "The PyPI page shows 1.4.5 'Oct 16, 2026'. The JSON endpoint gives info.version 1.4.5, with files uploaded 2026-10-16 between 11:35 and 12:31 UTC. The changelog CAN be read on GitHub at https://github.com/mozman/ezdxf/blob/master/notes/pages/CHANGELOG.md under 'Version 1.4.5 - 2026-10-16'. Changes: wheels for Python 3.15 added and Python 3.10 wheels DROPPED as end-of-life; PLANESURFACE support; %%% control code; HATCH pattern scale/rotation/base-point fixes when transforming; aligned-dimension and ray-intersection fixes; numpy 2.5 and pyparsing 3.3.3 compatibility; MTEXT export fixes. Before bumping the pin, confirm that every pipeline interpreter (Windows and WSL) is Python 3.11 or later.",
+    "corrected_claim": ""
+   },
+   {
+    "id": "ezdxf-1.4.5b2",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "The PyPI release history lists 1.4.5b2 (pre-release) on 'Oct 10, 2026' and 1.4.5b1 on Sep 30, 2026. The GitHub changelog has no separate b1 or b2 entries. Superseded by the 1.4.5 final.",
+    "corrected_claim": ""
+   },
+   {
+    "id": "ezdxf-github-releases",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "The page reads 'There aren't any releases here.' The action needs one fix: the changelog is on GitHub at notes/pages/CHANGELOG.md, which carries dated version entries, so GitHub is still useful for checking changes.",
+    "corrected_claim": "GitHub Releases for mozman/ezdxf is empty, but the dated changelog is in the repo at notes/pages/CHANGELOG.md."
+   },
+   {
+    "id": "autocad-2027-1-blog-date",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "is_new=false is correct. The Autodesk blog returned 403 again. The cadforum.cz (ARKANCE) download listing dates the AutoCAD 2027.1 and LT 2027.1 update packages to 27.7.2026 and Plant 3D 2027.1 to 28.7.2026, so the year is 2026 and the release predates the window. Search snippets of the Autodesk blog support the content: the Assistant's Insights/proactive tips, Lengthen, faster ARRAY editing, and SAVEAS. No 2027.1.1 or 2027.2 for AutoCAD was found.",
+    "corrected_claim": "AutoCAD 2027.1 shipped around 27 July 2026 (update package date per cadforum.cz). The CAD Tutor repost is dated Aug 4 (2026). Not new in the window."
+   },
+   {
+    "id": "autodesk-2027-release-notes",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "Re-opened. The page shows only March 25, 2026, has no 2027.1 section, and has no link to update notes, only a 'Scheduled Updates' admin section. Searches did not turn up an official 2027.1 fixed-issues page either.",
+    "corrected_claim": ""
+   },
+   {
+    "id": "autodesk-mcp-status",
+    "verdict": "partly_true",
+    "date_ok": true,
+    "note": "The core point holds: no Autodesk-built AutoCAD MCP server, preview or GA, was found. The APS post 'Building agentic AI' (Apr 15, 2026) lists Fusion MCP, Fusion Data MCP, Revit MCP and Product Help MCP, all in tech preview, plus Fusion Compute MCP in private beta and InfoWorks MCP coming soon, with no AutoCAD MCP. The Autodesk blog of 2026-06-17 introduces the 'Revit Public MCP Server' for Revit 2027. So the claim that Product Help is 'the only Autodesk MCP found' is wrong. The autodesk.com/solutions/autodesk-mcp-servers hub returned 403. AU 2026 (Sep 15-17) brought no AutoCAD MCP announcement in search results. Nothing new in the window.",
+    "corrected_claim": "Autodesk has several public MCP servers, all preview or beta: Fusion, Fusion Data, Revit and Product Help (tech preview, Apr 2026), plus the Revit Public MCP Server for Revit 2027 (June 2026). None controls AutoCAD, and none was confirmed GA as of 2026-10-16."
+   },
+   {
+    "id": "oda-mcp-prerelease",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "Re-opened today. The header still reads 'Pre-release \u00b7 Coming Q3 2026', and the page FAQ says launch is planned for Q3 2026. Q3 ended on Sep 30, and the ODA FAQ promised a September launch, so the launch looks slipped or the page is stale. No GA announcement was found in search. This product page names the 'Core SDKs Package' but does not state the Sustaining-tier requirement; that comes from the FAQ.",
+    "corrected_claim": ""
+   },
+   {
+    "id": "oda-mcp-faq",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "Opened. Dated August 17, 2026. Launch is 'September 2026'. Formats at launch: DWG, STEP and IFC, with DGN, Revit and Navisworks 'planned to follow'. Included in Core Package+ from the Sustaining tier up; Commercial-tier members must upgrade. The Revit (BimRv) and Navisworks (BimNv) Extensions are separate purchases. Not new.",
+    "corrected_claim": ""
+   },
+   {
+    "id": "autocad-mcp-pro-status",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "PyPI shows 1.6.0 (Sep 24, 2026) as latest, with history 1.5.1 Aug 7, 1.5.0 Aug 6, 1.4.0 Jul 23. GitHub releases show v1.6.0 Latest (24 Sep). The commits page has its newest commits on Sep 24, 2026 (cdb1063), with none after Oct 7. Related: best-cad-mcp on PyPI is still 1.7.2 (Sep 23, 2026), with nothing newer.",
+    "corrected_claim": ""
+   },
+   {
+    "id": "third-party-autocad-mcp-activity",
+    "verdict": "unverifiable",
+    "date_ok": false,
+    "note": "Only aggregator and search results were checked again (glama, gittrend, lobehub, playbooks). None shows an October 2026 release. The vigneshpbmenon changelog shows only 0.1.0 '2025-01-XX'. The repos' GitHub release and commit pages were not opened, so the absence is not confirmed. The Feb 20, 2026 last push for puran-water is from a snippet only.",
+    "corrected_claim": "No October 2026 release was seen on aggregator pages. The repos' own GitHub pages were not checked."
+   },
+   {
+    "id": "libredwg-status",
+    "verdict": "partly_true",
+    "date_ok": false,
+    "note": "The official GitHub releases page (github.com/LibreDWG/libredwg/releases) lists a 0.14.x series as Pre-release 'libredwg windows nightly' builds by rurban: 0.14.8612 on 13 Oct, 0.14.8607 and 0.14.8608 on 12 Oct, and 0.14.8599 to 0.14.8601 on 1-3 Oct. The year is not shown; 2026 is inferred from the sequence. So 0.14 is not only on a mirror, but it is nightly pre-releases, not an official stable release. Savannah served an anti-scraper page, and the GNU manual date was not checked.",
+    "corrected_claim": "No official stable LibreDWG 0.14 release was found. The official LibreDWG GitHub publishes 0.14.x Windows nightly pre-releases, the latest 0.14.8612 dated 13 Oct (year not shown, likely 2026). Do not pin to these nightlies."
+   }
+  ],
+  "missed": [
+   {
+    "title": "LibreDWG 0.14.8612 Windows nightly pre-release",
+    "claim": "The official LibreDWG GitHub lists 0.14.8612 as a Pre-release 'libredwg windows nightly' (7 assets) dated 13 Oct, with 0.14.8607 and 0.14.8608 on 12 Oct. These are nightlies, not a stable release. The year is not shown on the page; 2026 is inferred from the sequence.",
+    "url": "https://github.com/LibreDWG/libredwg/releases/tag/0.14.8612",
+    "date": "13 Oct (year not shown; likely 2026-10-13)"
+   },
+   {
+    "title": "ezdxf 1.4.5 changelog: Python 3.10 wheels dropped, Python 3.15 added",
+    "claim": "The changelog entry 'Version 1.4.5 - 2026-10-16' drops Python 3.10 packages as end-of-life and adds Python 3.15 wheels. It also adds PLANESURFACE and the %%% control code and fixes HATCH transform and MTEXT export bugs. Check the pipeline's Python version before bumping the pin.",
+    "url": "https://github.com/mozman/ezdxf/blob/master/notes/pages/CHANGELOG.md",
+    "date": "2026-10-16"
+   }
+  ]
+ },
+ "verify:pools-render": {
+  "validator_model_id": "claude-opus-5-5",
+  "verdicts": [
+   {
+    "id": "F02",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "Re-opened 2026-10-16. Page shows 5.2.2 LTS 'Released September 15, 2026', a 'Download Blender 5.3 Beta' button, and 5.3 'Expected November 10, 2026'. No RC is mentioned. is_new=false is correct because 5.2.2 predates the window. The missing RC fits the 5.3 notes, which put beta until Nov 4."
+   },
+   {
+    "id": "F03",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "Page says 5.3 'is currently in Beta until November 4, 2026', on branch blender-v5.3-release. The 'conflict' with Nov 10 is not a real conflict: beta ends Nov 4 and the release is expected Nov 10. One correction: the page has about 15 feature sections (Cycles, EEVEE, Geometry Nodes, Pipeline & I/O, etc.), and draw_instanced is only the Compatibility note, not a headline item. The page is undated, so is_new=false is fine."
+   },
+   {
+    "id": "F04",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "Confirmed: 'Twinmotion 2026.2 Preview is now available', Dynamic sky in Realistic mode, Night sky with moon and Milky Way, MegaLights (needs HW ray tracing), EXR cryptomattes, and Interchange import. Missing from the finding: Aurora borealis, and DAE, 3DS, C4D and STL are also dropped along with DXF. No dates and no final-release timing appear on the page."
+   },
+   {
+    "id": "F05",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "The index lists six undated entries and no separate Preview entry. The key extra fact comes from the linked 2026.2 builds page (release-notes-for-twinmotion-2026-2-builds), which links ONLY to the 2026.2 Preview notes. So as of 2026-10-16 the docs show no final 2026.2 release."
+   },
+   {
+    "id": "F06",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "Latest entry is May 27, 2026 (Veras included with Enscape/V-Ray/Corona). There are no Sep or Oct 2026 entries. The finding omits Apr 19 (Zero Density), Apr 13 (free V-Ray for Blender Community Edition, relevant to a Blender render stage) and Feb 25 entries."
+   },
+   {
+    "id": "F07",
+    "verdict": "partly_true",
+    "date_ok": true,
+    "corrected_claim": "The Enscape what's-new page (undated) lists Enscape items: Envision live link, removal of the 2GB scene limit, Revit 2027 support, and 2,500+ Cosmos assets. It lists Veras AI as included on all plans, including Solo. Envision features include real-time animated water ('oceans, rivers, and pools' as examples). 'Envision 1.5' is tied only to AI guidance ('Available from Envision 1.5'), not to the other items.",
+    "note": "The finding wrongly treats the live link, 2GB, and Revit 2027 items as Envision 1.5 items. The 'no dates' claim holds."
+   },
+   {
+    "id": "F09",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "Page shows 'Unreal Engine MCP', 'Made by Epic Games', and no version or date. Requires the ModelContextProtocol and AllToolsets plugins and ModelContextProtocol.StartServer. Sweep search snippet (not opened): the GitHub repo EpicGames/unreal-engine-skills-for-claude-code-plugin says the SessionStart hook needs bash, which matters on native Windows PowerShell. No update dated in the window was found."
+   },
+   {
+    "id": "F10",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "Re-fetched: AESV2-encrypted A4 PDF with no extractable text. The finding is accurate. The fence rules are now available from a dated secondary source citing DM's Health and Safety Dept (see missed item: Khaleej Times, 2025-07-04). The PDF still needs a human read before the spec is final."
+   },
+   {
+    "id": "F11",
+    "verdict": "partly_true",
+    "date_ok": true,
+    "corrected_claim": "Gulf News (last updated 2018-09-16; the old URL ID suggests the article is older) reports a circular requiring a 90 cm pool fence plus a lockable door and warning system. This appears SUPERSEDED. Khaleej Times (2025-07-04), citing Dubai Municipality's Health and Safety Department, reports that private villa pools need an enclosure 'at least 1.2 metres high'. It also requires outward-opening self-closing/self-latching gates with locks at least 1.5 m above ground, and windows over the pool limited to 100 mm opening.",
+    "note": "The page content is quoted accurately, but the spec must not use 90 cm. Use 1.2 m pending the GU80 text."
+   },
+   {
+    "id": "F12",
+    "verdict": "unverifiable",
+    "date_ok": true,
+    "note": "Not re-opened. Low decision weight (secondary, undated blog) under the cost guidance. Treat the diving-board figures as non-authoritative."
+   },
+   {
+    "id": "F13",
+    "verdict": "unverifiable",
+    "date_ok": true,
+    "note": "Both Aqua URLs (article/15120187 and pocket-guide-the-vanishing-edge.html) returned HTTP 403. A search snippet confirms the author (Scott Cohen) and that the basin must hold water in transit, bather surge and wind. It also says under-sizing is a common cause of flooding. Neither the 'as wide as the dam wall is tall' wording nor the 2011-06-15 date could be confirmed."
+   },
+   {
+    "id": "F15",
+    "verdict": "unverifiable",
+    "date_ok": true,
+    "note": "ANSI webstore returned 403. Could not confirm the 'Historical' label or the infinity-edge scope text. The finding is honest that it relied on a snippet only."
+   }
+  ],
+  "missed": [
+   {
+    "title": "Khaleej Times: Dubai Municipality private pool rules (1.2 m enclosure, gate/lock rules)",
+    "claim": "Citing DM's Health and Safety Department, private villa pools (any water feature deeper than 300 mm) need a climb-proof enclosure at least 1.2 m high. Gates must open outward and be self-closing and self-latching, with locks at least 1.5 m above ground. Garage or automated perimeter gates may not be used as pool access. Windows over the pool must open no more than 100 mm, covers/nets should meet ASTM F1346-91, and pools must be registered before construction. Not new (pre-window), but it supersedes the 90 cm figure in F11.",
+    "url": "https://www.khaleejtimes.com/uae/drowning-incidents-official-guidelines-pool-owners",
+    "date": "2025-07-04"
+   },
+   {
+    "title": "Twinmotion 2026.2 builds release-notes page lists only the Preview",
+    "claim": "The 2026.2 builds page links only to 'Twinmotion 2026.2 Preview Release Notes', with no final build or dates. No final 2026.2 release was found in the 2026-10-07..16 window.",
+    "url": "https://dev.epicgames.com/documentation/twinmotion/release-notes-for-twinmotion-2026-2-builds?lang=en-US",
+    "date": "unknown (undated page, checked 2026-10-16)"
+   },
+   {
+    "title": "Chaos: free V-Ray for Blender Community Edition",
+    "claim": "The Chaos press-release list includes 'Chaos Launches Free V-Ray for Blender Community Edition', which may matter for the Blender render stage. Not new.",
+    "url": "https://www.chaos.com/press-releases",
+    "date": "2026-04-13"
+   }
+  ]
+ },
+ "verify:claude-skills": {
+  "validator_model_id": "claude-opus-5-5",
+  "verdicts": [
+   {
+    "id": "cc-2.1.301",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "The changelog shows 2.1.301 dated 'October 15, 2026', so the year is confirmed and does not need assuming. GitHub releases shows '15 Oct 19:22', tagged Latest, with nothing newer. Every listed item is on the page: the RETRY_WATCHDOG_MAX_USAGE_LIMIT_WAIT_MS variable, the /rewind skills fix, the plugin/skill hook ask-prompt fix (it now names the source plugin or skill), the workflow-scripts-after-Bash-cd fix, the smaller-context-model usage-credit fix, and OTel classifier_verdict/permission_mode. is_new=true is correct."
+   },
+   {
+    "id": "cc-2.1.299",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "Dated October 14, 2026 on the changelog; GitHub shows '14 Oct 02:49'. All items match the page wording: skill.prompt mod hook gets frontmatter/source/plugin name/file path; --disallow-tools and a disallowed_tools case field for claude plugin eval (example given: keeping Agent out of eval runs); /usage warnings; CLAUDE_CODE_DISABLE_FILE_MENTIONS; idle compaction for 200K+ token conversations idle about 54 min, before the one-hour cache expires."
+   },
+   {
+    "id": "cc-2.1.296",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "Dated October 9, 2026. Two clarifications. (1) Per the changelog, CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL applies only to workflow agents, 'while other subagents keep theirs'. It overrides pinned cad-* agents only when they run inside a workflow. (2) The /cost, status line, --max-budget-usd and SDK change is a repricing: Sonnet 5.5 cache reads went from $0.20 to $0.10 per Mtok. It is not a new cost feature. autoCompactWindow lets a subagent compact earlier than the main conversation's window.",
+    "corrected_claim": "2.1.296 (Oct 9, 2026) adds CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL, which runs every workflow agent on one model while non-workflow subagents keep their own model. It adds autoCompactWindow to subagent frontmatter and --agents. It reprices Sonnet 5.5 cache reads to $0.10/Mtok in /cost, the status line, --max-budget-usd and SDK cost figures."
+   },
+   {
+    "id": "cc-2.1.295",
+    "verdict": "partly_true",
+    "date_ok": true,
+    "note": "Dated October 8, 2026. The 32-skill preload cap is exact; a subagent with the Skill tool can still invoke the rest. Three imprecisions. (1) The plugin install/enable/disable/marketplace add warning appears only when the settings file they write to does not load. (2) The forked-skills fix is that results went to the main conversation instead of the invoking agent; they were not lost. (3) The allowed-tools/effort fix covers cases where the Skill tool finished before the stream ended, which denied the skill's Bash in -p runs.",
+    "corrected_claim": "2.1.295 (Oct 8, 2026): subagents preload at most 32 skills from the skills field, and the Skill tool can still invoke the rest. claude plugin install/enable/disable/marketplace add now warn when their target settings file does not load. Fixes: forked skills called from Workflow subagents sent results to the main conversation instead of the calling agent, and a skill's allowed-tools/effort could be dropped, which denied Bash in -p runs. Also adds onFailure: 'block' for command/HTTP hooks."
+   },
+   {
+    "id": "cc-2.1.300",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "Dated October 14, 2026 on the changelog; GitHub shows '14 Oct 18:24'. The /advisor line is also on the primary changelog, so the 'not verified on a primary page' caveat can be dropped. The page says nothing runs until you choose an advisor via /advisor, advisorModel or --advisor, and CLAUDE_CODE_DISABLE_ADVISOR_TOOL=1 turns it off. Workflow agent prompt/model rewriting happens in the agent.spawn mod hook, which could previously only refuse agents. The mod-sharing change makes Claude scan a mod's files for keys before opening them."
+   },
+   {
+    "id": "cc-2.1.294",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "Dated October 8, 2026 (GitHub '08 Oct 05:03'). It has two entries, both matching the claim: the fix for instruction-style prompt/agent hooks allowing what they should block, and better judging of Stop/SubagentStop prompt hooks."
+   },
+   {
+    "id": "claude-blog-agent-automations",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "Oct 08, 2026, by Lance Martin and CJ Avilla. Confirmed details: budget is set in deployment.md via max_list_cost, written as a string in cents ('500' = $5.00); a run that hits the cap pauses with stop reason budget_reached; advice is to start the cap at three to five times a normal run's cost; setup is via /claude-api managed-agents-onboard. This is Managed Agents, which is in beta, not local Claude Code."
+   },
+   {
+    "id": "claude-blog-dashboards-motion",
+    "verdict": "partly_true",
+    "date_ok": true,
+    "note": "Date Oct 8, 2026 is correct, but the page's category is 'Announcements'. Its product tags are Claude apps, Claude Design, Claude Cowork and Claude Code. The content is an Anthropic product announcement: Claude Dashboards (beta, live data dashboards) and Claude Motion (beta, animated explainers exported as MP4). It also says Docs, Slides and Design are out of beta on every plan. Claude Code appears only as a tag, and the article has no HTML/Claude Code deliverable workflow. Low relevance to the CAD pipeline.",
+    "corrected_claim": "Oct 8, 2026 Anthropic announcement (category Announcements): Claude Dashboards and Claude Motion betas launch, and Docs/Slides/Design leave beta. Claude Code is only a product tag; nothing covers producing deliverables from Claude Code."
+   },
+   {
+    "id": "anthropic-news-negative",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "The anthropic.com/news index matches the listed items (Oct 7 Haiku 5.5; Oct 8 usage policy, Cyber Mission, scientific discovery commitment; Oct 14 Singapore and midterms; Oct 15 independent evaluators). None is about Claude Code, skills or plugins. Scope caveat: product announcements in the window went to claude.com/blog instead (Dashboards/Motion Oct 8, Code Review GA Oct 15, agent observability Oct 14). 'No Anthropic announcement' is only true for the anthropic.com/news page."
+   },
+   {
+    "id": "autodesk-blog-negative",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "blog.autodesk.io page 1: the newest post is 'Place a valve on an SLINE from code...' dated Oct 1, 2026, and the next is Aug 26. Nothing is dated Oct 7 or later, and no visible title is about MCP or agents. Context: Autodesk University 2026 ran Sep 15-17, before the window. AutoCAD 2027's MCP-backed Assistant and the Product Help MCP server date from spring 2026. Neither is new in the window."
+   },
+   {
+    "id": "negative-cad-skills-window",
+    "verdict": "unverifiable",
+    "date_ok": true,
+    "note": "An absence can't be proven. My sweep found nothing to contradict it. The anthropics/skills commits in the window (both Oct 9) only update the claude-api skill. claude.com blog posts Oct 7-16 have no CAD/BIM/3D item. A search of Autodesk news found nothing for October 2026, only spring AutoCAD 2027/Revit 2027 MCP Assistant coverage. Treat as 'no evidence found'."
+   },
+   {
+    "id": "negative-plugin-marketplace-window",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "It holds for the sources checked: the claude.com blog index for Oct 7-16, the anthropics/skills commits and the changelog. No dedicated marketplace or skill-sharing post appeared. The marketplace changes in the window are the changelog's 2.1.295 install/marketplace-add warning, the 2.1.299 plugin eval flag and the 2.1.300 mod-sharing improvement. An aggregator says marketplace plugin installs arrived in 2.1.292 (Oct 6), just before the window; this was not verified on a primary page."
+   }
+  ],
+  "missed": [
+   {
+    "title": "Agent observability on the Claude Platform (OTel trace export, public beta)",
+    "claim": "Managed Agents, the Messages API and the Claude SDKs can export OpenTelemetry traces with latency, token counts and IDs for each turn, model call and tool use. Works with Grafana, Honeycomb, Datadog, Langfuse or any OTLP endpoint. Public beta. Useful for per-agent cost and token tracking alongside Claude Code's existing OTel, including 2.1.301's new tool_decision fields.",
+    "url": "https://claude.com/resources/articles/agent-observability-on-the-claude-platform",
+    "date": "2026-10-14"
+   },
+   {
+    "title": "Code Review is now generally available (Claude Code)",
+    "claim": "Claude Code's Code Review is out of research preview for Team and Enterprise orgs. Admins enable it in Claude Code settings plus a GitHub App, with Quick/Standard/Deep levels per repo; most reviews take about 6-10 minutes. Eligible Enterprise orgs can claim at least $10,000 in credits by Jan 15, 2027. Low relevance to CAD.",
+    "url": "https://claude.com/resources/articles/code-review-is-now-generally-available",
+    "date": "2026-10-15"
+   },
+   {
+    "title": "anthropics/skills: claude-api skill updated for dynamic workflows and Haiku 5.5",
+    "claim": "Two commits on Oct 9, 2026 update the official claude-api skill: #1995 adds dynamic workflows and four workflow quickstarts; #1991 makes Haiku 5.5 the current Haiku and adds Managed Agents and preserved-thinking fixes. No new skills (CAD, 3D, PDF) were added in the window.",
+    "url": "https://github.com/anthropics/skills/commits/main",
+    "date": "2026-10-09"
+   }
+  ]
+ },
+ "verify:trainings": {
+  "validator_model_id": "claude-opus-5-5",
+  "verdicts": [
+   {
+    "id": "f01",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "Page header dated October 7, 2026, so is_new=true is right. Confirms Personal Pulse, Assistant Spaces and Assistant Builder, and an 'expanded standalone platform in 2027'. Says 'not yet generally available' and that pricing and licensing are 'under wraps until 2027'. No MCP, AutoCAD training or webinar mentions, so the negative holds. One nuance: Builder also covers third-party agents sold through a Design & Make Marketplace."
+   },
+   {
+    "id": "f02",
+    "verdict": "partly_true",
+    "date_ok": true,
+    "corrected_claim": "Anthropic commits $100M to train 10,000 Frontier Deployed Engineers by end-2027. Engineers first take a multi-day in-person program (the announcement does not give the number of days) that ends in a graded practical and earns a Claude Resident Engineer badge. Then comes a 12-week residency leading a real use case, with a final assessment for the Claude Frontier Deployed Engineer badge. Entry is by organization nomination. Cohorts run in SF, New York and London, and first FDE badges are expected early 2027. No participant pricing is stated.",
+    "note": "Byline Oct 2, 2026, so is_new=false is correct. The '4-day intensive (3 days in person, graded day 4)' detail is not on the anthropic.com page, which only says multi-day. Everything else matches. I did not re-open the claude.com program page."
+   },
+   {
+    "id": "f03",
+    "verdict": "partly_true",
+    "date_ok": true,
+    "corrected_claim": "Upcoming live sessions: Oct 21 2026 'Tokenomics on AWS: Control and optimize your Claude spend'; Oct 22 2026 'Claude Rearview Roadmap Review: October 2026' (that is the real title, not garbled); Oct 29 2026 'Scaling AI Across the Portfolio: Anthropic and AWS for Private Equity'. Recurring: Virtual Claude Code Workshop, Claude Code: Advanced, Claude Code: Foundations, Cowork first workflow, and admin cost/config sessions. On demand: Building with the Claude 5.5 Family, and a Claude Tag on-call session. Series: 'From manual coding to multi-agent orchestration' (3 parts). No Skills- or MCP-specific webinar appears in the 21 of 112 shown.",
+    "note": "Page confirms the dates and the 21-of-112 count. The Oct 22 title is 'Claude Rearview Roadmap Review', which is not garbled. The Oct 13 (DRI-ing Your Career) and Oct 14 (Claude in Microsoft Foundry) items are under On demand, so they likely already ran, which is consistent with today being Oct 16. The '90 min' length for Claude Code: Advanced was not confirmed by this fetch. The listing has no announcement dates, so is_new=false is fine."
+   },
+   {
+    "id": "f04",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "Confirmed: 1.5 h virtual workshop with Tenex, for engineers in codebases they didn't write, ticket to PR in about 90 min. Attendees leave with a CLAUDE.md and a skill checked into git. Dates are 'Multiple dates', chosen on the form. No price, no publication date. is_new=false is correct."
+   },
+   {
+    "id": "f05",
+    "verdict": "partly_true",
+    "date_ok": true,
+    "corrected_claim": "The academy.claude.com homepage features only 3 courses: AI Fluency Framework (4h), AI Capabilities and Limitations (3.5h), and Building effective human-agent teams (beta, 45 min). The full Skilljar catalog (anthropic.skilljar.com, 23 entries) does include Claude Code 101, Claude Code in Action, Introduction to Model Context Protocol, MCP: Advanced Topics, Introduction to agent skills and Introduction to subagents. I found no Claude Tag course. No catalog entries are dated.",
+    "note": "The homepage observation is accurate, but implying there is no skills or MCP course is misleading because the catalog has both. The catalog shows no 'new' labels or dates, so nothing is confirmed as added in the window. The Aug 20 rename date and the 26-27 course count are still unverified, and the Skilljar catalog shows 23 entries."
+   },
+   {
+    "id": "f06",
+    "verdict": "unverifiable",
+    "date_ok": false,
+    "corrected_claim": "Unconfirmed: a possible Autodesk webinar 'MCP for Transportation' (URL slug suggests Oct 14). The page returns 403, and two separate searches found no trace of it.",
+    "note": "WebFetch returned 403 again. A targeted search and an Autodesk MCP webinar search both found nothing. Do not share it until someone opens it in a browser. If it ran Oct 14 it is now past, so at most an on-demand recording."
+   },
+   {
+    "id": "f08",
+    "verdict": "verified",
+    "date_ok": true,
+    "note": "Confirmed: Aug 17, 2026 publication and September 2026 launch inside Open IFC Viewer and Open STEP Viewer. DWG, STEP and IFC at launch, with DGN, Revit and Navisworks to follow (no dates). Requires Sustaining tier or above, and Revit (BimRv) and Navisworks (BimNv) need Extensions. No dated webinars. is_new=false is correct."
+   },
+   {
+    "id": "f09",
+    "verdict": "partly_true",
+    "date_ok": true,
+    "corrected_claim": "AU 2026 digital ran Sept 15-17 2026 (in-person was Las Vegas, now past). The free Digital Pass gives on-demand access to the Day 1 and Day 2 keynotes and featured sessions. The page does not say the full session catalog is included, or how long recordings stay up. AU 2027 is Sept 14-16 2027 in Las Vegas.",
+    "note": "The Digital Pass is narrower than 'keynotes and sessions': the page says keynotes plus featured sessions. The retention negative holds for the first 100k characters read. is_new=false is correct."
+   },
+   {
+    "id": "f10",
+    "verdict": "unverifiable",
+    "date_ok": false,
+    "corrected_claim": "An Autodesk AutoCAD blog post rounds up AU 2026 AutoCAD sessions on demand. Search snippets confirm a session 'Boosting Autodesk Development Using AI with AutoLISP and C# .NET', and EDU1915 appears only as a truncated 'Unlock the Power of AI for AutoCAD 202...'. AU2135 is unconfirmed. A search summary suggests the post is dated Oct 2, 2026, which is before the window.",
+    "note": "The page still returns 403, and the cadtutor mirror returned 500. The content is partly backed by several search snippets, and one snippet also mentions a spec-driven AI development session for AutoCAD and Revit plugins. The date is not confirmed on the page. If it is Oct 2, is_new=false is correct."
+   },
+   {
+    "id": "f17",
+    "verdict": "partly_true",
+    "date_ok": true,
+    "corrected_claim": "GITEX Global 2026 runs Dec 7-11 2026 in Dubai. The Summit (Dec 7) is at Dubai World Trade Centre, and the Expo (Dec 8-11) is at Dubai Exhibition Centre, Expo City Dubai. It is not in October 2026.",
+    "note": "Checked on gitex.com: the dates and the not-in-October negative are verified. The venue was slightly wrong: only the Expo is at Expo City, and the Summit is at DWTC. The Recursive article is dated May 26, 2026. It is outside the 6-week horizon anyway."
+   }
+  ],
+  "missed": [
+   {
+    "title": "Anthropic Academy Skilljar catalog: Claude Code, MCP, Agent Skills and Subagents courses (free)",
+    "claim": "The full catalog lists 23 entries, including Claude Code 101, Claude Code in Action, Introduction to Model Context Protocol, MCP: Advanced Topics, Introduction to agent skills and Introduction to subagents. These are the most relevant self-serve trainings for building the architectural-cad skill and MCP servers. No dates or 'new' labels are shown, so they are not confirmed as in-window. Listed here because it corrects f05.",
+    "url": "https://anthropic.skilljar.com/",
+    "date": "undated (not in window)"
+   }
+  ]
+ }
+}

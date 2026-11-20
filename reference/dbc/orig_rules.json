@@ -1,0 +1,3838 @@
+{
+ "source": {
+  "title": "Dubai Building Code 2021 Edition (English)",
+  "url": "https://dda.gov.ae/-/media/Project/TECOM/Media/DDA/Planning-and-development/Design/pdf/Dubai-Building-Code_English_2021-Edition.pdf",
+  "file": "C:\\Users\\lsire\\autocad-mcp\\reference\\DBC_2021.pdf",
+  "pages": 843,
+  "retrieved": "2026-09-26",
+  "notes": "pdf_page is the 1-based page index of the PDF; printed_page is the PDF page label (Part K = pdf 671-842). Part K is standalone for villas (K.4); Part B/C rules apply only where Part K cross-references them. Every quote was verified verbatim (whitespace-normalised) against its pdf_page by reference/dbc/build_rules.py.",
+  "units": "values carry their own unit; op is one of >=, <=, <, >, ==, range [lo, hi], in"
+ },
+ "rules": [
+  {
+   "id": "K-SCOPE-01",
+   "category": "scope",
+   "rule": "Part K governs detached villas and townhouses of at most three storeys; larger or converted buildings follow Parts A-J.",
+   "values": [
+    {
+     "name": "storeys",
+     "op": "<=",
+     "value": 3,
+     "unit": "storeys"
+    }
+   ],
+   "applies_to": "villa",
+   "condition": null,
+   "dbc_ref": "K.4",
+   "pdf_page": 696,
+   "printed_page": "K 26",
+   "quote": "detached villas and townhouses of not more than three stories in height",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "count built floors; RF counts as a storey if it breaks K-ROOF-02/03"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "GF + FF; semi-basement and roof pavilion are not storeys"
+   }
+  },
+  {
+   "id": "C-SCOPE-01",
+   "category": "accessibility",
+   "rule": "Part C (accessibility) does not apply to individual dwellings, villas or townhouses; Part K governs them.",
+   "values": [],
+   "applies_to": "villa",
+   "condition": null,
+   "dbc_ref": "C.4.1",
+   "pdf_page": 158,
+   "printed_page": "C 8",
+   "quote": "It is not applicable to individual dwellings, villas or townhouses.",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "scope statement"
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": null
+   }
+  },
+  {
+   "id": "K-ACC-01",
+   "category": "accessibility",
+   "rule": "Accessibility provisions for people of determination are optional in villas; if provided, they follow Part C and Approved Document M Vol 1.",
+   "values": [],
+   "applies_to": "villa",
+   "condition": "only if accessibility provisions are chosen",
+   "dbc_ref": "K.6",
+   "pdf_page": 727,
+   "printed_page": "K 57",
+   "quote": "Accessibility provisions for people of determination in villas and townhouses are optional.",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "optional; no step-free entrance required"
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": "raised GF +900 with steps is permitted"
+   }
+  },
+  {
+   "id": "K-GATE-01",
+   "category": "site_levels",
+   "rule": "Gate level at the plot access point must be at least 300 mm above the road edge, or reached by a 2-5% slope.",
+   "values": [
+    {
+     "name": "gate_above_road_edge",
+     "op": ">=",
+     "value": 300,
+     "unit": "mm"
+    },
+    {
+     "name": "approach_slope",
+     "op": "range",
+     "value": [
+      2,
+      5
+     ],
+     "unit": "%"
+    }
+   ],
+   "applies_to": "plot",
+   "condition": null,
+   "dbc_ref": "K.5.2.1",
+   "pdf_page": 697,
+   "printed_page": "K 27",
+   "quote": "The gate level of a plot shall be a minimum height of +300 mm",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "declare ROAD_EDGE and GATE levels; check GATE - ROAD_EDGE >= 300"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": "no road-edge level declared; STREET = 0 is used for the forecourt"
+   }
+  },
+  {
+   "id": "K-HGT-01",
+   "category": "height",
+   "rule": "Total building height, road edge at main access to highest roof element, must not exceed 16 m.",
+   "values": [
+    {
+     "name": "total_building_height",
+     "op": "<=",
+     "value": 16,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "villa",
+   "condition": null,
+   "dbc_ref": "K.5.2.2",
+   "pdf_page": 697,
+   "printed_page": "K 27",
+   "quote": "The maximum total building height shall be limited to 16 m.",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "max(RF + PARAPET, pavilion top) - ROAD_EDGE <= 16000"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "parapet top 9.8 m, pavilion top 12.7 m above STREET (+0.3 m if road edge is 300 lower)"
+   }
+  },
+  {
+   "id": "K-HGT-02",
+   "category": "height",
+   "rule": "Villa height is measured from the approved road edge level at the plot main access to the average roof finish level; DCR limits apply.",
+   "values": [],
+   "applies_to": "villa",
+   "condition": "DCR/affection plan sets the permitted height",
+   "dbc_ref": "K.5.2.2",
+   "pdf_page": 697,
+   "printed_page": "K 27",
+   "quote": "calculated from the approved road edge level at the plot main access",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "measurement datum for K-HGT-01 and K-ANX-05"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": "datum undeclared"
+   }
+  },
+  {
+   "id": "K-ANX-01",
+   "category": "annex",
+   "rule": "Annexes to villas may be built with no setback from the plot boundary.",
+   "values": [
+    {
+     "name": "annex_boundary_setback",
+     "op": ">=",
+     "value": 0,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "annex",
+   "condition": null,
+   "dbc_ref": "K.5.2.3",
+   "pdf_page": 698,
+   "printed_page": "K 28",
+   "quote": "It is permitted to build annexes to residential villas/townhouses without any setback",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "18",
+    "note": "check 19 skips AX; check 18 requires AX inside plot"
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": "no AX rooms in ROOMS"
+   }
+  },
+  {
+   "id": "K-ANX-02",
+   "category": "annex",
+   "rule": "An annex must be at least 1.5 m from the main villa building.",
+   "values": [
+    {
+     "name": "annex_to_villa_distance",
+     "op": ">=",
+     "value": 1.5,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "annex",
+   "condition": "detached villa (townhouse annex may attach)",
+   "dbc_ref": "K.5.2.3(a)",
+   "pdf_page": 698,
+   "printed_page": "K 28",
+   "quote": "Setback shall be not less than 1.5 m between the annex and the main villa",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "18",
+    "note": "outline distance >= 1500"
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": "no AX rooms"
+   }
+  },
+  {
+   "id": "K-ANX-03",
+   "category": "annex",
+   "rule": "An annex must either be attached to the plot boundary or observe the K.5.2.4 building setbacks.",
+   "values": [],
+   "applies_to": "annex",
+   "condition": null,
+   "dbc_ref": "K.5.2.3(b)",
+   "pdf_page": 698,
+   "printed_page": "K 28",
+   "quote": "Annexes shall either be attached to plot boundary or follow building setback",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": "18",
+    "note": "check 18 only tests 'inside plot'; add touches-boundary OR clears SB_*"
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": "no AX rooms"
+   }
+  },
+  {
+   "id": "K-ANX-04",
+   "category": "annex",
+   "rule": "Annex area must not exceed 60% of the main building gross area (GA).",
+   "values": [
+    {
+     "name": "annex_area_ratio",
+     "op": "<=",
+     "value": 0.6,
+     "unit": "x main building GA"
+    }
+   ],
+   "applies_to": "annex",
+   "condition": null,
+   "dbc_ref": "K.5.2.3(c)",
+   "pdf_page": 698,
+   "printed_page": "K 28",
+   "quote": "shall not exceed 60% of the main building gross area (GA)",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "18",
+    "note": "WRONG BASIS: code compares external footprints (0.6 x GF outline); DBC uses main-building GA (K-GA-01)"
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": "no AX rooms"
+   }
+  },
+  {
+   "id": "K-ANX-05",
+   "category": "annex",
+   "rule": "Annex height is limited to 5.5 m.",
+   "values": [
+    {
+     "name": "annex_height",
+     "op": "<=",
+     "value": 5.5,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "annex",
+   "condition": null,
+   "dbc_ref": "K.5.2.3(d)",
+   "pdf_page": 698,
+   "printed_page": "K 28",
+   "quote": "The maximum height of the annex shall be limited to 5.5 m.",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "18",
+    "note": "AX_FL + AX_CH + SLAB + PARAPET <= 5500 (measured from STREET)"
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": "would be 4.75 m"
+   }
+  },
+  {
+   "id": "K-SB-01",
+   "category": "setbacks",
+   "rule": "Setbacks in the DCR or affection plan take precedence over the Part K default setbacks.",
+   "values": [],
+   "applies_to": "villa",
+   "condition": null,
+   "dbc_ref": "K.5.2.4",
+   "pdf_page": 698,
+   "printed_page": "K 28",
+   "quote": "DCR and affection plan limitations shall take precedence over the requirements of this section.",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "external document; SB_* constants stand in for it"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": "SB 5/3/3 assumed to be the DCR"
+   }
+  },
+  {
+   "id": "K-SB-02",
+   "category": "setbacks",
+   "rule": "Without DCR setbacks, a villa is set back at least 3 m from road, neighbour and sikka boundaries.",
+   "values": [
+    {
+     "name": "setback_road_Z",
+     "op": ">=",
+     "value": 3,
+     "unit": "m"
+    },
+    {
+     "name": "setback_neighbour_X",
+     "op": ">=",
+     "value": 3,
+     "unit": "m"
+    },
+    {
+     "name": "setback_sikka_Y",
+     "op": ">=",
+     "value": 3,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "villa",
+   "condition": "no setback defined in DCR/affection plan (townhouse: neighbour 0 m)",
+   "dbc_ref": "K.5.2.4, Table K.1",
+   "pdf_page": 698,
+   "printed_page": "K 28",
+   "quote": "When setback limitations are not defined, setbacks shall be in accordance with",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "19",
+    "note": "SB_FRONT/SIDE/REAR = 5/3/3 >= 3; room outlines only"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "GF/FF outlines: W 3.0, E 3.0, rear 11.0, front 5.0 m"
+   }
+  },
+  {
+   "id": "K-SB-03",
+   "category": "setbacks",
+   "rule": "Separate buildings on a standalone-villa plot must be at least 1.5 m apart.",
+   "values": [
+    {
+     "name": "building_separation",
+     "op": ">=",
+     "value": 1.5,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "villa + annex/other buildings",
+   "condition": null,
+   "dbc_ref": "K.5.2.4",
+   "pdf_page": 698,
+   "printed_page": "K 28",
+   "quote": "distance between multiple buildings within the same plot shall be not less than 1.5 m",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "18",
+    "note": "annex-villa gap only"
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": null
+   }
+  },
+  {
+   "id": "K-SB-04",
+   "category": "setbacks",
+   "rule": "Setback is measured to the nearest part of any building or structure above ground, perpendicular to the boundary.",
+   "values": [],
+   "applies_to": "villa",
+   "condition": null,
+   "dbc_ref": "K.2.2 (definition)",
+   "pdf_page": 674,
+   "printed_page": "K 4",
+   "quote": "Horizontal distance between the nearest part of any building or structure on the plot",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "19",
+    "note": "PARTIAL: uses room outlines; FIN_ARRAYS, SHADES and pavilion are not tested"
+   },
+   "current_design": {
+    "status": "NON-COMPLIANT",
+    "note": "west fin array x 2300-2750 stands 2.3 m from the west boundary"
+   }
+  },
+  {
+   "id": "K-SB-05",
+   "category": "setbacks",
+   "rule": "Only fencing, landscape/hardscape, basements, pergolas/light parking shades, internal roads, parking and annexes may occupy the setback.",
+   "values": [
+    {
+     "name": "allowed_in_setback",
+     "op": "in",
+     "value": [
+      "plot fencing",
+      "landscape and hardscape",
+      "basement and villa substructure",
+      "pergolas and lightweight parking shading structures",
+      "internal roads",
+      "parking areas",
+      "villa annexes"
+     ],
+     "unit": "list"
+    }
+   ],
+   "applies_to": "plot",
+   "condition": null,
+   "dbc_ref": "K.5.2.4",
+   "pdf_page": 700,
+   "printed_page": "K 30",
+   "quote": "The following structures shall be allowed within setbacks up to the plot limit:",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "anything else intersecting the setback band (fins, shades, pavilion) fails"
+   },
+   "current_design": {
+    "status": "NON-COMPLIANT",
+    "note": "full-height fins (z 0-8700) inside the 3 m west setback"
+   }
+  },
+  {
+   "id": "K-PRJ-01",
+   "category": "projections",
+   "rule": "Balconies and building projections must sit at least 2.7 m above finished floor level.",
+   "values": [
+    {
+     "name": "projection_clearance",
+     "op": ">=",
+     "value": 2.7,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "balconies, projections",
+   "condition": null,
+   "dbc_ref": "K.5.2.5.1(a)",
+   "pdf_page": 700,
+   "printed_page": "K 30",
+   "quote": "They are situated at an elevated level from ground floor, not less than 2.7 m",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "SHADES/FIN_ARRAYS z0 - LEVEL >= 2700 where outside the wall line"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": "SHADES empty"
+   }
+  },
+  {
+   "id": "K-PRJ-02",
+   "category": "projections",
+   "rule": "Balconies and projections follow setback requirements and must not project beyond the plot limit.",
+   "values": [],
+   "applies_to": "balconies, projections",
+   "condition": null,
+   "dbc_ref": "K.5.2.5.1(b)",
+   "pdf_page": 700,
+   "printed_page": "K 30",
+   "quote": "Balconies and projections shall follow setback requirements and shall not project",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "extend check 19 to SHADES/FIN_ARRAYS"
+   },
+   "current_design": {
+    "status": "NON-COMPLIANT",
+    "note": "fins in west setback"
+   }
+  },
+  {
+   "id": "K-PRJ-03",
+   "category": "projections",
+   "rule": "Decorative projections up to 300 mm deep are allowed inside the setback if at least 2.7 m above FFL; up to 900 mm at roof.",
+   "values": [
+    {
+     "name": "decorative_depth_in_setback",
+     "op": "<=",
+     "value": 300,
+     "unit": "mm"
+    },
+    {
+     "name": "clearance_above_FFL",
+     "op": ">=",
+     "value": 2.7,
+     "unit": "m"
+    },
+    {
+     "name": "decorative_depth_at_roof",
+     "op": "<=",
+     "value": 900,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "decorative projections",
+   "condition": null,
+   "dbc_ref": "K.5.2.5.1(c)",
+   "pdf_page": 700,
+   "printed_page": "K 30",
+   "quote": "Decorative projections up to 300 mm in depth are allowed within villa setback",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "depth beyond wall face and z0 of each shade/fin inside the setback"
+   },
+   "current_design": {
+    "status": "NON-COMPLIANT",
+    "note": "fins project 700 mm (x 2300 vs wall face 3000) and start at ground"
+   }
+  },
+  {
+   "id": "K-PRJ-04",
+   "category": "projections",
+   "rule": "Projections must be at least 3 m from adjacent villas or neighbouring plot limits.",
+   "values": [
+    {
+     "name": "projection_to_neighbour",
+     "op": ">=",
+     "value": 3,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "balconies, projections",
+   "condition": null,
+   "dbc_ref": "K.5.2.5.1(d)",
+   "pdf_page": 700,
+   "printed_page": "K 30",
+   "quote": "neighbouring plot limits shall be not less than 3 m",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "distance of every shade/fin/balcony to neighbour boundaries"
+   },
+   "current_design": {
+    "status": "NON-COMPLIANT",
+    "note": "fins 2.3 m from the west boundary (if a neighbour)"
+   }
+  },
+  {
+   "id": "K-GRD-01",
+   "category": "guards",
+   "rule": "Guardrails are required on any walking or standing surface elevated 760 mm above the adjacent level.",
+   "values": [
+    {
+     "name": "drop_requiring_guard",
+     "op": ">=",
+     "value": 760,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "balconies, terraces, landings, roofs, voids",
+   "condition": null,
+   "dbc_ref": "K.5.2.5.2",
+   "pdf_page": 701,
+   "printed_page": "K 31",
+   "quote": "Guardrails are required for any space, walking or standing which is elevated 760 mm",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "needs declared edges: raised GF landings, FF void edges, roof, sunken court"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": "entrance/service landings at +900 over ground; FF edges of double-height and stair voids; none modelled"
+   }
+  },
+  {
+   "id": "K-GRD-02",
+   "category": "guards",
+   "rule": "Guard height must be at least 1,200 mm above FFL or the lowest stepping feature.",
+   "values": [
+    {
+     "name": "guard_height",
+     "op": ">=",
+     "value": 1200,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "guards, parapets on accessible roofs/terraces",
+   "condition": null,
+   "dbc_ref": "K.5.2.5.2",
+   "pdf_page": 701,
+   "printed_page": "K 31",
+   "quote": "The guard height from FFL (or lowest stepping feature), shall be not less than",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "PARAPET and every declared guard >= 1200"
+   },
+   "current_design": {
+    "status": "NON-COMPLIANT",
+    "note": "PARAPET = 1100 (a guard wherever the roof or single-storey roof is accessible)"
+   }
+  },
+  {
+   "id": "K-GRD-03",
+   "category": "guards",
+   "rule": "Openings in balcony, guardrail or handrail infill must not pass a 100 mm sphere.",
+   "values": [
+    {
+     "name": "infill_sphere",
+     "op": "<",
+     "value": 100,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "guards",
+   "condition": null,
+   "dbc_ref": "K.5.2.5.2",
+   "pdf_page": 701,
+   "printed_page": "K 31",
+   "quote": "shall not allow the passage of a 100 mm diameter sphere",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "detail-level"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-GRD-04",
+   "category": "guards",
+   "rule": "No horizontal climbable elements within 865 mm above the bottom of a guardrail.",
+   "values": [
+    {
+     "name": "non_climbable_zone",
+     "op": ">=",
+     "value": 865,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "guards",
+   "condition": null,
+   "dbc_ref": "K.5.2.5.2",
+   "pdf_page": 701,
+   "printed_page": "K 31",
+   "quote": "Horizontal climbable elements are not permitted within 865 mm height of the",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "detail-level"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-GRD-05",
+   "category": "guards",
+   "rule": "Any gap between finished floor and the lowest rail of a guard must not exceed 100 mm.",
+   "values": [
+    {
+     "name": "bottom_gap",
+     "op": "<=",
+     "value": 100,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "guards",
+   "condition": null,
+   "dbc_ref": "K.5.2.5.2",
+   "pdf_page": 701,
+   "printed_page": "K 31",
+   "quote": "such gap shall be not more than 100 mm",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "detail-level"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-ROOF-01",
+   "category": "roof",
+   "rule": "Accessible roofs need fall protection and guardrails per K.5.2.5.2, i.e. at least 1,200 mm.",
+   "values": [
+    {
+     "name": "roof_guard_height",
+     "op": ">=",
+     "value": 1200,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "accessible roof",
+   "condition": "roof is accessible",
+   "dbc_ref": "K.5.2.8.3",
+   "pdf_page": 705,
+   "printed_page": "K 35",
+   "quote": "Accessible roofs shall be provided with life safety features such as fall protection",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "if RF level/pavilion or roof access exists: PARAPET >= 1200"
+   },
+   "current_design": {
+    "status": "NON-COMPLIANT",
+    "note": "PARAPET 1100 and the design declares an RF level with a roof pavilion"
+   }
+  },
+  {
+   "id": "K-ROOF-02",
+   "category": "roof",
+   "rule": "Structures on the roof, including stair and lift rooms, must not exceed 50% of the roof floor area.",
+   "values": [
+    {
+     "name": "roof_structure_ratio",
+     "op": "<=",
+     "value": 0.5,
+     "unit": "x roof floor area"
+    }
+   ],
+   "applies_to": "roof structures",
+   "condition": null,
+   "dbc_ref": "K.5.2.8.3",
+   "pdf_page": 705,
+   "printed_page": "K 35",
+   "quote": "Structures on roof level shall not exceed 50% of the roof floor area.",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "A(PV) / envelope()['upper'].area <= 0.5"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "pavilion 33.6 of 208.8 m2 = 16% (not built)"
+   }
+  },
+  {
+   "id": "K-ROOF-03",
+   "category": "roof",
+   "rule": "Roof structures must be set back at least 1.5 m from the building facade; stair or lift rooms are exempt.",
+   "values": [
+    {
+     "name": "roof_structure_setback",
+     "op": ">=",
+     "value": 1.5,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "roof structures",
+   "condition": "not a stair/elevator room",
+   "dbc_ref": "K.5.2.8.3",
+   "pdf_page": 705,
+   "printed_page": "K 35",
+   "quote": "Roof structures shall be set back a minimum of 1.5 m from the building façade.",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "PV inside upper.buffer(-1500)"
+   },
+   "current_design": {
+    "status": "NON-COMPLIANT",
+    "note": "pavilion PV y1 23600 overhangs the FF north face (23200) by 400 mm (if built)"
+   }
+  },
+  {
+   "id": "K-ROOF-04",
+   "category": "roof",
+   "rule": "A roof level covering over 50% of the roof or lacking the setback counts as a regular floor.",
+   "values": [
+    {
+     "name": "roof_structure_ratio_limit",
+     "op": "<=",
+     "value": 0.5,
+     "unit": "x roof floor area"
+    }
+   ],
+   "applies_to": "roof structures",
+   "condition": null,
+   "dbc_ref": "K.5.2.8.3",
+   "pdf_page": 705,
+   "printed_page": "K 35",
+   "quote": "shall be treated as a regular floor",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "feeds storey count (K-SCOPE-01) and GFA"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "3 storeys even if counted"
+   }
+  },
+  {
+   "id": "K-GA-01",
+   "category": "areas",
+   "rule": "Gross area is measured inside the exterior walls, excluding vents, shafts and courtyards, including corridors, stairs and internal walls.",
+   "values": [],
+   "applies_to": "villa",
+   "condition": null,
+   "dbc_ref": "K.5.2.6",
+   "pdf_page": 702,
+   "printed_page": "K 32",
+   "quote": "GA shall be calculated from within the inside perimeter of the exterior walls",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "sum of fabric(fl)[2].area; gross_area() measures to the OUTSIDE (GFA), not GA"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "GA = 193.3 (GF) + 142.5 (FF) = 335.8 m2"
+   }
+  },
+  {
+   "id": "K-COV-01",
+   "category": "areas",
+   "rule": "Plot coverage is the footprint of main and annex buildings to external wall faces; excludes pergolas, canopies, eaves and window shades.",
+   "values": [],
+   "applies_to": "plot",
+   "condition": "coverage limit, if any, comes from the DCR",
+   "dbc_ref": "K.5.2.7",
+   "pdf_page": 703,
+   "printed_page": "K 33",
+   "quote": "Plot coverage shall be calculated as the horizontal area occupied by all main",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "report()",
+    "note": "prints GF outline / plot; no DBC cap exists"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "32.5%"
+   }
+  },
+  {
+   "id": "A-GFA-01",
+   "category": "areas",
+   "rule": "For GFA, villa basements, pools, terraces, balconies and double-height voids are excluded; the base of a double-height volume is included.",
+   "values": [],
+   "applies_to": "villa",
+   "condition": null,
+   "dbc_ref": "A.5.2.1, Table A.3",
+   "pdf_page": 13,
+   "printed_page": "A 11",
+   "quote": "Basements in villas Excluded",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "17",
+    "note": "gross_area() counts built floors only; voids excluded because FF has no room there"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": null
+   }
+  },
+  {
+   "id": "K-BSMT-01",
+   "category": "basement",
+   "rule": "Basement slab soffit must not be more than 1.5 m above the building gate level.",
+   "values": [
+    {
+     "name": "basement_soffit_above_gate",
+     "op": "<=",
+     "value": 1.5,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "basement / semi-basement",
+   "condition": null,
+   "dbc_ref": "K.5.2.8.2",
+   "pdf_page": 704,
+   "printed_page": "K 34",
+   "quote": "The basement slab soffit level shall not exceed 1.5 m above the building gate level",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "(GF - SLAB) - GATE <= 1500"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "soffit +400 over STREET (gate level undeclared)"
+   }
+  },
+  {
+   "id": "K-BSMT-02",
+   "category": "basement",
+   "rule": "The basement must not extend beyond the plot limits.",
+   "values": [],
+   "applies_to": "basement",
+   "condition": null,
+   "dbc_ref": "K.5.2.8.2",
+   "pdf_page": 704,
+   "printed_page": "K 34",
+   "quote": "The basement shall not extend beyond the plot limits.",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "BS_* box inside plot"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": null
+   }
+  },
+  {
+   "id": "K-BSMT-03",
+   "category": "basement",
+   "rule": "Habitable basement spaces need daylight per K.5.4.2 (windows at least 10% of floor area).",
+   "values": [],
+   "applies_to": "habitable basement rooms",
+   "condition": null,
+   "dbc_ref": "K.5.2.8.2",
+   "pdf_page": 704,
+   "printed_page": "K 34",
+   "quote": "Habitable spaces located in basement floors shall be provided with daylighting",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "apply K-WIN-01 to basement rooms"
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": "no basement rooms"
+   }
+  },
+  {
+   "id": "K-BSMT-04",
+   "category": "basement",
+   "rule": "Basements need a standard enclosed exit stair at least 1,000 mm wide; spiral, winder or open stairs are not allowed for them.",
+   "values": [
+    {
+     "name": "basement_exit_stair_width",
+     "op": ">=",
+     "value": 1000,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "basement",
+   "condition": null,
+   "dbc_ref": "K.5.5.2.1",
+   "pdf_page": 710,
+   "printed_page": "K 40",
+   "quote": "Basements shall have standard enclosed exit stair of 1,000 mm clear width",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "when basement rooms exist"
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": "basement not built"
+   }
+  },
+  {
+   "id": "K-ROOM-01",
+   "category": "room_sizes",
+   "rule": "Living spaces (bedrooms, living rooms, etc.) need at least 10.5 m2 net and 3 m clear length and width.",
+   "values": [
+    {
+     "name": "net_area",
+     "op": ">=",
+     "value": 10.5,
+     "unit": "m2"
+    },
+    {
+     "name": "min_dimension",
+     "op": ">=",
+     "value": 3.0,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "habitable rooms",
+   "condition": null,
+   "dbc_ref": "K.5.3.1, Table K.2",
+   "pdf_page": 706,
+   "printed_page": "K 36",
+   "quote": "Living space (bedroom, living room, etc.) 10.5 3",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "5/13",
+    "note": "areas: brief minima (14-28 m2) exceed 10.5; NEW: no 3 m clear-dimension check"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "smallest habitable 16.3 m2 (Bedroom 2); smallest inscribed rectangle 3.2 m"
+   }
+  },
+  {
+   "id": "K-ROOM-02",
+   "category": "room_sizes",
+   "rule": "Single-occupancy housekeeper or guard rooms without toilet need at least 5.5 m2 and 2.1 m clear dimension.",
+   "values": [
+    {
+     "name": "net_area",
+     "op": ">=",
+     "value": 5.5,
+     "unit": "m2"
+    },
+    {
+     "name": "min_dimension",
+     "op": ">=",
+     "value": 2.1,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "maid/driver/guard rooms",
+   "condition": "single occupancy, without toilet",
+   "dbc_ref": "K.5.3.1, Table K.2",
+   "pdf_page": 706,
+   "printed_page": "K 36",
+   "quote": "single occupancy (without toilet) 5.5 2.1",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "13",
+    "note": "maid_room/driver_room 7.5 m2 in REQUIRED; NEW: 2.1 m dimension"
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": "no maid/driver rooms yet"
+   }
+  },
+  {
+   "id": "K-ROOM-03",
+   "category": "room_sizes",
+   "rule": "An enclosed kitchen needs at least 5.4 m2 and 1.8 m clear dimension.",
+   "values": [
+    {
+     "name": "net_area",
+     "op": ">=",
+     "value": 5.4,
+     "unit": "m2"
+    },
+    {
+     "name": "min_dimension",
+     "op": ">=",
+     "value": 1.8,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "enclosed kitchens",
+   "condition": null,
+   "dbc_ref": "K.5.3.1, Table K.2",
+   "pdf_page": 706,
+   "printed_page": "K 36",
+   "quote": "Enclosed kitchen 5.4 1.8",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "13",
+    "note": "kitchen 14 / prep_kitchen 7 m2; NEW: 1.8 m dimension"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "dirty kitchen 7.1 m2, 2.55 m; show kitchen 23.4 m2"
+   }
+  },
+  {
+   "id": "K-ROOM-04",
+   "category": "room_sizes",
+   "rule": "Bathrooms and toilets have no area minimum; they are sized by the K.5.7 fixture clearances.",
+   "values": [],
+   "applies_to": "bathrooms, WCs",
+   "condition": null,
+   "dbc_ref": "K.5.3.1, Table K.2",
+   "pdf_page": 706,
+   "printed_page": "K 36",
+   "quote": "In accordance with fixture clearances noted in K.5.7",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "see K-SAN-03..05 in villa_furniture_spec"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-ROOM-05",
+   "category": "room_sizes",
+   "rule": "Kitchens need at least 1.2 m manoeuvring space between counters or in front of a single counter run.",
+   "values": [
+    {
+     "name": "kitchen_clear_aisle",
+     "op": ">=",
+     "value": 1.2,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "kitchens",
+   "condition": null,
+   "dbc_ref": "K.5.3.1",
+   "pdf_page": 706,
+   "printed_page": "K 36",
+   "quote": "Manoeuvring space between kitchen counters or in adjacency to single-sided kitchen",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "villa_furniture_spec",
+    "note": "1200 between opposing kitchen runs"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": "per furniture check"
+   }
+  },
+  {
+   "id": "K-CH-01",
+   "category": "ceiling_heights",
+   "rule": "Living and bedroom spaces need at least 2.7 m clear height, FFL to lowest beam or ceiling soffit.",
+   "values": [
+    {
+     "name": "clear_height",
+     "op": ">=",
+     "value": 2.7,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "living rooms, bedrooms",
+   "condition": "measured FFL to structure or ceiling soffit",
+   "dbc_ref": "K.5.3.2, Table K.3",
+   "pdf_page": 707,
+   "printed_page": "K 37",
+   "quote": "Living and bedroom spaces 2.7",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "CEIL[fl] - ceiling/beam zone >= 2700 for HAB rooms"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "GF 3.6, FF 3.2, AX/RF 3.0 m to slab (keeps >= 2.7 with <= 500 mm ceiling void on FF)"
+   }
+  },
+  {
+   "id": "K-CH-02",
+   "category": "ceiling_heights",
+   "rule": "All other spaces need at least 2.3 m clear height.",
+   "values": [
+    {
+     "name": "clear_height",
+     "op": ">=",
+     "value": 2.3,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "other spaces (kitchens, baths, halls)",
+   "condition": null,
+   "dbc_ref": "K.5.3.2, Table K.3",
+   "pdf_page": 707,
+   "printed_page": "K 37",
+   "quote": "Any other spaces 2.3",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "CEIL[fl] >= 2300"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": null
+   }
+  },
+  {
+   "id": "K-CH-03",
+   "category": "ceiling_heights",
+   "rule": "Staircases need at least 2.3 m clear height.",
+   "values": [
+    {
+     "name": "clear_height",
+     "op": ">=",
+     "value": 2.3,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "staircases",
+   "condition": null,
+   "dbc_ref": "K.5.3.2, Table K.3",
+   "pdf_page": 707,
+   "printed_page": "K 37",
+   "quote": "Staircases 2.3",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "see K-STR-11"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-CH-04",
+   "category": "ceiling_heights",
+   "rule": "Non-habitable rooms under staircases (utility, powder room, storage) need at least 2.03 m clear height.",
+   "values": [
+    {
+     "name": "clear_height",
+     "op": ">=",
+     "value": 2.03,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "rooms under stairs",
+   "condition": "non-habitable only",
+   "dbc_ref": "K.5.3.2, Table K.3",
+   "pdf_page": 707,
+   "printed_page": "K 37",
+   "quote": "Rooms under staircases (non-habitable only)",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": null
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": null
+   }
+  },
+  {
+   "id": "K-DOOR-01",
+   "category": "doors",
+   "rule": "Entry doors and doors generally need at least 915 mm clear width.",
+   "values": [
+    {
+     "name": "door_clear_width",
+     "op": ">=",
+     "value": 915,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "entry and general doors",
+   "condition": null,
+   "dbc_ref": "K.5.4.1, Table K.4",
+   "pdf_page": 708,
+   "printed_page": "K 38",
+   "quote": "Entry doors, general 915",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "1",
+    "note": "WRONG BASIS: check 1 tests structural opening 700-1800; test CLEAR width >= 915"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "narrowest non-wet opening 1100 (~950 clear)"
+   }
+  },
+  {
+   "id": "K-DOOR-02",
+   "category": "doors",
+   "rule": "Bathroom and toilet doors need at least 710 mm clear width.",
+   "values": [
+    {
+     "name": "door_clear_width",
+     "op": ">=",
+     "value": 710,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "bathroom/WC doors",
+   "condition": null,
+   "dbc_ref": "K.5.4.1, Table K.4",
+   "pdf_page": 708,
+   "printed_page": "K 38",
+   "quote": "Bathrooms and toilets 710",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "1",
+    "note": "WRONG BASIS: opening 700 min; test CLEAR width >= 710"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "wet-room openings 1000 (~850 clear)"
+   }
+  },
+  {
+   "id": "K-WIN-01",
+   "category": "windows_daylight",
+   "rule": "Bedrooms, living rooms and kitchens need net glazing of at least 10% of the room floor area.",
+   "values": [
+    {
+     "name": "glazing_to_floor",
+     "op": ">=",
+     "value": 0.1,
+     "unit": "ratio"
+    }
+   ],
+   "applies_to": "bedrooms, living rooms, kitchens",
+   "condition": "may be reduced if daylight modelling shows >= 150 lux",
+   "dbc_ref": "K.5.4.2.1",
+   "pdf_page": 708,
+   "printed_page": "K 38",
+   "quote": "net glazing area not less than 10% of the habitable space floor area",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "15",
+    "note": "PARTIAL: check 15 only requires a window; NEW: sum glazing / net_area >= 0.10"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "lowest: majlis 16.1% gross (12.9% at 0.8 frame factor)"
+   }
+  },
+  {
+   "id": "K-WIN-02",
+   "category": "windows_daylight",
+   "rule": "Where daylight modelling replaces the 10% rule, bedrooms and living rooms must reach at least 150 lux.",
+   "values": [
+    {
+     "name": "daylight_illuminance",
+     "op": ">=",
+     "value": 150,
+     "unit": "lux"
+    }
+   ],
+   "applies_to": "bedrooms, living rooms",
+   "condition": "modelling route",
+   "dbc_ref": "K.5.4.2.1",
+   "pdf_page": 708,
+   "printed_page": "K 38",
+   "quote": "minimum of 150 lux in bedrooms and living rooms",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "needs a daylight simulation"
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": null
+   }
+  },
+  {
+   "id": "K-WIN-03",
+   "category": "windows_daylight",
+   "rule": "Mechanical window opening devices must be positioned 900-1,500 mm above room FFL.",
+   "values": [
+    {
+     "name": "operator_height",
+     "op": "range",
+     "value": [
+      900,
+      1500
+     ],
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "windows with mechanical opening means",
+   "condition": null,
+   "dbc_ref": "K.5.4.2.1(a)",
+   "pdf_page": 709,
+   "printed_page": "K 39",
+   "quote": "positioned at a height between 900 mm to 1,500 mm from the room FFL",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "hardware"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-WIN-04",
+   "category": "windows_daylight",
+   "rule": "Window sills must be at least 900 mm above the interior FFL.",
+   "values": [
+    {
+     "name": "sill_height",
+     "op": ">=",
+     "value": 900,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "windows",
+   "condition": null,
+   "dbc_ref": "K.5.4.2.1(b)",
+   "pdf_page": 709,
+   "printed_page": "K 39",
+   "quote": "The window sill shall be positioned at a height of not less than 900 mm",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "WIN_SILL >= 900"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "WIN_SILL = 900 (at the limit)"
+   }
+  },
+  {
+   "id": "K-WIN-05",
+   "category": "windows_daylight",
+   "rule": "Skylight glazing providing daylight should slope at least 15 degrees from vertical and connect directly to the space.",
+   "values": [
+    {
+     "name": "skylight_slope_from_vertical",
+     "op": ">=",
+     "value": 15,
+     "unit": "deg"
+    }
+   ],
+   "applies_to": "skylights",
+   "condition": "if skylights used",
+   "dbc_ref": "K.5.4.2.1(c)",
+   "pdf_page": 709,
+   "printed_page": "K 39",
+   "quote": "positioned at a slope of 15° or more from vertical",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "no skylights modelled"
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": null
+   }
+  },
+  {
+   "id": "K-WIN-06",
+   "category": "windows_daylight",
+   "rule": "Housekeeper rooms need natural light with net glazing at least 8% of room floor area.",
+   "values": [
+    {
+     "name": "glazing_to_floor",
+     "op": ">=",
+     "value": 0.08,
+     "unit": "ratio"
+    }
+   ],
+   "applies_to": "housekeeper rooms",
+   "condition": null,
+   "dbc_ref": "K.5.4.2.1(e)",
+   "pdf_page": 709,
+   "printed_page": "K 39",
+   "quote": "net glazing area not less than 8% of the room floor",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "for ROLE maid_room/driver_room"
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": "no housekeeper rooms yet"
+   }
+  },
+  {
+   "id": "K-WIN-07",
+   "category": "windows_daylight",
+   "rule": "For natural lighting, room depth should not exceed three times the width of the window wall, else add a window.",
+   "values": [
+    {
+     "name": "depth_to_width",
+     "op": "<=",
+     "value": 3,
+     "unit": "ratio"
+    }
+   ],
+   "applies_to": "habitable rooms",
+   "condition": "recommendation (should)",
+   "dbc_ref": "K.5.4.2.2",
+   "pdf_page": 709,
+   "printed_page": "K 39",
+   "quote": "the room depth should not exceed three times its width",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "depth perpendicular to each window wall"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "all rooms near-square"
+   }
+  },
+  {
+   "id": "K-WIN-08",
+   "category": "windows_daylight",
+   "rule": "Habitable spaces must have a direct line of sight to the outdoors.",
+   "values": [],
+   "applies_to": "habitable rooms",
+   "condition": null,
+   "dbc_ref": "K.5.4.2.3",
+   "pdf_page": 709,
+   "printed_page": "K 39",
+   "quote": "Direct line of sight (views) shall be provided to the outdoor environment from",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "15",
+    "note": "every HAB room has an external WIN/SLIDE"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": null
+   }
+  },
+  {
+   "id": "K-COR-01",
+   "category": "circulation",
+   "rule": "Hallways and corridors need at least 1.0 m clear width and 2.3 m clear headroom.",
+   "values": [
+    {
+     "name": "clear_width",
+     "op": ">=",
+     "value": 1.0,
+     "unit": "m"
+    },
+    {
+     "name": "clear_headroom",
+     "op": ">=",
+     "value": 2.3,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "hallways, corridors",
+   "condition": null,
+   "dbc_ref": "K.5.5.1",
+   "pdf_page": 710,
+   "printed_page": "K 40",
+   "quote": "Hallways and corridors shall have a minimum clear width of 1.0 m",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "min dimension of CIRC rooms >= 1000"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "corridor 1.7 m"
+   }
+  },
+  {
+   "id": "K-STR-01",
+   "category": "stairs",
+   "rule": "Every stairway needs at least 1,000 mm clear width, measured from wall to the clear width of the step.",
+   "values": [
+    {
+     "name": "stair_clear_width",
+     "op": ">=",
+     "value": 1000,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "all stairs",
+   "condition": null,
+   "dbc_ref": "K.5.5.2.2",
+   "pdf_page": 710,
+   "printed_page": "K 40",
+   "quote": "All stairways shall have at least 1,000 mm clear width.",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "declare STAIR_WIDTH; dog-leg needs 2 x width + gap within the well"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": "2100 well leaves 2 x 1050 with no gap between flights"
+   }
+  },
+  {
+   "id": "K-STR-02",
+   "category": "stairs",
+   "rule": "Handrails may project at most 100 mm into the required stair width on each side, at 865-965 mm height.",
+   "values": [
+    {
+     "name": "handrail_projection",
+     "op": "<=",
+     "value": 100,
+     "unit": "mm"
+    },
+    {
+     "name": "handrail_height",
+     "op": "range",
+     "value": [
+      865,
+      965
+     ],
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "stairs",
+   "condition": null,
+   "dbc_ref": "K.5.5.2.2",
+   "pdf_page": 710,
+   "printed_page": "K 40",
+   "quote": "The maximum projections of handrails allowed in the required width is 100 mm",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "detail-level"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-STR-03",
+   "category": "stairs",
+   "rule": "Stair riser height must be between 100 mm and 180 mm.",
+   "values": [
+    {
+     "name": "riser",
+     "op": "range",
+     "value": [
+      100,
+      180
+     ],
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "all stairs (not spiral/curved, see K-STR-12/13)",
+   "condition": null,
+   "dbc_ref": "K.5.5.2.3",
+   "pdf_page": 711,
+   "printed_page": "K 41",
+   "quote": "shall be in the range 100 mm to 180 mm",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "9",
+    "note": "WRONG VALUE: check 9 allows rise <= 220 and uses 2R+G 550-700 (not in DBC)"
+   },
+   "current_design": {
+    "status": "NON-COMPLIANT",
+    "note": "FF2FF 4100 / 20 = 205 mm; needs >= 23 risers (178.3 mm)"
+   }
+  },
+  {
+   "id": "K-STR-04",
+   "category": "stairs",
+   "rule": "Riser heights within a single flight may differ by no more than 10 mm.",
+   "values": [
+    {
+     "name": "riser_variation",
+     "op": "<=",
+     "value": 10,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "stairs",
+   "condition": null,
+   "dbc_ref": "K.5.5.2.3",
+   "pdf_page": 711,
+   "printed_page": "K 41",
+   "quote": "no more than 10 mm difference in riser height within a single flight",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "uniform rise = FF2FF / RISERS gives 0"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": null
+   }
+  },
+  {
+   "id": "K-STR-05",
+   "category": "stairs",
+   "rule": "Stair tread depth must be at least 280 mm.",
+   "values": [
+    {
+     "name": "tread",
+     "op": ">=",
+     "value": 280,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "all stairs",
+   "condition": null,
+   "dbc_ref": "K.5.5.2.3",
+   "pdf_page": 711,
+   "printed_page": "K 41",
+   "quote": "Minimum stair tread depth shall be not less than 280 mm",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "9",
+    "note": "check 9 uses STAIR_GOING only to fit the well; NEW: STAIR_GOING >= 280"
+   },
+   "current_design": {
+    "status": "NON-COMPLIANT",
+    "note": "STAIR_GOING = 250"
+   }
+  },
+  {
+   "id": "K-STR-06",
+   "category": "stairs",
+   "rule": "Tread depths within a single flight may differ by no more than 10 mm.",
+   "values": [
+    {
+     "name": "tread_variation",
+     "op": "<=",
+     "value": 10,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "stairs",
+   "condition": null,
+   "dbc_ref": "K.5.5.2.3",
+   "pdf_page": 711,
+   "printed_page": "K 41",
+   "quote": "no more than 10 mm difference in tread depth within a single flight",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": null
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": null
+   }
+  },
+  {
+   "id": "K-STR-07",
+   "category": "stairs",
+   "rule": "Tread and landing slope must not exceed 21 mm/m (2%).",
+   "values": [
+    {
+     "name": "tread_slope",
+     "op": "<=",
+     "value": 2,
+     "unit": "%"
+    }
+   ],
+   "applies_to": "stairs, landings",
+   "condition": null,
+   "dbc_ref": "K.5.5.2.3",
+   "pdf_page": 711,
+   "printed_page": "K 41",
+   "quote": "The tread slope shall not exceed 21 mm/m (2% slope).",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "construction tolerance"
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": null
+   }
+  },
+  {
+   "id": "K-STR-08",
+   "category": "stairs",
+   "rule": "Intermediate landings are not required in villas but are recommended where floor-to-floor height exceeds about 4 m.",
+   "values": [
+    {
+     "name": "landing_recommended_above",
+     "op": ">",
+     "value": 4,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "stairs",
+   "condition": "recommendation",
+   "dbc_ref": "K.5.5.2.4",
+   "pdf_page": 712,
+   "printed_page": "K 42",
+   "quote": "Intermediate landings are recommended if the floor to floor height exceeds typical practice",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "9",
+    "note": "STAIR_FLIGHTS = 2"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "FF2FF 4.1 m with a half landing"
+   }
+  },
+  {
+   "id": "K-STR-09",
+   "category": "stairs",
+   "rule": "Landings must be at least 1,000 mm wide and never narrower than the stair; 1,000 mm travel depth suffices on straight runs.",
+   "values": [
+    {
+     "name": "landing_width",
+     "op": ">=",
+     "value": 1000,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "stairs",
+   "condition": null,
+   "dbc_ref": "K.5.5.2.4",
+   "pdf_page": 712,
+   "printed_page": "K 42",
+   "quote": "The landing width shall be not less than 1,000 mm.",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "9",
+    "note": "check 9 reserves 1100 for the half landing; must re-run with DBC riser/tread"
+   },
+   "current_design": {
+    "status": "NON-COMPLIANT",
+    "note": "with 23 risers and 280 treads a dog-leg needs 11 x 280 + 1000 = 4080 mm; well is 3400"
+   }
+  },
+  {
+   "id": "K-STR-10",
+   "category": "stairs",
+   "rule": "A door swinging onto a stair landing may occupy at most half the required landing width.",
+   "values": [
+    {
+     "name": "door_encroachment",
+     "op": "<=",
+     "value": 0.5,
+     "unit": "x landing width"
+    }
+   ],
+   "applies_to": "enclosed staircases with doors",
+   "condition": null,
+   "dbc_ref": "K.5.5.2.4",
+   "pdf_page": 712,
+   "printed_page": "K 42",
+   "quote": "The maximum landing area that a door can encroach in its swing is one half",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "if a door opens onto the stair landing"
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": "open stair"
+   }
+  },
+  {
+   "id": "K-STR-11",
+   "category": "stairs",
+   "rule": "Stair headroom must be at least 2.3 m, measured vertically above the tread nosing line.",
+   "values": [
+    {
+     "name": "stair_headroom",
+     "op": ">=",
+     "value": 2.3,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "stairs",
+   "condition": null,
+   "dbc_ref": "K.5.5.2.10",
+   "pdf_page": 716,
+   "printed_page": "K 46",
+   "quote": "Head room in stairways shall be not less than 2.3 m",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "needs flight geometry vs FF slab edge / void"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-STR-12",
+   "category": "stairs",
+   "rule": "Spiral stairs: width at least 1,000 mm, headroom 2,030 mm, tread 190 mm at 305 mm from narrow edge, riser at most 240 mm.",
+   "values": [
+    {
+     "name": "width",
+     "op": ">=",
+     "value": 1000,
+     "unit": "mm"
+    },
+    {
+     "name": "headroom",
+     "op": ">=",
+     "value": 2030,
+     "unit": "mm"
+    },
+    {
+     "name": "tread_at_305mm",
+     "op": ">=",
+     "value": 190,
+     "unit": "mm"
+    },
+    {
+     "name": "riser",
+     "op": "<=",
+     "value": 240,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "spiral stairs",
+   "condition": "if used; not for basement access",
+   "dbc_ref": "K.5.5.2.8",
+   "pdf_page": 715,
+   "printed_page": "K 45",
+   "quote": "spiral stair headroom shall be not less than 2,030 mm",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "only if a spiral stair is declared"
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": null
+   }
+  },
+  {
+   "id": "K-STR-13",
+   "category": "stairs",
+   "rule": "Curved stairs: width at least 1,000 mm, headroom 2,300 mm, tread 255 mm at 305 mm from narrow edge, riser at most 240 mm.",
+   "values": [
+    {
+     "name": "width",
+     "op": ">=",
+     "value": 1000,
+     "unit": "mm"
+    },
+    {
+     "name": "headroom",
+     "op": ">=",
+     "value": 2300,
+     "unit": "mm"
+    },
+    {
+     "name": "tread_at_305mm",
+     "op": ">=",
+     "value": 255,
+     "unit": "mm"
+    },
+    {
+     "name": "riser",
+     "op": "<=",
+     "value": 240,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "curved stairs",
+   "condition": "if used",
+   "dbc_ref": "K.5.5.2.8",
+   "pdf_page": 715,
+   "printed_page": "K 45",
+   "quote": "tread depth of not less than 255 mm at a point 305 mm",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": null
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": null
+   }
+  },
+  {
+   "id": "K-STR-14",
+   "category": "stairs",
+   "rule": "Winders need at least 150 mm tread at the narrow end and 280 mm at 305 mm from it.",
+   "values": [
+    {
+     "name": "tread_narrowest",
+     "op": ">=",
+     "value": 150,
+     "unit": "mm"
+    },
+    {
+     "name": "tread_at_305mm",
+     "op": ">=",
+     "value": 280,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "winders",
+   "condition": "if used",
+   "dbc_ref": "K.5.5.2.8(i)",
+   "pdf_page": 715,
+   "printed_page": "K 45",
+   "quote": "Winders (see Figure K.31) shall have a tread depth of not less than 150 mm",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": null
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": null
+   }
+  },
+  {
+   "id": "K-STR-15",
+   "category": "stairs",
+   "rule": "Outside stairs more than 11 m above finished ground need an opaque visual barrier at least 1,200 mm high.",
+   "values": [
+    {
+     "name": "height_trigger",
+     "op": ">",
+     "value": 11,
+     "unit": "m"
+    },
+    {
+     "name": "barrier_height",
+     "op": ">=",
+     "value": 1200,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "exterior stairs",
+   "condition": null,
+   "dbc_ref": "K.5.5.2.7",
+   "pdf_page": 715,
+   "printed_page": "K 45",
+   "quote": "Outside stairs more than 11 m above the finished ground level",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": null
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": "no exterior stair above 11 m"
+   }
+  },
+  {
+   "id": "K-HR-01",
+   "category": "handrails",
+   "rule": "Stairs need handrails on open sides, 865-965 mm above the tread nosing.",
+   "values": [
+    {
+     "name": "handrail_height",
+     "op": "range",
+     "value": [
+      865,
+      965
+     ],
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "stairs",
+   "condition": null,
+   "dbc_ref": "K.5.5.2.5",
+   "pdf_page": 713,
+   "printed_page": "K 43",
+   "quote": "Handrails on stairs shall be located between 865 mm and 965 mm above",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "detail-level unless HANDRAIL_H declared"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-HR-02",
+   "category": "handrails",
+   "rule": "A handrail that forms part of a guardrail may be higher than 965 mm but not above 1,065 mm.",
+   "values": [
+    {
+     "name": "handrail_height_max",
+     "op": "<=",
+     "value": 1065,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "stairs",
+   "condition": "handrail forms part of guardrail",
+   "dbc_ref": "K.5.5.2.5",
+   "pdf_page": 713,
+   "printed_page": "K 43",
+   "quote": "can exceed 965 mm, but shall not exceed 1,065 mm",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": null
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-HR-03",
+   "category": "handrails",
+   "rule": "Handrails need at least 57 mm clearance from the wall they are fixed to.",
+   "values": [
+    {
+     "name": "wall_clearance",
+     "op": ">=",
+     "value": 57,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "handrails",
+   "condition": null,
+   "dbc_ref": "K.5.5.2.5",
+   "pdf_page": 713,
+   "printed_page": "K 43",
+   "quote": "clearance of not less than 57 mm between the handrail and the wall",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": null
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-HR-04",
+   "category": "handrails",
+   "rule": "Handrails run the full length of every flight; inside handrails stay continuous between flights at landings.",
+   "values": [],
+   "applies_to": "handrails",
+   "condition": null,
+   "dbc_ref": "K.5.5.2.5",
+   "pdf_page": 713,
+   "printed_page": "K 43",
+   "quote": "Handrails shall continue for the full length of each flight of stair.",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": null
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-HR-05",
+   "category": "handrails",
+   "rule": "Circular handrails 32-51 mm diameter; other shapes 100-160 mm perimeter with largest dimension at most 57 mm.",
+   "values": [
+    {
+     "name": "diameter",
+     "op": "range",
+     "value": [
+      32,
+      51
+     ],
+     "unit": "mm"
+    },
+    {
+     "name": "perimeter_noncircular",
+     "op": "range",
+     "value": [
+      100,
+      160
+     ],
+     "unit": "mm"
+    },
+    {
+     "name": "max_section_noncircular",
+     "op": "<=",
+     "value": 57,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "handrails",
+   "condition": null,
+   "dbc_ref": "K.5.5.2.5",
+   "pdf_page": 713,
+   "printed_page": "K 43",
+   "quote": "outside diameter of not less than 32 mm and not more than 51 mm",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": null
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-HR-06",
+   "category": "handrails",
+   "rule": "Handrails extend one tread depth beyond the flight and return to the wall.",
+   "values": [
+    {
+     "name": "extension",
+     "op": ">=",
+     "value": 1,
+     "unit": "tread depth"
+    }
+   ],
+   "applies_to": "handrails",
+   "condition": null,
+   "dbc_ref": "K.5.5.2.5, Figure K.28",
+   "pdf_page": 713,
+   "printed_page": "K 43",
+   "quote": "One tread depth handrail extension",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": null
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-SGR-01",
+   "category": "guards",
+   "rule": "Stairways whose elevated surface is more than 760 mm above finished ground need guardrails outside the required width.",
+   "values": [
+    {
+     "name": "drop_requiring_guard",
+     "op": ">",
+     "value": 760,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "stairs (incl. external entrance flights)",
+   "condition": null,
+   "dbc_ref": "K.5.5.2.6",
+   "pdf_page": 714,
+   "printed_page": "K 44",
+   "quote": "provided for every stairway where the elevated surface is more than 760 mm",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "external_steps(): landing at LEVEL['GF'] - ground = 900 > 760"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": "entrance and service landings are 900 mm above ground; no guard declared"
+   }
+  },
+  {
+   "id": "K-SGR-02",
+   "category": "guards",
+   "rule": "Stair guardrails must be at least 1,200 mm high, or 1,065 mm where the stair handrail forms part of the guard.",
+   "values": [
+    {
+     "name": "guard_height",
+     "op": ">=",
+     "value": 1200,
+     "unit": "mm"
+    },
+    {
+     "name": "guard_height_with_handrail",
+     "op": ">=",
+     "value": 1065,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "stairs",
+   "condition": null,
+   "dbc_ref": "K.5.5.2.6",
+   "pdf_page": 714,
+   "printed_page": "K 44",
+   "quote": "Guardrails shall be a minimum of 1,200 mm high.",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": null
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-SGR-03",
+   "category": "guards",
+   "rule": "Open guardrails stop a 100 mm sphere up to 865 mm; stair-side triangles must stop a 150 mm sphere.",
+   "values": [
+    {
+     "name": "infill_sphere",
+     "op": "<",
+     "value": 100,
+     "unit": "mm"
+    },
+    {
+     "name": "infill_zone_height",
+     "op": ">=",
+     "value": 865,
+     "unit": "mm"
+    },
+    {
+     "name": "stair_triangle_sphere",
+     "op": "<",
+     "value": 150,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "stairs",
+   "condition": null,
+   "dbc_ref": "K.5.5.2.6",
+   "pdf_page": 714,
+   "printed_page": "K 44",
+   "quote": "a sphere 150 mm in diameter is not able to pass through the triangular opening",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "detail-level"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-GLZ-01",
+   "category": "glazing_safety",
+   "rule": "Glazing lower than 800 mm above FFL that protects a drop over 760 mm must provide containment.",
+   "values": [
+    {
+     "name": "low_glazing_height",
+     "op": "<",
+     "value": 800,
+     "unit": "mm"
+    },
+    {
+     "name": "drop",
+     "op": ">",
+     "value": 760,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "glazing",
+   "condition": null,
+   "dbc_ref": "K.7.6.2",
+   "pdf_page": 739,
+   "printed_page": "K 69",
+   "quote": "Glazing at areas lower than 800 mm from FFL and protecting a change in level",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "WIN_SILL < 800 or SLIDE on FF / raised floors"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "sills 900; no FF full-height glazing"
+   }
+  },
+  {
+   "id": "K-GLZ-02",
+   "category": "glazing_safety",
+   "rule": "Safety glazing (BS EN 12600): low-level Class 1; doors and side panels Class 2 below 900 mm FFL, Class 3 above.",
+   "values": [
+    {
+     "name": "door_zone_boundary",
+     "op": "==",
+     "value": 900,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "doors, side panels, low-level glazing",
+   "condition": null,
+   "dbc_ref": "K.7.6.1, Table K.16",
+   "pdf_page": 739,
+   "printed_page": "K 69",
+   "quote": "Below 900 mm from FFL Class 2",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "specification"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-VEH-01",
+   "category": "vehicle_access",
+   "rule": "Vehicular entries and exits must be at least 6 m from the chamfered plot edge at a local road intersection.",
+   "values": [
+    {
+     "name": "access_to_intersection",
+     "op": ">=",
+     "value": 6,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "plot access",
+   "condition": null,
+   "dbc_ref": "K.5.6.3.1",
+   "pdf_page": 717,
+   "printed_page": "K 47",
+   "quote": "separated from any local road intersection by at least 6 m from the chamfered edge",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "no road context in the model"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-VEH-02",
+   "category": "vehicle_access",
+   "rule": "Vehicle access must not be located opposite a T junction.",
+   "values": [],
+   "applies_to": "plot access",
+   "condition": null,
+   "dbc_ref": "K.5.6.3.1",
+   "pdf_page": 717,
+   "printed_page": "K 47",
+   "quote": "Vehicle access shall not be located opposite a T junction",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "no road context"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-VEH-03",
+   "category": "vehicle_access",
+   "rule": "Internal roads need at least 3 m clear unobstructed width.",
+   "values": [
+    {
+     "name": "internal_road_width",
+     "op": ">=",
+     "value": 3,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "internal roads/driveways",
+   "condition": null,
+   "dbc_ref": "K.5.6.3.1",
+   "pdf_page": 719,
+   "printed_page": "K 49",
+   "quote": "The minimum width of internal roads shall be 3 m wide clear unobstructed.",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "GATE_X1 - GATE_X0 and driveway >= 3000"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "gate 5.6 m"
+   }
+  },
+  {
+   "id": "K-VEH-04",
+   "category": "vehicle_access",
+   "rule": "Vehicular ramps: straight/curved max 12%, helical 8%; lane 3/3.5/5 m; inner radius 4/6 m; 2.4 m clear height.",
+   "values": [
+    {
+     "name": "straight_slope",
+     "op": "<=",
+     "value": 12,
+     "unit": "%"
+    },
+    {
+     "name": "straight_width",
+     "op": ">=",
+     "value": 3,
+     "unit": "m"
+    },
+    {
+     "name": "curved_slope",
+     "op": "<=",
+     "value": 12,
+     "unit": "%"
+    },
+    {
+     "name": "curved_width",
+     "op": ">=",
+     "value": 3.5,
+     "unit": "m"
+    },
+    {
+     "name": "curved_inner_radius",
+     "op": ">=",
+     "value": 4,
+     "unit": "m"
+    },
+    {
+     "name": "helical_slope",
+     "op": "<=",
+     "value": 8,
+     "unit": "%"
+    },
+    {
+     "name": "helical_width",
+     "op": ">=",
+     "value": 5,
+     "unit": "m"
+    },
+    {
+     "name": "helical_inner_radius",
+     "op": ">=",
+     "value": 6,
+     "unit": "m"
+    },
+    {
+     "name": "clear_height",
+     "op": ">=",
+     "value": 2.4,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "vehicular ramps",
+   "condition": "if provided",
+   "dbc_ref": "K.5.6.3.2, Table K.5",
+   "pdf_page": 719,
+   "printed_page": "K 49",
+   "quote": "Ramps allocated for vehicular access shall conform to Table K.5.",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": null
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": "no vehicular ramp"
+   }
+  },
+  {
+   "id": "K-PARK-01",
+   "category": "parking",
+   "rule": "Each villa provides at least one parking bay within the plot, unless the DCR differs; tandem parking is allowed.",
+   "values": [
+    {
+     "name": "parking_bays",
+     "op": ">=",
+     "value": 1,
+     "unit": "bays"
+    }
+   ],
+   "applies_to": "villa",
+   "condition": "DCR/affection plan takes precedence",
+   "dbc_ref": "K.5.6.4, Table K.6",
+   "pdf_page": 720,
+   "printed_page": "K 50",
+   "quote": "1 bay per villa",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "8",
+    "note": "porch for two cars"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "count; but see K-PARK-03 depth"
+   }
+  },
+  {
+   "id": "K-PARK-02",
+   "category": "parking",
+   "rule": "Parking is allowed only on slopes of at most 4%.",
+   "values": [
+    {
+     "name": "parking_slope",
+     "op": "<=",
+     "value": 4,
+     "unit": "%"
+    }
+   ],
+   "applies_to": "parking areas",
+   "condition": null,
+   "dbc_ref": "K.5.6.4",
+   "pdf_page": 720,
+   "printed_page": "K 50",
+   "quote": "The maximum slope in which parking is allowed shall be 4%",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "forecourt fall from gate to house"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": "forecourt level STREET, slope undeclared"
+   }
+  },
+  {
+   "id": "K-PARK-03",
+   "category": "parking",
+   "rule": "Garage minimums: single open 3.0 x 5.5 m, single enclosed 3.6 x 6.0 m, double enclosed 6.0 x 6.0 m.",
+   "values": [
+    {
+     "name": "single_open_w",
+     "op": ">=",
+     "value": 3.0,
+     "unit": "m"
+    },
+    {
+     "name": "single_open_l",
+     "op": ">=",
+     "value": 5.5,
+     "unit": "m"
+    },
+    {
+     "name": "single_enclosed_w",
+     "op": ">=",
+     "value": 3.6,
+     "unit": "m"
+    },
+    {
+     "name": "single_enclosed_l",
+     "op": ">=",
+     "value": 6.0,
+     "unit": "m"
+    },
+    {
+     "name": "double_enclosed_w",
+     "op": ">=",
+     "value": 6.0,
+     "unit": "m"
+    },
+    {
+     "name": "double_enclosed_l",
+     "op": ">=",
+     "value": 6.0,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "garages (roofed or not)",
+   "condition": null,
+   "dbc_ref": "K.5.6.4, Table K.7",
+   "pdf_page": 721,
+   "printed_page": "K 51",
+   "quote": "Single garage – open 3 5.5 Single garage – enclosed 3.6 6.0",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "8",
+    "note": "WRONG VALUE: check 8 accepts 5000 depth; DBC open garage length 5500"
+   },
+   "current_design": {
+    "status": "NON-COMPLIANT",
+    "note": "forecourt 4650 deep (GF face 24000 to wall 28650)"
+   }
+  },
+  {
+   "id": "K-PARK-04",
+   "category": "parking",
+   "rule": "Villas with more than two parking bays must meet the Part B bay and manoeuvring sizes (B.7.2.4).",
+   "values": [
+    {
+     "name": "bays_trigger",
+     "op": ">",
+     "value": 2,
+     "unit": "bays"
+    }
+   ],
+   "applies_to": "villa parking",
+   "condition": null,
+   "dbc_ref": "K.5.6.4",
+   "pdf_page": 721,
+   "printed_page": "K 51",
+   "quote": "If the villa or townhouse provides more than two parking bays, they shall meet",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": null
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": "two bays"
+   }
+  },
+  {
+   "id": "B-PARK-01",
+   "category": "parking",
+   "rule": "Part B bays: 90-degree bays 2.5 x 5.5 m (5.0 m in plots under 30 m long); add 300 mm where walls bound a bay.",
+   "values": [
+    {
+     "name": "bay_width",
+     "op": ">=",
+     "value": 2.5,
+     "unit": "m"
+    },
+    {
+     "name": "bay_length_90deg",
+     "op": ">=",
+     "value": 5.5,
+     "unit": "m"
+    },
+    {
+     "name": "bay_length_90deg_short_plot",
+     "op": ">=",
+     "value": 5.0,
+     "unit": "m"
+    },
+    {
+     "name": "wall_allowance",
+     "op": ">=",
+     "value": 300,
+     "unit": "mm"
+    },
+    {
+     "name": "driveway_90deg_one_way",
+     "op": ">=",
+     "value": 5.5,
+     "unit": "m"
+    },
+    {
+     "name": "driveway_90deg_two_way",
+     "op": ">=",
+     "value": 6.0,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "villa parking",
+   "condition": "only if more than two bays (K.5.6.4)",
+   "dbc_ref": "B.7.2.4, Table B.11",
+   "pdf_page": 86,
+   "printed_page": "B 66",
+   "quote": "all perpendicular bays in plots less than 30 m in length",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": null
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": "two bays; 4650 depth would fail even 5.0 m"
+   }
+  },
+  {
+   "id": "K-SAN-01",
+   "category": "sanitary",
+   "rule": "Every villa includes sanitary facilities with at least a water closet, sink and bathtub or shower.",
+   "values": [],
+   "applies_to": "villa",
+   "condition": null,
+   "dbc_ref": "K.5.7.1",
+   "pdf_page": 721,
+   "printed_page": "K 51",
+   "quote": "Every villa/townhouse shall include sanitary facilities, including a water closet, sink",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "4/FIXTURES",
+    "note": "ensuites carry wc, basin, shower|bath"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": null
+   }
+  },
+  {
+   "id": "K-SAN-02",
+   "category": "sanitary",
+   "rule": "Wet walls: 100 mm impervious skirting; walls within 600 mm of fixtures to 1,200 mm; showers/over baths to 1,800 mm.",
+   "values": [
+    {
+     "name": "skirting",
+     "op": ">=",
+     "value": 100,
+     "unit": "mm"
+    },
+    {
+     "name": "zone_around_fixture",
+     "op": "==",
+     "value": 600,
+     "unit": "mm"
+    },
+    {
+     "name": "wall_finish_height",
+     "op": ">=",
+     "value": 1200,
+     "unit": "mm"
+    },
+    {
+     "name": "shower_finish_height",
+     "op": ">=",
+     "value": 1800,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "bathrooms, WCs",
+   "condition": null,
+   "dbc_ref": "K.5.7.1",
+   "pdf_page": 721,
+   "printed_page": "K 51",
+   "quote": "up to a height of not less than 1,200 mm above FFL",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "finish specification"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-SAN-03",
+   "category": "sanitary",
+   "rule": "Centres of WCs, basins and taps must be at least 400 mm from any side wall, partition or vanity.",
+   "values": [
+    {
+     "name": "centre_to_side_wall",
+     "op": ">=",
+     "value": 400,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "WC, basin, faucet",
+   "condition": null,
+   "dbc_ref": "K.5.7.2(a)",
+   "pdf_page": 722,
+   "printed_page": "K 52",
+   "quote": "400 mm from any side wall, partition, vanity",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": "villa_furniture_spec",
+    "note": "fixture centre to room edge"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-SAN-04",
+   "category": "sanitary",
+   "rule": "Centres of adjacent WCs, basins and taps must be at least 750 mm apart.",
+   "values": [
+    {
+     "name": "centre_to_centre",
+     "op": ">=",
+     "value": 750,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "WC, basin, faucet",
+   "condition": null,
+   "dbc_ref": "K.5.7.2(a)",
+   "pdf_page": 722,
+   "printed_page": "K 52",
+   "quote": "750 mm from the centre of an adjacent fixture",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": "villa_furniture_spec",
+    "note": null
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-SAN-05",
+   "category": "sanitary",
+   "rule": "Keep 750 mm clear in front of a WC or basin to any wall or door leaf, and 600 mm to an opposite fixture.",
+   "values": [
+    {
+     "name": "front_clear_to_wall_or_door",
+     "op": ">=",
+     "value": 750,
+     "unit": "mm"
+    },
+    {
+     "name": "front_clear_to_opposite_fixture",
+     "op": ">=",
+     "value": 600,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "WC, basin",
+   "condition": null,
+   "dbc_ref": "K.5.7.2(b)",
+   "pdf_page": 722,
+   "printed_page": "K 52",
+   "quote": "a 750 mm clearance in front of the water closet or wash basin",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": "villa_furniture_spec",
+    "note": "front strip vs walls, door swings, fixtures"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": "tightest rooms: bedroom 3/4 ensuites 2.2 x 2.0 m"
+   }
+  },
+  {
+   "id": "K-SAN-06",
+   "category": "ventilation",
+   "rule": "Kitchens, bathrooms and toilet rooms need local mechanical exhaust sized to ASHRAE 62.2-2019.",
+   "values": [],
+   "applies_to": "kitchens, bathrooms, WCs",
+   "condition": null,
+   "dbc_ref": "K.10.1.8.1",
+   "pdf_page": 819,
+   "printed_page": "K 149",
+   "quote": "Local exhaust systems shall be provided in kitchens, bathrooms and toilet rooms",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "MEP; airflow values are in ASHRAE 62.2, not the DBC"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-SAN-07",
+   "category": "sanitary",
+   "rule": "Floor drains are required in every area with wet fittings, including kitchens, toilets and showers.",
+   "values": [
+    {
+     "name": "trap_seal",
+     "op": ">=",
+     "value": 75,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "wet rooms, kitchens",
+   "condition": null,
+   "dbc_ref": "K.10.3.2.3",
+   "pdf_page": 830,
+   "printed_page": "K 160",
+   "quote": "Floor drains (see Figure K.97) shall be installed in all building areas containing wet",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "MEP"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-VEN-01",
+   "category": "ventilation",
+   "rule": "Natural ventilation through windows is permitted but must not be relied on for ventilation or comfort.",
+   "values": [],
+   "applies_to": "occupied spaces",
+   "condition": null,
+   "dbc_ref": "K.10.1.7",
+   "pdf_page": 819,
+   "printed_page": "K 149",
+   "quote": "permitted but shall not be relied upon to provide ventilation and thermal comfort",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "no openable-area rule exists"
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": null
+   }
+  },
+  {
+   "id": "K-VEN-02",
+   "category": "ventilation",
+   "rule": "Drainage vent pipes must be at least 3 m horizontally from building openings and 2 m above roof level.",
+   "values": [
+    {
+     "name": "vent_to_opening",
+     "op": ">=",
+     "value": 3,
+     "unit": "m"
+    },
+    {
+     "name": "vent_above_roof",
+     "op": ">=",
+     "value": 2,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "drainage vent stacks",
+   "condition": null,
+   "dbc_ref": "K.10.3.2.4",
+   "pdf_page": 831,
+   "printed_page": "K 161",
+   "quote": "positioned at least 3 m horizontally from any opening into the building",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "stacks not modelled"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-POOL-01",
+   "category": "pool",
+   "rule": "Operable windows adjacent to a private pool need a sill at least 1,200 mm above indoor FFL.",
+   "values": [
+    {
+     "name": "sill_height",
+     "op": ">=",
+     "value": 1200,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "operable windows adjacent to pool",
+   "condition": null,
+   "dbc_ref": "K.5.8.2.1",
+   "pdf_page": 722,
+   "printed_page": "K 52",
+   "quote": "Operable windows adjacent to the pool shall have a minimum sill height of 1,200 mm",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": "7",
+    "note": "GF windows facing the pool terrace: sill >= 1200 or fixed"
+   },
+   "current_design": {
+    "status": "NON-COMPLIANT",
+    "note": "Family Living window faces the water 1.2 m away (Formal Dining, Study on the same terrace): sill 900, if operable"
+   }
+  },
+  {
+   "id": "K-POOL-02",
+   "category": "pool",
+   "rule": "Pool floor slope must not exceed 12% in the shallow area and 33% in the deep end.",
+   "values": [
+    {
+     "name": "shallow_slope",
+     "op": "<=",
+     "value": 12,
+     "unit": "%"
+    },
+    {
+     "name": "deep_slope",
+     "op": "<=",
+     "value": 33,
+     "unit": "%"
+    }
+   ],
+   "applies_to": "private pool",
+   "condition": null,
+   "dbc_ref": "K.5.8.2.2",
+   "pdf_page": 722,
+   "printed_page": "K 52",
+   "quote": "in the shallow area of the pool shall not exceed 12%",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": "7",
+    "note": null
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "flat floor"
+   }
+  },
+  {
+   "id": "K-POOL-03",
+   "category": "pool",
+   "rule": "Designed water depth at the shallowest point of the shallow area must be 850-1,200 mm.",
+   "values": [
+    {
+     "name": "shallowest_depth",
+     "op": "range",
+     "value": [
+      850,
+      1200
+     ],
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "private pool",
+   "condition": null,
+   "dbc_ref": "K.5.8.2.2",
+   "pdf_page": 722,
+   "printed_page": "K 52",
+   "quote": "shall be not less than 850 mm and not higher than 1,200 mm",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": "7",
+    "note": "POOL_TW - POOL_FL at the shallow end"
+   },
+   "current_design": {
+    "status": "NON-COMPLIANT",
+    "note": "constant depth 1400 mm"
+   }
+  },
+  {
+   "id": "K-POOL-04",
+   "category": "pool",
+   "rule": "An outdoor pool fence must be at least 1,200 mm high above FFL.",
+   "values": [
+    {
+     "name": "fence_height",
+     "op": ">=",
+     "value": 1200,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "outdoor private pool",
+   "condition": "unless an exemption in K-POOL-08 applies",
+   "dbc_ref": "K.5.8.2.3(a)",
+   "pdf_page": 723,
+   "printed_page": "K 53",
+   "quote": "The top of the fence shall be not less than 1,200 mm above FFL.",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "declare POOL_BARRIER"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": "no fence declared"
+   }
+  },
+  {
+   "id": "K-POOL-05",
+   "category": "pool",
+   "rule": "Gap between FFL and the bottom of the pool fence must not exceed 50 mm.",
+   "values": [
+    {
+     "name": "fence_bottom_gap",
+     "op": "<=",
+     "value": 50,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "pool fence",
+   "condition": null,
+   "dbc_ref": "K.5.8.2.3(b)",
+   "pdf_page": 723,
+   "printed_page": "K 53",
+   "quote": "The vertical clearance between FFL and bottom of the fence shall not exceed",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "detail"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-POOL-06",
+   "category": "pool",
+   "rule": "Pool fence openings must not pass a 100 mm sphere.",
+   "values": [
+    {
+     "name": "fence_sphere",
+     "op": "<",
+     "value": 100,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "pool fence",
+   "condition": null,
+   "dbc_ref": "K.5.8.2.3(c)",
+   "pdf_page": 723,
+   "printed_page": "K 53",
+   "quote": "Any openings in the fence shall not allow the passage of a 100 mm diameter",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "detail"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-POOL-07",
+   "category": "pool",
+   "rule": "Pool fence gates must be self-closing, self-latching, lockable and open away from the pool.",
+   "values": [],
+   "applies_to": "pool fence gates",
+   "condition": null,
+   "dbc_ref": "K.5.8.2.3(d-e)",
+   "pdf_page": 723,
+   "printed_page": "K 53",
+   "quote": "The fence enclosure shall be equipped with self-closing and self-latching gates.",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "hardware"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-POOL-08",
+   "category": "pool",
+   "rule": "No fence needed if building walls enclose the pool (pool doors alarmed or self-closing), an ASTM F1346 cover, or 1,200 mm pool walls.",
+   "values": [
+    {
+     "name": "pool_wall_barrier_height",
+     "op": ">=",
+     "value": 1200,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "outdoor private pool",
+   "condition": null,
+   "dbc_ref": "K.5.8.2.3(1-4)",
+   "pdf_page": 723,
+   "printed_page": "K 53",
+   "quote": "A swimming pool fence is not required where the walls of adjacent structures",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "declare which barrier route applies; doors onto the pool garden need alarm/self-closer"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": "pool garden enclosed by house + 2.4 m boundary wall; door hardware undeclared"
+   }
+  },
+  {
+   "id": "K-POOL-09",
+   "category": "pool",
+   "rule": "A continuous deck at least 1.2 m wide, excluding coping, must surround the pool immediately adjacent to it.",
+   "values": [
+    {
+     "name": "deck_width",
+     "op": ">=",
+     "value": 1.2,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "private pool",
+   "condition": "width excludes coping/gutter",
+   "dbc_ref": "K.5.8.2.4",
+   "pdf_page": 723,
+   "printed_page": "K 53",
+   "quote": "which shall be not less than 1.2 m wide, excluding the width of the coping",
+   "villa_design_check": {
+    "status": "existing check",
+    "check": "7",
+    "note": "PARTIAL: TERRACE >= 1200 on the north side only"
+   },
+   "current_design": {
+    "status": "NON-COMPLIANT",
+    "note": "south edge is the weir + catch basin (no deck); north 1200 water-to-facade includes the 400 mm pool wall -> ~800 deck"
+   }
+  },
+  {
+   "id": "K-POOL-10",
+   "category": "pool",
+   "rule": "Pool decks and walkways must fall at 2% to deck drains.",
+   "values": [
+    {
+     "name": "deck_slope",
+     "op": "==",
+     "value": 2,
+     "unit": "%"
+    }
+   ],
+   "applies_to": "pool deck",
+   "condition": null,
+   "dbc_ref": "K.5.8.2.4",
+   "pdf_page": 723,
+   "printed_page": "K 53",
+   "quote": "All decks and walkways shall have a 2% slope",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "levels are flat in the model"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-WST-01",
+   "category": "waste",
+   "rule": "Provide dedicated on-plot storage for at least one 240 l general bin and one 240 l recycling bin (max 360 l each).",
+   "values": [
+    {
+     "name": "general_bins",
+     "op": ">=",
+     "value": 1,
+     "unit": "x 240 l"
+    },
+    {
+     "name": "recycling_bins",
+     "op": ">=",
+     "value": 1,
+     "unit": "x 240 l"
+    },
+    {
+     "name": "max_container",
+     "op": "<=",
+     "value": 360,
+     "unit": "l"
+    }
+   ],
+   "applies_to": "villa",
+   "condition": "unless a communal store serves the villa",
+   "dbc_ref": "K.5.9.1",
+   "pdf_page": 724,
+   "printed_page": "K 54",
+   "quote": "one 240 l bin for general waste, and one 240 l bin for recycling",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "declare a bin store (240 l bin 580 x 715, Table K.8)"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": "no bin store"
+   }
+  },
+  {
+   "id": "K-WST-02",
+   "category": "waste",
+   "rule": "Bin access paths falling away from the store must not exceed 8.33% (1:12).",
+   "values": [
+    {
+     "name": "path_gradient",
+     "op": "<=",
+     "value": 8.33,
+     "unit": "%"
+    }
+   ],
+   "applies_to": "waste store access",
+   "condition": null,
+   "dbc_ref": "K.5.9.2(b)",
+   "pdf_page": 724,
+   "printed_page": "K 54",
+   "quote": "shall not exceed 8.33% (1:12)",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": null
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-WST-03",
+   "category": "waste",
+   "rule": "Residents should travel no more than 50 m horizontally to the waste store.",
+   "values": [
+    {
+     "name": "resident_travel",
+     "op": "<=",
+     "value": 50,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "waste store",
+   "condition": "recommendation",
+   "dbc_ref": "K.5.9.2(c)",
+   "pdf_page": 724,
+   "printed_page": "K 54",
+   "quote": "should be no more than 50 m, excluding any vertical distance",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": null
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-WST-04",
+   "category": "waste",
+   "rule": "Collectors should travel at most 30 m from the stopped vehicle for bins up to 240 l, 15 m for larger.",
+   "values": [
+    {
+     "name": "collector_travel_240l",
+     "op": "<=",
+     "value": 30,
+     "unit": "m"
+    },
+    {
+     "name": "collector_travel_over_240l",
+     "op": "<=",
+     "value": 15,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "waste store",
+   "condition": "recommendation",
+   "dbc_ref": "K.5.9.2(d)",
+   "pdf_page": 724,
+   "printed_page": "K 54",
+   "quote": "should be no more than 30 m for bins of up to 240 l",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "store to kerb/gate"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-WST-05",
+   "category": "waste",
+   "rule": "Waste stores allow 150 mm clearance between containers and to surrounding walls.",
+   "values": [
+    {
+     "name": "container_clearance",
+     "op": ">=",
+     "value": 150,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "waste store",
+   "condition": null,
+   "dbc_ref": "K.5.9.3(d)",
+   "pdf_page": 725,
+   "printed_page": "K 55",
+   "quote": "a minimum clearance of 150 mm between individual containers",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": null
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-WST-06",
+   "category": "waste",
+   "rule": "Waste storage is sized for at least two days of generation; the suggested rate is 2.5 kg per bedroom.",
+   "values": [
+    {
+     "name": "storage_days",
+     "op": ">=",
+     "value": 2,
+     "unit": "days"
+    },
+    {
+     "name": "generation_rate",
+     "op": "==",
+     "value": 2.5,
+     "unit": "kg/bedroom"
+    }
+   ],
+   "applies_to": "waste store",
+   "condition": null,
+   "dbc_ref": "K.5.9.3",
+   "pdf_page": 725,
+   "printed_page": "K 55",
+   "quote": "sized for two days of waste and recycling generation as a minimum",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": null
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-ENV-01",
+   "category": "envelope_energy",
+   "rule": "Average U-value: roofs at most 0.3 W/m2K; external walls and exposed floors at most 0.57 W/m2K.",
+   "values": [
+    {
+     "name": "roof_U",
+     "op": "<=",
+     "value": 0.3,
+     "unit": "W/m2K"
+    },
+    {
+     "name": "wall_U",
+     "op": "<=",
+     "value": 0.57,
+     "unit": "W/m2K"
+    }
+   ],
+   "applies_to": "villa envelope",
+   "condition": "elemental compliance route",
+   "dbc_ref": "K.7.2.2.1, Table K.12",
+   "pdf_page": 731,
+   "printed_page": "K 61",
+   "quote": "the average thermal transmittance for external walls, roofs, and exposed floors",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "material specification"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-ENV-02",
+   "category": "envelope_energy",
+   "rule": "Glazing performance by WWR: <40% U 2.1/SC 0.4/LT 40%; 40-60% 1.9/0.32/32%; >60% 1.7/0.25/25%.",
+   "values": [
+    {
+     "name": "U_wwr_lt40",
+     "op": "<=",
+     "value": 2.1,
+     "unit": "W/m2K"
+    },
+    {
+     "name": "SC_wwr_lt40",
+     "op": "<=",
+     "value": 0.4,
+     "unit": "-"
+    },
+    {
+     "name": "LT_wwr_lt40",
+     "op": ">=",
+     "value": 40,
+     "unit": "%"
+    },
+    {
+     "name": "U_wwr_40_60",
+     "op": "<=",
+     "value": 1.9,
+     "unit": "W/m2K"
+    },
+    {
+     "name": "SC_wwr_40_60",
+     "op": "<=",
+     "value": 0.32,
+     "unit": "-"
+    },
+    {
+     "name": "LT_wwr_40_60",
+     "op": ">=",
+     "value": 32,
+     "unit": "%"
+    },
+    {
+     "name": "U_wwr_gt60",
+     "op": "<=",
+     "value": 1.7,
+     "unit": "W/m2K"
+    },
+    {
+     "name": "SC_wwr_gt60",
+     "op": "<=",
+     "value": 0.25,
+     "unit": "-"
+    },
+    {
+     "name": "LT_wwr_gt60",
+     "op": ">=",
+     "value": 25,
+     "unit": "%"
+    }
+   ],
+   "applies_to": "vertical glazing",
+   "condition": "elemental route",
+   "dbc_ref": "K.7.2.2.2, Table K.13",
+   "pdf_page": 732,
+   "printed_page": "K 62",
+   "quote": "The glazing vertical surfaces shall meet the performance criteria in Table K.13 based",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "WWR from OPENINGS / outline perimeter x storey height selects the band"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": "WWR ~11.7% -> glazing U <= 2.1, SC <= 0.4, LT >= 40%"
+   }
+  },
+  {
+   "id": "K-ENV-03",
+   "category": "envelope_energy",
+   "rule": "Skylights: U at most 1.9; SC 0.32 and LT 32% up to 10% glazed roof, SC 0.25 and LT 25% above.",
+   "values": [
+    {
+     "name": "U",
+     "op": "<=",
+     "value": 1.9,
+     "unit": "W/m2K"
+    },
+    {
+     "name": "SC_le10",
+     "op": "<=",
+     "value": 0.32,
+     "unit": "-"
+    },
+    {
+     "name": "LT_le10",
+     "op": ">=",
+     "value": 32,
+     "unit": "%"
+    },
+    {
+     "name": "SC_gt10",
+     "op": "<=",
+     "value": 0.25,
+     "unit": "-"
+    },
+    {
+     "name": "LT_gt10",
+     "op": ">=",
+     "value": 25,
+     "unit": "%"
+    }
+   ],
+   "applies_to": "skylights",
+   "condition": "if used",
+   "dbc_ref": "K.7.2.2.2, Table K.14",
+   "pdf_page": 733,
+   "printed_page": "K 63",
+   "quote": "For skylights, the performance criteria in Table K.14 shall be met depending on",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": null
+   },
+   "current_design": {
+    "status": "n/a",
+    "note": null
+   }
+  },
+  {
+   "id": "K-ENV-04",
+   "category": "envelope_energy",
+   "rule": "At least 75% of roof area needs SRI 78 or more (flat/low slope) or 29 (steep); walls SRI at least 29.",
+   "values": [
+    {
+     "name": "roof_area_share",
+     "op": ">=",
+     "value": 75,
+     "unit": "%"
+    },
+    {
+     "name": "SRI_flat_roof",
+     "op": ">=",
+     "value": 78,
+     "unit": "-"
+    },
+    {
+     "name": "SRI_steep_roof",
+     "op": ">=",
+     "value": 29,
+     "unit": "-"
+    },
+    {
+     "name": "SRI_wall",
+     "op": ">=",
+     "value": 29,
+     "unit": "-"
+    }
+   ],
+   "applies_to": "roofs, external walls",
+   "condition": null,
+   "dbc_ref": "K.7.2.7, Table K.15",
+   "pdf_page": 734,
+   "printed_page": "K 64",
+   "quote": "for a minimum of 75% of the roof area",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "material colour spec (villa_colour)"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-ENV-05",
+   "category": "envelope_energy",
+   "rule": "At least 50% of hardscape must have SRI 29 or more, open-grid paving, vegetation shade or solar/high-SRI shading.",
+   "values": [
+    {
+     "name": "hardscape_share",
+     "op": ">=",
+     "value": 50,
+     "unit": "%"
+    },
+    {
+     "name": "SRI",
+     "op": ">=",
+     "value": 29,
+     "unit": "-"
+    }
+   ],
+   "applies_to": "hardscape",
+   "condition": null,
+   "dbc_ref": "K.5.12.1",
+   "pdf_page": 726,
+   "printed_page": "K 56",
+   "quote": "At least 50% of the hardscape of the development shall achieve at least one",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "surface spec"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-ENV-06",
+   "category": "envelope_energy",
+   "rule": "A damp-proof course must be at least 150 mm above adjoining ground where walls are not under groundwater pressure.",
+   "values": [
+    {
+     "name": "dpc_above_ground",
+     "op": ">=",
+     "value": 150,
+     "unit": "mm"
+    }
+   ],
+   "applies_to": "external walls",
+   "condition": null,
+   "dbc_ref": "K.7.4.2",
+   "pdf_page": 735,
+   "printed_page": "K 65",
+   "quote": "provided at least 150 mm above the level of the adjoining ground",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "LEVEL['GF'] - ground_at() >= 150 (proxy)"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "GF 900 over street, 200 over pool garden"
+   }
+  },
+  {
+   "id": "K-FIRE-01",
+   "category": "fire",
+   "rule": "All villas need smoke detection and alarm, a panel near the front door and outside audio-visual devices.",
+   "values": [],
+   "applies_to": "villa",
+   "condition": null,
+   "dbc_ref": "K.10.5.2",
+   "pdf_page": 841,
+   "printed_page": "K 171",
+   "quote": "requires a smoke detection and alarm system in all villas/townhouses",
+   "villa_design_check": {
+    "status": "not checkable",
+    "check": null,
+    "note": "MEP"
+   },
+   "current_design": {
+    "status": "unverified",
+    "note": null
+   }
+  },
+  {
+   "id": "K-FIRE-02",
+   "category": "fire",
+   "rule": "Sprinklers and hose reels are required where ground floor GA or basement GA exceeds 1,500 m2.",
+   "values": [
+    {
+     "name": "ground_floor_GA_trigger",
+     "op": ">",
+     "value": 1500,
+     "unit": "m2"
+    },
+    {
+     "name": "basement_GA_trigger",
+     "op": ">",
+     "value": 1500,
+     "unit": "m2"
+    }
+   ],
+   "applies_to": "villa",
+   "condition": null,
+   "dbc_ref": "K.10.5.3",
+   "pdf_page": 841,
+   "printed_page": "K 171",
+   "quote": "townhouses with a ground floor GA >1,500 m2",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "fabric('GF')[2].area"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "GF GA 193 m2: not required"
+   }
+  },
+  {
+   "id": "B-FENCE-01",
+   "category": "boundary_walls",
+   "rule": "Where fences or boundary walls are provided, height is limited to 3 m (Part B; not cross-referenced by Part K).",
+   "values": [
+    {
+     "name": "fence_height",
+     "op": "<=",
+     "value": 3,
+     "unit": "m"
+    }
+   ],
+   "applies_to": "buildings under Part B (informative for villas)",
+   "condition": "DCR/affection plan governs villa boundary walls",
+   "dbc_ref": "B.10.3",
+   "pdf_page": 141,
+   "printed_page": "B 121",
+   "quote": "the fence height shall be limited to a maximum of 3 m",
+   "villa_design_check": {
+    "status": "new check needed",
+    "check": null,
+    "note": "BH (builders) <= 3000"
+   },
+   "current_design": {
+    "status": "compliant",
+    "note": "boundary wall 2.4 m (villa_3d_build/villa_gltf BH)"
+   }
+  }
+ ],
+ "not_covered": [
+  "Maximum plot coverage, FAR or GFA cap for villas (K.5.2.7 defines coverage only; limits come from the DCR/affection plan)",
+  "Villa building height other than the 16 m total cap and the three-storey scope (K.5.2.2 defers to the DCR)",
+  "Boundary wall/fence height for villas (Part K silent; B.10.3's 3 m cap is Part B and not cross-referenced)",
+  "Minimum floor areas for bathrooms, WCs, maid/driver bathrooms, laundry, store, plant, majlis or dining (bathrooms go by fixture clearances only)",
+  "A separate driver-room standard (drivers fall under the housekeeper's room definition, K.2.2)",
+  "Openable window area / natural-ventilation opening as a % of floor area (K.10.1.7: natural ventilation not relied upon)",
+  "Kitchen/bathroom exhaust airflow rates (deferred to ASHRAE 62.2-2019; no values in the DBC)",
+  "2R+G (Blondel) stair rule, maximum risers per flight, minimum number of flights",
+  "Door heights and door-head clearance; internal door widths other than Table K.4",
+  "Roof parapet height as such (only the 1,200 mm guard for accessible roofs); any requirement to provide roof access",
+  "Mandatory step-free/accessible villa entrance (K.6: optional)",
+  "Private pool maximum depth, diving depth, pool-to-boundary setback beyond the 1.2 m walkway (Figure K.41), crest/overflow geometry",
+  "Shading projection depth rules (K.7.2.3 only recommends external shading)",
+  "Corridor/circulation area ratios, bedroom-to-bathroom ratios, en-suite requirements",
+  "Sunken court / lightwell minimum dimensions for villas",
+  "Window-to-window privacy/overlooking distances (K.5.1 and K.5.2.5.1(f) are qualitative)",
+  "Vehicular gate width and car porch/canopy height",
+  "Maximum window/glazing ratio (glazing performance is tied to WWR, no cap)"
+ ]
+}

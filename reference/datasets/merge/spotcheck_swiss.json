@@ -1,0 +1,53 @@
+{
+ "unique_layouts_selected": 26397,
+ "rooms_ge4": {
+  "n_layouts": {
+   "recomputed": 7319,
+   "stats": 7319
+  },
+  "bedroom_n": {
+   "recomputed": 23512,
+   "stats": 23512
+  },
+  "bedroom_area_p50": {
+   "recomputed": 13.548,
+   "stats": 13.548
+  },
+  "master_proxy_area_p50": {
+   "recomputed": 15.872,
+   "stats": 15.872
+  },
+  "circulation_share_p50": {
+   "recomputed": 0.128,
+   "stats": 0.128
+  }
+ },
+ "bedrooms_ge4": {
+  "n_layouts": {
+   "recomputed": 1383,
+   "stats": 1383
+  },
+  "bedroom_n": {
+   "recomputed": 5785,
+   "stats": 5785
+  },
+  "bedroom_area_p50": {
+   "recomputed": 13.71,
+   "stats": 13.71
+  },
+  "master_proxy_area_p50": {
+   "recomputed": 16.76,
+   "stats": 16.76
+  },
+  "circulation_share_p50": {
+   "recomputed": 0.137,
+   "stats": 0.137
+  }
+ },
+ "room_stats_json_values": {
+  "bedroom_area_p50": 13.71,
+  "bedroom_master_area_p50": 16.76,
+  "circulation_share_p50": 0.137,
+  "segment": "bedrooms_ge4"
+ }
+}

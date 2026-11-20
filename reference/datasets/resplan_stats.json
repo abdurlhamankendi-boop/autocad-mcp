@@ -1,0 +1,8188 @@
+{
+ "dataset": {
+  "name": "ResPlan: A Large-Scale Vector-Graph Dataset of 17,000 Residential Floor Plans",
+  "repo": "https://github.com/m-agour/ResPlan",
+  "download_url": "https://github.com/m-agour/ResPlan/raw/main/ResPlan.zip",
+  "download_note": "URL redirected to raw.githubusercontent.com and served the real zip (application/zip), not a Git LFS pointer; no LFS URL was needed.",
+  "retrieved": "2026-09-26",
+  "repo_commit_of_file": "4b02e05f1b7d4dec90b3421555656292c6e88ebd (2026-05-03, 'Update dataset to v8')",
+  "local_zip": "C:\\Users\\lsire\\autocad-mcp\\reference\\datasets\\resplan\\ResPlan.zip",
+  "zip_bytes": 100106537,
+  "zip_sha256": "F718DE8865E51BBE93B49B584798E3C536ED6B4B8A5D32F01B56812F389AEB46",
+  "zip_md5": "7BF7CF75D35373566C3F61D3D89C29CF",
+  "zip_git_blob_sha1": "24d12b8739bdb55e0accc60ddd4cb460bcc9886c",
+  "checksum_verification": "No checksum for the GitHub ResPlan.zip is published in README/croissant. Integrity verified against the git blob SHA-1 reported by the GitHub contents API (24d12b87...886c): MATCH. croissant.json publishes an md5 only for the Kaggle archive.zip (v6, 97.508 MB), which is a different file.",
+  "extracted": "ResPlan.pkl, 258453658 bytes, sha256 103edd854a5f365aa875ed832e6cef0d8bc72c4b34e5df0856c01b6970684cb5",
+  "pickle_safety": "Opcode scan before loading found only 3 globals (shapely.io.from_wkb, numpy scalar, numpy dtype); loaded with a restricted Unpickler allowing only those."
+ },
+ "licence": {
+  "data_licence": "CC BY 4.0 (Creative Commons Attribution 4.0 International)",
+  "data_licence_url": "https://creativecommons.org/licenses/by/4.0/",
+  "source_of_statement": "Repo LICENSE file, section 'DATA: ResPlan.pkl, split.json, croissant.json'; README badge 'Data: CC BY 4.0'; TAKEDOWN.md ('released as a research dataset under CC BY 4.0').",
+  "scope_per_LICENSE": "Grant covers the authors' contributions (annotations, taxonomy, graph construction, metric-scale conversion, curation, splits). LICENSE states spatial arrangements are facts and asserts no licence over them. No source images, listing text, prices, addresses or PII are included.",
+  "code_licence": "MIT, Copyright (c) 2025 The ResPlan Authors (resplan_utils.py, ResPlan_demo.ipynb, baselines/)",
+  "DISCREPANCY": "croissant.json in the same repo (Kaggle-generated metadata, version 6) declares license 'CC BY-NC-SA 4.0'. The repo LICENSE/README/TAKEDOWN all say CC BY 4.0 for the data. The GitHub file downloaded here is governed by the repo LICENSE (CC BY 4.0); if the Kaggle release is ever used instead, treat it as NonCommercial-ShareAlike until clarified.",
+  "takedown": "Rights holders may request removal of plan IDs (issue '[Takedown] ...'); removed IDs to be tracked in REMOVED.md. Re-check before redistributing derived per-plan data.",
+  "attribution_required": "ResPlan dataset (The ResPlan Authors, 2025), https://github.com/m-agour/ResPlan, CC BY 4.0. Statistics in resplan_stats.json are derived (aggregated/modified) from it. Formal citation withheld by authors while paper is under review.",
+  "derived_output_note": "resplan_stats.json contains only aggregate statistics (percentiles/shares), no per-plan geometry."
+ },
+ "format_learned": {
+  "container": "ResPlan.pkl = Python list of 17,000 dicts",
+  "keys": "id, area (m2, float; listing area, appears converted from sqft), net_area (unreliable: 0 in ~32% of plans, >area in ~11%), wall_depth (canvas units), inner, land, neighbor (tuple), wall, door, window, front_door, living, bedroom, bathroom, kitchen, balcony, storage, stair, garden, parking, pool (shapely Polygon/MultiPolygon); area_change_sqft only on 683 augmented plans",
+  "coordinates": "Canvas units, NOT metres: every plan is normalised so its 'inner' footprint spans 256 units on its longer side. README's 'metric-scale coordinates' is realised via the per-plan 'area' field.",
+  "room_taxonomy": "living (living+dining+hall+corridors merged, one label), bedroom, bathroom (no separate WC label), kitchen, balcony, storage, stair; plus non-room layers garden/parking/pool/land/neighbor. No dining, corridor, laundry, maid, majlis labels."
+ },
+ "method": {
+  "plans_used": "Original plans only: the 683 augmented plans (key area_change_sqft; rotations/flips/rescales of 667 originals) are excluded. Near-duplicate listings (~6.9% per README) could not be removed (dedup list not in the downloaded file).",
+  "metric_calibration": "Per plan: metres_per_unit s = sqrt(area_m2 / inner.area_units). Checks: resulting wall thickness median 0.22 m (typical 9-inch brick 0.229 m), 99.5% within 0.10-0.40 m (README reports 99.3%); room polygons sum to ~96.5% of 'inner'.",
+  "calibration_uncertainty": "Door openings under this scale: bedroom 1.04 m, bathroom 0.96 m, front 1.21 m (medians) - roughly 10-15% wider than South Asian leaf+frame norms, and where net_area is plausible (0.5-0.95 x area, 47% of plans) its median ratio to area is 0.723, typical of carpet vs super-built-up area. So listing 'area' may often be a built-up/super-built-up figure. If so, multiply the lengths here by ~0.85 and the areas by ~0.72 (lower bound). The validator should treat room-size percentiles as +/-15% (linear) uncertain; shares, counts, ratios and adjacency frequencies are scale-free and unaffected.",
+  "qc_exclusions": "listed area < 20 m2; wall thickness outside 0.08-0.50 m after scaling; room parts < 0.5 m2 dropped as vectorisation crumbs.",
+  "room_metrics": "area = polygon area (net, inside walls); short/long side = minimum rotated rectangle; inscribed_width = diameter of maximum inscribed circle (usable clear width for L-shapes); aspect = long/short of MRR; rectangular = area/MRR area >= 0.95.",
+  "living": "All 'living' parts of a plan are unioned into one living_zone node (resplan_utils convention). It therefore includes dining, entrance hall, lobby and corridors.",
+  "doors": "Each door polygon is assigned to the <=2 rooms it touches (buffer 0.007 x 256 units ~0.1 m), ties broken by contact length as in resplan_utils.plan_to_graph. doors_per_room counts interior door polygons only; front door reported separately (has_front_door_share).",
+  "connections": "door = shared door polygon; open = wall-free passage >= 2 wall thicknesses wide (resplan_utils via_opening logic, with doors/windows also treated as obstacles); interior_window_passthrough = window polygon shared by two interior rooms (resplan_utils promotes these to via_door; 9.1k plans have one between kitchen and living, i.e. a counter/pass-through or semi-open kitchen); access = door OR open OR interior_window_passthrough; window_only = window shared with a balcony (not walkable); adjacent = shares >= 0.5 m of boundary within 1.3 wall thickness, or connected.",
+  "pair_plan_share": "For type pair A|B: among plans containing both (for A|A: >= 2 rooms of A), the share with >= 1 connection of each kind.",
+  "access_to_share": "Per room of the given kind: share of such rooms having >= 1 connection of that kind to a room of the target type.",
+  "circulation": "No corridor label exists. living_zone_share_of_net_interior is an UPPER bound (living+dining+hall+corridor). corridor_like_share = (parts of the living zone narrower than 1.5 m [or 1.8 m], pieces >= 1 m2 and >= 0.7 m wide, found by morphological opening + stair area) / net interior area - a LOWER-bound heuristic for dedicated corridors.",
+  "bathroom_roles": "ensuite = accessible from a bedroom and not from living/kitchen; shared = from a bedroom and from living/kitchen; common = not from any bedroom. master = largest bedroom in plans with >= 2 bedrooms.",
+  "segments": "all = every QC-passed original plan; bed4plus = >= 4 bedrooms (the villa comparator); bed3 = exactly 3 bedrooms; house_like = plan has garden or parking or stair layer (closest thing to a detached house in ResPlan); bed4plus_house_like if >= 50 plans.",
+  "scripts": "C:\\Users\\lsire\\autocad-mcp\\reference\\datasets\\resplan\\scripts\\ (rp_load.py restricted loader, mine_resplan.py per-plan extraction, aggregate_resplan.py -> this JSON)"
+ },
+ "villa_role_map": {
+  "majlis": {
+   "resplan": "living_zone_broad",
+   "quality": "none - no majlis label; South Asian drawing room is merged into 'living'"
+  },
+  "family_living": {
+   "resplan": "living_zone / living_zone_broad",
+   "quality": "poor - living label also contains dining, hall, corridors"
+  },
+  "formal_dining": {
+   "resplan": "living_zone",
+   "quality": "none - dining merged into living"
+  },
+  "hall": {
+   "resplan": "living_zone (circulation)",
+   "quality": "none - merged"
+  },
+  "corridor": {
+   "resplan": "circulation.corridor_like_*",
+   "quality": "heuristic only"
+  },
+  "landing": {
+   "resplan": "stair / circulation",
+   "quality": "poor"
+  },
+  "kitchen": {
+   "resplan": "kitchen",
+   "quality": "good (one kitchen per plan; ~78% of kitchens are open or pass-through to living, ~22% have a door)"
+  },
+  "prep_kitchen": {
+   "resplan": "kitchen (lower tail)",
+   "quality": "none - no separate label"
+  },
+  "pantry": {
+   "resplan": "storage",
+   "quality": "poor"
+  },
+  "master_bedroom": {
+   "resplan": "bedroom_master",
+   "quality": "good (largest bedroom)"
+  },
+  "bedroom": {
+   "resplan": "bedroom_other",
+   "quality": "good"
+  },
+  "ensuite": {
+   "resplan": "bathroom_ensuite",
+   "quality": "good"
+  },
+  "guest_wc": {
+   "resplan": "bathroom_common (+ bathroom.wc_sized_share)",
+   "quality": "fair - no WC label; small common bathrooms are the analogue"
+  },
+  "maid_room": {
+   "resplan": "bedroom.small_room_share (bedrooms < 8 m2)",
+   "quality": "poor - no staff-room label; in >=4-bed plans ~9% of 'bedrooms' are < 8 m2 and ~32% of kitchens connect to a bedroom, consistent with a servant room off the kitchen"
+  },
+  "maid_bath": {
+   "resplan": "bathroom (lower tail)",
+   "quality": "poor"
+  },
+  "driver_room": {
+   "resplan": "-",
+   "quality": "none"
+  },
+  "driver_bath": {
+   "resplan": "bathroom (lower tail)",
+   "quality": "poor"
+  },
+  "laundry": {
+   "resplan": "-",
+   "quality": "none - not labelled"
+  },
+  "store": {
+   "resplan": "storage",
+   "quality": "fair (present in ~10% of plans)"
+  },
+  "plant": {
+   "resplan": "-",
+   "quality": "none"
+  },
+  "study": {
+   "resplan": "bedroom (lower tail)",
+   "quality": "poor"
+  },
+  "stair": {
+   "resplan": "stair",
+   "quality": "fair (only ~4% of plans; single-storey data)"
+  },
+  "balcony_terrace": {
+   "resplan": "balcony",
+   "quality": "good for balconies; no roof terraces"
+  },
+  "wc": {
+   "resplan": "bathroom (wc_sized_share)",
+   "quality": "poor"
+  }
+ },
+ "caveats": [
+  "Apartments, not villas: ResPlan is single-floor unit plans from South Asian real-estate listings (README 'Known limitations'); median listed area ~110 m2 vs a Gulf 4-bed villa of 350-600 m2. Use as typicality warnings only, never as hard rules.",
+  "Regional bias: South Asian layout conventions (open kitchens, balcony-heavy, compact bedrooms, many attached baths). Not representative of Gulf villas (majlis, separate dining, maid/driver quarters, dirty kitchen).",
+  "Only 7 room labels: living merges living/dining/hall/corridor; no WC, laundry, maid, majlis, dining, corridor labels, so several villa roles have no direct comparator (see villa_role_map).",
+  "Metric scale is derived from the listing's area field; evidence suggests it is often a built-up figure, so lengths may be overstated by up to ~15% and areas by up to ~28% (see method.calibration_uncertainty).",
+  ">=4-bedroom plans are a small subset (~6% of plans) and are still apartments, mostly single-level.",
+  "Near-duplicate listings (~6.9%) are not removed; percentiles are barely affected but counts are not fully independent.",
+  "Door/opening/adjacency detection is geometric and inherits vectorisation artefacts (jagged contours, windows drawn on kitchen-living boundaries).",
+  "Licence discrepancy: repo LICENSE says CC BY 4.0 for the data, but croissant.json says CC BY-NC-SA 4.0. Attribution is required either way."
+ ],
+ "generated": "2026-09-26T00:30:01",
+ "plan_counts": {
+  "in_pickle": 17000,
+  "used": 16299,
+  "excluded": {
+   "augmented": 683,
+   "wall_thickness_out_of_range": 12,
+   "listed_area_lt_20": 6
+  },
+  "segments": {
+   "all": 16299,
+   "bed4plus": 1033,
+   "bed3": 5839,
+   "house_like": 967,
+   "bed4plus_house_like": 86
+  }
+ },
+ "quicklook": {
+  "note": "Condensed from segments.bed4plus (villa comparator) with segments.all alongside. Areas m2, lengths m (see method.calibration_uncertainty). Typicality warnings only.",
+  "living_zone": {
+   "bed4plus": {
+    "n": 1033,
+    "area_m2": {
+     "p5": 42.01,
+     "p25": 54.63,
+     "p50": 66.48,
+     "p75": 83.07,
+     "p95": 120.27
+    },
+    "short_side_m": {
+     "p5": 6.39,
+     "p50": 9.43
+    },
+    "aspect_ratio": {
+     "p50": 1.35,
+     "p95": 2.29
+    },
+    "doors_per_room": {
+     "mean": 6.28,
+     "p50": 6.0,
+     "p95": 8.0
+    }
+   },
+   "all": {
+    "n": 16297,
+    "area_m2": {
+     "p5": 22.28,
+     "p25": 31.38,
+     "p50": 40.97,
+     "p75": 50.91,
+     "p95": 79.35
+    },
+    "short_side_m": {
+     "p5": 4.58,
+     "p50": 7.26
+    },
+    "aspect_ratio": {
+     "p50": 1.32,
+     "p95": 2.26
+    },
+    "doors_per_room": {
+     "mean": 4.1,
+     "p50": 4.0,
+     "p95": 6.0
+    }
+   }
+  },
+  "bedroom_master": {
+   "bed4plus": {
+    "n": 1033,
+    "area_m2": {
+     "p5": 19.52,
+     "p25": 24.34,
+     "p50": 27.71,
+     "p75": 31.66,
+     "p95": 42.25
+    },
+    "short_side_m": {
+     "p5": 3.97,
+     "p50": 4.81
+    },
+    "aspect_ratio": {
+     "p50": 1.3,
+     "p95": 1.78
+    },
+    "doors_per_room": {
+     "mean": 2.52,
+     "p50": 3.0,
+     "p95": 3.0
+    }
+   },
+   "all": {
+    "n": 14581,
+    "area_m2": {
+     "p5": 14.54,
+     "p25": 18.29,
+     "p50": 21.03,
+     "p75": 24.17,
+     "p95": 31.83
+    },
+    "short_side_m": {
+     "p5": 3.46,
+     "p50": 4.22
+    },
+    "aspect_ratio": {
+     "p50": 1.23,
+     "p95": 1.64
+    },
+    "doors_per_room": {
+     "mean": 2.24,
+     "p50": 2.0,
+     "p95": 3.0
+    }
+   }
+  },
+  "bedroom_other": {
+   "bed4plus": {
+    "n": 3350,
+    "area_m2": {
+     "p5": 6.02,
+     "p25": 16.11,
+     "p50": 20.39,
+     "p75": 24.03,
+     "p95": 30.71
+    },
+    "short_side_m": {
+     "p5": 2.13,
+     "p50": 4.16
+    },
+    "aspect_ratio": {
+     "p50": 1.23,
+     "p95": 1.71
+    },
+    "doors_per_room": {
+     "mean": 1.96,
+     "p50": 2.0,
+     "p95": 3.0
+    }
+   },
+   "all": {
+    "n": 22737,
+    "area_m2": {
+     "p5": 11.25,
+     "p25": 15.48,
+     "p50": 17.84,
+     "p75": 20.47,
+     "p95": 26.13
+    },
+    "short_side_m": {
+     "p5": 3.09,
+     "p50": 3.93
+    },
+    "aspect_ratio": {
+     "p50": 1.17,
+     "p95": 1.52
+    },
+    "doors_per_room": {
+     "mean": 1.76,
+     "p50": 2.0,
+     "p95": 3.0
+    }
+   }
+  },
+  "bedroom": {
+   "bed4plus": {
+    "n": 4383,
+    "area_m2": {
+     "p5": 6.35,
+     "p25": 17.87,
+     "p50": 21.98,
+     "p75": 26.34,
+     "p95": 34.56
+    },
+    "short_side_m": {
+     "p5": 2.22,
+     "p50": 4.3
+    },
+    "aspect_ratio": {
+     "p50": 1.25,
+     "p95": 1.73
+    },
+    "doors_per_room": {
+     "mean": 2.09,
+     "p50": 2.0,
+     "p95": 3.0
+    }
+   },
+   "all": {
+    "n": 39033,
+    "area_m2": {
+     "p5": 12.26,
+     "p25": 16.21,
+     "p50": 18.83,
+     "p75": 22.05,
+     "p95": 29.22
+    },
+    "short_side_m": {
+     "p5": 3.24,
+     "p50": 4.02
+    },
+    "aspect_ratio": {
+     "p50": 1.19,
+     "p95": 1.57
+    },
+    "doors_per_room": {
+     "mean": 1.94,
+     "p50": 2.0,
+     "p95": 3.0
+    }
+   }
+  },
+  "bathroom": {
+   "bed4plus": {
+    "n": 4255,
+    "area_m2": {
+     "p5": 2.33,
+     "p25": 4.67,
+     "p50": 5.86,
+     "p75": 7.59,
+     "p95": 13.66
+    },
+    "short_side_m": {
+     "p5": 1.28,
+     "p50": 1.95
+    },
+    "aspect_ratio": {
+     "p50": 1.55,
+     "p95": 2.43
+    },
+    "doors_per_room": {
+     "mean": 1.0,
+     "p50": 1.0,
+     "p95": 1.0
+    }
+   },
+   "all": {
+    "n": 38720,
+    "area_m2": {
+     "p5": 2.39,
+     "p25": 3.95,
+     "p50": 4.87,
+     "p75": 5.83,
+     "p95": 9.33
+    },
+    "short_side_m": {
+     "p5": 1.27,
+     "p50": 1.76
+    },
+    "aspect_ratio": {
+     "p50": 1.58,
+     "p95": 2.24
+    },
+    "doors_per_room": {
+     "mean": 1.0,
+     "p50": 1.0,
+     "p95": 1.0
+    }
+   }
+  },
+  "bathroom_ensuite": {
+   "bed4plus": {
+    "n": 3086,
+    "area_m2": {
+     "p5": 2.38,
+     "p25": 4.96,
+     "p50": 6.18,
+     "p75": 8.36,
+     "p95": 14.72
+    },
+    "short_side_m": {
+     "p5": 1.3,
+     "p50": 2.0
+    },
+    "aspect_ratio": {
+     "p50": 1.56,
+     "p95": 2.54
+    },
+    "doors_per_room": {
+     "mean": 1.0,
+     "p50": 1.0,
+     "p95": 1.0
+    }
+   },
+   "all": {
+    "n": 22161,
+    "area_m2": {
+     "p5": 3.03,
+     "p25": 4.3,
+     "p50": 5.18,
+     "p75": 6.19,
+     "p95": 10.89
+    },
+    "short_side_m": {
+     "p5": 1.35,
+     "p50": 1.81
+    },
+    "aspect_ratio": {
+     "p50": 1.6,
+     "p95": 2.34
+    },
+    "doors_per_room": {
+     "mean": 1.0,
+     "p50": 1.0,
+     "p95": 1.0
+    }
+   }
+  },
+  "bathroom_common": {
+   "bed4plus": {
+    "n": 954,
+    "area_m2": {
+     "p5": 2.65,
+     "p25": 4.6,
+     "p50": 5.48,
+     "p75": 6.3,
+     "p95": 8.48
+    },
+    "short_side_m": {
+     "p5": 1.38,
+     "p50": 1.9
+    },
+    "aspect_ratio": {
+     "p50": 1.52,
+     "p95": 2.08
+    },
+    "doors_per_room": {
+     "mean": 0.98,
+     "p50": 1.0,
+     "p95": 1.0
+    }
+   },
+   "all": {
+    "n": 16100,
+    "area_m2": {
+     "p5": 1.97,
+     "p25": 3.56,
+     "p50": 4.44,
+     "p75": 5.35,
+     "p95": 7.02
+    },
+    "short_side_m": {
+     "p5": 1.21,
+     "p50": 1.67
+    },
+    "aspect_ratio": {
+     "p50": 1.55,
+     "p95": 2.11
+    },
+    "doors_per_room": {
+     "mean": 0.99,
+     "p50": 1.0,
+     "p95": 1.0
+    }
+   }
+  },
+  "kitchen": {
+   "bed4plus": {
+    "n": 1028,
+    "area_m2": {
+     "p5": 8.86,
+     "p25": 11.72,
+     "p50": 13.84,
+     "p75": 16.79,
+     "p95": 24.85
+    },
+    "short_side_m": {
+     "p5": 2.48,
+     "p50": 3.28
+    },
+    "aspect_ratio": {
+     "p50": 1.33,
+     "p95": 1.84
+    },
+    "doors_per_room": {
+     "mean": 0.47,
+     "p50": 0.0,
+     "p95": 2.0
+    }
+   },
+   "all": {
+    "n": 16188,
+    "area_m2": {
+     "p5": 5.77,
+     "p25": 8.43,
+     "p50": 10.35,
+     "p75": 12.61,
+     "p95": 18.57
+    },
+    "short_side_m": {
+     "p5": 1.96,
+     "p50": 2.89
+    },
+    "aspect_ratio": {
+     "p50": 1.29,
+     "p95": 1.89
+    },
+    "doors_per_room": {
+     "mean": 0.26,
+     "p50": 0.0,
+     "p95": 1.0
+    }
+   }
+  },
+  "balcony": {
+   "bed4plus": {
+    "n": 2251,
+    "area_m2": {
+     "p5": 2.72,
+     "p25": 4.91,
+     "p50": 7.26,
+     "p75": 11.14,
+     "p95": 25.13
+    },
+    "short_side_m": {
+     "p5": 1.03,
+     "p50": 1.82
+    },
+    "aspect_ratio": {
+     "p50": 2.27,
+     "p95": 5.53
+    },
+    "doors_per_room": {
+     "mean": 1.09,
+     "p50": 1.0,
+     "p95": 2.0
+    }
+   },
+   "all": {
+    "n": 20838,
+    "area_m2": {
+     "p5": 2.37,
+     "p25": 3.86,
+     "p50": 5.38,
+     "p75": 7.61,
+     "p95": 15.72
+    },
+    "short_side_m": {
+     "p5": 0.87,
+     "p50": 1.58
+    },
+    "aspect_ratio": {
+     "p50": 2.35,
+     "p95": 4.86
+    },
+    "doors_per_room": {
+     "mean": 1.03,
+     "p50": 1.0,
+     "p95": 1.0
+    }
+   }
+  },
+  "storage": {
+   "bed4plus": {
+    "n": 211,
+    "area_m2": {
+     "p5": 2.04,
+     "p25": 3.04,
+     "p50": 3.96,
+     "p75": 5.98,
+     "p95": 10.98
+    },
+    "short_side_m": {
+     "p5": 1.13,
+     "p50": 1.73
+    },
+    "aspect_ratio": {
+     "p50": 1.34,
+     "p95": 2.23
+    },
+    "doors_per_room": {
+     "mean": 0.38,
+     "p50": 0.0,
+     "p95": 1.0
+    }
+   },
+   "all": {
+    "n": 1724,
+    "area_m2": {
+     "p5": 1.14,
+     "p25": 2.23,
+     "p50": 3.41,
+     "p75": 6.18,
+     "p95": 11.54
+    },
+    "short_side_m": {
+     "p5": 0.8,
+     "p50": 1.55
+    },
+    "aspect_ratio": {
+     "p50": 1.35,
+     "p95": 2.28
+    },
+    "doors_per_room": {
+     "mean": 0.45,
+     "p50": 0.0,
+     "p95": 1.0
+    }
+   }
+  },
+  "stair": {
+   "bed4plus": {
+    "n": 43,
+    "area_m2": {
+     "p5": 2.1,
+     "p25": 3.44,
+     "p50": 4.59,
+     "p75": 7.92,
+     "p95": 29.26
+    },
+    "short_side_m": {
+     "p5": 1.15,
+     "p50": 1.93
+    },
+    "aspect_ratio": {
+     "p50": 1.46,
+     "p95": 2.87
+    },
+    "doors_per_room": {
+     "mean": 0.23,
+     "p50": 0.0,
+     "p95": 1.0
+    }
+   },
+   "all": {
+    "n": 711,
+    "area_m2": {
+     "p5": 1.25,
+     "p25": 2.88,
+     "p50": 6.01,
+     "p75": 12.06,
+     "p95": 29.0
+    },
+    "short_side_m": {
+     "p5": 0.84,
+     "p50": 2.09
+    },
+    "aspect_ratio": {
+     "p50": 1.56,
+     "p95": 2.71
+    },
+    "doors_per_room": {
+     "mean": 0.19,
+     "p50": 0.0,
+     "p95": 1.0
+    }
+   }
+  },
+  "bathrooms_per_bedroom": {
+   "bed4plus": {
+    "n": 1033,
+    "p5": 0.75,
+    "p25": 0.833,
+    "p50": 1.0,
+    "p75": 1.0,
+    "p95": 1.25,
+    "mean": 0.97
+   },
+   "all": {
+    "n": 14581,
+    "p5": 0.667,
+    "p25": 1.0,
+    "p50": 1.0,
+    "p75": 1.0,
+    "p95": 1.0,
+    "mean": 0.958
+   }
+  },
+  "circulation_share_bounds": {
+   "bed4plus": {
+    "upper_living_zone_p50": 0.338,
+    "lower_corridor_like_w1.8_p50": 0.016,
+    "lower_corridor_like_w1.8_p95": 0.069
+   },
+   "all": {
+    "upper_living_zone_p50": 0.382,
+    "lower_corridor_like_w1.8_p50": 0.021,
+    "lower_corridor_like_w1.8_p95": 0.088
+   }
+  },
+  "key_connection_shares": {
+   "bed4plus": {
+    "bedroom|living": 1.0,
+    "bathroom|bedroom": 0.996,
+    "bathroom|living": 0.885,
+    "kitchen|living": 0.999,
+    "bedroom|kitchen": 0.316,
+    "balcony|bedroom": 0.863,
+    "balcony|living": 0.683
+   },
+   "all": {
+    "bedroom|living": 0.998,
+    "bathroom|bedroom": 0.904,
+    "bathroom|living": 0.872,
+    "kitchen|living": 0.999,
+    "bedroom|kitchen": 0.034,
+    "balcony|bedroom": 0.766,
+    "balcony|living": 0.555
+   }
+  }
+ },
+ "segments": {
+  "all": {
+   "n_plans": 16299,
+   "dwelling": {
+    "listed_area_m2": {
+     "n": 16299,
+     "p5": 57.9,
+     "p25": 87.1,
+     "p50": 109.5,
+     "p75": 140.7,
+     "p95": 218.3,
+     "mean": 120.4
+    },
+    "net_interior_area_m2": {
+     "n": 16299,
+     "p5": 56.3,
+     "p25": 84.1,
+     "p50": 105.8,
+     "p75": 135.3,
+     "p95": 211.1,
+     "mean": 116.2
+    },
+    "balcony_area_m2_if_any": {
+     "n": 12526,
+     "p5": 2.9,
+     "p25": 5.0,
+     "p50": 8.1,
+     "p75": 13.7,
+     "p95": 30.2,
+     "mean": 11.6
+    },
+    "share_with_balcony": 0.769,
+    "share_with_storage": 0.105,
+    "share_with_stair": 0.04,
+    "share_with_garden_or_parking": 0.038,
+    "bedrooms_dist": {
+     "0": 0.0,
+     "1": 0.105,
+     "2": 0.473,
+     "3": 0.358,
+     "4": 0.048,
+     "5": 0.014,
+     "6+": 0.0
+    },
+    "bathrooms_dist": {
+     "1": 0.009,
+     "2": 0.696,
+     "3": 0.228,
+     "4": 0.049,
+     "5": 0.014,
+     "6": 0.003,
+     "7+": 0.0
+    },
+    "functional_rooms_per_plan": {
+     "n": 16299,
+     "p5": 5.0,
+     "p50": 6.0,
+     "p95": 10.0,
+     "mean": 6.9
+    },
+    "wall_thickness_m": {
+     "n": 16299,
+     "p5": 0.184,
+     "p50": 0.225,
+     "p95": 0.295
+    },
+    "interior_door_opening_width_m": {
+     "n": 103596,
+     "p5": 0.8,
+     "p25": 0.93,
+     "p50": 1.0,
+     "p75": 1.07,
+     "p95": 1.26
+    },
+    "front_door_opening_width_m": {
+     "n": 16297,
+     "p5": 0.98,
+     "p50": 1.21,
+     "p95": 1.52
+    },
+    "interior_doors_per_plan": {
+     "n": 16299,
+     "p5": 4.0,
+     "p50": 6.0,
+     "p95": 10.0,
+     "mean": 6.4
+    }
+   },
+   "rooms": {
+    "living_zone": {
+     "n": 16297,
+     "area_m2": {
+      "n": 16297,
+      "p5": 22.28,
+      "p25": 31.38,
+      "p50": 40.97,
+      "p75": 50.91,
+      "p95": 79.35,
+      "mean": 44.61
+     },
+     "short_side_m": {
+      "n": 16297,
+      "p5": 4.58,
+      "p25": 6.12,
+      "p50": 7.26,
+      "p75": 8.46,
+      "p95": 10.76,
+      "mean": 7.42
+     },
+     "inscribed_width_m": {
+      "n": 16297,
+      "p5": 3.53,
+      "p50": 4.47,
+      "p95": 6.19
+     },
+     "long_side_m": {
+      "n": 16297,
+      "p5": 6.68,
+      "p50": 9.83,
+      "p95": 15.9
+     },
+     "aspect_ratio": {
+      "n": 16296,
+      "p5": 1.02,
+      "p50": 1.32,
+      "p75": 1.63,
+      "p95": 2.26
+     },
+     "rectangular_share": 0.012,
+     "doors_per_room": {
+      "n": 16297,
+      "p50": 4.0,
+      "p95": 6.0,
+      "mean": 4.1,
+      "dist": {
+       "0": 0.001,
+       "1": 0.003,
+       "2": 0.049,
+       "3": 0.286,
+       "4+": 0.661
+      }
+     },
+     "has_front_door_share": 1.0,
+     "access_to_share": {
+      "bedroom": 0.998,
+      "bathroom": 0.872,
+      "kitchen": 0.992,
+      "storage": 0.097,
+      "stair": 0.027,
+      "balcony": 0.427
+     },
+     "door_to_share": {
+      "bedroom": 0.997,
+      "bathroom": 0.869,
+      "kitchen": 0.219,
+      "storage": 0.044,
+      "stair": 0.005,
+      "balcony": 0.424
+     },
+     "open_or_passthrough_to_share": {
+      "bedroom": 0.0,
+      "bathroom": 0.005,
+      "kitchen": 0.773,
+      "storage": 0.053,
+      "stair": 0.023,
+      "balcony": 0.003
+     },
+     "adjacent_to_share": {
+      "bedroom": 0.998,
+      "bathroom": 0.979,
+      "kitchen": 0.993,
+      "storage": 0.101,
+      "stair": 0.033,
+      "balcony": 0.463
+     },
+     "no_access_share": 0.0
+    },
+    "bedroom": {
+     "n": 39033,
+     "area_m2": {
+      "n": 39033,
+      "p5": 12.26,
+      "p25": 16.21,
+      "p50": 18.83,
+      "p75": 22.05,
+      "p95": 29.22,
+      "mean": 19.69
+     },
+     "short_side_m": {
+      "n": 39033,
+      "p5": 3.24,
+      "p25": 3.73,
+      "p50": 4.02,
+      "p75": 4.39,
+      "p95": 5.24,
+      "mean": 4.1
+     },
+     "inscribed_width_m": {
+      "n": 39033,
+      "p5": 3.18,
+      "p50": 3.94,
+      "p95": 4.78
+     },
+     "long_side_m": {
+      "n": 39033,
+      "p5": 3.73,
+      "p50": 4.84,
+      "p95": 6.84
+     },
+     "aspect_ratio": {
+      "n": 39033,
+      "p5": 1.01,
+      "p50": 1.19,
+      "p75": 1.32,
+      "p95": 1.57
+     },
+     "rectangular_share": 0.633,
+     "doors_per_room": {
+      "n": 39033,
+      "p50": 2.0,
+      "p95": 3.0,
+      "mean": 1.94,
+      "dist": {
+       "0": 0.003,
+       "1": 0.296,
+       "2": 0.474,
+       "3": 0.218,
+       "4+": 0.01
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.989,
+      "bedroom": 0.004,
+      "bathroom": 0.575,
+      "kitchen": 0.014,
+      "storage": 0.002,
+      "stair": 0.002,
+      "balcony": 0.357
+     },
+     "door_to_share": {
+      "living": 0.988,
+      "bedroom": 0.0,
+      "bathroom": 0.565,
+      "kitchen": 0.007,
+      "storage": 0.0,
+      "stair": 0.0,
+      "balcony": 0.355
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.0,
+      "bedroom": 0.003,
+      "bathroom": 0.013,
+      "kitchen": 0.008,
+      "storage": 0.002,
+      "stair": 0.002,
+      "balcony": 0.003
+     },
+     "adjacent_to_share": {
+      "living": 0.993,
+      "bedroom": 0.461,
+      "bathroom": 0.83,
+      "kitchen": 0.23,
+      "storage": 0.024,
+      "stair": 0.009,
+      "balcony": 0.481
+     },
+     "no_access_share": 0.001,
+     "small_room_share": {
+      "note": "staff-room / study sized 'bedrooms' (no maid label in ResPlan)",
+      "lt_8m2": 0.012,
+      "lt_10m2": 0.022,
+      "lt_8m2_and_kitchen_access": 0.005
+     }
+    },
+    "bedroom_other": {
+     "n": 22737,
+     "area_m2": {
+      "n": 22737,
+      "p5": 11.25,
+      "p25": 15.48,
+      "p50": 17.84,
+      "p75": 20.47,
+      "p95": 26.13,
+      "mean": 18.26
+     },
+     "short_side_m": {
+      "n": 22737,
+      "p5": 3.09,
+      "p25": 3.68,
+      "p50": 3.93,
+      "p75": 4.24,
+      "p95": 4.88,
+      "mean": 3.96
+     },
+     "inscribed_width_m": {
+      "n": 22737,
+      "p5": 3.04,
+      "p50": 3.88,
+      "p95": 4.62
+     },
+     "long_side_m": {
+      "n": 22737,
+      "p5": 3.62,
+      "p50": 4.64,
+      "p95": 6.22
+     },
+     "aspect_ratio": {
+      "n": 22737,
+      "p5": 1.01,
+      "p50": 1.17,
+      "p75": 1.29,
+      "p95": 1.52
+     },
+     "rectangular_share": 0.686,
+     "doors_per_room": {
+      "n": 22737,
+      "p50": 2.0,
+      "p95": 3.0,
+      "mean": 1.76,
+      "dist": {
+       "0": 0.004,
+       "1": 0.399,
+       "2": 0.439,
+       "3": 0.153,
+       "4+": 0.005
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.985,
+      "bedroom": 0.004,
+      "bathroom": 0.44,
+      "kitchen": 0.02,
+      "storage": 0.003,
+      "stair": 0.001,
+      "balcony": 0.325
+     },
+     "door_to_share": {
+      "living": 0.985,
+      "bedroom": 0.0,
+      "bathroom": 0.426,
+      "kitchen": 0.008,
+      "storage": 0.0,
+      "balcony": 0.322
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.0,
+      "bedroom": 0.004,
+      "bathroom": 0.017,
+      "kitchen": 0.012,
+      "storage": 0.003,
+      "stair": 0.001,
+      "balcony": 0.003
+     },
+     "adjacent_to_share": {
+      "living": 0.991,
+      "bedroom": 0.478,
+      "bathroom": 0.762,
+      "kitchen": 0.223,
+      "storage": 0.028,
+      "stair": 0.006,
+      "balcony": 0.465
+     },
+     "no_access_share": 0.002,
+     "small_room_share": {
+      "note": "staff-room / study sized 'bedrooms' (no maid label in ResPlan)",
+      "lt_8m2": 0.02,
+      "lt_10m2": 0.034,
+      "lt_8m2_and_kitchen_access": 0.008
+     }
+    },
+    "bedroom_master": {
+     "n": 14581,
+     "area_m2": {
+      "n": 14581,
+      "p5": 14.54,
+      "p25": 18.29,
+      "p50": 21.03,
+      "p75": 24.17,
+      "p95": 31.83,
+      "mean": 21.99
+     },
+     "short_side_m": {
+      "n": 14581,
+      "p5": 3.46,
+      "p25": 3.89,
+      "p50": 4.22,
+      "p75": 4.63,
+      "p95": 5.61,
+      "mean": 4.33
+     },
+     "inscribed_width_m": {
+      "n": 14581,
+      "p5": 3.41,
+      "p50": 4.08,
+      "p95": 4.92
+     },
+     "long_side_m": {
+      "n": 14581,
+      "p5": 4.14,
+      "p50": 5.26,
+      "p95": 7.37
+     },
+     "aspect_ratio": {
+      "n": 14581,
+      "p5": 1.02,
+      "p50": 1.23,
+      "p75": 1.37,
+      "p95": 1.64
+     },
+     "rectangular_share": 0.537,
+     "doors_per_room": {
+      "n": 14581,
+      "p50": 2.0,
+      "p95": 3.0,
+      "mean": 2.24,
+      "dist": {
+       "0": 0.001,
+       "1": 0.123,
+       "2": 0.53,
+       "3": 0.329,
+       "4+": 0.016
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.994,
+      "bedroom": 0.003,
+      "bathroom": 0.816,
+      "kitchen": 0.005,
+      "storage": 0.001,
+      "stair": 0.002,
+      "balcony": 0.404
+     },
+     "door_to_share": {
+      "living": 0.994,
+      "bedroom": 0.0,
+      "bathroom": 0.811,
+      "kitchen": 0.003,
+      "storage": 0.0,
+      "balcony": 0.403
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.0,
+      "bedroom": 0.003,
+      "bathroom": 0.007,
+      "kitchen": 0.002,
+      "storage": 0.001,
+      "stair": 0.002,
+      "balcony": 0.002
+     },
+     "adjacent_to_share": {
+      "living": 0.997,
+      "bedroom": 0.489,
+      "bathroom": 0.936,
+      "kitchen": 0.189,
+      "storage": 0.019,
+      "stair": 0.009,
+      "balcony": 0.512
+     },
+     "no_access_share": 0.001
+    },
+    "bathroom": {
+     "n": 38720,
+     "area_m2": {
+      "n": 38720,
+      "p5": 2.39,
+      "p25": 3.95,
+      "p50": 4.87,
+      "p75": 5.83,
+      "p95": 9.33,
+      "mean": 5.24
+     },
+     "short_side_m": {
+      "n": 38720,
+      "p5": 1.27,
+      "p25": 1.54,
+      "p50": 1.76,
+      "p75": 1.95,
+      "p95": 2.44,
+      "mean": 1.8
+     },
+     "inscribed_width_m": {
+      "n": 38720,
+      "p5": 1.27,
+      "p50": 1.75,
+      "p95": 2.36
+     },
+     "long_side_m": {
+      "n": 38720,
+      "p5": 1.78,
+      "p50": 2.8,
+      "p95": 4.32
+     },
+     "aspect_ratio": {
+      "n": 38720,
+      "p5": 1.12,
+      "p50": 1.58,
+      "p75": 1.78,
+      "p95": 2.24
+     },
+     "rectangular_share": 0.921,
+     "doors_per_room": {
+      "n": 38720,
+      "p50": 1.0,
+      "p95": 1.0,
+      "mean": 1.0,
+      "dist": {
+       "0": 0.006,
+       "1": 0.991,
+       "2": 0.003,
+       "3": 0.0,
+       "4+": 0.0
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.419,
+      "bedroom": 0.584,
+      "bathroom": 0.008,
+      "kitchen": 0.005,
+      "storage": 0.001,
+      "stair": 0.006,
+      "balcony": 0.001
+     },
+     "door_to_share": {
+      "living": 0.417,
+      "bedroom": 0.573,
+      "bathroom": 0.0,
+      "kitchen": 0.003,
+      "storage": 0.0,
+      "stair": 0.0,
+      "balcony": 0.0
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.002,
+      "bedroom": 0.014,
+      "bathroom": 0.008,
+      "kitchen": 0.002,
+      "storage": 0.001,
+      "stair": 0.005,
+      "balcony": 0.001
+     },
+     "adjacent_to_share": {
+      "living": 0.736,
+      "bedroom": 0.856,
+      "bathroom": 0.345,
+      "kitchen": 0.178,
+      "storage": 0.015,
+      "stair": 0.011,
+      "balcony": 0.173
+     },
+     "no_access_share": 0.004,
+     "wc_sized_share": {
+      "lt_2.0m2": 0.028,
+      "lt_2.5m2": 0.056,
+      "lt_3.0m2": 0.091
+     }
+    },
+    "bathroom_common": {
+     "n": 16100,
+     "area_m2": {
+      "n": 16100,
+      "p5": 1.97,
+      "p25": 3.56,
+      "p50": 4.44,
+      "p75": 5.35,
+      "p95": 7.02,
+      "mean": 4.55
+     },
+     "short_side_m": {
+      "n": 16100,
+      "p5": 1.21,
+      "p25": 1.49,
+      "p50": 1.67,
+      "p75": 1.88,
+      "p95": 2.24,
+      "mean": 1.7
+     },
+     "inscribed_width_m": {
+      "n": 16100,
+      "p5": 1.2,
+      "p50": 1.66,
+      "p95": 2.19
+     },
+     "long_side_m": {
+      "n": 16100,
+      "p5": 1.59,
+      "p50": 2.66,
+      "p95": 3.56
+     },
+     "aspect_ratio": {
+      "n": 16100,
+      "p5": 1.1,
+      "p50": 1.55,
+      "p75": 1.74,
+      "p95": 2.11
+     },
+     "rectangular_share": 0.933,
+     "doors_per_room": {
+      "n": 16100,
+      "p50": 1.0,
+      "p95": 1.0,
+      "mean": 0.99,
+      "dist": {
+       "0": 0.011,
+       "1": 0.988,
+       "2": 0.001
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.981,
+      "bathroom": 0.017,
+      "kitchen": 0.01,
+      "storage": 0.002,
+      "stair": 0.008,
+      "balcony": 0.001
+     },
+     "door_to_share": {
+      "living": 0.979,
+      "bathroom": 0.0,
+      "kitchen": 0.007,
+      "storage": 0.0,
+      "stair": 0.0,
+      "balcony": 0.0
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.002,
+      "bathroom": 0.016,
+      "kitchen": 0.004,
+      "storage": 0.002,
+      "stair": 0.007,
+      "balcony": 0.001
+     },
+     "adjacent_to_share": {
+      "living": 0.988,
+      "bedroom": 0.653,
+      "bathroom": 0.402,
+      "kitchen": 0.241,
+      "storage": 0.012,
+      "stair": 0.013,
+      "balcony": 0.122
+     },
+     "no_access_share": 0.01
+    },
+    "bathroom_ensuite": {
+     "n": 22161,
+     "area_m2": {
+      "n": 22161,
+      "p5": 3.03,
+      "p25": 4.3,
+      "p50": 5.18,
+      "p75": 6.19,
+      "p95": 10.89,
+      "mean": 5.75
+     },
+     "short_side_m": {
+      "n": 22161,
+      "p5": 1.35,
+      "p25": 1.6,
+      "p50": 1.81,
+      "p75": 2.01,
+      "p95": 2.61,
+      "mean": 1.86
+     },
+     "inscribed_width_m": {
+      "n": 22161,
+      "p5": 1.35,
+      "p50": 1.8,
+      "p95": 2.47
+     },
+     "long_side_m": {
+      "n": 22161,
+      "p5": 2.08,
+      "p50": 2.89,
+      "p95": 4.76
+     },
+     "aspect_ratio": {
+      "n": 22161,
+      "p5": 1.13,
+      "p50": 1.6,
+      "p75": 1.81,
+      "p95": 2.34
+     },
+     "rectangular_share": 0.916,
+     "doors_per_room": {
+      "n": 22161,
+      "p50": 1.0,
+      "p95": 1.0,
+      "mean": 1.0,
+      "dist": {
+       "0": 0.002,
+       "1": 0.994,
+       "2": 0.004,
+       "3": 0.0,
+       "4+": 0.0
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "bedroom": 1.0,
+      "bathroom": 0.002,
+      "storage": 0.0,
+      "stair": 0.004,
+      "balcony": 0.001
+     },
+     "door_to_share": {
+      "bedroom": 0.998,
+      "bathroom": 0.0,
+      "stair": 0.0,
+      "balcony": 0.0
+     },
+     "open_or_passthrough_to_share": {
+      "bedroom": 0.007,
+      "bathroom": 0.002,
+      "storage": 0.0,
+      "stair": 0.004,
+      "balcony": 0.001
+     },
+     "adjacent_to_share": {
+      "living": 0.547,
+      "bedroom": 1.0,
+      "bathroom": 0.306,
+      "kitchen": 0.131,
+      "storage": 0.016,
+      "stair": 0.009,
+      "balcony": 0.212
+     },
+     "no_access_share": 0.0
+    },
+    "kitchen": {
+     "n": 16188,
+     "area_m2": {
+      "n": 16188,
+      "p5": 5.77,
+      "p25": 8.43,
+      "p50": 10.35,
+      "p75": 12.61,
+      "p95": 18.57,
+      "mean": 11.15
+     },
+     "short_side_m": {
+      "n": 16188,
+      "p5": 1.96,
+      "p25": 2.54,
+      "p50": 2.89,
+      "p75": 3.23,
+      "p95": 4.03,
+      "mean": 2.93
+     },
+     "inscribed_width_m": {
+      "n": 16188,
+      "p5": 1.93,
+      "p50": 2.82,
+      "p95": 3.85
+     },
+     "long_side_m": {
+      "n": 16188,
+      "p5": 2.79,
+      "p50": 3.76,
+      "p95": 5.4
+     },
+     "aspect_ratio": {
+      "n": 16188,
+      "p5": 1.03,
+      "p50": 1.29,
+      "p75": 1.49,
+      "p95": 1.89
+     },
+     "rectangular_share": 0.766,
+     "doors_per_room": {
+      "n": 16188,
+      "p50": 0.0,
+      "p95": 1.0,
+      "mean": 0.26,
+      "dist": {
+       "0": 0.758,
+       "1": 0.228,
+       "2": 0.013,
+       "3": 0.001,
+       "4+": 0.0
+      }
+     },
+     "has_front_door_share": 0.003,
+     "access_to_share": {
+      "living": 0.999,
+      "bedroom": 0.034,
+      "bathroom": 0.01,
+      "storage": 0.007,
+      "stair": 0.003,
+      "balcony": 0.002
+     },
+     "door_to_share": {
+      "living": 0.221,
+      "bedroom": 0.016,
+      "bathroom": 0.005,
+      "storage": 0.002,
+      "stair": 0.002,
+      "balcony": 0.002
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.778,
+      "bedroom": 0.018,
+      "bathroom": 0.005,
+      "storage": 0.005,
+      "stair": 0.001,
+      "balcony": 0.0
+     },
+     "adjacent_to_share": {
+      "living": 1.0,
+      "bedroom": 0.506,
+      "bathroom": 0.397,
+      "storage": 0.043,
+      "stair": 0.009,
+      "balcony": 0.005
+     },
+     "no_access_share": 0.001
+    },
+    "balcony": {
+     "n": 20838,
+     "area_m2": {
+      "n": 20838,
+      "p5": 2.37,
+      "p25": 3.86,
+      "p50": 5.38,
+      "p75": 7.61,
+      "p95": 15.72,
+      "mean": 6.97
+     },
+     "short_side_m": {
+      "n": 20838,
+      "p5": 0.87,
+      "p25": 1.25,
+      "p50": 1.58,
+      "p75": 1.93,
+      "p95": 3.02,
+      "mean": 1.72
+     },
+     "inscribed_width_m": {
+      "n": 20838,
+      "p5": 0.86,
+      "p50": 1.56,
+      "p95": 2.74
+     },
+     "long_side_m": {
+      "n": 20838,
+      "p5": 1.93,
+      "p50": 3.73,
+      "p95": 7.36
+     },
+     "aspect_ratio": {
+      "n": 20838,
+      "p5": 1.11,
+      "p50": 2.35,
+      "p75": 3.18,
+      "p95": 4.86
+     },
+     "rectangular_share": 0.861,
+     "doors_per_room": {
+      "n": 20838,
+      "p50": 1.0,
+      "p95": 1.0,
+      "mean": 1.03,
+      "dist": {
+       "0": 0.017,
+       "1": 0.937,
+       "2": 0.044,
+       "3": 0.001,
+       "4+": 0.0
+      }
+     },
+     "has_front_door_share": 0.001,
+     "access_to_share": {
+      "living": 0.351,
+      "bedroom": 0.647,
+      "bathroom": 0.002,
+      "kitchen": 0.002,
+      "storage": 0.0,
+      "stair": 0.003,
+      "balcony": 0.076
+     },
+     "door_to_share": {
+      "living": 0.348,
+      "bedroom": 0.644,
+      "bathroom": 0.0,
+      "kitchen": 0.002,
+      "storage": 0.0
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.003,
+      "bedroom": 0.005,
+      "bathroom": 0.002,
+      "kitchen": 0.0,
+      "storage": 0.0,
+      "stair": 0.003,
+      "balcony": 0.076
+     },
+     "adjacent_to_share": {
+      "living": 0.388,
+      "bedroom": 0.819,
+      "bathroom": 0.307,
+      "kitchen": 0.005,
+      "storage": 0.011,
+      "stair": 0.003,
+      "balcony": 0.076
+     },
+     "no_access_share": 0.012
+    },
+    "stair": {
+     "n": 711,
+     "area_m2": {
+      "n": 711,
+      "p5": 1.25,
+      "p25": 2.88,
+      "p50": 6.01,
+      "p75": 12.06,
+      "p95": 29.0,
+      "mean": 10.01
+     },
+     "short_side_m": {
+      "n": 711,
+      "p5": 0.84,
+      "p25": 1.39,
+      "p50": 2.09,
+      "p75": 3.24,
+      "p95": 5.45,
+      "mean": 2.54
+     },
+     "inscribed_width_m": {
+      "n": 711,
+      "p5": 0.79,
+      "p50": 1.74,
+      "p95": 3.91
+     },
+     "long_side_m": {
+      "n": 711,
+      "p5": 1.44,
+      "p50": 3.43,
+      "p95": 8.93
+     },
+     "aspect_ratio": {
+      "n": 711,
+      "p5": 1.03,
+      "p50": 1.56,
+      "p75": 1.93,
+      "p95": 2.71
+     },
+     "rectangular_share": 0.509,
+     "doors_per_room": {
+      "n": 711,
+      "p50": 0.0,
+      "p95": 1.0,
+      "mean": 0.19,
+      "dist": {
+       "0": 0.855,
+       "1": 0.115,
+       "2": 0.02,
+       "3": 0.007,
+       "4+": 0.003
+      }
+     },
+     "has_front_door_share": 0.131,
+     "access_to_share": {
+      "living": 0.689,
+      "bedroom": 0.079,
+      "bathroom": 0.232,
+      "kitchen": 0.069,
+      "storage": 0.004,
+      "stair": 0.027,
+      "balcony": 0.098
+     },
+     "door_to_share": {
+      "living": 0.11,
+      "bedroom": 0.001,
+      "bathroom": 0.003,
+      "kitchen": 0.044
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.579,
+      "bedroom": 0.077,
+      "bathroom": 0.229,
+      "kitchen": 0.025,
+      "storage": 0.004,
+      "stair": 0.027,
+      "balcony": 0.098
+     },
+     "adjacent_to_share": {
+      "living": 0.821,
+      "bedroom": 0.449,
+      "bathroom": 0.48,
+      "kitchen": 0.198,
+      "storage": 0.023,
+      "stair": 0.037,
+      "balcony": 0.098
+     },
+     "no_access_share": 0.062
+    },
+    "storage": {
+     "n": 1724,
+     "area_m2": {
+      "n": 1724,
+      "p5": 1.14,
+      "p25": 2.23,
+      "p50": 3.41,
+      "p75": 6.18,
+      "p95": 11.54,
+      "mean": 4.69
+     },
+     "short_side_m": {
+      "n": 1724,
+      "p5": 0.8,
+      "p25": 1.28,
+      "p50": 1.55,
+      "p75": 2.16,
+      "p95": 3.12,
+      "mean": 1.75
+     },
+     "inscribed_width_m": {
+      "n": 1724,
+      "p5": 0.8,
+      "p50": 1.53,
+      "p95": 3.11
+     },
+     "long_side_m": {
+      "n": 1724,
+      "p5": 1.31,
+      "p50": 2.22,
+      "p95": 4.02
+     },
+     "aspect_ratio": {
+      "n": 1724,
+      "p5": 1.03,
+      "p50": 1.35,
+      "p75": 1.64,
+      "p95": 2.28
+     },
+     "rectangular_share": 0.898,
+     "doors_per_room": {
+      "n": 1724,
+      "p50": 0.0,
+      "p95": 1.0,
+      "mean": 0.45,
+      "dist": {
+       "0": 0.555,
+       "1": 0.439,
+       "2": 0.006,
+       "3": 0.001
+      }
+     },
+     "has_front_door_share": 0.002,
+     "access_to_share": {
+      "living": 0.918,
+      "bedroom": 0.05,
+      "bathroom": 0.029,
+      "kitchen": 0.067,
+      "storage": 0.001,
+      "stair": 0.002,
+      "balcony": 0.006
+     },
+     "door_to_share": {
+      "living": 0.419,
+      "bedroom": 0.002,
+      "bathroom": 0.003,
+      "kitchen": 0.023,
+      "balcony": 0.001
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.499,
+      "bedroom": 0.048,
+      "bathroom": 0.026,
+      "kitchen": 0.044,
+      "storage": 0.001,
+      "stair": 0.002,
+      "balcony": 0.005
+     },
+     "adjacent_to_share": {
+      "living": 0.957,
+      "bedroom": 0.484,
+      "bathroom": 0.317,
+      "kitchen": 0.403,
+      "storage": 0.006,
+      "stair": 0.009,
+      "balcony": 0.127
+     },
+     "no_access_share": 0.002
+    },
+    "bathroom_shared": {
+     "n": 459,
+     "area_m2": {
+      "n": 459,
+      "p5": 1.93,
+      "p25": 3.01,
+      "p50": 4.49,
+      "p75": 5.99,
+      "p95": 11.01,
+      "mean": 5.11
+     },
+     "short_side_m": {
+      "n": 459,
+      "p5": 1.16,
+      "p25": 1.43,
+      "p50": 1.7,
+      "p75": 2.01,
+      "p95": 2.74,
+      "mean": 1.8
+     },
+     "inscribed_width_m": {
+      "n": 459,
+      "p5": 1.14,
+      "p50": 1.66,
+      "p95": 2.44
+     },
+     "long_side_m": {
+      "n": 459,
+      "p5": 1.55,
+      "p50": 2.66,
+      "p95": 4.91
+     },
+     "aspect_ratio": {
+      "n": 459,
+      "p5": 1.06,
+      "p50": 1.51,
+      "p75": 1.79,
+      "p95": 2.44
+     },
+     "rectangular_share": 0.763,
+     "doors_per_room": {
+      "n": 459,
+      "p50": 1.0,
+      "p95": 1.0,
+      "mean": 1.05,
+      "dist": {
+       "0": 0.004,
+       "1": 0.95,
+       "2": 0.041,
+       "3": 0.004
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.959,
+      "bedroom": 1.0,
+      "bathroom": 0.002,
+      "kitchen": 0.041,
+      "stair": 0.002
+     },
+     "door_to_share": {
+      "living": 0.85,
+      "bedroom": 0.168,
+      "kitchen": 0.009
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.109,
+      "bedroom": 0.834,
+      "bathroom": 0.002,
+      "kitchen": 0.033,
+      "stair": 0.002
+     },
+     "adjacent_to_share": {
+      "living": 0.987,
+      "bedroom": 1.0,
+      "bathroom": 0.233,
+      "kitchen": 0.229,
+      "storage": 0.026,
+      "stair": 0.017,
+      "balcony": 0.118
+     },
+     "no_access_share": 0.0
+    },
+    "living_zone_broad": {
+     "note": "living_zone minus parts narrower than 1.5 m (morphological opening, r=0.75 m)",
+     "area_total_m2": {
+      "n": 16297,
+      "p5": 19.74,
+      "p25": 29.37,
+      "p50": 39.3,
+      "p75": 49.39,
+      "p95": 78.01,
+      "mean": 42.86
+     },
+     "largest_piece_area_m2": {
+      "n": 16297,
+      "p5": 19.42,
+      "p25": 28.54,
+      "p50": 38.62,
+      "p75": 48.82,
+      "p95": 76.72,
+      "mean": 42.11
+     }
+    }
+   },
+   "connections": {
+    "pair_plan_share": {
+     "bedroom|living": {
+      "plans_with_both": 16294,
+      "access": 0.998,
+      "door": 0.998,
+      "open": 0.0,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.998
+     },
+     "bathroom|living": {
+      "plans_with_both": 16297,
+      "access": 0.872,
+      "door": 0.869,
+      "open": 0.005,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.979
+     },
+     "kitchen|living": {
+      "plans_with_both": 16187,
+      "access": 0.999,
+      "door": 0.221,
+      "open": 0.216,
+      "interior_window_passthrough": 0.562,
+      "window_only": 0.0,
+      "adjacent": 1.0
+     },
+     "living|storage": {
+      "plans_with_both": 1708,
+      "access": 0.924,
+      "door": 0.421,
+      "open": 0.415,
+      "interior_window_passthrough": 0.088,
+      "window_only": 0.0,
+      "adjacent": 0.96
+     },
+     "living|stair": {
+      "plans_with_both": 642,
+      "access": 0.685,
+      "door": 0.121,
+      "open": 0.559,
+      "interior_window_passthrough": 0.02,
+      "window_only": 0.0,
+      "adjacent": 0.83
+     },
+     "balcony|living": {
+      "plans_with_both": 12525,
+      "access": 0.555,
+      "door": 0.552,
+      "open": 0.004,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.031,
+      "adjacent": 0.602
+     },
+     "bedroom|bedroom": {
+      "plans_with_both": 14581,
+      "access": 0.004,
+      "door": 0.0,
+      "open": 0.004,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.565
+     },
+     "bathroom|bedroom": {
+      "plans_with_both": 16296,
+      "access": 0.904,
+      "door": 0.901,
+      "open": 0.019,
+      "interior_window_passthrough": 0.012,
+      "window_only": 0.0,
+      "adjacent": 0.98
+     },
+     "bedroom|kitchen": {
+      "plans_with_both": 16185,
+      "access": 0.034,
+      "door": 0.016,
+      "open": 0.018,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.506
+     },
+     "bedroom|storage": {
+      "plans_with_both": 1708,
+      "access": 0.05,
+      "door": 0.002,
+      "open": 0.034,
+      "interior_window_passthrough": 0.014,
+      "window_only": 0.0,
+      "adjacent": 0.487
+     },
+     "bedroom|stair": {
+      "plans_with_both": 643,
+      "access": 0.087,
+      "door": 0.002,
+      "open": 0.019,
+      "interior_window_passthrough": 0.068,
+      "window_only": 0.0,
+      "adjacent": 0.479
+     },
+     "balcony|bedroom": {
+      "plans_with_both": 12526,
+      "access": 0.766,
+      "door": 0.764,
+      "open": 0.008,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.071,
+      "adjacent": 0.903
+     },
+     "bathroom|bathroom": {
+      "plans_with_both": 16150,
+      "access": 0.01,
+      "door": 0.0,
+      "open": 0.009,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.402
+     },
+     "bathroom|kitchen": {
+      "plans_with_both": 16188,
+      "access": 0.01,
+      "door": 0.005,
+      "open": 0.005,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.397
+     },
+     "bathroom|storage": {
+      "plans_with_both": 1708,
+      "access": 0.029,
+      "door": 0.003,
+      "open": 0.003,
+      "interior_window_passthrough": 0.023,
+      "window_only": 0.0,
+      "adjacent": 0.319
+     },
+     "bathroom|stair": {
+      "plans_with_both": 644,
+      "access": 0.247,
+      "door": 0.003,
+      "open": 0.008,
+      "interior_window_passthrough": 0.239,
+      "window_only": 0.0,
+      "adjacent": 0.497
+     },
+     "balcony|bathroom": {
+      "plans_with_both": 12526,
+      "access": 0.003,
+      "door": 0.0,
+      "open": 0.003,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.282,
+      "adjacent": 0.413
+     },
+     "kitchen|storage": {
+      "plans_with_both": 1676,
+      "access": 0.068,
+      "door": 0.023,
+      "open": 0.037,
+      "interior_window_passthrough": 0.008,
+      "window_only": 0.0,
+      "adjacent": 0.412
+     },
+     "kitchen|stair": {
+      "plans_with_both": 598,
+      "access": 0.082,
+      "door": 0.052,
+      "open": 0.03,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.234
+     },
+     "balcony|kitchen": {
+      "plans_with_both": 12427,
+      "access": 0.003,
+      "door": 0.003,
+      "open": 0.0,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.007
+     },
+     "stair|storage": {
+      "plans_with_both": 96,
+      "access": 0.031,
+      "door": 0.0,
+      "open": 0.021,
+      "interior_window_passthrough": 0.01,
+      "window_only": 0.0,
+      "adjacent": 0.167
+     },
+     "balcony|storage": {
+      "plans_with_both": 1378,
+      "access": 0.007,
+      "door": 0.001,
+      "open": 0.006,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.037,
+      "adjacent": 0.158
+     },
+     "stair|stair": {
+      "plans_with_both": 61,
+      "access": 0.148,
+      "door": 0.0,
+      "open": 0.148,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.197
+     },
+     "balcony|stair": {
+      "plans_with_both": 352,
+      "access": 0.199,
+      "door": 0.0,
+      "open": 0.199,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.199
+     },
+     "balcony|balcony": {
+      "plans_with_both": 5757,
+      "access": 0.128,
+      "door": 0.0,
+      "open": 0.128,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.128
+     }
+    },
+    "front_door_opens_to_share": {
+     "living": 1.0,
+     "bedroom": 0.0,
+     "kitchen": 0.003,
+     "storage": 0.0,
+     "stair": 0.006,
+     "balcony": 0.001
+    },
+    "edges_per_plan_mean": {
+     "door": 6.33,
+     "open": 0.42,
+     "interior_window_passthrough": 0.6,
+     "window_only": 0.36,
+     "adjacent": 12.17
+    }
+   },
+   "circulation": {
+    "living_zone_share_of_net_interior": {
+     "n": 16297,
+     "p5": 0.297,
+     "p25": 0.346,
+     "p50": 0.382,
+     "p75": 0.423,
+     "p95": 0.484,
+     "mean": 0.386
+    },
+    "corridor_like_share_w1.5": {
+     "n": 16297,
+     "p5": 0.0,
+     "p25": 0.0,
+     "p50": 0.0,
+     "p75": 0.028,
+     "p95": 0.073,
+     "mean": 0.018
+    },
+    "corridor_like_share_w1.8": {
+     "n": 16297,
+     "p5": 0.0,
+     "p25": 0.0,
+     "p50": 0.021,
+     "p75": 0.043,
+     "p95": 0.088,
+     "mean": 0.028
+    },
+    "corridor_like_area_m2_w1.5": {
+     "n": 16297,
+     "p5": 0.0,
+     "p25": 0.0,
+     "p50": 0.0,
+     "p75": 2.46,
+     "p95": 6.08,
+     "mean": 1.49
+    },
+    "share_plans_with_corridor_ge_2m2_w1.5": 0.318,
+    "share_plans_with_corridor_ge_2m2_w1.8": 0.512
+   },
+   "bathrooms_per_bedroom": {
+    "scope": "plans in this segment with >= 2 bedrooms",
+    "n_plans": 14581,
+    "ratio": {
+     "n": 14581,
+     "p5": 0.667,
+     "p25": 1.0,
+     "p50": 1.0,
+     "p75": 1.0,
+     "p95": 1.0,
+     "mean": 0.958
+    },
+    "bathrooms_minus_bedrooms_dist": {
+     "-3": 0.0,
+     "-2": 0.003,
+     "-1": 0.181,
+     "0": 0.77,
+     "1": 0.044,
+     "2": 0.003,
+     "3": 0.0
+    },
+    "by_bedroom_count": {
+     "2_bed": {
+      "n": 7709,
+      "bathrooms_dist": {
+       "1": 0.009,
+       "2": 0.954,
+       "3": 0.035,
+       "4": 0.001
+      },
+      "bathrooms_p50": 2.0
+     },
+     "3_bed": {
+      "n": 5839,
+      "bathrooms_dist": {
+       "1": 0.002,
+       "2": 0.4,
+       "3": 0.555,
+       "4": 0.04,
+       "5": 0.003,
+       "6": 0.0
+      },
+      "bathrooms_p50": 3.0
+     },
+     "4_bed": {
+      "n": 790,
+      "bathrooms_dist": {
+       "2": 0.032,
+       "3": 0.214,
+       "4": 0.628,
+       "5": 0.114,
+       "6": 0.011,
+       "7+": 0.001
+      },
+      "bathrooms_p50": 4.0
+     },
+     "5_bed": {
+      "n": 235,
+      "bathrooms_dist": {
+       "3": 0.021,
+       "4": 0.243,
+       "5": 0.528,
+       "6": 0.187,
+       "7+": 0.021
+      },
+      "bathrooms_p50": 5.0
+     },
+     "6+_bed": {
+      "n": 8,
+      "bathrooms_dist": {
+       "3": 0.125,
+       "5": 0.5,
+       "6": 0.375
+      },
+      "bathrooms_p50": 5.0
+     }
+    },
+    "bedrooms_with_private_ensuite_share": 0.577,
+    "master_with_private_ensuite_share": 0.81,
+    "bathroom_role_share": {
+     "ensuite": 0.611,
+     "shared": 0.012,
+     "common": 0.376
+    },
+    "plans_with_at_least_one_common_bathroom": 0.857
+   }
+  },
+  "bed4plus": {
+   "n_plans": 1033,
+   "dwelling": {
+    "listed_area_m2": {
+     "n": 1033,
+     "p5": 143.3,
+     "p25": 175.6,
+     "p50": 207.4,
+     "p75": 246.0,
+     "p95": 330.0,
+     "mean": 217.8
+    },
+    "net_interior_area_m2": {
+     "n": 1033,
+     "p5": 137.3,
+     "p25": 167.3,
+     "p50": 197.5,
+     "p75": 233.9,
+     "p95": 314.3,
+     "mean": 207.7
+    },
+    "balcony_area_m2_if_any": {
+     "n": 942,
+     "p5": 5.5,
+     "p25": 11.7,
+     "p50": 19.9,
+     "p75": 30.3,
+     "p95": 55.2,
+     "mean": 23.8
+    },
+    "share_with_balcony": 0.912,
+    "share_with_storage": 0.2,
+    "share_with_stair": 0.037,
+    "share_with_garden_or_parking": 0.056,
+    "bedrooms_dist": {
+     "4": 0.765,
+     "5": 0.227,
+     "6+": 0.008
+    },
+    "bathrooms_dist": {
+     "2": 0.024,
+     "3": 0.169,
+     "4": 0.535,
+     "5": 0.211,
+     "6": 0.054,
+     "7+": 0.006
+    },
+    "functional_rooms_per_plan": {
+     "n": 1033,
+     "p5": 9.0,
+     "p50": 10.0,
+     "p95": 13.0,
+     "mean": 10.6
+    },
+    "wall_thickness_m": {
+     "n": 1033,
+     "p5": 0.231,
+     "p50": 0.269,
+     "p95": 0.334
+    },
+    "interior_door_opening_width_m": {
+     "n": 11435,
+     "p5": 0.79,
+     "p25": 0.93,
+     "p50": 1.01,
+     "p75": 1.1,
+     "p95": 1.32
+    },
+    "front_door_opening_width_m": {
+     "n": 1033,
+     "p5": 1.0,
+     "p50": 1.21,
+     "p95": 1.58
+    },
+    "interior_doors_per_plan": {
+     "n": 1033,
+     "p5": 8.0,
+     "p50": 11.0,
+     "p95": 15.0,
+     "mean": 11.1
+    }
+   },
+   "rooms": {
+    "living_zone": {
+     "n": 1033,
+     "area_m2": {
+      "n": 1033,
+      "p5": 42.01,
+      "p25": 54.63,
+      "p50": 66.48,
+      "p75": 83.07,
+      "p95": 120.27,
+      "mean": 71.95
+     },
+     "short_side_m": {
+      "n": 1033,
+      "p5": 6.39,
+      "p25": 8.21,
+      "p50": 9.43,
+      "p75": 10.94,
+      "p95": 13.29,
+      "mean": 9.61
+     },
+     "inscribed_width_m": {
+      "n": 1033,
+      "p5": 4.32,
+      "p50": 5.39,
+      "p95": 7.59
+     },
+     "long_side_m": {
+      "n": 1033,
+      "p5": 9.51,
+      "p50": 13.2,
+      "p95": 19.79
+     },
+     "aspect_ratio": {
+      "n": 1033,
+      "p5": 1.03,
+      "p50": 1.35,
+      "p75": 1.7,
+      "p95": 2.29
+     },
+     "rectangular_share": 0.003,
+     "doors_per_room": {
+      "n": 1033,
+      "p50": 6.0,
+      "p95": 8.0,
+      "mean": 6.28,
+      "dist": {
+       "3": 0.003,
+       "4+": 0.997
+      }
+     },
+     "has_front_door_share": 0.999,
+     "access_to_share": {
+      "bedroom": 1.0,
+      "bathroom": 0.885,
+      "kitchen": 0.994,
+      "storage": 0.176,
+      "stair": 0.017,
+      "balcony": 0.622
+     },
+     "door_to_share": {
+      "bedroom": 1.0,
+      "bathroom": 0.883,
+      "kitchen": 0.318,
+      "storage": 0.067,
+      "stair": 0.006,
+      "balcony": 0.618
+     },
+     "open_or_passthrough_to_share": {
+      "bathroom": 0.007,
+      "kitchen": 0.676,
+      "storage": 0.109,
+      "stair": 0.012,
+      "balcony": 0.006
+     },
+     "adjacent_to_share": {
+      "bedroom": 1.0,
+      "bathroom": 0.986,
+      "kitchen": 0.995,
+      "storage": 0.193,
+      "stair": 0.027,
+      "balcony": 0.746
+     },
+     "no_access_share": 0.0
+    },
+    "bedroom": {
+     "n": 4383,
+     "area_m2": {
+      "n": 4383,
+      "p5": 6.35,
+      "p25": 17.87,
+      "p50": 21.98,
+      "p75": 26.34,
+      "p95": 34.56,
+      "mean": 21.72
+     },
+     "short_side_m": {
+      "n": 4383,
+      "p5": 2.22,
+      "p25": 3.87,
+      "p50": 4.3,
+      "p75": 4.77,
+      "p95": 5.84,
+      "mean": 4.23
+     },
+     "inscribed_width_m": {
+      "n": 4383,
+      "p5": 2.15,
+      "p50": 4.17,
+      "p95": 5.1
+     },
+     "long_side_m": {
+      "n": 4383,
+      "p5": 2.95,
+      "p50": 5.37,
+      "p95": 7.69
+     },
+     "aspect_ratio": {
+      "n": 4383,
+      "p5": 1.02,
+      "p50": 1.25,
+      "p75": 1.4,
+      "p95": 1.73
+     },
+     "rectangular_share": 0.509,
+     "doors_per_room": {
+      "n": 4383,
+      "p50": 2.0,
+      "p95": 3.0,
+      "mean": 2.09,
+      "dist": {
+       "0": 0.009,
+       "1": 0.204,
+       "2": 0.486,
+       "3": 0.288,
+       "4+": 0.012
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.956,
+      "bedroom": 0.011,
+      "bathroom": 0.745,
+      "kitchen": 0.075,
+      "storage": 0.008,
+      "stair": 0.001,
+      "balcony": 0.395
+     },
+     "door_to_share": {
+      "living": 0.956,
+      "bedroom": 0.001,
+      "bathroom": 0.695,
+      "kitchen": 0.025,
+      "storage": 0.0,
+      "balcony": 0.388
+     },
+     "open_or_passthrough_to_share": {
+      "bedroom": 0.01,
+      "bathroom": 0.063,
+      "kitchen": 0.05,
+      "storage": 0.008,
+      "stair": 0.001,
+      "balcony": 0.008
+     },
+     "adjacent_to_share": {
+      "living": 0.97,
+      "bedroom": 0.522,
+      "bathroom": 0.923,
+      "kitchen": 0.201,
+      "storage": 0.039,
+      "stair": 0.007,
+      "balcony": 0.51
+     },
+     "no_access_share": 0.002,
+     "small_room_share": {
+      "note": "staff-room / study sized 'bedrooms' (no maid label in ResPlan)",
+      "lt_8m2": 0.087,
+      "lt_10m2": 0.125,
+      "lt_8m2_and_kitchen_access": 0.037
+     }
+    },
+    "bedroom_master": {
+     "n": 1033,
+     "area_m2": {
+      "n": 1033,
+      "p5": 19.52,
+      "p25": 24.34,
+      "p50": 27.71,
+      "p75": 31.66,
+      "p95": 42.25,
+      "mean": 28.67
+     },
+     "short_side_m": {
+      "n": 1033,
+      "p5": 3.97,
+      "p25": 4.4,
+      "p50": 4.81,
+      "p75": 5.32,
+      "p95": 6.54,
+      "mean": 4.96
+     },
+     "inscribed_width_m": {
+      "n": 1033,
+      "p5": 3.86,
+      "p50": 4.49,
+      "p95": 5.42
+     },
+     "long_side_m": {
+      "n": 1033,
+      "p5": 5.01,
+      "p50": 6.35,
+      "p95": 8.77
+     },
+     "aspect_ratio": {
+      "n": 1033,
+      "p5": 1.03,
+      "p50": 1.3,
+      "p75": 1.46,
+      "p95": 1.78
+     },
+     "rectangular_share": 0.349,
+     "doors_per_room": {
+      "n": 1033,
+      "p50": 3.0,
+      "p95": 3.0,
+      "mean": 2.52,
+      "dist": {
+       "0": 0.002,
+       "1": 0.043,
+       "2": 0.421,
+       "3": 0.508,
+       "4+": 0.026
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.996,
+      "bedroom": 0.007,
+      "bathroom": 0.926,
+      "kitchen": 0.004,
+      "storage": 0.004,
+      "stair": 0.002,
+      "balcony": 0.564
+     },
+     "door_to_share": {
+      "living": 0.996,
+      "bedroom": 0.001,
+      "bathroom": 0.917,
+      "kitchen": 0.002,
+      "storage": 0.001,
+      "balcony": 0.559
+     },
+     "open_or_passthrough_to_share": {
+      "bedroom": 0.006,
+      "bathroom": 0.018,
+      "kitchen": 0.002,
+      "storage": 0.003,
+      "stair": 0.002,
+      "balcony": 0.006
+     },
+     "adjacent_to_share": {
+      "living": 0.997,
+      "bedroom": 0.655,
+      "bathroom": 0.983,
+      "kitchen": 0.118,
+      "storage": 0.035,
+      "stair": 0.01,
+      "balcony": 0.681
+     },
+     "no_access_share": 0.002
+    },
+    "bedroom_other": {
+     "n": 3350,
+     "area_m2": {
+      "n": 3350,
+      "p5": 6.02,
+      "p25": 16.11,
+      "p50": 20.39,
+      "p75": 24.03,
+      "p95": 30.71,
+      "mean": 19.58
+     },
+     "short_side_m": {
+      "n": 3350,
+      "p5": 2.13,
+      "p25": 3.69,
+      "p50": 4.16,
+      "p75": 4.55,
+      "p95": 5.3,
+      "mean": 4.0
+     },
+     "inscribed_width_m": {
+      "n": 3350,
+      "p5": 2.06,
+      "p50": 4.08,
+      "p95": 4.93
+     },
+     "long_side_m": {
+      "n": 3350,
+      "p5": 2.84,
+      "p50": 5.09,
+      "p95": 6.99
+     },
+     "aspect_ratio": {
+      "n": 3350,
+      "p5": 1.02,
+      "p50": 1.23,
+      "p75": 1.38,
+      "p95": 1.71
+     },
+     "rectangular_share": 0.558,
+     "doors_per_room": {
+      "n": 3350,
+      "p50": 2.0,
+      "p95": 3.0,
+      "mean": 1.96,
+      "dist": {
+       "0": 0.012,
+       "1": 0.254,
+       "2": 0.507,
+       "3": 0.22,
+       "4+": 0.008
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.944,
+      "bedroom": 0.012,
+      "bathroom": 0.689,
+      "kitchen": 0.097,
+      "storage": 0.009,
+      "stair": 0.001,
+      "balcony": 0.343
+     },
+     "door_to_share": {
+      "living": 0.944,
+      "bedroom": 0.001,
+      "bathroom": 0.627,
+      "kitchen": 0.033,
+      "balcony": 0.336
+     },
+     "open_or_passthrough_to_share": {
+      "bedroom": 0.011,
+      "bathroom": 0.077,
+      "kitchen": 0.064,
+      "storage": 0.009,
+      "stair": 0.001,
+      "balcony": 0.009
+     },
+     "adjacent_to_share": {
+      "living": 0.961,
+      "bedroom": 0.48,
+      "bathroom": 0.904,
+      "kitchen": 0.227,
+      "storage": 0.041,
+      "stair": 0.007,
+      "balcony": 0.458
+     },
+     "no_access_share": 0.002,
+     "small_room_share": {
+      "note": "staff-room / study sized 'bedrooms' (no maid label in ResPlan)",
+      "lt_8m2": 0.114,
+      "lt_10m2": 0.163,
+      "lt_8m2_and_kitchen_access": 0.048
+     }
+    },
+    "bathroom": {
+     "n": 4255,
+     "area_m2": {
+      "n": 4255,
+      "p5": 2.33,
+      "p25": 4.67,
+      "p50": 5.86,
+      "p75": 7.59,
+      "p95": 13.66,
+      "mean": 6.64
+     },
+     "short_side_m": {
+      "n": 4255,
+      "p5": 1.28,
+      "p25": 1.74,
+      "p50": 1.95,
+      "p75": 2.2,
+      "p95": 3.02,
+      "mean": 2.01
+     },
+     "inscribed_width_m": {
+      "n": 4255,
+      "p5": 1.27,
+      "p50": 1.94,
+      "p95": 2.81
+     },
+     "long_side_m": {
+      "n": 4255,
+      "p5": 1.78,
+      "p50": 3.02,
+      "p95": 5.56
+     },
+     "aspect_ratio": {
+      "n": 4255,
+      "p5": 1.1,
+      "p50": 1.55,
+      "p75": 1.77,
+      "p95": 2.43
+     },
+     "rectangular_share": 0.844,
+     "doors_per_room": {
+      "n": 4255,
+      "p50": 1.0,
+      "p95": 1.0,
+      "mean": 1.0,
+      "dist": {
+       "0": 0.009,
+       "1": 0.985,
+       "2": 0.005,
+       "3": 0.001
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.265,
+      "bedroom": 0.776,
+      "bathroom": 0.003,
+      "kitchen": 0.003,
+      "storage": 0.002,
+      "stair": 0.003,
+      "balcony": 0.002
+     },
+     "door_to_share": {
+      "living": 0.263,
+      "bedroom": 0.722,
+      "bathroom": 0.0,
+      "kitchen": 0.002,
+      "balcony": 0.0
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.002,
+      "bedroom": 0.066,
+      "bathroom": 0.003,
+      "kitchen": 0.0,
+      "storage": 0.002,
+      "stair": 0.003,
+      "balcony": 0.002
+     },
+     "adjacent_to_share": {
+      "living": 0.537,
+      "bedroom": 0.957,
+      "bathroom": 0.33,
+      "kitchen": 0.107,
+      "storage": 0.021,
+      "stair": 0.006,
+      "balcony": 0.216
+     },
+     "no_access_share": 0.004,
+     "wc_sized_share": {
+      "lt_2.0m2": 0.027,
+      "lt_2.5m2": 0.063,
+      "lt_3.0m2": 0.105
+     }
+    },
+    "bathroom_ensuite": {
+     "n": 3086,
+     "area_m2": {
+      "n": 3086,
+      "p5": 2.38,
+      "p25": 4.96,
+      "p50": 6.18,
+      "p75": 8.36,
+      "p95": 14.72,
+      "mean": 7.15
+     },
+     "short_side_m": {
+      "n": 3086,
+      "p5": 1.3,
+      "p25": 1.78,
+      "p50": 2.0,
+      "p75": 2.26,
+      "p95": 3.18,
+      "mean": 2.07
+     },
+     "inscribed_width_m": {
+      "n": 3086,
+      "p5": 1.29,
+      "p50": 1.98,
+      "p95": 2.96
+     },
+     "long_side_m": {
+      "n": 3086,
+      "p5": 1.81,
+      "p50": 3.1,
+      "p95": 5.72
+     },
+     "aspect_ratio": {
+      "n": 3086,
+      "p5": 1.11,
+      "p50": 1.56,
+      "p75": 1.81,
+      "p95": 2.54
+     },
+     "rectangular_share": 0.831,
+     "doors_per_room": {
+      "n": 3086,
+      "p50": 1.0,
+      "p95": 1.0,
+      "mean": 1.0,
+      "dist": {
+       "0": 0.006,
+       "1": 0.988,
+       "2": 0.006,
+       "3": 0.001
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "bedroom": 1.0,
+      "bathroom": 0.003,
+      "storage": 0.0,
+      "stair": 0.003,
+      "balcony": 0.003
+     },
+     "door_to_share": {
+      "bedroom": 0.993,
+      "bathroom": 0.0
+     },
+     "open_or_passthrough_to_share": {
+      "bedroom": 0.024,
+      "bathroom": 0.003,
+      "storage": 0.0,
+      "stair": 0.003,
+      "balcony": 0.003
+     },
+     "adjacent_to_share": {
+      "living": 0.371,
+      "bedroom": 1.0,
+      "bathroom": 0.329,
+      "kitchen": 0.079,
+      "storage": 0.018,
+      "stair": 0.005,
+      "balcony": 0.242
+     },
+     "no_access_share": 0.0
+    },
+    "bathroom_common": {
+     "n": 954,
+     "area_m2": {
+      "n": 954,
+      "p5": 2.65,
+      "p25": 4.6,
+      "p50": 5.48,
+      "p75": 6.3,
+      "p95": 8.48,
+      "mean": 5.61
+     },
+     "short_side_m": {
+      "n": 954,
+      "p5": 1.38,
+      "p25": 1.73,
+      "p50": 1.9,
+      "p75": 2.06,
+      "p95": 2.4,
+      "mean": 1.91
+     },
+     "inscribed_width_m": {
+      "n": 954,
+      "p5": 1.37,
+      "p50": 1.89,
+      "p95": 2.36
+     },
+     "long_side_m": {
+      "n": 954,
+      "p5": 1.86,
+      "p50": 2.92,
+      "p95": 4.11
+     },
+     "aspect_ratio": {
+      "n": 954,
+      "p5": 1.09,
+      "p50": 1.52,
+      "p75": 1.68,
+      "p95": 2.08
+     },
+     "rectangular_share": 0.886,
+     "doors_per_room": {
+      "n": 954,
+      "p50": 1.0,
+      "p95": 1.0,
+      "mean": 0.98,
+      "dist": {
+       "0": 0.022,
+       "1": 0.976,
+       "2": 0.002
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.961,
+      "bathroom": 0.005,
+      "kitchen": 0.008,
+      "storage": 0.009,
+      "stair": 0.006,
+      "balcony": 0.002
+     },
+     "door_to_share": {
+      "living": 0.96,
+      "bathroom": 0.001,
+      "kitchen": 0.007,
+      "balcony": 0.001
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.001,
+      "bathroom": 0.004,
+      "kitchen": 0.001,
+      "storage": 0.009,
+      "stair": 0.006,
+      "balcony": 0.001
+     },
+     "adjacent_to_share": {
+      "living": 0.971,
+      "bedroom": 0.809,
+      "bathroom": 0.347,
+      "kitchen": 0.162,
+      "storage": 0.029,
+      "stair": 0.008,
+      "balcony": 0.161
+     },
+     "no_access_share": 0.02
+    },
+    "kitchen": {
+     "n": 1028,
+     "area_m2": {
+      "n": 1028,
+      "p5": 8.86,
+      "p25": 11.72,
+      "p50": 13.84,
+      "p75": 16.79,
+      "p95": 24.85,
+      "mean": 14.93
+     },
+     "short_side_m": {
+      "n": 1028,
+      "p5": 2.48,
+      "p25": 2.94,
+      "p50": 3.28,
+      "p75": 3.74,
+      "p95": 4.65,
+      "mean": 3.38
+     },
+     "inscribed_width_m": {
+      "n": 1028,
+      "p5": 2.42,
+      "p50": 3.2,
+      "p95": 4.35
+     },
+     "long_side_m": {
+      "n": 1028,
+      "p5": 3.45,
+      "p50": 4.4,
+      "p95": 6.24
+     },
+     "aspect_ratio": {
+      "n": 1028,
+      "p5": 1.05,
+      "p50": 1.33,
+      "p75": 1.51,
+      "p95": 1.84
+     },
+     "rectangular_share": 0.716,
+     "doors_per_room": {
+      "n": 1028,
+      "p50": 0.0,
+      "p95": 2.0,
+      "mean": 0.47,
+      "dist": {
+       "0": 0.601,
+       "1": 0.329,
+       "2": 0.065,
+       "3": 0.004,
+       "4+": 0.001
+      }
+     },
+     "has_front_door_share": 0.001,
+     "access_to_share": {
+      "living": 0.999,
+      "bedroom": 0.316,
+      "bathroom": 0.012,
+      "storage": 0.01,
+      "stair": 0.003,
+      "balcony": 0.003
+     },
+     "door_to_share": {
+      "living": 0.32,
+      "bedroom": 0.106,
+      "bathroom": 0.01,
+      "storage": 0.007,
+      "stair": 0.003,
+      "balcony": 0.003
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.679,
+      "bedroom": 0.21,
+      "bathroom": 0.002,
+      "storage": 0.003
+     },
+     "adjacent_to_share": {
+      "living": 1.0,
+      "bedroom": 0.7,
+      "bathroom": 0.39,
+      "storage": 0.078,
+      "stair": 0.006,
+      "balcony": 0.011
+     },
+     "no_access_share": 0.001
+    },
+    "balcony": {
+     "n": 2251,
+     "area_m2": {
+      "n": 2251,
+      "p5": 2.72,
+      "p25": 4.91,
+      "p50": 7.26,
+      "p75": 11.14,
+      "p95": 25.13,
+      "mean": 9.98
+     },
+     "short_side_m": {
+      "n": 2251,
+      "p5": 1.03,
+      "p25": 1.53,
+      "p50": 1.82,
+      "p75": 2.19,
+      "p95": 3.69,
+      "mean": 2.01
+     },
+     "inscribed_width_m": {
+      "n": 2251,
+      "p5": 1.02,
+      "p50": 1.8,
+      "p95": 3.08
+     },
+     "long_side_m": {
+      "n": 2251,
+      "p5": 2.03,
+      "p50": 4.26,
+      "p95": 10.7
+     },
+     "aspect_ratio": {
+      "n": 2251,
+      "p5": 1.15,
+      "p50": 2.27,
+      "p75": 3.23,
+      "p95": 5.53
+     },
+     "rectangular_share": 0.765,
+     "doors_per_room": {
+      "n": 2251,
+      "p50": 1.0,
+      "p95": 2.0,
+      "mean": 1.09,
+      "dist": {
+       "0": 0.019,
+       "1": 0.88,
+       "2": 0.094,
+       "3": 0.006,
+       "4+": 0.001
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.322,
+      "bedroom": 0.705,
+      "bathroom": 0.004,
+      "kitchen": 0.001,
+      "stair": 0.005,
+      "balcony": 0.047
+     },
+     "door_to_share": {
+      "living": 0.319,
+      "bedroom": 0.694,
+      "bathroom": 0.0,
+      "kitchen": 0.001
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.003,
+      "bedroom": 0.015,
+      "bathroom": 0.004,
+      "stair": 0.005,
+      "balcony": 0.047
+     },
+     "adjacent_to_share": {
+      "living": 0.397,
+      "bedroom": 0.858,
+      "bathroom": 0.387,
+      "kitchen": 0.005,
+      "storage": 0.007,
+      "stair": 0.005,
+      "balcony": 0.047
+     },
+     "no_access_share": 0.012
+    },
+    "bathroom_shared": {
+     "n": 215,
+     "area_m2": {
+      "n": 215,
+      "p5": 1.79,
+      "p25": 2.54,
+      "p50": 3.15,
+      "p75": 4.49,
+      "p95": 9.88,
+      "mean": 3.95
+     },
+     "short_side_m": {
+      "n": 215,
+      "p5": 1.12,
+      "p25": 1.31,
+      "p50": 1.51,
+      "p75": 1.8,
+      "p95": 2.28,
+      "mean": 1.61
+     },
+     "inscribed_width_m": {
+      "n": 215,
+      "p5": 1.1,
+      "p50": 1.47,
+      "p95": 2.17
+     },
+     "long_side_m": {
+      "n": 215,
+      "p5": 1.47,
+      "p50": 2.16,
+      "p95": 4.26
+     },
+     "aspect_ratio": {
+      "n": 215,
+      "p5": 1.06,
+      "p50": 1.43,
+      "p75": 1.71,
+      "p95": 2.12
+     },
+     "rectangular_share": 0.842,
+     "doors_per_room": {
+      "n": 215,
+      "p50": 1.0,
+      "p95": 1.0,
+      "mean": 1.01,
+      "dist": {
+       "0": 0.005,
+       "1": 0.981,
+       "2": 0.009,
+       "3": 0.005
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.981,
+      "bedroom": 1.0,
+      "kitchen": 0.019
+     },
+     "door_to_share": {
+      "living": 0.953,
+      "bedroom": 0.037,
+      "kitchen": 0.014
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.028,
+      "bedroom": 0.963,
+      "kitchen": 0.005
+     },
+     "adjacent_to_share": {
+      "living": 0.991,
+      "bedroom": 1.0,
+      "bathroom": 0.279,
+      "kitchen": 0.265,
+      "storage": 0.033,
+      "stair": 0.005,
+      "balcony": 0.074
+     },
+     "no_access_share": 0.0
+    },
+    "storage": {
+     "n": 211,
+     "area_m2": {
+      "n": 211,
+      "p5": 2.04,
+      "p25": 3.04,
+      "p50": 3.96,
+      "p75": 5.98,
+      "p95": 10.98,
+      "mean": 4.98
+     },
+     "short_side_m": {
+      "n": 211,
+      "p5": 1.13,
+      "p25": 1.48,
+      "p50": 1.73,
+      "p75": 2.11,
+      "p95": 3.0,
+      "mean": 1.84
+     },
+     "inscribed_width_m": {
+      "n": 211,
+      "p5": 1.13,
+      "p50": 1.71,
+      "p95": 2.97
+     },
+     "long_side_m": {
+      "n": 211,
+      "p5": 1.73,
+      "p50": 2.42,
+      "p95": 4.07
+     },
+     "aspect_ratio": {
+      "n": 211,
+      "p5": 1.04,
+      "p50": 1.34,
+      "p75": 1.64,
+      "p95": 2.23
+     },
+     "rectangular_share": 0.9,
+     "doors_per_room": {
+      "n": 211,
+      "p50": 0.0,
+      "p95": 1.0,
+      "mean": 0.38,
+      "dist": {
+       "0": 0.63,
+       "1": 0.36,
+       "2": 0.009
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.867,
+      "bedroom": 0.166,
+      "bathroom": 0.047,
+      "kitchen": 0.047
+     },
+     "door_to_share": {
+      "living": 0.332,
+      "bedroom": 0.005,
+      "kitchen": 0.033
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.536,
+      "bedroom": 0.161,
+      "bathroom": 0.047,
+      "kitchen": 0.014
+     },
+     "adjacent_to_share": {
+      "living": 0.957,
+      "bedroom": 0.645,
+      "bathroom": 0.417,
+      "kitchen": 0.384,
+      "storage": 0.019,
+      "stair": 0.009,
+      "balcony": 0.081
+     },
+     "no_access_share": 0.005
+    },
+    "stair": {
+     "n": 43,
+     "area_m2": {
+      "n": 43,
+      "p5": 2.1,
+      "p25": 3.44,
+      "p50": 4.59,
+      "p75": 7.92,
+      "p95": 29.26,
+      "mean": 9.56
+     },
+     "short_side_m": {
+      "n": 43,
+      "p5": 1.15,
+      "p25": 1.58,
+      "p50": 1.93,
+      "p75": 2.63,
+      "p95": 4.73,
+      "mean": 2.3
+     },
+     "inscribed_width_m": {
+      "n": 43,
+      "p5": 1.14,
+      "p50": 1.78,
+      "p95": 3.1
+     },
+     "long_side_m": {
+      "n": 43,
+      "p5": 1.8,
+      "p50": 2.76,
+      "p95": 13.07
+     },
+     "aspect_ratio": {
+      "n": 43,
+      "p5": 1.01,
+      "p50": 1.46,
+      "p75": 2.06,
+      "p95": 2.87
+     },
+     "rectangular_share": 0.628,
+     "doors_per_room": {
+      "n": 43,
+      "p50": 0.0,
+      "p95": 1.0,
+      "mean": 0.23,
+      "dist": {
+       "0": 0.814,
+       "1": 0.14,
+       "2": 0.047
+      }
+     },
+     "has_front_door_share": 0.186,
+     "access_to_share": {
+      "living": 0.442,
+      "bedroom": 0.116,
+      "bathroom": 0.302,
+      "kitchen": 0.07,
+      "balcony": 0.256
+     },
+     "door_to_share": {
+      "living": 0.14,
+      "kitchen": 0.07
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.302,
+      "bedroom": 0.116,
+      "bathroom": 0.302,
+      "balcony": 0.256
+     },
+     "adjacent_to_share": {
+      "living": 0.674,
+      "bedroom": 0.628,
+      "bathroom": 0.488,
+      "kitchen": 0.14,
+      "storage": 0.047,
+      "balcony": 0.256
+     },
+     "no_access_share": 0.14
+    },
+    "living_zone_broad": {
+     "note": "living_zone minus parts narrower than 1.5 m (morphological opening, r=0.75 m)",
+     "area_total_m2": {
+      "n": 1033,
+      "p5": 39.37,
+      "p25": 51.67,
+      "p50": 63.67,
+      "p75": 81.14,
+      "p95": 118.6,
+      "mean": 69.71
+     },
+     "largest_piece_area_m2": {
+      "n": 1033,
+      "p5": 38.42,
+      "p25": 50.7,
+      "p50": 62.5,
+      "p75": 79.35,
+      "p95": 117.04,
+      "mean": 68.01
+     }
+    }
+   },
+   "connections": {
+    "pair_plan_share": {
+     "bedroom|living": {
+      "plans_with_both": 1033,
+      "access": 1.0,
+      "door": 1.0,
+      "open": 0.0,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 1.0
+     },
+     "bathroom|living": {
+      "plans_with_both": 1033,
+      "access": 0.885,
+      "door": 0.883,
+      "open": 0.007,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.986
+     },
+     "kitchen|living": {
+      "plans_with_both": 1028,
+      "access": 0.999,
+      "door": 0.32,
+      "open": 0.337,
+      "interior_window_passthrough": 0.342,
+      "window_only": 0.0,
+      "adjacent": 1.0
+     },
+     "living|storage": {
+      "plans_with_both": 207,
+      "access": 0.879,
+      "door": 0.333,
+      "open": 0.507,
+      "interior_window_passthrough": 0.039,
+      "window_only": 0.0,
+      "adjacent": 0.961
+     },
+     "living|stair": {
+      "plans_with_both": 38,
+      "access": 0.474,
+      "door": 0.158,
+      "open": 0.289,
+      "interior_window_passthrough": 0.026,
+      "window_only": 0.0,
+      "adjacent": 0.737
+     },
+     "balcony|living": {
+      "plans_with_both": 942,
+      "access": 0.683,
+      "door": 0.677,
+      "open": 0.006,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.136,
+      "adjacent": 0.818
+     },
+     "bedroom|bedroom": {
+      "plans_with_both": 1033,
+      "access": 0.018,
+      "door": 0.003,
+      "open": 0.015,
+      "interior_window_passthrough": 0.003,
+      "window_only": 0.0,
+      "adjacent": 0.832
+     },
+     "bathroom|bedroom": {
+      "plans_with_both": 1033,
+      "access": 0.996,
+      "door": 0.995,
+      "open": 0.112,
+      "interior_window_passthrough": 0.152,
+      "window_only": 0.0,
+      "adjacent": 0.998
+     },
+     "bedroom|kitchen": {
+      "plans_with_both": 1028,
+      "access": 0.316,
+      "door": 0.106,
+      "open": 0.207,
+      "interior_window_passthrough": 0.003,
+      "window_only": 0.0,
+      "adjacent": 0.7
+     },
+     "bedroom|storage": {
+      "plans_with_both": 207,
+      "access": 0.169,
+      "door": 0.005,
+      "open": 0.155,
+      "interior_window_passthrough": 0.01,
+      "window_only": 0.0,
+      "adjacent": 0.657
+     },
+     "bedroom|stair": {
+      "plans_with_both": 38,
+      "access": 0.132,
+      "door": 0.0,
+      "open": 0.053,
+      "interior_window_passthrough": 0.079,
+      "window_only": 0.0,
+      "adjacent": 0.684
+     },
+     "balcony|bedroom": {
+      "plans_with_both": 942,
+      "access": 0.863,
+      "door": 0.856,
+      "open": 0.036,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.206,
+      "adjacent": 0.948
+     },
+     "bathroom|bathroom": {
+      "plans_with_both": 1033,
+      "access": 0.007,
+      "door": 0.001,
+      "open": 0.005,
+      "interior_window_passthrough": 0.001,
+      "window_only": 0.0,
+      "adjacent": 0.574
+     },
+     "bathroom|kitchen": {
+      "plans_with_both": 1028,
+      "access": 0.012,
+      "door": 0.01,
+      "open": 0.002,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.39
+     },
+     "bathroom|storage": {
+      "plans_with_both": 207,
+      "access": 0.048,
+      "door": 0.0,
+      "open": 0.005,
+      "interior_window_passthrough": 0.043,
+      "window_only": 0.0,
+      "adjacent": 0.42
+     },
+     "bathroom|stair": {
+      "plans_with_both": 38,
+      "access": 0.342,
+      "door": 0.0,
+      "open": 0.026,
+      "interior_window_passthrough": 0.316,
+      "window_only": 0.0,
+      "adjacent": 0.474
+     },
+     "balcony|bathroom": {
+      "plans_with_both": 942,
+      "access": 0.011,
+      "door": 0.001,
+      "open": 0.01,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.471,
+      "adjacent": 0.601
+     },
+     "kitchen|storage": {
+      "plans_with_both": 206,
+      "access": 0.049,
+      "door": 0.034,
+      "open": 0.015,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.388
+     },
+     "kitchen|stair": {
+      "plans_with_both": 38,
+      "access": 0.079,
+      "door": 0.079,
+      "open": 0.0,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.158
+     },
+     "balcony|kitchen": {
+      "plans_with_both": 937,
+      "access": 0.003,
+      "door": 0.003,
+      "open": 0.0,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.001,
+      "adjacent": 0.012
+     },
+     "balcony|storage": {
+      "plans_with_both": 195,
+      "access": 0.0,
+      "door": 0.0,
+      "open": 0.0,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.031,
+      "adjacent": 0.082
+     },
+     "balcony|stair": {
+      "plans_with_both": 28,
+      "access": 0.393,
+      "door": 0.0,
+      "open": 0.393,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.393
+     },
+     "balcony|balcony": {
+      "plans_with_both": 714,
+      "access": 0.062,
+      "door": 0.0,
+      "open": 0.062,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.062
+     }
+    },
+    "front_door_opens_to_share": {
+     "living": 0.999,
+     "bedroom": 0.001,
+     "kitchen": 0.001,
+     "stair": 0.008,
+     "balcony": 0.001
+    },
+    "edges_per_plan_mean": {
+     "door": 11.0,
+     "open": 0.96,
+     "interior_window_passthrough": 0.54,
+     "window_only": 0.99,
+     "adjacent": 20.7
+    }
+   },
+   "circulation": {
+    "living_zone_share_of_net_interior": {
+     "n": 1033,
+     "p5": 0.276,
+     "p25": 0.311,
+     "p50": 0.338,
+     "p75": 0.369,
+     "p95": 0.419,
+     "mean": 0.342
+    },
+    "corridor_like_share_w1.5": {
+     "n": 1033,
+     "p5": 0.0,
+     "p25": 0.0,
+     "p50": 0.0,
+     "p75": 0.018,
+     "p95": 0.05,
+     "mean": 0.012
+    },
+    "corridor_like_share_w1.8": {
+     "n": 1033,
+     "p5": 0.0,
+     "p25": 0.0,
+     "p50": 0.016,
+     "p75": 0.035,
+     "p95": 0.069,
+     "mean": 0.022
+    },
+    "corridor_like_area_m2_w1.5": {
+     "n": 1033,
+     "p5": 0.0,
+     "p25": 0.0,
+     "p50": 0.0,
+     "p75": 3.07,
+     "p95": 8.12,
+     "mean": 1.98
+    },
+    "share_plans_with_corridor_ge_2m2_w1.5": 0.375,
+    "share_plans_with_corridor_ge_2m2_w1.8": 0.618
+   },
+   "bathrooms_per_bedroom": {
+    "scope": "plans in this segment with >= 2 bedrooms",
+    "n_plans": 1033,
+    "ratio": {
+     "n": 1033,
+     "p5": 0.75,
+     "p25": 0.833,
+     "p50": 1.0,
+     "p75": 1.0,
+     "p95": 1.25,
+     "mean": 0.97
+    },
+    "bathrooms_minus_bedrooms_dist": {
+     "-3": 0.001,
+     "-2": 0.029,
+     "-1": 0.223,
+     "0": 0.603,
+     "1": 0.13,
+     "2": 0.014,
+     "3": 0.001
+    },
+    "by_bedroom_count": {
+     "4_bed": {
+      "n": 790,
+      "bathrooms_dist": {
+       "2": 0.032,
+       "3": 0.214,
+       "4": 0.628,
+       "5": 0.114,
+       "6": 0.011,
+       "7+": 0.001
+      },
+      "bathrooms_p50": 4.0
+     },
+     "5_bed": {
+      "n": 235,
+      "bathrooms_dist": {
+       "3": 0.021,
+       "4": 0.243,
+       "5": 0.528,
+       "6": 0.187,
+       "7+": 0.021
+      },
+      "bathrooms_p50": 5.0
+     },
+     "6+_bed": {
+      "n": 8,
+      "bathrooms_dist": {
+       "3": 0.125,
+       "5": 0.5,
+       "6": 0.375
+      },
+      "bathrooms_p50": 5.0
+     }
+    },
+    "bedrooms_with_private_ensuite_share": 0.702,
+    "master_with_private_ensuite_share": 0.921,
+    "bathroom_role_share": {
+     "ensuite": 0.725,
+     "shared": 0.051,
+     "common": 0.224
+    },
+    "plans_with_at_least_one_common_bathroom": 0.839
+   }
+  },
+  "bed3": {
+   "n_plans": 5839,
+   "dwelling": {
+    "listed_area_m2": {
+     "n": 5839,
+     "p5": 94.9,
+     "p25": 121.3,
+     "p50": 138.4,
+     "p75": 157.9,
+     "p95": 201.1,
+     "mean": 142.8
+    },
+    "net_interior_area_m2": {
+     "n": 5839,
+     "p5": 91.4,
+     "p25": 116.8,
+     "p50": 132.7,
+     "p75": 152.0,
+     "p95": 193.8,
+     "mean": 137.4
+    },
+    "balcony_area_m2_if_any": {
+     "n": 4903,
+     "p5": 3.5,
+     "p25": 5.7,
+     "p50": 9.3,
+     "p75": 15.6,
+     "p95": 29.9,
+     "mean": 12.4
+    },
+    "share_with_balcony": 0.84,
+    "share_with_storage": 0.145,
+    "share_with_stair": 0.024,
+    "share_with_garden_or_parking": 0.03,
+    "bedrooms_dist": {
+     "3": 1.0
+    },
+    "bathrooms_dist": {
+     "1": 0.002,
+     "2": 0.4,
+     "3": 0.555,
+     "4": 0.04,
+     "5": 0.003,
+     "6": 0.0
+    },
+    "functional_rooms_per_plan": {
+     "n": 5839,
+     "p5": 7.0,
+     "p50": 8.0,
+     "p95": 9.0,
+     "mean": 7.8
+    },
+    "wall_thickness_m": {
+     "n": 5839,
+     "p5": 0.197,
+     "p50": 0.237,
+     "p95": 0.291
+    },
+    "interior_door_opening_width_m": {
+     "n": 43931,
+     "p5": 0.8,
+     "p25": 0.93,
+     "p50": 0.99,
+     "p75": 1.07,
+     "p95": 1.23
+    },
+    "front_door_opening_width_m": {
+     "n": 5839,
+     "p5": 0.98,
+     "p50": 1.2,
+     "p95": 1.49
+    },
+    "interior_doors_per_plan": {
+     "n": 5839,
+     "p5": 5.0,
+     "p50": 7.0,
+     "p95": 10.0,
+     "mean": 7.5
+    }
+   },
+   "rooms": {
+    "living_zone": {
+     "n": 5839,
+     "area_m2": {
+      "n": 5839,
+      "p5": 29.05,
+      "p25": 40.26,
+      "p50": 48.05,
+      "p75": 56.73,
+      "p95": 75.8,
+      "mean": 50.06
+     },
+     "short_side_m": {
+      "n": 5839,
+      "p5": 5.21,
+      "p25": 6.85,
+      "p50": 7.93,
+      "p75": 9.05,
+      "p95": 10.78,
+      "mean": 7.97
+     },
+     "inscribed_width_m": {
+      "n": 5839,
+      "p5": 3.74,
+      "p50": 4.7,
+      "p95": 6.14
+     },
+     "long_side_m": {
+      "n": 5839,
+      "p5": 7.78,
+      "p50": 10.9,
+      "p95": 16.27
+     },
+     "aspect_ratio": {
+      "n": 5839,
+      "p5": 1.03,
+      "p50": 1.34,
+      "p75": 1.67,
+      "p95": 2.32
+     },
+     "rectangular_share": 0.007,
+     "doors_per_room": {
+      "n": 5839,
+      "p50": 5.0,
+      "p95": 6.0,
+      "mean": 4.74,
+      "dist": {
+       "2": 0.001,
+       "3": 0.049,
+       "4+": 0.95
+      }
+     },
+     "has_front_door_share": 1.0,
+     "access_to_share": {
+      "bedroom": 1.0,
+      "bathroom": 0.845,
+      "kitchen": 0.993,
+      "storage": 0.134,
+      "stair": 0.014,
+      "balcony": 0.504
+     },
+     "door_to_share": {
+      "bedroom": 1.0,
+      "bathroom": 0.841,
+      "kitchen": 0.271,
+      "storage": 0.053,
+      "stair": 0.003,
+      "balcony": 0.501
+     },
+     "open_or_passthrough_to_share": {
+      "bedroom": 0.0,
+      "bathroom": 0.006,
+      "kitchen": 0.722,
+      "storage": 0.081,
+      "stair": 0.011,
+      "balcony": 0.004
+     },
+     "adjacent_to_share": {
+      "bedroom": 1.0,
+      "bathroom": 0.982,
+      "kitchen": 0.994,
+      "storage": 0.139,
+      "stair": 0.019,
+      "balcony": 0.541
+     },
+     "no_access_share": 0.0
+    },
+    "bedroom": {
+     "n": 17517,
+     "area_m2": {
+      "n": 17517,
+      "p5": 13.25,
+      "p25": 16.85,
+      "p50": 19.43,
+      "p75": 22.5,
+      "p95": 28.79,
+      "mean": 20.12
+     },
+     "short_side_m": {
+      "n": 17517,
+      "p5": 3.36,
+      "p25": 3.77,
+      "p50": 4.08,
+      "p75": 4.44,
+      "p95": 5.21,
+      "mean": 4.15
+     },
+     "inscribed_width_m": {
+      "n": 17517,
+      "p5": 3.31,
+      "p50": 3.99,
+      "p95": 4.76
+     },
+     "long_side_m": {
+      "n": 17517,
+      "p5": 3.86,
+      "p50": 4.94,
+      "p95": 6.81
+     },
+     "aspect_ratio": {
+      "n": 17517,
+      "p5": 1.02,
+      "p50": 1.19,
+      "p75": 1.33,
+      "p95": 1.57
+     },
+     "rectangular_share": 0.624,
+     "doors_per_room": {
+      "n": 17517,
+      "p50": 2.0,
+      "p95": 3.0,
+      "mean": 1.93,
+      "dist": {
+       "0": 0.002,
+       "1": 0.302,
+       "2": 0.475,
+       "3": 0.214,
+       "4+": 0.008
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.994,
+      "bedroom": 0.003,
+      "bathroom": 0.581,
+      "kitchen": 0.005,
+      "storage": 0.002,
+      "stair": 0.001,
+      "balcony": 0.337
+     },
+     "door_to_share": {
+      "living": 0.994,
+      "bedroom": 0.0,
+      "bathroom": 0.575,
+      "kitchen": 0.003,
+      "storage": 0.0,
+      "balcony": 0.336
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.0,
+      "bedroom": 0.002,
+      "bathroom": 0.007,
+      "kitchen": 0.003,
+      "storage": 0.002,
+      "stair": 0.001,
+      "balcony": 0.002
+     },
+     "adjacent_to_share": {
+      "living": 0.997,
+      "bedroom": 0.503,
+      "bathroom": 0.826,
+      "kitchen": 0.185,
+      "storage": 0.028,
+      "stair": 0.006,
+      "balcony": 0.475
+     },
+     "no_access_share": 0.001,
+     "small_room_share": {
+      "note": "staff-room / study sized 'bedrooms' (no maid label in ResPlan)",
+      "lt_8m2": 0.002,
+      "lt_10m2": 0.008,
+      "lt_8m2_and_kitchen_access": 0.001
+     }
+    },
+    "bedroom_other": {
+     "n": 11678,
+     "area_m2": {
+      "n": 11678,
+      "p5": 12.76,
+      "p25": 16.09,
+      "p50": 18.22,
+      "p75": 20.72,
+      "p95": 25.54,
+      "mean": 18.69
+     },
+     "short_side_m": {
+      "n": 11678,
+      "p5": 3.3,
+      "p25": 3.71,
+      "p50": 3.97,
+      "p75": 4.27,
+      "p95": 4.85,
+      "mean": 4.01
+     },
+     "inscribed_width_m": {
+      "n": 11678,
+      "p5": 3.25,
+      "p50": 3.91,
+      "p95": 4.6
+     },
+     "long_side_m": {
+      "n": 11678,
+      "p5": 3.78,
+      "p50": 4.71,
+      "p95": 6.2
+     },
+     "aspect_ratio": {
+      "n": 11678,
+      "p5": 1.01,
+      "p50": 1.18,
+      "p75": 1.29,
+      "p95": 1.5
+     },
+     "rectangular_share": 0.681,
+     "doors_per_room": {
+      "n": 11678,
+      "p50": 2.0,
+      "p95": 3.0,
+      "mean": 1.77,
+      "dist": {
+       "0": 0.002,
+       "1": 0.394,
+       "2": 0.444,
+       "3": 0.154,
+       "4+": 0.005
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.994,
+      "bedroom": 0.003,
+      "bathroom": 0.456,
+      "kitchen": 0.005,
+      "storage": 0.002,
+      "stair": 0.001,
+      "balcony": 0.308
+     },
+     "door_to_share": {
+      "living": 0.994,
+      "bedroom": 0.0,
+      "bathroom": 0.45,
+      "kitchen": 0.003,
+      "storage": 0.0,
+      "balcony": 0.306
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.0,
+      "bedroom": 0.003,
+      "bathroom": 0.006,
+      "kitchen": 0.003,
+      "storage": 0.002,
+      "stair": 0.001,
+      "balcony": 0.002
+     },
+     "adjacent_to_share": {
+      "living": 0.998,
+      "bedroom": 0.498,
+      "bathroom": 0.768,
+      "kitchen": 0.193,
+      "storage": 0.032,
+      "stair": 0.005,
+      "balcony": 0.454
+     },
+     "no_access_share": 0.002,
+     "small_room_share": {
+      "note": "staff-room / study sized 'bedrooms' (no maid label in ResPlan)",
+      "lt_8m2": 0.003,
+      "lt_10m2": 0.01,
+      "lt_8m2_and_kitchen_access": 0.001
+     }
+    },
+    "bedroom_master": {
+     "n": 5839,
+     "area_m2": {
+      "n": 5839,
+      "p5": 15.77,
+      "p25": 19.67,
+      "p50": 22.28,
+      "p75": 25.39,
+      "p95": 31.8,
+      "mean": 23.0
+     },
+     "short_side_m": {
+      "n": 5839,
+      "p5": 3.56,
+      "p25": 4.01,
+      "p50": 4.34,
+      "p75": 4.76,
+      "p95": 5.64,
+      "mean": 4.43
+     },
+     "inscribed_width_m": {
+      "n": 5839,
+      "p5": 3.5,
+      "p50": 4.18,
+      "p95": 4.97
+     },
+     "long_side_m": {
+      "n": 5839,
+      "p5": 4.34,
+      "p50": 5.47,
+      "p95": 7.44
+     },
+     "aspect_ratio": {
+      "n": 5839,
+      "p5": 1.02,
+      "p50": 1.25,
+      "p75": 1.39,
+      "p95": 1.68
+     },
+     "rectangular_share": 0.509,
+     "doors_per_room": {
+      "n": 5839,
+      "p50": 2.0,
+      "p95": 3.0,
+      "mean": 2.24,
+      "dist": {
+       "0": 0.001,
+       "1": 0.117,
+       "2": 0.535,
+       "3": 0.333,
+       "4+": 0.013
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.994,
+      "bedroom": 0.001,
+      "bathroom": 0.83,
+      "kitchen": 0.005,
+      "storage": 0.002,
+      "stair": 0.001,
+      "balcony": 0.397
+     },
+     "door_to_share": {
+      "living": 0.994,
+      "bedroom": 0.0,
+      "bathroom": 0.825,
+      "kitchen": 0.003,
+      "balcony": 0.395
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.0,
+      "bedroom": 0.001,
+      "bathroom": 0.007,
+      "kitchen": 0.002,
+      "storage": 0.002,
+      "stair": 0.001,
+      "balcony": 0.003
+     },
+     "adjacent_to_share": {
+      "living": 0.997,
+      "bedroom": 0.513,
+      "bathroom": 0.94,
+      "kitchen": 0.171,
+      "storage": 0.021,
+      "stair": 0.007,
+      "balcony": 0.517
+     },
+     "no_access_share": 0.001
+    },
+    "bathroom": {
+     "n": 15430,
+     "area_m2": {
+      "n": 15430,
+      "p5": 3.23,
+      "p25": 4.4,
+      "p50": 5.21,
+      "p75": 6.06,
+      "p95": 8.99,
+      "mean": 5.52
+     },
+     "short_side_m": {
+      "n": 15430,
+      "p5": 1.38,
+      "p25": 1.62,
+      "p50": 1.81,
+      "p75": 1.98,
+      "p95": 2.42,
+      "mean": 1.84
+     },
+     "inscribed_width_m": {
+      "n": 15430,
+      "p5": 1.38,
+      "p50": 1.8,
+      "p95": 2.33
+     },
+     "long_side_m": {
+      "n": 15430,
+      "p5": 2.16,
+      "p50": 2.9,
+      "p95": 4.33
+     },
+     "aspect_ratio": {
+      "n": 15430,
+      "p5": 1.13,
+      "p50": 1.6,
+      "p75": 1.8,
+      "p95": 2.31
+     },
+     "rectangular_share": 0.916,
+     "doors_per_room": {
+      "n": 15430,
+      "p50": 1.0,
+      "p95": 1.0,
+      "mean": 1.0,
+      "dist": {
+       "0": 0.006,
+       "1": 0.991,
+       "2": 0.003,
+       "3": 0.0
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.337,
+      "bedroom": 0.663,
+      "bathroom": 0.003,
+      "kitchen": 0.002,
+      "storage": 0.002,
+      "stair": 0.004,
+      "balcony": 0.001
+     },
+     "door_to_share": {
+      "living": 0.335,
+      "bedroom": 0.657,
+      "bathroom": 0.0,
+      "kitchen": 0.001,
+      "storage": 0.0,
+      "balcony": 0.0
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.002,
+      "bedroom": 0.008,
+      "bathroom": 0.003,
+      "kitchen": 0.001,
+      "storage": 0.001,
+      "stair": 0.004,
+      "balcony": 0.0
+     },
+     "adjacent_to_share": {
+      "living": 0.716,
+      "bedroom": 0.912,
+      "bathroom": 0.305,
+      "kitchen": 0.162,
+      "storage": 0.018,
+      "stair": 0.007,
+      "balcony": 0.189
+     },
+     "no_access_share": 0.004,
+     "wc_sized_share": {
+      "lt_2.0m2": 0.005,
+      "lt_2.5m2": 0.015,
+      "lt_3.0m2": 0.034
+     }
+    },
+    "bathroom_common": {
+     "n": 5202,
+     "area_m2": {
+      "n": 5202,
+      "p5": 2.96,
+      "p25": 4.13,
+      "p50": 4.88,
+      "p75": 5.64,
+      "p95": 7.18,
+      "mean": 4.99
+     },
+     "short_side_m": {
+      "n": 5202,
+      "p5": 1.36,
+      "p25": 1.57,
+      "p50": 1.76,
+      "p75": 1.92,
+      "p95": 2.26,
+      "mean": 1.77
+     },
+     "inscribed_width_m": {
+      "n": 5202,
+      "p5": 1.35,
+      "p50": 1.75,
+      "p95": 2.21
+     },
+     "long_side_m": {
+      "n": 5202,
+      "p5": 2.02,
+      "p50": 2.8,
+      "p95": 3.71
+     },
+     "aspect_ratio": {
+      "n": 5202,
+      "p5": 1.12,
+      "p50": 1.59,
+      "p75": 1.78,
+      "p95": 2.18
+     },
+     "rectangular_share": 0.922,
+     "doors_per_room": {
+      "n": 5202,
+      "p50": 1.0,
+      "p95": 1.0,
+      "mean": 0.99,
+      "dist": {
+       "0": 0.014,
+       "1": 0.985,
+       "2": 0.001
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.978,
+      "bathroom": 0.005,
+      "kitchen": 0.005,
+      "storage": 0.004,
+      "stair": 0.006,
+      "balcony": 0.001
+     },
+     "door_to_share": {
+      "living": 0.977,
+      "bathroom": 0.001,
+      "kitchen": 0.004,
+      "storage": 0.001,
+      "balcony": 0.0
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.001,
+      "bathroom": 0.004,
+      "kitchen": 0.001,
+      "storage": 0.003,
+      "stair": 0.006,
+      "balcony": 0.001
+     },
+     "adjacent_to_share": {
+      "living": 0.986,
+      "bedroom": 0.74,
+      "bathroom": 0.319,
+      "kitchen": 0.239,
+      "storage": 0.014,
+      "stair": 0.009,
+      "balcony": 0.131
+     },
+     "no_access_share": 0.013
+    },
+    "bathroom_ensuite": {
+     "n": 10111,
+     "area_m2": {
+      "n": 10111,
+      "p5": 3.41,
+      "p25": 4.57,
+      "p50": 5.36,
+      "p75": 6.27,
+      "p95": 9.82,
+      "mean": 5.78
+     },
+     "short_side_m": {
+      "n": 10111,
+      "p5": 1.4,
+      "p25": 1.66,
+      "p50": 1.83,
+      "p75": 2.02,
+      "p95": 2.49,
+      "mean": 1.88
+     },
+     "inscribed_width_m": {
+      "n": 10111,
+      "p5": 1.4,
+      "p50": 1.83,
+      "p95": 2.39
+     },
+     "long_side_m": {
+      "n": 10111,
+      "p5": 2.22,
+      "p50": 2.94,
+      "p95": 4.6
+     },
+     "aspect_ratio": {
+      "n": 10111,
+      "p5": 1.14,
+      "p50": 1.61,
+      "p75": 1.82,
+      "p95": 2.35
+     },
+     "rectangular_share": 0.916,
+     "doors_per_room": {
+      "n": 10111,
+      "p50": 1.0,
+      "p95": 1.0,
+      "mean": 1.0,
+      "dist": {
+       "0": 0.001,
+       "1": 0.995,
+       "2": 0.003,
+       "3": 0.0
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "bedroom": 1.0,
+      "bathroom": 0.002,
+      "storage": 0.0,
+      "stair": 0.003,
+      "balcony": 0.0
+     },
+     "door_to_share": {
+      "bedroom": 0.998,
+      "bathroom": 0.0
+     },
+     "open_or_passthrough_to_share": {
+      "bedroom": 0.004,
+      "bathroom": 0.002,
+      "storage": 0.0,
+      "stair": 0.003,
+      "balcony": 0.0
+     },
+     "adjacent_to_share": {
+      "living": 0.574,
+      "bedroom": 1.0,
+      "bathroom": 0.3,
+      "kitchen": 0.122,
+      "storage": 0.019,
+      "stair": 0.006,
+      "balcony": 0.219
+     },
+     "no_access_share": 0.0
+    },
+    "kitchen": {
+     "n": 5805,
+     "area_m2": {
+      "n": 5805,
+      "p5": 6.4,
+      "p25": 9.15,
+      "p50": 11.23,
+      "p75": 13.48,
+      "p95": 18.56,
+      "mean": 11.68
+     },
+     "short_side_m": {
+      "n": 5805,
+      "p5": 2.08,
+      "p25": 2.6,
+      "p50": 2.97,
+      "p75": 3.35,
+      "p95": 4.04,
+      "mean": 3.0
+     },
+     "inscribed_width_m": {
+      "n": 5805,
+      "p5": 2.04,
+      "p50": 2.9,
+      "p95": 3.86
+     },
+     "long_side_m": {
+      "n": 5805,
+      "p5": 2.92,
+      "p50": 3.93,
+      "p95": 5.4
+     },
+     "aspect_ratio": {
+      "n": 5805,
+      "p5": 1.03,
+      "p50": 1.31,
+      "p75": 1.51,
+      "p95": 1.92
+     },
+     "rectangular_share": 0.76,
+     "doors_per_room": {
+      "n": 5805,
+      "p50": 0.0,
+      "p95": 1.0,
+      "mean": 0.3,
+      "dist": {
+       "0": 0.711,
+       "1": 0.28,
+       "2": 0.008,
+       "3": 0.001
+      }
+     },
+     "has_front_door_share": 0.004,
+     "access_to_share": {
+      "living": 0.999,
+      "bedroom": 0.016,
+      "bathroom": 0.005,
+      "storage": 0.01,
+      "stair": 0.002,
+      "balcony": 0.003
+     },
+     "door_to_share": {
+      "living": 0.273,
+      "bedroom": 0.008,
+      "bathroom": 0.003,
+      "storage": 0.004,
+      "stair": 0.001,
+      "balcony": 0.003
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.727,
+      "bedroom": 0.008,
+      "bathroom": 0.002,
+      "storage": 0.007,
+      "stair": 0.0
+     },
+     "adjacent_to_share": {
+      "living": 1.0,
+      "bedroom": 0.481,
+      "bathroom": 0.405,
+      "storage": 0.06,
+      "stair": 0.004,
+      "balcony": 0.006
+     },
+     "no_access_share": 0.001
+    },
+    "balcony": {
+     "n": 8704,
+     "area_m2": {
+      "n": 8704,
+      "p5": 2.54,
+      "p25": 4.11,
+      "p50": 5.63,
+      "p75": 7.77,
+      "p95": 15.61,
+      "mean": 7.0
+     },
+     "short_side_m": {
+      "n": 8704,
+      "p5": 0.93,
+      "p25": 1.31,
+      "p50": 1.6,
+      "p75": 1.93,
+      "p95": 2.88,
+      "mean": 1.73
+     },
+     "inscribed_width_m": {
+      "n": 8704,
+      "p5": 0.93,
+      "p50": 1.59,
+      "p95": 2.63
+     },
+     "long_side_m": {
+      "n": 8704,
+      "p5": 1.97,
+      "p50": 3.81,
+      "p95": 7.43
+     },
+     "aspect_ratio": {
+      "n": 8704,
+      "p5": 1.12,
+      "p50": 2.35,
+      "p75": 3.1,
+      "p95": 4.79
+     },
+     "rectangular_share": 0.85,
+     "doors_per_room": {
+      "n": 8704,
+      "p50": 1.0,
+      "p95": 2.0,
+      "mean": 1.04,
+      "dist": {
+       "0": 0.011,
+       "1": 0.936,
+       "2": 0.052,
+       "3": 0.001
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.355,
+      "bedroom": 0.649,
+      "bathroom": 0.001,
+      "kitchen": 0.002,
+      "storage": 0.0,
+      "stair": 0.001,
+      "balcony": 0.063
+     },
+     "door_to_share": {
+      "living": 0.353,
+      "bedroom": 0.648,
+      "bathroom": 0.0,
+      "kitchen": 0.002,
+      "storage": 0.0
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.003,
+      "bedroom": 0.004,
+      "bathroom": 0.001,
+      "storage": 0.0,
+      "stair": 0.001,
+      "balcony": 0.063
+     },
+     "adjacent_to_share": {
+      "living": 0.389,
+      "bedroom": 0.853,
+      "bathroom": 0.326,
+      "kitchen": 0.005,
+      "storage": 0.012,
+      "stair": 0.001,
+      "balcony": 0.064
+     },
+     "no_access_share": 0.008
+    },
+    "storage": {
+     "n": 853,
+     "area_m2": {
+      "n": 853,
+      "p5": 1.31,
+      "p25": 2.23,
+      "p50": 3.13,
+      "p75": 4.44,
+      "p95": 10.28,
+      "mean": 3.96
+     },
+     "short_side_m": {
+      "n": 853,
+      "p5": 0.84,
+      "p25": 1.27,
+      "p50": 1.5,
+      "p75": 1.81,
+      "p95": 2.86,
+      "mean": 1.62
+     },
+     "inscribed_width_m": {
+      "n": 853,
+      "p5": 0.83,
+      "p50": 1.48,
+      "p95": 2.83
+     },
+     "long_side_m": {
+      "n": 853,
+      "p5": 1.36,
+      "p50": 2.1,
+      "p95": 3.81
+     },
+     "aspect_ratio": {
+      "n": 853,
+      "p5": 1.03,
+      "p50": 1.36,
+      "p75": 1.66,
+      "p95": 2.24
+     },
+     "rectangular_share": 0.899,
+     "doors_per_room": {
+      "n": 853,
+      "p50": 0.0,
+      "p95": 1.0,
+      "mean": 0.4,
+      "dist": {
+       "0": 0.604,
+       "1": 0.388,
+       "2": 0.008
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.923,
+      "bedroom": 0.041,
+      "bathroom": 0.033,
+      "kitchen": 0.069,
+      "stair": 0.001,
+      "balcony": 0.005
+     },
+     "door_to_share": {
+      "living": 0.367,
+      "bedroom": 0.001,
+      "bathroom": 0.006,
+      "kitchen": 0.025,
+      "balcony": 0.001
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.556,
+      "bedroom": 0.04,
+      "bathroom": 0.027,
+      "kitchen": 0.045,
+      "stair": 0.001,
+      "balcony": 0.004
+     },
+     "adjacent_to_share": {
+      "living": 0.955,
+      "bedroom": 0.519,
+      "bathroom": 0.311,
+      "kitchen": 0.407,
+      "storage": 0.005,
+      "stair": 0.005,
+      "balcony": 0.122
+     },
+     "no_access_share": 0.002
+    },
+    "stair": {
+     "n": 152,
+     "area_m2": {
+      "n": 152,
+      "p5": 1.25,
+      "p25": 3.1,
+      "p50": 5.55,
+      "p75": 12.93,
+      "p95": 27.06,
+      "mean": 9.03
+     },
+     "short_side_m": {
+      "n": 152,
+      "p5": 0.9,
+      "p25": 1.44,
+      "p50": 2.05,
+      "p75": 3.07,
+      "p95": 5.05,
+      "mean": 2.42
+     },
+     "inscribed_width_m": {
+      "n": 152,
+      "p5": 0.78,
+      "p50": 1.77,
+      "p95": 3.31
+     },
+     "long_side_m": {
+      "n": 152,
+      "p5": 1.46,
+      "p50": 3.28,
+      "p95": 8.6
+     },
+     "aspect_ratio": {
+      "n": 152,
+      "p5": 1.02,
+      "p50": 1.57,
+      "p75": 1.92,
+      "p95": 2.73
+     },
+     "rectangular_share": 0.572,
+     "doors_per_room": {
+      "n": 152,
+      "p50": 0.0,
+      "p95": 1.0,
+      "mean": 0.18,
+      "dist": {
+       "0": 0.836,
+       "1": 0.145,
+       "2": 0.02
+      }
+     },
+     "has_front_door_share": 0.112,
+     "access_to_share": {
+      "living": 0.579,
+      "bedroom": 0.112,
+      "bathroom": 0.322,
+      "kitchen": 0.059,
+      "storage": 0.007,
+      "stair": 0.013,
+      "balcony": 0.066
+     },
+     "door_to_share": {
+      "living": 0.118,
+      "kitchen": 0.053
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.461,
+      "bedroom": 0.112,
+      "bathroom": 0.322,
+      "kitchen": 0.007,
+      "storage": 0.007,
+      "stair": 0.013,
+      "balcony": 0.066
+     },
+     "adjacent_to_share": {
+      "living": 0.783,
+      "bedroom": 0.526,
+      "bathroom": 0.559,
+      "kitchen": 0.145,
+      "storage": 0.026,
+      "stair": 0.013,
+      "balcony": 0.066
+     },
+     "no_access_share": 0.086
+    },
+    "bathroom_shared": {
+     "n": 117,
+     "area_m2": {
+      "n": 117,
+      "p5": 3.19,
+      "p25": 4.9,
+      "p50": 5.7,
+      "p75": 7.35,
+      "p95": 11.13,
+      "mean": 6.39
+     },
+     "short_side_m": {
+      "n": 117,
+      "p5": 1.42,
+      "p25": 1.7,
+      "p50": 1.93,
+      "p75": 2.17,
+      "p95": 2.83,
+      "mean": 1.97
+     },
+     "inscribed_width_m": {
+      "n": 117,
+      "p5": 1.41,
+      "p50": 1.88,
+      "p95": 2.42
+     },
+     "long_side_m": {
+      "n": 117,
+      "p5": 2.06,
+      "p50": 3.1,
+      "p95": 5.36
+     },
+     "aspect_ratio": {
+      "n": 117,
+      "p5": 1.15,
+      "p50": 1.6,
+      "p75": 1.99,
+      "p95": 2.71
+     },
+     "rectangular_share": 0.667,
+     "doors_per_room": {
+      "n": 117,
+      "p50": 1.0,
+      "p95": 2.0,
+      "mean": 1.08,
+      "dist": {
+       "1": 0.923,
+       "2": 0.077
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.957,
+      "bedroom": 1.0,
+      "bathroom": 0.009,
+      "kitchen": 0.043
+     },
+     "door_to_share": {
+      "living": 0.735,
+      "bedroom": 0.325,
+      "kitchen": 0.009
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.222,
+      "bedroom": 0.684,
+      "bathroom": 0.009,
+      "kitchen": 0.034
+     },
+     "adjacent_to_share": {
+      "living": 1.0,
+      "bedroom": 1.0,
+      "bathroom": 0.145,
+      "kitchen": 0.171,
+      "storage": 0.034,
+      "stair": 0.009,
+      "balcony": 0.179
+     },
+     "no_access_share": 0.0
+    },
+    "living_zone_broad": {
+     "note": "living_zone minus parts narrower than 1.5 m (morphological opening, r=0.75 m)",
+     "area_total_m2": {
+      "n": 5839,
+      "p5": 26.57,
+      "p25": 38.11,
+      "p50": 46.37,
+      "p75": 55.19,
+      "p95": 75.32,
+      "mean": 48.31
+     },
+     "largest_piece_area_m2": {
+      "n": 5839,
+      "p5": 25.18,
+      "p25": 36.97,
+      "p50": 45.34,
+      "p75": 54.44,
+      "p95": 74.32,
+      "mean": 47.23
+     }
+    }
+   },
+   "connections": {
+    "pair_plan_share": {
+     "bedroom|living": {
+      "plans_with_both": 5839,
+      "access": 1.0,
+      "door": 1.0,
+      "open": 0.0,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 1.0
+     },
+     "bathroom|living": {
+      "plans_with_both": 5839,
+      "access": 0.845,
+      "door": 0.841,
+      "open": 0.006,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.982
+     },
+     "kitchen|living": {
+      "plans_with_both": 5805,
+      "access": 0.999,
+      "door": 0.273,
+      "open": 0.202,
+      "interior_window_passthrough": 0.525,
+      "window_only": 0.0,
+      "adjacent": 1.0
+     },
+     "living|storage": {
+      "plans_with_both": 846,
+      "access": 0.927,
+      "door": 0.366,
+      "open": 0.466,
+      "interior_window_passthrough": 0.095,
+      "window_only": 0.0,
+      "adjacent": 0.957
+     },
+     "living|stair": {
+      "plans_with_both": 143,
+      "access": 0.573,
+      "door": 0.126,
+      "open": 0.448,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.783
+     },
+     "balcony|living": {
+      "plans_with_both": 4903,
+      "access": 0.6,
+      "door": 0.596,
+      "open": 0.004,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.031,
+      "adjacent": 0.644
+     },
+     "bedroom|bedroom": {
+      "plans_with_both": 5839,
+      "access": 0.004,
+      "door": 0.0,
+      "open": 0.003,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.672
+     },
+     "bathroom|bedroom": {
+      "plans_with_both": 5839,
+      "access": 0.986,
+      "door": 0.985,
+      "open": 0.016,
+      "interior_window_passthrough": 0.004,
+      "window_only": 0.0,
+      "adjacent": 0.999
+     },
+     "bedroom|kitchen": {
+      "plans_with_both": 5805,
+      "access": 0.016,
+      "door": 0.008,
+      "open": 0.008,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.481
+     },
+     "bedroom|storage": {
+      "plans_with_both": 846,
+      "access": 0.04,
+      "door": 0.001,
+      "open": 0.02,
+      "interior_window_passthrough": 0.019,
+      "window_only": 0.0,
+      "adjacent": 0.519
+     },
+     "bedroom|stair": {
+      "plans_with_both": 143,
+      "access": 0.119,
+      "door": 0.0,
+      "open": 0.021,
+      "interior_window_passthrough": 0.105,
+      "window_only": 0.0,
+      "adjacent": 0.538
+     },
+     "balcony|bedroom": {
+      "plans_with_both": 4903,
+      "access": 0.771,
+      "door": 0.77,
+      "open": 0.007,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.086,
+      "adjacent": 0.93
+     },
+     "bathroom|bathroom": {
+      "plans_with_both": 5826,
+      "access": 0.004,
+      "door": 0.001,
+      "open": 0.003,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.395
+     },
+     "bathroom|kitchen": {
+      "plans_with_both": 5805,
+      "access": 0.005,
+      "door": 0.003,
+      "open": 0.002,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.405
+     },
+     "bathroom|storage": {
+      "plans_with_both": 846,
+      "access": 0.033,
+      "door": 0.006,
+      "open": 0.002,
+      "interior_window_passthrough": 0.025,
+      "window_only": 0.0,
+      "adjacent": 0.312
+     },
+     "bathroom|stair": {
+      "plans_with_both": 143,
+      "access": 0.329,
+      "door": 0.0,
+      "open": 0.0,
+      "interior_window_passthrough": 0.329,
+      "window_only": 0.0,
+      "adjacent": 0.566
+     },
+     "balcony|bathroom": {
+      "plans_with_both": 4903,
+      "access": 0.002,
+      "door": 0.0,
+      "open": 0.001,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.312,
+      "adjacent": 0.453
+     },
+     "kitchen|storage": {
+      "plans_with_both": 838,
+      "access": 0.07,
+      "door": 0.025,
+      "open": 0.035,
+      "interior_window_passthrough": 0.011,
+      "window_only": 0.0,
+      "adjacent": 0.413
+     },
+     "kitchen|stair": {
+      "plans_with_both": 131,
+      "access": 0.069,
+      "door": 0.061,
+      "open": 0.008,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.168
+     },
+     "balcony|kitchen": {
+      "plans_with_both": 4872,
+      "access": 0.003,
+      "door": 0.003,
+      "open": 0.0,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.008
+     },
+     "balcony|storage": {
+      "plans_with_both": 705,
+      "access": 0.006,
+      "door": 0.001,
+      "open": 0.004,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.018,
+      "adjacent": 0.148
+     },
+     "balcony|stair": {
+      "plans_with_both": 94,
+      "access": 0.106,
+      "door": 0.0,
+      "open": 0.106,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.106
+     },
+     "balcony|balcony": {
+      "plans_with_both": 2540,
+      "access": 0.099,
+      "door": 0.0,
+      "open": 0.099,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.099
+     }
+    },
+    "front_door_opens_to_share": {
+     "living": 1.0,
+     "kitchen": 0.004,
+     "stair": 0.003,
+     "balcony": 0.001
+    },
+    "edges_per_plan_mean": {
+     "door": 7.5,
+     "open": 0.39,
+     "interior_window_passthrough": 0.56,
+     "window_only": 0.44,
+     "adjacent": 14.34
+    }
+   },
+   "circulation": {
+    "living_zone_share_of_net_interior": {
+     "n": 5839,
+     "p5": 0.289,
+     "p25": 0.332,
+     "p50": 0.36,
+     "p75": 0.389,
+     "p95": 0.435,
+     "mean": 0.361
+    },
+    "corridor_like_share_w1.5": {
+     "n": 5839,
+     "p5": 0.0,
+     "p25": 0.0,
+     "p50": 0.0,
+     "p75": 0.02,
+     "p95": 0.056,
+     "mean": 0.013
+    },
+    "corridor_like_share_w1.8": {
+     "n": 5839,
+     "p5": 0.0,
+     "p25": 0.0,
+     "p50": 0.017,
+     "p75": 0.036,
+     "p95": 0.072,
+     "mean": 0.023
+    },
+    "corridor_like_area_m2_w1.5": {
+     "n": 5839,
+     "p5": 0.0,
+     "p25": 0.0,
+     "p50": 0.0,
+     "p75": 2.45,
+     "p95": 6.48,
+     "mean": 1.49
+    },
+    "share_plans_with_corridor_ge_2m2_w1.5": 0.305,
+    "share_plans_with_corridor_ge_2m2_w1.8": 0.53
+   },
+   "bathrooms_per_bedroom": {
+    "scope": "plans in this segment with >= 2 bedrooms",
+    "n_plans": 5839,
+    "ratio": {
+     "n": 5839,
+     "p5": 0.667,
+     "p25": 0.667,
+     "p50": 1.0,
+     "p75": 1.0,
+     "p95": 1.0,
+     "mean": 0.881
+    },
+    "bathrooms_minus_bedrooms_dist": {
+     "-2": 0.002,
+     "-1": 0.4,
+     "0": 0.555,
+     "1": 0.04,
+     "2": 0.003,
+     "3": 0.0
+    },
+    "by_bedroom_count": {
+     "3_bed": {
+      "n": 5839,
+      "bathrooms_dist": {
+       "1": 0.002,
+       "2": 0.4,
+       "3": 0.555,
+       "4": 0.04,
+       "5": 0.003,
+       "6": 0.0
+      },
+      "bathrooms_p50": 3.0
+     }
+    },
+    "bedrooms_with_private_ensuite_share": 0.575,
+    "master_with_private_ensuite_share": 0.826,
+    "bathroom_role_share": {
+     "ensuite": 0.655,
+     "shared": 0.008,
+     "common": 0.337
+    },
+    "plans_with_at_least_one_common_bathroom": 0.843
+   }
+  },
+  "house_like": {
+   "n_plans": 967,
+   "dwelling": {
+    "listed_area_m2": {
+     "n": 967,
+     "p5": 66.9,
+     "p25": 115.9,
+     "p50": 167.2,
+     "p75": 241.5,
+     "p95": 379.3,
+     "mean": 188.8
+    },
+    "net_interior_area_m2": {
+     "n": 967,
+     "p5": 66.1,
+     "p25": 109.3,
+     "p50": 163.3,
+     "p75": 241.9,
+     "p95": 381.8,
+     "mean": 186.7
+    },
+    "balcony_area_m2_if_any": {
+     "n": 563,
+     "p5": 3.7,
+     "p25": 7.1,
+     "p50": 13.4,
+     "p75": 26.6,
+     "p95": 76.1,
+     "mean": 23.3
+    },
+    "share_with_balcony": 0.582,
+    "share_with_storage": 0.174,
+    "share_with_stair": 0.666,
+    "share_with_garden_or_parking": 0.638,
+    "bedrooms_dist": {
+     "0": 0.001,
+     "1": 0.232,
+     "2": 0.392,
+     "3": 0.286,
+     "4": 0.065,
+     "5": 0.022,
+     "6+": 0.002
+    },
+    "bathrooms_dist": {
+     "1": 0.035,
+     "2": 0.584,
+     "3": 0.251,
+     "4": 0.087,
+     "5": 0.032,
+     "6": 0.007,
+     "7+": 0.003
+    },
+    "functional_rooms_per_plan": {
+     "n": 967,
+     "p5": 6.0,
+     "p50": 7.0,
+     "p95": 11.0,
+     "mean": 7.6
+    },
+    "wall_thickness_m": {
+     "n": 967,
+     "p5": 0.2,
+     "p50": 0.272,
+     "p95": 0.415
+    },
+    "interior_door_opening_width_m": {
+     "n": 6021,
+     "p5": 0.81,
+     "p25": 0.97,
+     "p50": 1.09,
+     "p75": 1.31,
+     "p95": 1.69
+    },
+    "front_door_opening_width_m": {
+     "n": 965,
+     "p5": 0.94,
+     "p50": 1.34,
+     "p95": 2.18
+    },
+    "interior_doors_per_plan": {
+     "n": 967,
+     "p5": 3.0,
+     "p50": 6.0,
+     "p95": 11.0,
+     "mean": 6.3
+    }
+   },
+   "rooms": {
+    "living_zone": {
+     "n": 965,
+     "area_m2": {
+      "n": 965,
+      "p5": 22.81,
+      "p25": 40.62,
+      "p50": 60.63,
+      "p75": 101.62,
+      "p95": 195.6,
+      "mean": 78.57
+     },
+     "short_side_m": {
+      "n": 965,
+      "p5": 4.63,
+      "p25": 6.97,
+      "p50": 8.98,
+      "p75": 11.58,
+      "p95": 16.65,
+      "mean": 9.49
+     },
+     "inscribed_width_m": {
+      "n": 965,
+      "p5": 3.51,
+      "p50": 5.4,
+      "p95": 9.9
+     },
+     "long_side_m": {
+      "n": 965,
+      "p5": 6.64,
+      "p50": 12.31,
+      "p95": 22.64
+     },
+     "aspect_ratio": {
+      "n": 965,
+      "p5": 1.02,
+      "p50": 1.32,
+      "p75": 1.62,
+      "p95": 2.23
+     },
+     "rectangular_share": 0.015,
+     "doors_per_room": {
+      "n": 965,
+      "p50": 4.0,
+      "p95": 6.0,
+      "mean": 3.95,
+      "dist": {
+       "1": 0.015,
+       "2": 0.126,
+       "3": 0.282,
+       "4+": 0.577
+      }
+     },
+     "has_front_door_share": 0.997,
+     "access_to_share": {
+      "bedroom": 0.996,
+      "bathroom": 0.825,
+      "kitchen": 0.943,
+      "storage": 0.161,
+      "stair": 0.456,
+      "balcony": 0.365
+     },
+     "door_to_share": {
+      "bedroom": 0.996,
+      "bathroom": 0.821,
+      "kitchen": 0.224,
+      "storage": 0.061,
+      "stair": 0.081,
+      "balcony": 0.359
+     },
+     "open_or_passthrough_to_share": {
+      "bedroom": 0.001,
+      "bathroom": 0.006,
+      "kitchen": 0.719,
+      "storage": 0.099,
+      "stair": 0.383,
+      "balcony": 0.01
+     },
+     "adjacent_to_share": {
+      "bedroom": 0.998,
+      "bathroom": 0.96,
+      "kitchen": 0.945,
+      "storage": 0.167,
+      "stair": 0.552,
+      "balcony": 0.403
+     },
+     "no_access_share": 0.0
+    },
+    "bedroom": {
+     "n": 2182,
+     "area_m2": {
+      "n": 2182,
+      "p5": 11.99,
+      "p25": 18.16,
+      "p50": 22.85,
+      "p75": 32.7,
+      "p95": 55.62,
+      "mean": 27.26
+     },
+     "short_side_m": {
+      "n": 2182,
+      "p5": 3.05,
+      "p25": 3.9,
+      "p50": 4.42,
+      "p75": 5.28,
+      "p95": 7.06,
+      "mean": 4.68
+     },
+     "inscribed_width_m": {
+      "n": 2182,
+      "p5": 2.98,
+      "p50": 4.31,
+      "p95": 6.68
+     },
+     "long_side_m": {
+      "n": 2182,
+      "p5": 3.76,
+      "p50": 5.5,
+      "p95": 9.16
+     },
+     "aspect_ratio": {
+      "n": 2182,
+      "p5": 1.02,
+      "p50": 1.22,
+      "p75": 1.36,
+      "p95": 1.66
+     },
+     "rectangular_share": 0.64,
+     "doors_per_room": {
+      "n": 2182,
+      "p50": 2.0,
+      "p95": 3.0,
+      "mean": 1.97,
+      "dist": {
+       "0": 0.008,
+       "1": 0.255,
+       "2": 0.514,
+       "3": 0.209,
+       "4+": 0.015
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.969,
+      "bedroom": 0.004,
+      "bathroom": 0.693,
+      "kitchen": 0.034,
+      "storage": 0.005,
+      "stair": 0.03,
+      "balcony": 0.274
+     },
+     "door_to_share": {
+      "living": 0.968,
+      "bathroom": 0.667,
+      "kitchen": 0.018,
+      "stair": 0.0,
+      "balcony": 0.271
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.0,
+      "bedroom": 0.004,
+      "bathroom": 0.037,
+      "kitchen": 0.016,
+      "storage": 0.005,
+      "stair": 0.029,
+      "balcony": 0.003
+     },
+     "adjacent_to_share": {
+      "living": 0.976,
+      "bedroom": 0.391,
+      "bathroom": 0.896,
+      "kitchen": 0.243,
+      "storage": 0.036,
+      "stair": 0.159,
+      "balcony": 0.362
+     },
+     "no_access_share": 0.004,
+     "small_room_share": {
+      "note": "staff-room / study sized 'bedrooms' (no maid label in ResPlan)",
+      "lt_8m2": 0.024,
+      "lt_10m2": 0.035,
+      "lt_8m2_and_kitchen_access": 0.012
+     }
+    },
+    "bedroom_master": {
+     "n": 742,
+     "area_m2": {
+      "n": 742,
+      "p5": 15.88,
+      "p25": 20.8,
+      "p50": 25.79,
+      "p75": 36.46,
+      "p95": 62.78,
+      "mean": 31.11
+     },
+     "short_side_m": {
+      "n": 742,
+      "p5": 3.59,
+      "p25": 4.14,
+      "p50": 4.68,
+      "p75": 5.63,
+      "p95": 7.44,
+      "mean": 5.02
+     },
+     "inscribed_width_m": {
+      "n": 742,
+      "p5": 3.54,
+      "p50": 4.51,
+      "p95": 6.97
+     },
+     "long_side_m": {
+      "n": 742,
+      "p5": 4.4,
+      "p50": 6.0,
+      "p95": 10.15
+     },
+     "aspect_ratio": {
+      "n": 742,
+      "p5": 1.02,
+      "p50": 1.25,
+      "p75": 1.4,
+      "p95": 1.73
+     },
+     "rectangular_share": 0.547,
+     "doors_per_room": {
+      "n": 742,
+      "p50": 2.0,
+      "p95": 3.0,
+      "mean": 2.23,
+      "dist": {
+       "0": 0.004,
+       "1": 0.109,
+       "2": 0.563,
+       "3": 0.299,
+       "4+": 0.024
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.992,
+      "bedroom": 0.004,
+      "bathroom": 0.85,
+      "kitchen": 0.008,
+      "stair": 0.03,
+      "balcony": 0.337
+     },
+     "door_to_share": {
+      "living": 0.991,
+      "bathroom": 0.844,
+      "kitchen": 0.005,
+      "balcony": 0.336
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.001,
+      "bedroom": 0.004,
+      "bathroom": 0.009,
+      "kitchen": 0.003,
+      "stair": 0.03,
+      "balcony": 0.001
+     },
+     "adjacent_to_share": {
+      "living": 0.995,
+      "bedroom": 0.447,
+      "bathroom": 0.964,
+      "kitchen": 0.204,
+      "storage": 0.034,
+      "stair": 0.179,
+      "balcony": 0.414
+     },
+     "no_access_share": 0.004
+    },
+    "bedroom_other": {
+     "n": 1216,
+     "area_m2": {
+      "n": 1216,
+      "p5": 8.94,
+      "p25": 16.39,
+      "p50": 20.46,
+      "p75": 25.92,
+      "p95": 44.3,
+      "mean": 22.56
+     },
+     "short_side_m": {
+      "n": 1216,
+      "p5": 2.58,
+      "p25": 3.75,
+      "p50": 4.2,
+      "p75": 4.74,
+      "p95": 6.2,
+      "mean": 4.28
+     },
+     "inscribed_width_m": {
+      "n": 1216,
+      "p5": 2.5,
+      "p50": 4.13,
+      "p95": 5.93
+     },
+     "long_side_m": {
+      "n": 1216,
+      "p5": 3.45,
+      "p50": 5.06,
+      "p95": 7.7
+     },
+     "aspect_ratio": {
+      "n": 1216,
+      "p5": 1.01,
+      "p50": 1.2,
+      "p75": 1.34,
+      "p95": 1.61
+     },
+     "rectangular_share": 0.687,
+     "doors_per_room": {
+      "n": 1216,
+      "p50": 2.0,
+      "p95": 3.0,
+      "mean": 1.79,
+      "dist": {
+       "0": 0.012,
+       "1": 0.365,
+       "2": 0.455,
+       "3": 0.159,
+       "4+": 0.01
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.951,
+      "bedroom": 0.004,
+      "bathroom": 0.576,
+      "kitchen": 0.054,
+      "storage": 0.01,
+      "stair": 0.026,
+      "balcony": 0.254
+     },
+     "door_to_share": {
+      "living": 0.951,
+      "bathroom": 0.535,
+      "kitchen": 0.027,
+      "balcony": 0.249
+     },
+     "open_or_passthrough_to_share": {
+      "bedroom": 0.004,
+      "bathroom": 0.058,
+      "kitchen": 0.027,
+      "storage": 0.01,
+      "stair": 0.026,
+      "balcony": 0.005
+     },
+     "adjacent_to_share": {
+      "living": 0.961,
+      "bedroom": 0.429,
+      "bathroom": 0.84,
+      "kitchen": 0.249,
+      "storage": 0.035,
+      "stair": 0.117,
+      "balcony": 0.356
+     },
+     "no_access_share": 0.004,
+     "small_room_share": {
+      "note": "staff-room / study sized 'bedrooms' (no maid label in ResPlan)",
+      "lt_8m2": 0.042,
+      "lt_10m2": 0.059,
+      "lt_8m2_and_kitchen_access": 0.021
+     }
+    },
+    "bathroom": {
+     "n": 2447,
+     "area_m2": {
+      "n": 2447,
+      "p5": 2.74,
+      "p25": 4.58,
+      "p50": 6.15,
+      "p75": 9.3,
+      "p95": 18.73,
+      "mean": 7.96
+     },
+     "short_side_m": {
+      "n": 2447,
+      "p5": 1.35,
+      "p25": 1.71,
+      "p50": 2.02,
+      "p75": 2.48,
+      "p95": 3.47,
+      "mean": 2.18
+     },
+     "inscribed_width_m": {
+      "n": 2447,
+      "p5": 1.34,
+      "p50": 2.0,
+      "p95": 3.28
+     },
+     "long_side_m": {
+      "n": 2447,
+      "p5": 1.99,
+      "p50": 3.08,
+      "p95": 6.05
+     },
+     "aspect_ratio": {
+      "n": 2447,
+      "p5": 1.08,
+      "p50": 1.55,
+      "p75": 1.77,
+      "p95": 2.34
+     },
+     "rectangular_share": 0.876,
+     "doors_per_room": {
+      "n": 2447,
+      "p50": 1.0,
+      "p95": 1.0,
+      "mean": 0.99,
+      "dist": {
+       "0": 0.016,
+       "1": 0.977,
+       "2": 0.007,
+       "3": 0.0,
+       "4+": 0.0
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.372,
+      "bedroom": 0.636,
+      "bathroom": 0.011,
+      "kitchen": 0.007,
+      "storage": 0.002,
+      "stair": 0.087,
+      "balcony": 0.0
+     },
+     "door_to_share": {
+      "living": 0.369,
+      "bedroom": 0.608,
+      "kitchen": 0.004,
+      "storage": 0.0,
+      "stair": 0.001
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.002,
+      "bedroom": 0.036,
+      "bathroom": 0.011,
+      "kitchen": 0.002,
+      "storage": 0.001,
+      "stair": 0.087,
+      "balcony": 0.0
+     },
+     "adjacent_to_share": {
+      "living": 0.679,
+      "bedroom": 0.854,
+      "bathroom": 0.317,
+      "kitchen": 0.163,
+      "storage": 0.024,
+      "stair": 0.172,
+      "balcony": 0.144
+     },
+     "no_access_share": 0.011,
+     "wc_sized_share": {
+      "lt_2.0m2": 0.016,
+      "lt_2.5m2": 0.034,
+      "lt_3.0m2": 0.067
+     }
+    },
+    "bathroom_ensuite": {
+     "n": 1487,
+     "area_m2": {
+      "n": 1487,
+      "p5": 3.17,
+      "p25": 5.07,
+      "p50": 6.78,
+      "p75": 10.95,
+      "p95": 21.69,
+      "mean": 8.98
+     },
+     "short_side_m": {
+      "n": 1487,
+      "p5": 1.42,
+      "p25": 1.78,
+      "p50": 2.1,
+      "p75": 2.59,
+      "p95": 3.78,
+      "mean": 2.28
+     },
+     "inscribed_width_m": {
+      "n": 1487,
+      "p5": 1.41,
+      "p50": 2.07,
+      "p95": 3.58
+     },
+     "long_side_m": {
+      "n": 1487,
+      "p5": 2.18,
+      "p50": 3.27,
+      "p95": 6.47
+     },
+     "aspect_ratio": {
+      "n": 1487,
+      "p5": 1.11,
+      "p50": 1.59,
+      "p75": 1.81,
+      "p95": 2.46
+     },
+     "rectangular_share": 0.863,
+     "doors_per_room": {
+      "n": 1487,
+      "p50": 1.0,
+      "p95": 1.0,
+      "mean": 1.0,
+      "dist": {
+       "0": 0.005,
+       "1": 0.987,
+       "2": 0.007,
+       "4+": 0.001
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "bedroom": 1.0,
+      "bathroom": 0.005,
+      "storage": 0.001,
+      "stair": 0.062,
+      "balcony": 0.001
+     },
+     "door_to_share": {
+      "bedroom": 0.993,
+      "stair": 0.001
+     },
+     "open_or_passthrough_to_share": {
+      "bedroom": 0.02,
+      "bathroom": 0.005,
+      "storage": 0.001,
+      "stair": 0.061,
+      "balcony": 0.001
+     },
+     "adjacent_to_share": {
+      "living": 0.494,
+      "bedroom": 1.0,
+      "bathroom": 0.289,
+      "kitchen": 0.125,
+      "storage": 0.023,
+      "stair": 0.132,
+      "balcony": 0.17
+     },
+     "no_access_share": 0.0
+    },
+    "bathroom_common": {
+     "n": 891,
+     "area_m2": {
+      "n": 891,
+      "p5": 2.31,
+      "p25": 4.06,
+      "p50": 5.38,
+      "p75": 7.74,
+      "p95": 13.87,
+      "mean": 6.37
+     },
+     "short_side_m": {
+      "n": 891,
+      "p5": 1.26,
+      "p25": 1.62,
+      "p50": 1.92,
+      "p75": 2.3,
+      "p95": 3.12,
+      "mean": 2.02
+     },
+     "inscribed_width_m": {
+      "n": 891,
+      "p5": 1.26,
+      "p50": 1.91,
+      "p95": 2.98
+     },
+     "long_side_m": {
+      "n": 891,
+      "p5": 1.76,
+      "p50": 2.86,
+      "p95": 4.79
+     },
+     "aspect_ratio": {
+      "n": 891,
+      "p5": 1.05,
+      "p50": 1.49,
+      "p75": 1.72,
+      "p95": 2.13
+     },
+     "rectangular_share": 0.903,
+     "doors_per_room": {
+      "n": 891,
+      "p50": 1.0,
+      "p95": 1.0,
+      "mean": 0.97,
+      "dist": {
+       "0": 0.036,
+       "1": 0.963,
+       "2": 0.001
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.946,
+      "bathroom": 0.021,
+      "kitchen": 0.016,
+      "storage": 0.002,
+      "stair": 0.136
+     },
+     "door_to_share": {
+      "living": 0.944,
+      "kitchen": 0.012,
+      "storage": 0.001,
+      "stair": 0.001
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.002,
+      "bathroom": 0.021,
+      "kitchen": 0.003,
+      "storage": 0.001,
+      "stair": 0.135
+     },
+     "adjacent_to_share": {
+      "living": 0.964,
+      "bedroom": 0.598,
+      "bathroom": 0.361,
+      "kitchen": 0.221,
+      "storage": 0.024,
+      "stair": 0.242,
+      "balcony": 0.107
+     },
+     "no_access_share": 0.029
+    },
+    "kitchen": {
+     "n": 914,
+     "area_m2": {
+      "n": 914,
+      "p5": 6.28,
+      "p25": 10.42,
+      "p50": 15.02,
+      "p75": 24.84,
+      "p95": 45.76,
+      "mean": 19.15
+     },
+     "short_side_m": {
+      "n": 914,
+      "p5": 2.1,
+      "p25": 2.84,
+      "p50": 3.51,
+      "p75": 4.56,
+      "p95": 6.21,
+      "mean": 3.78
+     },
+     "inscribed_width_m": {
+      "n": 914,
+      "p5": 2.04,
+      "p50": 3.35,
+      "p95": 6.02
+     },
+     "long_side_m": {
+      "n": 914,
+      "p5": 2.9,
+      "p50": 4.6,
+      "p95": 8.16
+     },
+     "aspect_ratio": {
+      "n": 914,
+      "p5": 1.03,
+      "p50": 1.26,
+      "p75": 1.47,
+      "p95": 1.9
+     },
+     "rectangular_share": 0.717,
+     "doors_per_room": {
+      "n": 914,
+      "p50": 0.0,
+      "p95": 2.0,
+      "mean": 0.37,
+      "dist": {
+       "0": 0.688,
+       "1": 0.257,
+       "2": 0.049,
+       "3": 0.004,
+       "4+": 0.001
+      }
+     },
+     "has_front_door_share": 0.011,
+     "access_to_share": {
+      "living": 0.996,
+      "bedroom": 0.078,
+      "bathroom": 0.016,
+      "storage": 0.011,
+      "stair": 0.054,
+      "balcony": 0.001
+     },
+     "door_to_share": {
+      "living": 0.236,
+      "bedroom": 0.039,
+      "bathroom": 0.011,
+      "storage": 0.007,
+      "stair": 0.034,
+      "balcony": 0.001
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.759,
+      "bedroom": 0.038,
+      "bathroom": 0.005,
+      "storage": 0.004,
+      "stair": 0.02
+     },
+     "adjacent_to_share": {
+      "living": 0.998,
+      "bedroom": 0.495,
+      "bathroom": 0.392,
+      "storage": 0.077,
+      "stair": 0.153,
+      "balcony": 0.005
+     },
+     "no_access_share": 0.0
+    },
+    "stair": {
+     "n": 711,
+     "area_m2": {
+      "n": 711,
+      "p5": 1.25,
+      "p25": 2.88,
+      "p50": 6.01,
+      "p75": 12.06,
+      "p95": 29.0,
+      "mean": 10.01
+     },
+     "short_side_m": {
+      "n": 711,
+      "p5": 0.84,
+      "p25": 1.39,
+      "p50": 2.09,
+      "p75": 3.24,
+      "p95": 5.45,
+      "mean": 2.54
+     },
+     "inscribed_width_m": {
+      "n": 711,
+      "p5": 0.79,
+      "p50": 1.74,
+      "p95": 3.91
+     },
+     "long_side_m": {
+      "n": 711,
+      "p5": 1.44,
+      "p50": 3.43,
+      "p95": 8.93
+     },
+     "aspect_ratio": {
+      "n": 711,
+      "p5": 1.03,
+      "p50": 1.56,
+      "p75": 1.93,
+      "p95": 2.71
+     },
+     "rectangular_share": 0.509,
+     "doors_per_room": {
+      "n": 711,
+      "p50": 0.0,
+      "p95": 1.0,
+      "mean": 0.19,
+      "dist": {
+       "0": 0.855,
+       "1": 0.115,
+       "2": 0.02,
+       "3": 0.007,
+       "4+": 0.003
+      }
+     },
+     "has_front_door_share": 0.131,
+     "access_to_share": {
+      "living": 0.689,
+      "bedroom": 0.079,
+      "bathroom": 0.232,
+      "kitchen": 0.069,
+      "storage": 0.004,
+      "stair": 0.027,
+      "balcony": 0.098
+     },
+     "door_to_share": {
+      "living": 0.11,
+      "bedroom": 0.001,
+      "bathroom": 0.003,
+      "kitchen": 0.044
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.579,
+      "bedroom": 0.077,
+      "bathroom": 0.229,
+      "kitchen": 0.025,
+      "storage": 0.004,
+      "stair": 0.027,
+      "balcony": 0.098
+     },
+     "adjacent_to_share": {
+      "living": 0.821,
+      "bedroom": 0.449,
+      "bathroom": 0.48,
+      "kitchen": 0.198,
+      "storage": 0.023,
+      "stair": 0.037,
+      "balcony": 0.098
+     },
+     "no_access_share": 0.062
+    },
+    "balcony": {
+     "n": 980,
+     "area_m2": {
+      "n": 980,
+      "p5": 2.57,
+      "p25": 4.77,
+      "p50": 7.67,
+      "p75": 14.81,
+      "p95": 41.26,
+      "mean": 13.38
+     },
+     "short_side_m": {
+      "n": 980,
+      "p5": 0.86,
+      "p25": 1.48,
+      "p50": 1.94,
+      "p75": 2.64,
+      "p95": 5.49,
+      "mean": 2.37
+     },
+     "inscribed_width_m": {
+      "n": 980,
+      "p5": 0.86,
+      "p50": 1.92,
+      "p95": 4.59
+     },
+     "long_side_m": {
+      "n": 980,
+      "p5": 2.14,
+      "p50": 4.25,
+      "p95": 12.3
+     },
+     "aspect_ratio": {
+      "n": 980,
+      "p5": 1.08,
+      "p50": 2.16,
+      "p75": 3.08,
+      "p95": 5.33
+     },
+     "rectangular_share": 0.789,
+     "doors_per_room": {
+      "n": 980,
+      "p50": 1.0,
+      "p95": 2.0,
+      "mean": 1.02,
+      "dist": {
+       "0": 0.035,
+       "1": 0.906,
+       "2": 0.059
+      }
+     },
+     "has_front_door_share": 0.015,
+     "access_to_share": {
+      "living": 0.404,
+      "bedroom": 0.596,
+      "bathroom": 0.001,
+      "kitchen": 0.001,
+      "storage": 0.001,
+      "stair": 0.072,
+      "balcony": 0.069
+     },
+     "door_to_share": {
+      "living": 0.393,
+      "bedroom": 0.591,
+      "kitchen": 0.001
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.011,
+      "bedroom": 0.007,
+      "bathroom": 0.001,
+      "storage": 0.001,
+      "stair": 0.072,
+      "balcony": 0.069
+     },
+     "adjacent_to_share": {
+      "living": 0.46,
+      "bedroom": 0.747,
+      "bathroom": 0.335,
+      "kitchen": 0.006,
+      "storage": 0.008,
+      "stair": 0.072,
+      "balcony": 0.069
+     },
+     "no_access_share": 0.021
+    },
+    "storage": {
+     "n": 170,
+     "area_m2": {
+      "n": 170,
+      "p5": 1.66,
+      "p25": 3.22,
+      "p50": 5.03,
+      "p75": 8.45,
+      "p95": 15.59,
+      "mean": 6.55
+     },
+     "short_side_m": {
+      "n": 170,
+      "p5": 1.05,
+      "p25": 1.51,
+      "p50": 1.89,
+      "p75": 2.5,
+      "p95": 3.33,
+      "mean": 2.07
+     },
+     "inscribed_width_m": {
+      "n": 170,
+      "p5": 1.0,
+      "p50": 1.85,
+      "p95": 3.33
+     },
+     "long_side_m": {
+      "n": 170,
+      "p5": 1.5,
+      "p50": 2.74,
+      "p95": 5.03
+     },
+     "aspect_ratio": {
+      "n": 170,
+      "p5": 1.03,
+      "p50": 1.35,
+      "p75": 1.63,
+      "p95": 2.16
+     },
+     "rectangular_share": 0.882,
+     "doors_per_room": {
+      "n": 170,
+      "p50": 0.0,
+      "p95": 1.0,
+      "mean": 0.41,
+      "dist": {
+       "0": 0.606,
+       "1": 0.376,
+       "2": 0.018
+      }
+     },
+     "has_front_door_share": 0.018,
+     "access_to_share": {
+      "living": 0.918,
+      "bedroom": 0.071,
+      "bathroom": 0.024,
+      "kitchen": 0.059,
+      "stair": 0.018,
+      "balcony": 0.006
+     },
+     "door_to_share": {
+      "living": 0.353,
+      "bathroom": 0.006,
+      "kitchen": 0.035
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.565,
+      "bedroom": 0.071,
+      "bathroom": 0.018,
+      "kitchen": 0.024,
+      "stair": 0.018,
+      "balcony": 0.006
+     },
+     "adjacent_to_share": {
+      "living": 0.959,
+      "bedroom": 0.429,
+      "bathroom": 0.324,
+      "kitchen": 0.412,
+      "stair": 0.094,
+      "balcony": 0.047
+     },
+     "no_access_share": 0.012
+    },
+    "bathroom_shared": {
+     "n": 69,
+     "area_m2": {
+      "n": 69,
+      "p5": 2.05,
+      "p25": 3.5,
+      "p50": 4.87,
+      "p75": 7.15,
+      "p95": 18.27,
+      "mean": 6.78
+     },
+     "short_side_m": {
+      "n": 69,
+      "p5": 1.24,
+      "p25": 1.52,
+      "p50": 1.83,
+      "p75": 2.29,
+      "p95": 3.76,
+      "mean": 2.06
+     },
+     "inscribed_width_m": {
+      "n": 69,
+      "p5": 1.21,
+      "p50": 1.82,
+      "p95": 3.26
+     },
+     "long_side_m": {
+      "n": 69,
+      "p5": 1.66,
+      "p50": 2.74,
+      "p95": 5.84
+     },
+     "aspect_ratio": {
+      "n": 69,
+      "p5": 1.04,
+      "p50": 1.47,
+      "p75": 1.71,
+      "p95": 2.22
+     },
+     "rectangular_share": 0.797,
+     "doors_per_room": {
+      "n": 69,
+      "p50": 1.0,
+      "p95": 2.0,
+      "mean": 1.09,
+      "dist": {
+       "1": 0.928,
+       "2": 0.058,
+       "3": 0.014
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.971,
+      "bedroom": 1.0,
+      "kitchen": 0.029,
+      "stair": 0.014
+     },
+     "door_to_share": {
+      "living": 0.913,
+      "bedroom": 0.159
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.058,
+      "bedroom": 0.841,
+      "kitchen": 0.029,
+      "stair": 0.014
+     },
+     "adjacent_to_share": {
+      "living": 0.971,
+      "bedroom": 1.0,
+      "bathroom": 0.348,
+      "kitchen": 0.232,
+      "storage": 0.058,
+      "stair": 0.116,
+      "balcony": 0.058
+     },
+     "no_access_share": 0.0
+    },
+    "living_zone_broad": {
+     "note": "living_zone minus parts narrower than 1.5 m (morphological opening, r=0.75 m)",
+     "area_total_m2": {
+      "n": 965,
+      "p5": 21.15,
+      "p25": 37.76,
+      "p50": 59.13,
+      "p75": 101.08,
+      "p95": 194.13,
+      "mean": 77.28
+     },
+     "largest_piece_area_m2": {
+      "n": 965,
+      "p5": 19.93,
+      "p25": 36.84,
+      "p50": 58.44,
+      "p75": 99.34,
+      "p95": 193.92,
+      "mean": 75.55
+     }
+    }
+   },
+   "connections": {
+    "pair_plan_share": {
+     "bedroom|living": {
+      "plans_with_both": 964,
+      "access": 0.997,
+      "door": 0.997,
+      "open": 0.001,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.999
+     },
+     "bathroom|living": {
+      "plans_with_both": 965,
+      "access": 0.825,
+      "door": 0.821,
+      "open": 0.006,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.96
+     },
+     "kitchen|living": {
+      "plans_with_both": 913,
+      "access": 0.997,
+      "door": 0.237,
+      "open": 0.28,
+      "interior_window_passthrough": 0.48,
+      "window_only": 0.0,
+      "adjacent": 0.999
+     },
+     "living|storage": {
+      "plans_with_both": 168,
+      "access": 0.923,
+      "door": 0.351,
+      "open": 0.464,
+      "interior_window_passthrough": 0.107,
+      "window_only": 0.0,
+      "adjacent": 0.958
+     },
+     "living|stair": {
+      "plans_with_both": 642,
+      "access": 0.685,
+      "door": 0.121,
+      "open": 0.559,
+      "interior_window_passthrough": 0.02,
+      "window_only": 0.0,
+      "adjacent": 0.83
+     },
+     "balcony|living": {
+      "plans_with_both": 562,
+      "access": 0.626,
+      "door": 0.616,
+      "open": 0.018,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.059,
+      "adjacent": 0.692
+     },
+     "bedroom|bedroom": {
+      "plans_with_both": 742,
+      "access": 0.005,
+      "door": 0.0,
+      "open": 0.005,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.523
+     },
+     "bathroom|bedroom": {
+      "plans_with_both": 966,
+      "access": 0.93,
+      "door": 0.925,
+      "open": 0.058,
+      "interior_window_passthrough": 0.028,
+      "window_only": 0.0,
+      "adjacent": 0.99
+     },
+     "bedroom|kitchen": {
+      "plans_with_both": 913,
+      "access": 0.078,
+      "door": 0.039,
+      "open": 0.038,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.495
+     },
+     "bedroom|storage": {
+      "plans_with_both": 168,
+      "access": 0.071,
+      "door": 0.0,
+      "open": 0.06,
+      "interior_window_passthrough": 0.012,
+      "window_only": 0.0,
+      "adjacent": 0.435
+     },
+     "bedroom|stair": {
+      "plans_with_both": 643,
+      "access": 0.087,
+      "door": 0.002,
+      "open": 0.019,
+      "interior_window_passthrough": 0.068,
+      "window_only": 0.0,
+      "adjacent": 0.479
+     },
+     "balcony|bedroom": {
+      "plans_with_both": 563,
+      "access": 0.702,
+      "door": 0.696,
+      "open": 0.012,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.096,
+      "adjacent": 0.837
+     },
+     "bathroom|bathroom": {
+      "plans_with_both": 933,
+      "access": 0.013,
+      "door": 0.0,
+      "open": 0.011,
+      "interior_window_passthrough": 0.002,
+      "window_only": 0.0,
+      "adjacent": 0.389
+     },
+     "bathroom|kitchen": {
+      "plans_with_both": 914,
+      "access": 0.016,
+      "door": 0.011,
+      "open": 0.005,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.392
+     },
+     "bathroom|storage": {
+      "plans_with_both": 168,
+      "access": 0.024,
+      "door": 0.006,
+      "open": 0.012,
+      "interior_window_passthrough": 0.006,
+      "window_only": 0.0,
+      "adjacent": 0.321
+     },
+     "bathroom|stair": {
+      "plans_with_both": 644,
+      "access": 0.247,
+      "door": 0.003,
+      "open": 0.008,
+      "interior_window_passthrough": 0.239,
+      "window_only": 0.0,
+      "adjacent": 0.497
+     },
+     "balcony|bathroom": {
+      "plans_with_both": 563,
+      "access": 0.002,
+      "door": 0.0,
+      "open": 0.002,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.341,
+      "adjacent": 0.465
+     },
+     "kitchen|storage": {
+      "plans_with_both": 160,
+      "access": 0.062,
+      "door": 0.037,
+      "open": 0.019,
+      "interior_window_passthrough": 0.006,
+      "window_only": 0.0,
+      "adjacent": 0.438
+     },
+     "kitchen|stair": {
+      "plans_with_both": 598,
+      "access": 0.082,
+      "door": 0.052,
+      "open": 0.03,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.234
+     },
+     "balcony|kitchen": {
+      "plans_with_both": 518,
+      "access": 0.002,
+      "door": 0.002,
+      "open": 0.0,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.002,
+      "adjacent": 0.01
+     },
+     "stair|storage": {
+      "plans_with_both": 96,
+      "access": 0.031,
+      "door": 0.0,
+      "open": 0.021,
+      "interior_window_passthrough": 0.01,
+      "window_only": 0.0,
+      "adjacent": 0.167
+     },
+     "balcony|storage": {
+      "plans_with_both": 102,
+      "access": 0.01,
+      "door": 0.0,
+      "open": 0.01,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.029,
+      "adjacent": 0.078
+     },
+     "stair|stair": {
+      "plans_with_both": 61,
+      "access": 0.148,
+      "door": 0.0,
+      "open": 0.148,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.197
+     },
+     "balcony|stair": {
+      "plans_with_both": 352,
+      "access": 0.199,
+      "door": 0.0,
+      "open": 0.199,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.199
+     },
+     "balcony|balcony": {
+      "plans_with_both": 268,
+      "access": 0.123,
+      "door": 0.0,
+      "open": 0.123,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.123
+     }
+    },
+    "front_door_opens_to_share": {
+     "living": 0.995,
+     "kitchen": 0.01,
+     "storage": 0.003,
+     "stair": 0.096,
+     "balcony": 0.016
+    },
+    "edges_per_plan_mean": {
+     "door": 6.15,
+     "open": 1.08,
+     "interior_window_passthrough": 0.79,
+     "window_only": 0.36,
+     "adjacent": 13.12
+    }
+   },
+   "circulation": {
+    "living_zone_share_of_net_interior": {
+     "n": 965,
+     "p5": 0.237,
+     "p25": 0.346,
+     "p50": 0.396,
+     "p75": 0.463,
+     "p95": 0.57,
+     "mean": 0.401
+    },
+    "corridor_like_share_w1.5": {
+     "n": 965,
+     "p5": 0.0,
+     "p25": 0.003,
+     "p50": 0.028,
+     "p75": 0.068,
+     "p95": 0.141,
+     "mean": 0.046
+    },
+    "corridor_like_share_w1.8": {
+     "n": 965,
+     "p5": 0.0,
+     "p25": 0.014,
+     "p50": 0.037,
+     "p75": 0.076,
+     "p95": 0.152,
+     "mean": 0.052
+    },
+    "corridor_like_area_m2_w1.5": {
+     "n": 965,
+     "p5": 0.0,
+     "p25": 0.0,
+     "p50": 0.0,
+     "p75": 1.49,
+     "p95": 5.21,
+     "mean": 0.94
+    },
+    "share_plans_with_corridor_ge_2m2_w1.5": 0.199,
+    "share_plans_with_corridor_ge_2m2_w1.8": 0.362
+   },
+   "bathrooms_per_bedroom": {
+    "scope": "plans in this segment with >= 2 bedrooms",
+    "n_plans": 742,
+    "ratio": {
+     "n": 742,
+     "p5": 0.667,
+     "p25": 1.0,
+     "p50": 1.0,
+     "p75": 1.0,
+     "p95": 1.5,
+     "mean": 1.031
+    },
+    "bathrooms_minus_bedrooms_dist": {
+     "-2": 0.005,
+     "-1": 0.128,
+     "0": 0.683,
+     "1": 0.171,
+     "2": 0.012
+    },
+    "by_bedroom_count": {
+     "2_bed": {
+      "n": 379,
+      "bathrooms_dist": {
+       "1": 0.013,
+       "2": 0.813,
+       "3": 0.164,
+       "4": 0.011
+      },
+      "bathrooms_p50": 2.0
+     },
+     "3_bed": {
+      "n": 277,
+      "bathrooms_dist": {
+       "1": 0.004,
+       "2": 0.296,
+       "3": 0.549,
+       "4": 0.144,
+       "5": 0.007
+      },
+      "bathrooms_p50": 3.0
+     },
+     "4_bed": {
+      "n": 63,
+      "bathrooms_dist": {
+       "2": 0.016,
+       "3": 0.095,
+       "4": 0.571,
+       "5": 0.317
+      },
+      "bathrooms_p50": 4.0
+     },
+     "5_bed": {
+      "n": 21,
+      "bathrooms_dist": {
+       "3": 0.095,
+       "4": 0.095,
+       "5": 0.429,
+       "6": 0.238,
+       "7+": 0.143
+      },
+      "bathrooms_p50": 5.0
+     },
+     "6+_bed": {
+      "n": 2,
+      "bathrooms_dist": {
+       "6": 1.0
+      },
+      "bathrooms_p50": 6.0
+     }
+    },
+    "bedrooms_with_private_ensuite_share": 0.654,
+    "master_with_private_ensuite_share": 0.842,
+    "bathroom_role_share": {
+     "ensuite": 0.646,
+     "shared": 0.033,
+     "common": 0.321
+    },
+    "plans_with_at_least_one_common_bathroom": 0.786
+   }
+  },
+  "bed4plus_house_like": {
+   "n_plans": 86,
+   "dwelling": {
+    "listed_area_m2": {
+     "n": 86,
+     "p5": 156.1,
+     "p25": 204.0,
+     "p50": 249.4,
+     "p75": 315.0,
+     "p95": 415.4,
+     "mean": 263.8
+    },
+    "net_interior_area_m2": {
+     "n": 86,
+     "p5": 158.3,
+     "p25": 192.5,
+     "p50": 243.3,
+     "p75": 306.2,
+     "p95": 399.4,
+     "mean": 256.7
+    },
+    "balcony_area_m2_if_any": {
+     "n": 65,
+     "p5": 6.4,
+     "p25": 11.3,
+     "p50": 18.6,
+     "p75": 28.8,
+     "p95": 63.6,
+     "mean": 24.9
+    },
+    "share_with_balcony": 0.756,
+    "share_with_storage": 0.337,
+    "share_with_stair": 0.442,
+    "share_with_garden_or_parking": 0.674,
+    "bedrooms_dist": {
+     "4": 0.733,
+     "5": 0.244,
+     "6+": 0.023
+    },
+    "bathrooms_dist": {
+     "2": 0.012,
+     "3": 0.093,
+     "4": 0.442,
+     "5": 0.337,
+     "6": 0.081,
+     "7+": 0.035
+    },
+    "functional_rooms_per_plan": {
+     "n": 86,
+     "p5": 9.0,
+     "p50": 11.0,
+     "p95": 15.0,
+     "mean": 11.6
+    },
+    "wall_thickness_m": {
+     "n": 86,
+     "p5": 0.23,
+     "p50": 0.279,
+     "p95": 0.377
+    },
+    "interior_door_opening_width_m": {
+     "n": 945,
+     "p5": 0.81,
+     "p25": 0.93,
+     "p50": 1.04,
+     "p75": 1.16,
+     "p95": 1.45
+    },
+    "front_door_opening_width_m": {
+     "n": 86,
+     "p5": 0.92,
+     "p50": 1.28,
+     "p95": 1.62
+    },
+    "interior_doors_per_plan": {
+     "n": 86,
+     "p5": 8.0,
+     "p50": 11.0,
+     "p95": 16.0,
+     "mean": 11.1
+    }
+   },
+   "rooms": {
+    "living_zone": {
+     "n": 86,
+     "area_m2": {
+      "n": 86,
+      "p5": 43.98,
+      "p25": 68.17,
+      "p50": 86.47,
+      "p75": 116.93,
+      "p95": 148.37,
+      "mean": 93.73
+     },
+     "short_side_m": {
+      "n": 86,
+      "p5": 6.52,
+      "p25": 8.85,
+      "p50": 10.47,
+      "p75": 12.41,
+      "p95": 14.38,
+      "mean": 10.55
+     },
+     "inscribed_width_m": {
+      "n": 86,
+      "p5": 4.54,
+      "p50": 5.99,
+      "p95": 8.56
+     },
+     "long_side_m": {
+      "n": 86,
+      "p5": 10.01,
+      "p50": 15.0,
+      "p95": 22.56
+     },
+     "aspect_ratio": {
+      "n": 86,
+      "p5": 1.03,
+      "p50": 1.43,
+      "p75": 1.77,
+      "p95": 2.42
+     },
+     "rectangular_share": 0.0,
+     "doors_per_room": {
+      "n": 86,
+      "p50": 6.0,
+      "p95": 9.0,
+      "mean": 6.29,
+      "dist": {
+       "3": 0.012,
+       "4+": 0.988
+      }
+     },
+     "has_front_door_share": 0.988,
+     "access_to_share": {
+      "bedroom": 1.0,
+      "bathroom": 0.93,
+      "kitchen": 1.0,
+      "storage": 0.302,
+      "stair": 0.209,
+      "balcony": 0.5
+     },
+     "door_to_share": {
+      "bedroom": 1.0,
+      "bathroom": 0.93,
+      "kitchen": 0.186,
+      "storage": 0.093,
+      "stair": 0.07,
+      "balcony": 0.5
+     },
+     "open_or_passthrough_to_share": {
+      "bathroom": 0.012,
+      "kitchen": 0.814,
+      "storage": 0.209,
+      "stair": 0.14
+     },
+     "adjacent_to_share": {
+      "bedroom": 1.0,
+      "bathroom": 1.0,
+      "kitchen": 1.0,
+      "storage": 0.326,
+      "stair": 0.326,
+      "balcony": 0.616
+     },
+     "no_access_share": 0.0
+    },
+    "bedroom": {
+     "n": 369,
+     "area_m2": {
+      "n": 369,
+      "p5": 6.16,
+      "p25": 18.73,
+      "p50": 24.14,
+      "p75": 30.78,
+      "p95": 42.46,
+      "mean": 24.4
+     },
+     "short_side_m": {
+      "n": 369,
+      "p5": 2.2,
+      "p25": 4.01,
+      "p50": 4.5,
+      "p75": 5.06,
+      "p95": 6.22,
+      "mean": 4.44
+     },
+     "inscribed_width_m": {
+      "n": 369,
+      "p5": 2.12,
+      "p50": 4.41,
+      "p95": 5.56
+     },
+     "long_side_m": {
+      "n": 369,
+      "p5": 2.92,
+      "p50": 5.7,
+      "p95": 8.32
+     },
+     "aspect_ratio": {
+      "n": 369,
+      "p5": 1.03,
+      "p50": 1.25,
+      "p75": 1.41,
+      "p95": 1.73
+     },
+     "rectangular_share": 0.539,
+     "doors_per_room": {
+      "n": 369,
+      "p50": 2.0,
+      "p95": 3.0,
+      "mean": 2.03,
+      "dist": {
+       "0": 0.016,
+       "1": 0.203,
+       "2": 0.526,
+       "3": 0.247,
+       "4+": 0.008
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.938,
+      "bedroom": 0.005,
+      "bathroom": 0.799,
+      "kitchen": 0.089,
+      "storage": 0.022,
+      "stair": 0.016,
+      "balcony": 0.293
+     },
+     "door_to_share": {
+      "living": 0.938,
+      "bathroom": 0.737,
+      "kitchen": 0.041,
+      "balcony": 0.285
+     },
+     "open_or_passthrough_to_share": {
+      "bedroom": 0.005,
+      "bathroom": 0.092,
+      "kitchen": 0.049,
+      "storage": 0.022,
+      "stair": 0.016,
+      "balcony": 0.008
+     },
+     "adjacent_to_share": {
+      "living": 0.954,
+      "bedroom": 0.485,
+      "bathroom": 0.938,
+      "kitchen": 0.209,
+      "storage": 0.057,
+      "stair": 0.087,
+      "balcony": 0.379
+     },
+     "no_access_share": 0.003,
+     "small_room_share": {
+      "note": "staff-room / study sized 'bedrooms' (no maid label in ResPlan)",
+      "lt_8m2": 0.098,
+      "lt_10m2": 0.122,
+      "lt_8m2_and_kitchen_access": 0.049
+     }
+    },
+    "bedroom_other": {
+     "n": 283,
+     "area_m2": {
+      "n": 283,
+      "p5": 5.81,
+      "p25": 16.16,
+      "p50": 22.22,
+      "p75": 28.3,
+      "p95": 36.87,
+      "mean": 21.79
+     },
+     "short_side_m": {
+      "n": 283,
+      "p5": 2.12,
+      "p25": 3.69,
+      "p50": 4.34,
+      "p75": 4.85,
+      "p95": 5.72,
+      "mean": 4.16
+     },
+     "inscribed_width_m": {
+      "n": 283,
+      "p5": 1.99,
+      "p50": 4.26,
+      "p95": 5.39
+     },
+     "long_side_m": {
+      "n": 283,
+      "p5": 2.83,
+      "p50": 5.3,
+      "p95": 7.24
+     },
+     "aspect_ratio": {
+      "n": 283,
+      "p5": 1.03,
+      "p50": 1.24,
+      "p75": 1.39,
+      "p95": 1.63
+     },
+     "rectangular_share": 0.611,
+     "doors_per_room": {
+      "n": 283,
+      "p50": 2.0,
+      "p95": 3.0,
+      "mean": 1.93,
+      "dist": {
+       "0": 0.021,
+       "1": 0.251,
+       "2": 0.512,
+       "3": 0.205,
+       "4+": 0.011
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.919,
+      "bedroom": 0.007,
+      "bathroom": 0.756,
+      "kitchen": 0.113,
+      "storage": 0.028,
+      "stair": 0.014,
+      "balcony": 0.269
+     },
+     "door_to_share": {
+      "living": 0.919,
+      "bathroom": 0.675,
+      "kitchen": 0.053,
+      "balcony": 0.261
+     },
+     "open_or_passthrough_to_share": {
+      "bedroom": 0.007,
+      "bathroom": 0.117,
+      "kitchen": 0.06,
+      "storage": 0.028,
+      "stair": 0.014,
+      "balcony": 0.007
+     },
+     "adjacent_to_share": {
+      "living": 0.94,
+      "bedroom": 0.466,
+      "bathroom": 0.926,
+      "kitchen": 0.244,
+      "storage": 0.071,
+      "stair": 0.078,
+      "balcony": 0.35
+     },
+     "no_access_share": 0.004,
+     "small_room_share": {
+      "note": "staff-room / study sized 'bedrooms' (no maid label in ResPlan)",
+      "lt_8m2": 0.127,
+      "lt_10m2": 0.159,
+      "lt_8m2_and_kitchen_access": 0.064
+     }
+    },
+    "bedroom_master": {
+     "n": 86,
+     "area_m2": {
+      "n": 86,
+      "p5": 20.4,
+      "p25": 27.88,
+      "p50": 31.41,
+      "p75": 38.56,
+      "p95": 49.0,
+      "mean": 32.97
+     },
+     "short_side_m": {
+      "n": 86,
+      "p5": 4.23,
+      "p25": 4.72,
+      "p50": 5.1,
+      "p75": 5.73,
+      "p95": 7.11,
+      "mean": 5.35
+     },
+     "inscribed_width_m": {
+      "n": 86,
+      "p5": 3.99,
+      "p50": 4.8,
+      "p95": 5.79
+     },
+     "long_side_m": {
+      "n": 86,
+      "p5": 5.12,
+      "p50": 6.87,
+      "p95": 10.65
+     },
+     "aspect_ratio": {
+      "n": 86,
+      "p5": 1.05,
+      "p50": 1.27,
+      "p75": 1.47,
+      "p95": 1.99
+     },
+     "rectangular_share": 0.302,
+     "doors_per_room": {
+      "n": 86,
+      "p50": 2.0,
+      "p95": 3.0,
+      "mean": 2.34,
+      "dist": {
+       "1": 0.047,
+       "2": 0.57,
+       "3": 0.384
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 1.0,
+      "bathroom": 0.942,
+      "kitchen": 0.012,
+      "stair": 0.023,
+      "balcony": 0.372
+     },
+     "door_to_share": {
+      "living": 1.0,
+      "bathroom": 0.942,
+      "balcony": 0.36
+     },
+     "open_or_passthrough_to_share": {
+      "bathroom": 0.012,
+      "kitchen": 0.012,
+      "stair": 0.023,
+      "balcony": 0.012
+     },
+     "adjacent_to_share": {
+      "living": 1.0,
+      "bedroom": 0.547,
+      "bathroom": 0.977,
+      "kitchen": 0.093,
+      "storage": 0.012,
+      "stair": 0.116,
+      "balcony": 0.477
+     },
+     "no_access_share": 0.0
+    },
+    "bathroom": {
+     "n": 386,
+     "area_m2": {
+      "n": 386,
+      "p5": 2.57,
+      "p25": 4.54,
+      "p50": 6.35,
+      "p75": 8.98,
+      "p95": 16.46,
+      "mean": 7.54
+     },
+     "short_side_m": {
+      "n": 386,
+      "p5": 1.33,
+      "p25": 1.76,
+      "p50": 2.06,
+      "p75": 2.35,
+      "p95": 3.23,
+      "mean": 2.11
+     },
+     "inscribed_width_m": {
+      "n": 386,
+      "p5": 1.28,
+      "p50": 2.03,
+      "p95": 3.07
+     },
+     "long_side_m": {
+      "n": 386,
+      "p5": 1.82,
+      "p50": 3.14,
+      "p95": 6.18
+     },
+     "aspect_ratio": {
+      "n": 386,
+      "p5": 1.07,
+      "p50": 1.57,
+      "p75": 1.81,
+      "p95": 2.59
+     },
+     "rectangular_share": 0.839,
+     "doors_per_room": {
+      "n": 386,
+      "p50": 1.0,
+      "p95": 1.0,
+      "mean": 1.0,
+      "dist": {
+       "0": 0.01,
+       "1": 0.979,
+       "2": 0.008,
+       "3": 0.003
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.272,
+      "bedroom": 0.788,
+      "bathroom": 0.01,
+      "kitchen": 0.005,
+      "stair": 0.036
+     },
+     "door_to_share": {
+      "living": 0.269,
+      "bedroom": 0.712,
+      "kitchen": 0.005
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.003,
+      "bedroom": 0.093,
+      "bathroom": 0.01,
+      "stair": 0.036
+     },
+     "adjacent_to_share": {
+      "living": 0.573,
+      "bedroom": 0.948,
+      "bathroom": 0.332,
+      "kitchen": 0.137,
+      "storage": 0.031,
+      "stair": 0.062,
+      "balcony": 0.132
+     },
+     "no_access_share": 0.01,
+     "wc_sized_share": {
+      "lt_2.0m2": 0.023,
+      "lt_2.5m2": 0.049,
+      "lt_3.0m2": 0.106
+     }
+    },
+    "bathroom_ensuite": {
+     "n": 274,
+     "area_m2": {
+      "n": 274,
+      "p5": 2.71,
+      "p25": 5.3,
+      "p50": 7.21,
+      "p75": 10.28,
+      "p95": 18.57,
+      "mean": 8.46
+     },
+     "short_side_m": {
+      "n": 274,
+      "p5": 1.35,
+      "p25": 1.84,
+      "p50": 2.12,
+      "p75": 2.47,
+      "p95": 3.29,
+      "mean": 2.21
+     },
+     "inscribed_width_m": {
+      "n": 274,
+      "p5": 1.34,
+      "p50": 2.1,
+      "p95": 3.24
+     },
+     "long_side_m": {
+      "n": 274,
+      "p5": 2.0,
+      "p50": 3.38,
+      "p95": 6.55
+     },
+     "aspect_ratio": {
+      "n": 274,
+      "p5": 1.1,
+      "p50": 1.6,
+      "p75": 1.86,
+      "p95": 2.75
+     },
+     "rectangular_share": 0.825,
+     "doors_per_room": {
+      "n": 274,
+      "p50": 1.0,
+      "p95": 1.0,
+      "mean": 1.0,
+      "dist": {
+       "0": 0.004,
+       "1": 0.989,
+       "2": 0.007
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "bedroom": 1.0,
+      "bathroom": 0.011,
+      "stair": 0.029
+     },
+     "door_to_share": {
+      "bedroom": 0.993
+     },
+     "open_or_passthrough_to_share": {
+      "bedroom": 0.033,
+      "bathroom": 0.011,
+      "stair": 0.029
+     },
+     "adjacent_to_share": {
+      "living": 0.412,
+      "bedroom": 1.0,
+      "bathroom": 0.321,
+      "kitchen": 0.124,
+      "storage": 0.022,
+      "stair": 0.055,
+      "balcony": 0.146
+     },
+     "no_access_share": 0.0
+    },
+    "bathroom_common": {
+     "n": 82,
+     "area_m2": {
+      "n": 82,
+      "p5": 2.65,
+      "p25": 4.14,
+      "p50": 5.34,
+      "p75": 6.67,
+      "p95": 9.35,
+      "mean": 5.81
+     },
+     "short_side_m": {
+      "n": 82,
+      "p5": 1.38,
+      "p25": 1.74,
+      "p50": 1.93,
+      "p75": 2.15,
+      "p95": 2.55,
+      "mean": 1.97
+     },
+     "inscribed_width_m": {
+      "n": 82,
+      "p5": 1.33,
+      "p50": 1.92,
+      "p95": 2.55
+     },
+     "long_side_m": {
+      "n": 82,
+      "p5": 1.82,
+      "p50": 2.88,
+      "p95": 4.51
+     },
+     "aspect_ratio": {
+      "n": 82,
+      "p5": 1.05,
+      "p50": 1.47,
+      "p75": 1.67,
+      "p95": 2.05
+     },
+     "rectangular_share": 0.89,
+     "doors_per_room": {
+      "n": 82,
+      "p50": 1.0,
+      "p95": 1.0,
+      "mean": 0.96,
+      "dist": {
+       "0": 0.037,
+       "1": 0.963
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.915,
+      "bathroom": 0.012,
+      "kitchen": 0.024,
+      "stair": 0.073
+     },
+     "door_to_share": {
+      "living": 0.915,
+      "kitchen": 0.024
+     },
+     "open_or_passthrough_to_share": {
+      "bathroom": 0.012,
+      "stair": 0.073
+     },
+     "adjacent_to_share": {
+      "living": 0.951,
+      "bedroom": 0.756,
+      "bathroom": 0.354,
+      "kitchen": 0.122,
+      "storage": 0.037,
+      "stair": 0.098,
+      "balcony": 0.134
+     },
+     "no_access_share": 0.049
+    },
+    "kitchen": {
+     "n": 86,
+     "area_m2": {
+      "n": 86,
+      "p5": 9.33,
+      "p25": 13.66,
+      "p50": 16.66,
+      "p75": 20.92,
+      "p95": 26.49,
+      "mean": 17.81
+     },
+     "short_side_m": {
+      "n": 86,
+      "p5": 2.72,
+      "p25": 3.23,
+      "p50": 3.84,
+      "p75": 4.28,
+      "p95": 4.96,
+      "mean": 3.82
+     },
+     "inscribed_width_m": {
+      "n": 86,
+      "p5": 2.57,
+      "p50": 3.58,
+      "p95": 4.61
+     },
+     "long_side_m": {
+      "n": 86,
+      "p5": 3.41,
+      "p50": 4.83,
+      "p95": 6.72
+     },
+     "aspect_ratio": {
+      "n": 86,
+      "p5": 1.05,
+      "p50": 1.23,
+      "p75": 1.42,
+      "p95": 1.75
+     },
+     "rectangular_share": 0.686,
+     "doors_per_room": {
+      "n": 86,
+      "p50": 0.0,
+      "p95": 1.75,
+      "mean": 0.49,
+      "dist": {
+       "0": 0.605,
+       "1": 0.337,
+       "2": 0.035,
+       "3": 0.012,
+       "4+": 0.012
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 1.0,
+      "bedroom": 0.372,
+      "bathroom": 0.023,
+      "storage": 0.035,
+      "stair": 0.035
+     },
+     "door_to_share": {
+      "living": 0.186,
+      "bedroom": 0.163,
+      "bathroom": 0.023,
+      "storage": 0.023,
+      "stair": 0.035
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.814,
+      "bedroom": 0.209,
+      "storage": 0.012
+     },
+     "adjacent_to_share": {
+      "living": 1.0,
+      "bedroom": 0.686,
+      "bathroom": 0.523,
+      "storage": 0.151,
+      "stair": 0.07,
+      "balcony": 0.012
+     },
+     "no_access_share": 0.0
+    },
+    "storage": {
+     "n": 31,
+     "area_m2": {
+      "n": 31,
+      "p5": 3.01,
+      "p25": 3.25,
+      "p50": 4.39,
+      "p75": 5.71,
+      "p95": 9.37,
+      "mean": 5.07
+     },
+     "short_side_m": {
+      "n": 31,
+      "p5": 1.37,
+      "p25": 1.54,
+      "p50": 1.75,
+      "p75": 2.15,
+      "p95": 2.64,
+      "mean": 1.88
+     },
+     "inscribed_width_m": {
+      "n": 31,
+      "p5": 1.37,
+      "p50": 1.74,
+      "p95": 2.64
+     },
+     "long_side_m": {
+      "n": 31,
+      "p5": 1.93,
+      "p50": 2.55,
+      "p95": 3.79
+     },
+     "aspect_ratio": {
+      "n": 31,
+      "p5": 1.04,
+      "p50": 1.39,
+      "p75": 1.59,
+      "p95": 1.97
+     },
+     "rectangular_share": 0.903,
+     "doors_per_room": {
+      "n": 31,
+      "p50": 0.0,
+      "p95": 1.0,
+      "mean": 0.39,
+      "dist": {
+       "0": 0.645,
+       "1": 0.323,
+       "2": 0.032
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.871,
+      "bedroom": 0.258,
+      "kitchen": 0.097
+     },
+     "door_to_share": {
+      "living": 0.29,
+      "kitchen": 0.065
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.581,
+      "bedroom": 0.258,
+      "kitchen": 0.032
+     },
+     "adjacent_to_share": {
+      "living": 0.968,
+      "bedroom": 0.645,
+      "bathroom": 0.323,
+      "kitchen": 0.419,
+      "stair": 0.065
+     },
+     "no_access_share": 0.032
+    },
+    "balcony": {
+     "n": 153,
+     "area_m2": {
+      "n": 153,
+      "p5": 2.59,
+      "p25": 5.08,
+      "p50": 8.39,
+      "p75": 12.76,
+      "p95": 24.54,
+      "mean": 10.6
+     },
+     "short_side_m": {
+      "n": 153,
+      "p5": 0.77,
+      "p25": 1.55,
+      "p50": 2.0,
+      "p75": 2.37,
+      "p95": 3.54,
+      "mean": 2.08
+     },
+     "inscribed_width_m": {
+      "n": 153,
+      "p5": 0.77,
+      "p50": 1.97,
+      "p95": 2.92
+     },
+     "long_side_m": {
+      "n": 153,
+      "p5": 2.17,
+      "p50": 4.45,
+      "p95": 11.5
+     },
+     "aspect_ratio": {
+      "n": 153,
+      "p5": 1.08,
+      "p50": 2.36,
+      "p75": 3.34,
+      "p95": 5.71
+     },
+     "rectangular_share": 0.778,
+     "doors_per_room": {
+      "n": 153,
+      "p50": 1.0,
+      "p95": 2.0,
+      "mean": 1.04,
+      "dist": {
+       "0": 0.033,
+       "1": 0.895,
+       "2": 0.072
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 0.353,
+      "bedroom": 0.667,
+      "stair": 0.078,
+      "balcony": 0.013
+     },
+     "door_to_share": {
+      "living": 0.353,
+      "bedroom": 0.647
+     },
+     "open_or_passthrough_to_share": {
+      "bedroom": 0.02,
+      "stair": 0.078,
+      "balcony": 0.013
+     },
+     "adjacent_to_share": {
+      "living": 0.438,
+      "bedroom": 0.784,
+      "bathroom": 0.32,
+      "kitchen": 0.007,
+      "stair": 0.078,
+      "balcony": 0.013
+     },
+     "no_access_share": 0.02
+    },
+    "bathroom_shared": {
+     "n": 30,
+     "area_m2": {
+      "n": 30,
+      "p5": 1.78,
+      "p25": 2.75,
+      "p50": 3.45,
+      "p75": 4.53,
+      "p95": 6.62,
+      "mean": 3.87
+     },
+     "short_side_m": {
+      "n": 30,
+      "p5": 1.16,
+      "p25": 1.37,
+      "p50": 1.53,
+      "p75": 1.78,
+      "p95": 2.34,
+      "mean": 1.61
+     },
+     "inscribed_width_m": {
+      "n": 30,
+      "p5": 1.11,
+      "p50": 1.53,
+      "p95": 2.12
+     },
+     "long_side_m": {
+      "n": 30,
+      "p5": 1.54,
+      "p50": 2.23,
+      "p95": 3.33
+     },
+     "aspect_ratio": {
+      "n": 30,
+      "p5": 1.03,
+      "p50": 1.37,
+      "p75": 1.76,
+      "p95": 2.18
+     },
+     "rectangular_share": 0.833,
+     "doors_per_room": {
+      "n": 30,
+      "p50": 1.0,
+      "p95": 1.55,
+      "mean": 1.1,
+      "dist": {
+       "1": 0.933,
+       "2": 0.033,
+       "3": 0.033
+      }
+     },
+     "has_front_door_share": 0.0,
+     "access_to_share": {
+      "living": 1.0,
+      "bedroom": 1.0
+     },
+     "door_to_share": {
+      "living": 0.967,
+      "bedroom": 0.1
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.033,
+      "bedroom": 0.9
+     },
+     "adjacent_to_share": {
+      "living": 1.0,
+      "bedroom": 1.0,
+      "bathroom": 0.367,
+      "kitchen": 0.3,
+      "storage": 0.1,
+      "stair": 0.033
+     },
+     "no_access_share": 0.0
+    },
+    "stair": {
+     "n": 43,
+     "area_m2": {
+      "n": 43,
+      "p5": 2.1,
+      "p25": 3.44,
+      "p50": 4.59,
+      "p75": 7.92,
+      "p95": 29.26,
+      "mean": 9.56
+     },
+     "short_side_m": {
+      "n": 43,
+      "p5": 1.15,
+      "p25": 1.58,
+      "p50": 1.93,
+      "p75": 2.63,
+      "p95": 4.73,
+      "mean": 2.3
+     },
+     "inscribed_width_m": {
+      "n": 43,
+      "p5": 1.14,
+      "p50": 1.78,
+      "p95": 3.1
+     },
+     "long_side_m": {
+      "n": 43,
+      "p5": 1.8,
+      "p50": 2.76,
+      "p95": 13.07
+     },
+     "aspect_ratio": {
+      "n": 43,
+      "p5": 1.01,
+      "p50": 1.46,
+      "p75": 2.06,
+      "p95": 2.87
+     },
+     "rectangular_share": 0.628,
+     "doors_per_room": {
+      "n": 43,
+      "p50": 0.0,
+      "p95": 1.0,
+      "mean": 0.23,
+      "dist": {
+       "0": 0.814,
+       "1": 0.14,
+       "2": 0.047
+      }
+     },
+     "has_front_door_share": 0.186,
+     "access_to_share": {
+      "living": 0.442,
+      "bedroom": 0.116,
+      "bathroom": 0.302,
+      "kitchen": 0.07,
+      "balcony": 0.256
+     },
+     "door_to_share": {
+      "living": 0.14,
+      "kitchen": 0.07
+     },
+     "open_or_passthrough_to_share": {
+      "living": 0.302,
+      "bedroom": 0.116,
+      "bathroom": 0.302,
+      "balcony": 0.256
+     },
+     "adjacent_to_share": {
+      "living": 0.674,
+      "bedroom": 0.628,
+      "bathroom": 0.488,
+      "kitchen": 0.14,
+      "storage": 0.047,
+      "balcony": 0.256
+     },
+     "no_access_share": 0.14
+    },
+    "living_zone_broad": {
+     "note": "living_zone minus parts narrower than 1.5 m (morphological opening, r=0.75 m)",
+     "area_total_m2": {
+      "n": 86,
+      "p5": 42.67,
+      "p25": 64.44,
+      "p50": 83.94,
+      "p75": 116.67,
+      "p95": 146.11,
+      "mean": 92.04
+     },
+     "largest_piece_area_m2": {
+      "n": 86,
+      "p5": 39.39,
+      "p25": 62.16,
+      "p50": 83.75,
+      "p75": 115.93,
+      "p95": 143.73,
+      "mean": 90.2
+     }
+    }
+   },
+   "connections": {
+    "pair_plan_share": {
+     "bedroom|living": {
+      "plans_with_both": 86,
+      "access": 1.0,
+      "door": 1.0,
+      "open": 0.0,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 1.0
+     },
+     "bathroom|living": {
+      "plans_with_both": 86,
+      "access": 0.93,
+      "door": 0.93,
+      "open": 0.012,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 1.0
+     },
+     "kitchen|living": {
+      "plans_with_both": 86,
+      "access": 1.0,
+      "door": 0.186,
+      "open": 0.535,
+      "interior_window_passthrough": 0.279,
+      "window_only": 0.0,
+      "adjacent": 1.0
+     },
+     "living|storage": {
+      "plans_with_both": 29,
+      "access": 0.897,
+      "door": 0.276,
+      "open": 0.586,
+      "interior_window_passthrough": 0.034,
+      "window_only": 0.0,
+      "adjacent": 0.966
+     },
+     "living|stair": {
+      "plans_with_both": 38,
+      "access": 0.474,
+      "door": 0.158,
+      "open": 0.289,
+      "interior_window_passthrough": 0.026,
+      "window_only": 0.0,
+      "adjacent": 0.737
+     },
+     "balcony|living": {
+      "plans_with_both": 65,
+      "access": 0.662,
+      "door": 0.662,
+      "open": 0.0,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.169,
+      "adjacent": 0.815
+     },
+     "bedroom|bedroom": {
+      "plans_with_both": 86,
+      "access": 0.012,
+      "door": 0.0,
+      "open": 0.012,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.756
+     },
+     "bathroom|bedroom": {
+      "plans_with_both": 86,
+      "access": 1.0,
+      "door": 1.0,
+      "open": 0.221,
+      "interior_window_passthrough": 0.186,
+      "window_only": 0.0,
+      "adjacent": 1.0
+     },
+     "bedroom|kitchen": {
+      "plans_with_both": 86,
+      "access": 0.372,
+      "door": 0.163,
+      "open": 0.209,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.686
+     },
+     "bedroom|storage": {
+      "plans_with_both": 29,
+      "access": 0.276,
+      "door": 0.0,
+      "open": 0.276,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.69
+     },
+     "bedroom|stair": {
+      "plans_with_both": 38,
+      "access": 0.132,
+      "door": 0.0,
+      "open": 0.053,
+      "interior_window_passthrough": 0.079,
+      "window_only": 0.0,
+      "adjacent": 0.684
+     },
+     "balcony|bedroom": {
+      "plans_with_both": 65,
+      "access": 0.815,
+      "door": 0.785,
+      "open": 0.046,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.123,
+      "adjacent": 0.892
+     },
+     "bathroom|bathroom": {
+      "plans_with_both": 86,
+      "access": 0.023,
+      "door": 0.0,
+      "open": 0.012,
+      "interior_window_passthrough": 0.012,
+      "window_only": 0.0,
+      "adjacent": 0.57
+     },
+     "bathroom|kitchen": {
+      "plans_with_both": 86,
+      "access": 0.023,
+      "door": 0.023,
+      "open": 0.0,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.523
+     },
+     "bathroom|storage": {
+      "plans_with_both": 29,
+      "access": 0.0,
+      "door": 0.0,
+      "open": 0.0,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.31
+     },
+     "bathroom|stair": {
+      "plans_with_both": 38,
+      "access": 0.342,
+      "door": 0.0,
+      "open": 0.026,
+      "interior_window_passthrough": 0.316,
+      "window_only": 0.0,
+      "adjacent": 0.474
+     },
+     "balcony|bathroom": {
+      "plans_with_both": 65,
+      "access": 0.0,
+      "door": 0.0,
+      "open": 0.0,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.4,
+      "adjacent": 0.523
+     },
+     "kitchen|storage": {
+      "plans_with_both": 29,
+      "access": 0.103,
+      "door": 0.069,
+      "open": 0.034,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.448
+     },
+     "kitchen|stair": {
+      "plans_with_both": 38,
+      "access": 0.079,
+      "door": 0.079,
+      "open": 0.0,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.158
+     },
+     "balcony|kitchen": {
+      "plans_with_both": 65,
+      "access": 0.0,
+      "door": 0.0,
+      "open": 0.0,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.015
+     },
+     "balcony|storage": {
+      "plans_with_both": 25,
+      "access": 0.0,
+      "door": 0.0,
+      "open": 0.0,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.0
+     },
+     "balcony|stair": {
+      "plans_with_both": 28,
+      "access": 0.393,
+      "door": 0.0,
+      "open": 0.393,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.393
+     },
+     "balcony|balcony": {
+      "plans_with_both": 44,
+      "access": 0.023,
+      "door": 0.0,
+      "open": 0.023,
+      "interior_window_passthrough": 0.0,
+      "window_only": 0.0,
+      "adjacent": 0.023
+     }
+    },
+    "front_door_opens_to_share": {
+     "living": 0.988,
+     "stair": 0.093
+    },
+    "edges_per_plan_mean": {
+     "door": 10.9,
+     "open": 1.67,
+     "interior_window_passthrough": 0.7,
+     "window_only": 0.65,
+     "adjacent": 22.0
+    }
+   },
+   "circulation": {
+    "living_zone_share_of_net_interior": {
+     "n": 86,
+     "p5": 0.271,
+     "p25": 0.327,
+     "p50": 0.363,
+     "p75": 0.383,
+     "p95": 0.424,
+     "mean": 0.358
+    },
+    "corridor_like_share_w1.5": {
+     "n": 86,
+     "p5": 0.0,
+     "p25": 0.0,
+     "p50": 0.011,
+     "p75": 0.03,
+     "p95": 0.111,
+     "mean": 0.026
+    },
+    "corridor_like_share_w1.8": {
+     "n": 86,
+     "p5": 0.0,
+     "p25": 0.002,
+     "p50": 0.016,
+     "p75": 0.043,
+     "p95": 0.12,
+     "mean": 0.034
+    },
+    "corridor_like_area_m2_w1.5": {
+     "n": 86,
+     "p5": 0.0,
+     "p25": 0.0,
+     "p50": 0.0,
+     "p75": 2.35,
+     "p95": 6.44,
+     "mean": 1.38
+    },
+    "share_plans_with_corridor_ge_2m2_w1.5": 0.279,
+    "share_plans_with_corridor_ge_2m2_w1.8": 0.535
+   },
+   "bathrooms_per_bedroom": {
+    "scope": "plans in this segment with >= 2 bedrooms",
+    "n_plans": 86,
+    "ratio": {
+     "n": 86,
+     "p5": 0.75,
+     "p25": 1.0,
+     "p50": 1.0,
+     "p75": 1.25,
+     "p95": 1.25,
+     "mean": 1.047
+    },
+    "bathrooms_minus_bedrooms_dist": {
+     "-2": 0.035,
+     "-1": 0.093,
+     "0": 0.547,
+     "1": 0.291,
+     "2": 0.035
+    },
+    "by_bedroom_count": {
+     "4_bed": {
+      "n": 63,
+      "bathrooms_dist": {
+       "2": 0.016,
+       "3": 0.095,
+       "4": 0.571,
+       "5": 0.317
+      },
+      "bathrooms_p50": 4.0
+     },
+     "5_bed": {
+      "n": 21,
+      "bathrooms_dist": {
+       "3": 0.095,
+       "4": 0.095,
+       "5": 0.429,
+       "6": 0.238,
+       "7+": 0.143
+      },
+      "bathrooms_p50": 5.0
+     },
+     "6+_bed": {
+      "n": 2,
+      "bathrooms_dist": {
+       "6": 1.0
+      },
+      "bathrooms_p50": 6.0
+     }
+    },
+    "bedrooms_with_private_ensuite_share": 0.74,
+    "master_with_private_ensuite_share": 0.942,
+    "bathroom_role_share": {
+     "ensuite": 0.71,
+     "shared": 0.078,
+     "common": 0.212
+    },
+    "plans_with_at_least_one_common_bathroom": 0.837
+   }
+  }
+ }
+}

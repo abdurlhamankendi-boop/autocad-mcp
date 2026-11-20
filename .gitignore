@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Logs
+logs/
+*.log
+
+# Big downloaded datasets (over GitHub's 100 MB limit; re-download them)
+reference/datasets/**/*.pkl
+reference/datasets/**/*.zip
+
+# Unreal: generated caches, not source
+unreal/logs/
+unreal/**/Intermediate/
+unreal/**/Saved/
+unreal/**/DerivedDataCache/
+unreal/**/Binaries/
+
+# Old backup copies
+_pre_projects_0926/
+_pre_gaps1008/
+*.pre_*.py
+*.bak.py
+*.bak.json
+
+# Safety: never upload secrets
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+*.p12

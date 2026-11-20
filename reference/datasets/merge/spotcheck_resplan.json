@@ -1,0 +1,35 @@
+{
+ "plans_used": 16299,
+ "A_bed4plus_n": {
+  "recomputed": 1033,
+  "room_stats": 1033
+ },
+ "A_master_area_p50_m2": {
+  "recomputed": 27.71,
+  "room_stats": 27.71
+ },
+ "A_master_area_p5_p95_m2": {
+  "recomputed": [
+   19.52,
+   42.25
+  ],
+  "room_stats": [
+   19.52,
+   42.25
+  ]
+ },
+ "B_bath_per_bed_p50": {
+  "recomputed": 1.0,
+  "room_stats": 1.0
+ },
+ "B_bath_per_bed_mean": {
+  "recomputed": 0.97,
+  "room_stats": 0.97
+ },
+ "B_P(4 bath | 4 bed)": {
+  "recomputed": 0.628,
+  "n_4bed": 790,
+  "room_stats": 0.628,
+  "room_stats_n_4bed": 790
+ }
+}

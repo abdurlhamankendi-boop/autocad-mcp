@@ -1,0 +1,447 @@
+<title>Villa 696</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+:root{
+  --paper:#EFF1F0; --sheet:#FAFBFA; --ink:#14171A; --mid:#5D6764;
+  --rule:#C8CECB; --hair:#DDE2E0; --accent:#1B5E58; --accent-soft:#E2ECEA;
+  --poche:#1B1F1E; --water:#C6D9D5; --bldg:#E0E5E2; --stamp:#1B5E58;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1312; --sheet:#161A19; --ink:#E4E9E6; --mid:#8B9591;
+    --rule:#2B312F; --hair:#232827; --accent:#67C2B5; --accent-soft:#16302D;
+    --poche:#D8DEDB; --water:#1D3A38; --bldg:#1E2423; --stamp:#67C2B5;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F1312; --sheet:#161A19; --ink:#E4E9E6; --mid:#8B9591;
+  --rule:#2B312F; --hair:#232827; --accent:#67C2B5; --accent-soft:#16302D;
+  --poche:#D8DEDB; --water:#1D3A38; --bldg:#1E2423; --stamp:#67C2B5;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);
+  font-family:"Source Serif 4",Georgia,serif;font-size:16px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px 96px}
+h1,h2,h3,h4,h5,.lab,.sheet,.dlab,.stamp{
+  font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  text-wrap:balance}
+.mono,.dnum,.n,code{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  font-variant-numeric:tabular-nums}
+.lab{text-transform:uppercase;letter-spacing:.14em;font-size:12px;
+  font-weight:600;color:var(--mid)}
+
+/* ---------- title block header ---------- */
+header{padding:52px 0 0}
+.eyebrow{display:flex;gap:18px;align-items:baseline;
+  border-bottom:1px solid var(--ink);padding-bottom:8px}
+.eyebrow .lab{color:var(--ink)}
+.eyebrow .fill{flex:1;border-bottom:1px dotted var(--rule);
+  transform:translateY(-4px)}
+h1{font-size:clamp(56px,11vw,132px);line-height:.86;font-weight:700;
+  letter-spacing:-.015em;margin:26px 0 0;text-transform:uppercase}
+h1 span{display:block;color:var(--mid);font-weight:400}
+.lede{font-size:19px;max-width:60ch;margin:22px 0 0;color:var(--ink)}
+.stamp{margin:30px 0 0;display:inline-flex;flex-direction:column;
+  border:2px solid var(--stamp);color:var(--stamp);padding:9px 20px 11px;
+  transform:rotate(-1.4deg);text-transform:uppercase;letter-spacing:.1em}
+.stamp b{font-size:22px;font-weight:700;line-height:1}
+.stamp i{font-style:normal;font-size:12px;letter-spacing:.16em;margin-top:5px}
+
+/* ---------- dimension row ---------- */
+.dimrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));
+  border-top:1px solid var(--ink);margin:34px 0 0}
+.dv{padding:14px 0 4px;position:relative}
+.dv::before{content:"";position:absolute;top:-5px;left:0;width:1px;height:10px;
+  background:var(--ink)}
+.dnum{display:block;font-size:23px;font-weight:500;letter-spacing:-.02em}
+.dlab{display:block;text-transform:uppercase;letter-spacing:.12em;
+  font-size:11px;color:var(--mid);margin-top:3px}
+
+/* ---------- sections ---------- */
+section{margin-top:74px}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.2em;font-weight:600;
+  color:var(--mid);border-bottom:1px solid var(--rule);padding-bottom:7px;
+  margin:0 0 22px}
+h3{font-size:30px;font-weight:600;margin:0;letter-spacing:-.01em}
+p{margin:0 0 14px;max-width:66ch}
+
+/* ---------- plates ---------- */
+.plate{display:grid;grid-template-columns:76px 1fr;gap:0;margin-top:64px}
+.rail{border-right:1px solid var(--rule);padding-top:4px}
+.sheet{writing-mode:vertical-rl;font-size:15px;letter-spacing:.24em;
+  font-weight:600;color:var(--accent);text-transform:uppercase}
+.plate-body{padding-left:26px;min-width:0}
+.sheet-head{display:flex;align-items:baseline;justify-content:space-between;
+  gap:16px;border-bottom:1px solid var(--ink);padding-bottom:7px}
+.sheet-head .mono{font-size:13px;color:var(--mid)}
+.blurb{margin:14px 0 20px;color:var(--mid);max-width:62ch}
+.drawing{background:var(--sheet);border:1px solid var(--rule);padding:20px;
+  overflow-x:auto}
+.plate-svg{display:block;width:100%;height:auto;color:var(--ink)}
+.titleblock{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  border:1px solid var(--rule);border-top:0}
+.titleblock>div{padding:9px 12px;border-right:1px solid var(--rule);min-width:0}
+.titleblock>div:last-child{border-right:0}
+.titleblock span{display:block;text-transform:uppercase;letter-spacing:.13em;
+  font-size:10px;color:var(--mid);
+  font-family:"Barlow Condensed","Arial Narrow",sans-serif}
+.titleblock b{font-size:14px;font-weight:600;display:block;line-height:1.3}
+
+/* ---------- drawing element styles ---------- */
+.plate-svg text{fill:var(--ink)}
+.plate-svg .lbl{font-family:"Barlow Condensed","Arial Narrow",sans-serif;
+  font-weight:600;letter-spacing:.06em}
+.plate-svg .lblnum,.plate-svg .dimtxt{
+  font-family:"JetBrains Mono",monospace;fill:var(--mid)}
+.plate-svg .w-ext,.plate-svg .w-part,.plate-svg .slab{stroke:var(--ink)}
+.plate-svg .seen,.plate-svg .open,.plate-svg .leaf,.plate-svg .plot,
+.plate-svg .gate,.plate-svg .arrow,.plate-svg .bldg-in{
+  stroke:var(--ink);fill:none}
+.plate-svg .swing,.plate-svg .furn,.plate-svg .tree,.plate-svg .win,
+.plate-svg .terr,.plate-svg .basin,.plate-svg .hatch{stroke:var(--mid);fill:none}
+.plate-svg .dim{stroke:var(--mid)}
+.plate-svg .ground{stroke:var(--ink)}
+.plate-svg .water{stroke:var(--accent)}
+.plate-svg .bldg{stroke:var(--ink)}
+.plate-svg .north{color:var(--ink);stroke:var(--ink)}
+.plate-svg .bar-on{color:var(--ink);stroke:var(--ink)}
+.plate-svg .bar-off{color:var(--sheet);stroke:var(--ink)}
+.plate-svg .terr{stroke-dasharray:900 500}
+
+/* ---------- schedule ---------- */
+.scheds{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));
+  gap:40px}
+.sched h4{font-size:13px;text-transform:uppercase;letter-spacing:.16em;
+  margin:0 0 10px;color:var(--accent)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+thead th{text-align:left;font-family:"Barlow Condensed",sans-serif;
+  text-transform:uppercase;letter-spacing:.13em;font-size:11px;color:var(--mid);
+  font-weight:600;border-bottom:1px solid var(--ink);padding:0 0 6px}
+thead th:last-child,td.n{text-align:right}
+tbody td{padding:6px 0;border-bottom:1px solid var(--hair)}
+td.k{color:var(--mid);font-size:12px;text-transform:uppercase;
+  letter-spacing:.08em;font-family:"Barlow Condensed",sans-serif}
+td.n{font-family:"JetBrains Mono",monospace;font-variant-numeric:tabular-nums}
+.is-nested td:first-child{padding-left:16px;color:var(--mid)}
+.in{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--mid);font-family:"Barlow Condensed",sans-serif}
+tfoot td{padding:9px 0 0;font-weight:600;border-top:1px solid var(--ink)}
+
+/* ---------- checks ---------- */
+ol.checks{list-style:none;padding:0;margin:0;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(292px,1fr));gap:0}
+ol.checks li{display:flex;gap:14px;padding:18px 22px 18px 0;
+  border-top:1px solid var(--hair)}
+.cnum{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--accent);
+  padding-top:3px;flex:0 0 24px}
+ol.checks h5{margin:0 0 5px;font-size:17px;font-weight:600;letter-spacing:-.005em}
+ol.checks p{margin:0;font-size:14px;color:var(--mid);max-width:44ch}
+ol.checks .found{margin-top:7px;color:var(--ink);
+  border-left:2px solid var(--accent);padding-left:10px}
+
+/* ---------- notes ---------- */
+.note{border-left:2px solid var(--accent);padding:2px 0 2px 18px;
+  margin:26px 0;background:none}
+.note p:last-child{margin-bottom:0}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:38px}
+.kv{border-top:1px solid var(--ink);margin:0}
+.kv div{display:flex;justify-content:space-between;gap:18px;padding:8px 0;
+  border-bottom:1px solid var(--hair)}
+.kv dt{color:var(--mid);font-size:14px}
+.kv dd{margin:0;font-family:"JetBrains Mono",monospace;font-size:14px;
+  text-align:right}
+footer{margin-top:84px;border-top:1px solid var(--ink);padding-top:16px;
+  display:flex;flex-wrap:wrap;gap:12px 30px;color:var(--mid);font-size:13px}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media (max-width:700px){
+  .plate{grid-template-columns:1fr}
+  .rail{border-right:0;border-bottom:1px solid var(--rule);padding-bottom:6px;
+    margin-bottom:14px}
+  .sheet{writing-mode:horizontal-tb}
+  .plate-body{padding-left:0}
+  .drawing{padding:10px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;
+  transition:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow"><span class="lab">Villa</span>
+    <span class="lab">4&nbsp;533 sq ft</span>
+    <span class="fill"></span>
+    <span class="lab mono">DRG A-101 &ndash; A-201</span></div>
+  <h1>Four bedrooms<span>on 696 m&sup2;</span></h1>
+  <p class="lede">A two-storey villa with an overflow pool, drawn as data and
+  proved by a validator before a single line was plotted. Family living on the
+  ground floor, four en-suite bedrooms above, a women's majlis off the hall.</p>
+  <div class="stamp"><b>0 fatal &middot; 0 major</b>
+    <i>Checked against 15 rules</i></div>
+  <div class="dimrow"><div class="dv"><span class="dnum">432.4</span><span class="dlab">m&sup2; gross floor</span></div><div class="dv"><span class="dnum">4654</span><span class="dlab">sq ft</span></div><div class="dv"><span class="dnum">32.5</span><span class="dlab">% site cover</span></div><div class="dv"><span class="dnum">4</span><span class="dlab">bedrooms</span></div><div class="dv"><span class="dnum">39.6</span><span class="dlab">m&sup2; pool</span></div><div class="dv"><span class="dnum">49</span><span class="dlab">blocks in AutoCAD</span></div><div class="dv"><span class="dnum">0</span><span class="dlab">fatal defects</span></div></div>
+</header>
+
+<section>
+  <h2>The brief, and what it got</h2>
+  <div class="two">
+    <div>
+      <p>The brief was 4,500 sq ft of house on 7,500 sq ft of land, with an
+      overflow pool, a garden, a garage forecourt, a gate and a stone boundary
+      wall. Four bedrooms. A women's majlis, and no men's dewaniya. Family
+      living on the ground floor.</p>
+      <p>The set below delivers 4654 sq ft on 7,494 &mdash; 3 % over on the
+      house, on the nose for the land &mdash; at 32.5 % site coverage,
+      inside the 25&ndash;35 % a plot this size is normally held to. Both
+      figures are measured off the wall polygons the drawings are made from,
+      not typed in.</p>
+    </div>
+    <dl class="kv">
+      <div><dt>Gross floor area</dt><dd>432.4 m&sup2; &middot; 4654 sq ft</dd></div>
+      <div><dt>Plot</dt><dd>24.0 &times; 29.0 m &middot; 696 m&sup2;</dd></div>
+      <div><dt>Footprint</dt><dd>226.3 m&sup2; &middot; 32.5 %</dd></div>
+      <div><dt>Bedrooms</dt><dd>4, each en-suite</dd></div>
+      <div><dt>Master bedroom, net</dt><dd>20.4 m&sup2;</dd></div>
+      <div><dt>Pool</dt><dd>6.0 &times; 6.6 m &middot; 39.6 m&sup2;</dd></div>
+      <div><dt>Stair</dt><dd>20 R @ 205 &middot; 2R+G 660</dd></div>
+      <div><dt>Corridor share of GIA</dt><dd>12.8 %</dd></div>
+      <div><dt>Furniture blocks placed</dt><dd>49</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="plate" id="A-101">
+  <div class="rail"><span class="sheet">A-101</span></div>
+  <div class="plate-body">
+    <div class="sheet-head"><h3>Site plan</h3><span class="mono">1:200</span></div>
+    <p class="blurb">Three outdoor rooms in a line: forecourt, house, pool garden. The plot is 24 &times; 29 m and the house takes a third of it.</p>
+    <div class="drawing"><svg class="plate-svg" viewBox="-4000 -33800 32800 37800" role="img" aria-label="A-101 Site plan"><g transform="scale(1,-1)"><rect class="plot" x="0" y="0" width="24000" height="29000" fill="none" stroke-width="70"/><path class="w-ext" d="M0,29000 L4200,29000 L4200,28650 L350,28650 L350,350 L23650,350 L23650,28650 L16600,28650 L16600,29000 L24000,29000 L24000,0 L0,0 L0,29000 Z M15400,29000 L15400,28650 L9800,28650 L9800,29000 L15400,29000 Z" fill="var(--poche)" stroke-width="140"/><path class="bldg" d="M3000,24000 L21000,24000 L21000,11000 L16000,11000 L16000,16500 L15300,16500 L15300,11000 L8700,11000 L8700,16500 L8000,16500 L8000,11000 L3000,11000 L3000,24000 Z" fill="var(--bldg)" stroke-width="140"/><path class="bldg-in" d="M3400,23600 L20600,23600 L20600,11400 L16400,11400 L16400,16900 L14900,16900 L14900,11400 L9100,11400 L9100,16900 L7600,16900 L7600,11400 L3400,11400 L3400,23600 Z" fill="none" stroke-width="70"/><rect class="water" x="9000" y="3200" width="6000" height="6600" fill="var(--water)" stroke-width="70"/><rect class="basin" x="8600" y="2000" width="6800" height="1200" fill="none" stroke-width="50"/><rect class="water" x="11700" y="9800" width="600" height="1200" fill="var(--water)" stroke-width="36"/><rect class="terr" x="7200" y="9800" width="9600" height="1200" fill="none" stroke-width="18"/><rect class="terr" x="3400" y="23400" width="7200" height="5200" fill="none" stroke-width="18"/><text class="lbl" transform="translate(7000,26200) scale(1,-1)" text-anchor="middle" font-size="480">FORECOURT</text><text class="lblnum" transform="translate(7000,25400) scale(1,-1)" text-anchor="middle" font-size="380">5200 x 7200</text><line class="gate" x1="4200" y1="28825" x2="9800" y2="28825" stroke-width="100"/><text class="lblnum" transform="translate(7000,29700) scale(1,-1)" text-anchor="middle" font-size="380">VEHICLE GATE 5600</text><line class="gate" x1="15400" y1="28825" x2="16600" y2="28825" stroke-width="100"/><text class="lblnum" transform="translate(16000,29700) scale(1,-1)" text-anchor="middle" font-size="380">PEDESTRIAN 1200</text><circle class="tree" cx="5200" cy="26000" r="1400" fill="none" stroke-width="26"/><circle class="tree" cx="5200" cy="26000" r="180" fill="none" stroke-width="36"/><circle class="tree" cx="9400" cy="26900" r="1200" fill="none" stroke-width="26"/><circle class="tree" cx="9400" cy="26900" r="180" fill="none" stroke-width="36"/><circle class="tree" cx="4600" cy="6000" r="1700" fill="none" stroke-width="26"/><circle class="tree" cx="4600" cy="6000" r="180" fill="none" stroke-width="36"/><circle class="tree" cx="19400" cy="6600" r="1700" fill="none" stroke-width="26"/><circle class="tree" cx="19400" cy="6600" r="180" fill="none" stroke-width="36"/><circle class="tree" cx="19600" cy="2600" r="1500" fill="none" stroke-width="26"/><circle class="tree" cx="19600" cy="2600" r="180" fill="none" stroke-width="36"/><text class="lbl" transform="translate(12000,6800) scale(1,-1)" text-anchor="middle" font-size="520">OVERFLOW POOL</text><text class="lblnum" transform="translate(12000,5800) scale(1,-1)" text-anchor="middle" font-size="400">6000 x 6600  /  39.6 m2</text><text class="lblnum" transform="translate(12000,2500) scale(1,-1)" text-anchor="middle" font-size="380">CATCH BASIN / BALANCE TANK</text><text class="lbl" transform="translate(12000,17000) scale(1,-1)" text-anchor="middle" font-size="640">VILLA</text><text class="lblnum" transform="translate(12000,15900) scale(1,-1)" text-anchor="middle" font-size="400">226.3 m2 FOOTPRINT  /  32.5% COVER</text><line class="dim" x1="0" y1="-2200" x2="24000" y2="-2200" stroke-width="26"/><line class="dim" x1="-180" y1="-2380" x2="180" y2="-2020" stroke-width="26"/><line class="dim" x1="0" y1="0" x2="0" y2="-2200" stroke-width="18"/><line class="dim" x1="23820" y1="-2380" x2="24180" y2="-2020" stroke-width="26"/><line class="dim" x1="24000" y1="0" x2="24000" y2="-2200" stroke-width="18"/><text class="dimtxt" transform="translate(12000,-2020) scale(1,-1)" text-anchor="middle" font-size="440">24000</text><line class="dim" x1="-2200" y1="0" x2="-2200" y2="29000" stroke-width="26"/><line class="dim" x1="-2380" y1="-180" x2="-2020" y2="180" stroke-width="26"/><line class="dim" x1="0" y1="0" x2="-2200" y2="0" stroke-width="18"/><line class="dim" x1="-2380" y1="28820" x2="-2020" y2="29180" stroke-width="26"/><line class="dim" x1="0" y1="29000" x2="-2200" y2="29000" stroke-width="18"/><text class="dimtxt" transform="translate(-2380,14500) scale(1,-1) rotate(-90)" text-anchor="middle" font-size="440">29000</text><line class="dim" x1="7800" y1="9800" x2="7800" y2="11000" stroke-width="26"/><line class="dim" x1="7620" y1="9620" x2="7980" y2="9980" stroke-width="26"/><line class="dim" x1="9000" y1="9800" x2="7800" y2="9800" stroke-width="18"/><line class="dim" x1="7620" y1="10820" x2="7980" y2="11180" stroke-width="26"/><line class="dim" x1="9000" y1="11000" x2="7800" y2="11000" stroke-width="18"/><text class="dimtxt" transform="translate(7620,10400) scale(1,-1) rotate(-90)" text-anchor="middle" font-size="440">1200</text><path class="north" d="M26600,28200 L26220,26650 L26600,26980 L26980,26650 Z" fill="currentColor" stroke-width="70"/><circle class="dim" cx="26600" cy="27200" r="1500" fill="none" stroke-width="18"/><text class="lbl" transform="translate(26600,29100) scale(1,-1)" text-anchor="middle" font-size="600">N</text><rect class="bar-on" x="0" y="30800" width="5000" height="140" fill="currentColor" stroke-width="18"/><rect class="bar-off" x="5000" y="30800" width="5000" height="140" fill="currentColor" stroke-width="18"/><rect class="bar-on" x="10000" y="30800" width="5000" height="140" fill="currentColor" stroke-width="18"/><rect class="bar-off" x="15000" y="30800" width="5000" height="140" fill="currentColor" stroke-width="18"/><text class="dimtxt" transform="translate(0,30280) scale(1,-1)" text-anchor="middle" font-size="400">0</text><text class="dimtxt" transform="translate(5000,30280) scale(1,-1)" text-anchor="middle" font-size="400">5</text><text class="dimtxt" transform="translate(10000,30280) scale(1,-1)" text-anchor="middle" font-size="400">10</text><text class="dimtxt" transform="translate(15000,30280) scale(1,-1)" text-anchor="middle" font-size="400">15</text><text class="dimtxt" transform="translate(20000,30280) scale(1,-1)" text-anchor="middle" font-size="400">20</text><text class="dimtxt" transform="translate(20240,30280) scale(1,-1)" text-anchor="start" font-size="400">m</text></g></svg></div>
+    <div class="titleblock">
+      <div><span>Project</span><b>Villa &mdash; 696 m&sup2; plot</b></div>
+      <div><span>Drawing</span><b>Site plan</b></div>
+      <div><span>Scale</span><b class="mono">1:200 @ A2</b></div>
+      <div><span>Sheet</span><b class="mono">A-101</b></div>
+      <div><span>Status</span><b>Design &mdash; validated</b></div>
+    </div>
+  </div>
+</section>
+<section class="plate" id="A-102">
+  <div class="rail"><span class="sheet">A-102</span></div>
+  <div class="plate-body">
+    <div class="sheet-head"><h3>Ground floor plan</h3><span class="mono">1:100</span></div>
+    <p class="blurb">Family living on the ground floor, as briefed. Women's majlis to the east off the hall, show kitchen and dirty kitchen to the west, study south. No men's dewaniya.</p>
+    <div class="drawing"><svg class="plate-svg" viewBox="0 -27000 23800 19000" role="img" aria-label="A-102 Ground floor"><g transform="scale(1,-1)"><path class="w-ext" d="M21000,22400 L20600,22400 L20600,23600 L12800,23600 L12800,24000 L21000,24000 L21000,22400 Z M21000,15600 L20600,15600 L20600,18200 L21000,18200 L21000,15600 Z M21000,11000 L19800,11000 L19800,11400 L20600,11400 L20600,12200 L21000,12200 L21000,11000 Z M16000,11000 L16000,16500 L15300,16500 L15300,11000 L14400,11000 L14400,11400 L14900,11400 L14900,16900 L16400,16900 L16400,11400 L17000,11400 L17000,11000 L16000,11000 Z M8700,11000 L8700,16500 L8000,16500 L8000,11000 L6800,11000 L6800,11400 L7600,11400 L7600,16900 L9100,16900 L9100,11400 L9600,11400 L9600,11000 L8700,11000 Z M3000,11000 L3000,12200 L3400,12200 L3400,11400 L4000,11400 L4000,11000 L3000,11000 Z M3000,17300 L3400,17300 L3400,15600 L3000,15600 L3000,17300 Z M3000,24000 L4200,24000 L4200,23600 L3400,23600 L3400,18500 L3000,18500 L3000,24000 Z M11200,24000 L11200,23600 L8600,23600 L8600,24000 L11200,24000 Z" fill="var(--poche)" stroke-width="70"/><path class="w-part" d="M9400,22400 L9250,22400 L9250,23600 L9400,23600 L9400,22400 Z M9400,19050 L11350,19050 L11350,18900 L11200,18900 L9400,18900 L9400,16900 L11200,16900 L11200,17900 L11350,17900 L11350,16900 L11400,16900 L11400,16750 L9100,16750 L9100,16900 L9250,16900 L9250,19450 L8200,19450 L8200,19600 L9250,19600 L9250,20800 L9400,20800 L9400,19050 Z M14600,16900 L14600,19500 L14750,19500 L14750,16900 L14900,16900 L14900,16750 L14200,16750 L14200,16900 L14600,16900 Z M14600,23600 L14750,23600 L14750,21100 L14600,21100 L14600,23600 Z M6350,19450 L6350,16900 L6400,16900 L6400,16750 L3400,16750 L3400,16900 L6200,16900 L6200,19450 L5400,19450 L5400,19600 L7000,19600 L7000,19450 L6350,19450 Z M7600,16900 L7600,16750 L7500,16750 L7500,16900 L7600,16900 Z M3400,19450 L3400,19600 L4200,19600 L4200,19450 L3400,19450 Z M18800,16750 L18800,16900 L20600,16900 L20600,16750 L18800,16750 Z M16400,16750 L16400,16900 L17200,16900 L17200,16750 L16400,16750 Z" fill="var(--poche)" stroke-width="50"/><line class="seen" x1="11460" y1="19200" x2="12390" y2="19200" stroke-width="35"/><line class="seen" x1="12510" y1="19200" x2="13440" y2="19200" stroke-width="35"/><line class="seen" x1="11460" y1="19540" x2="12390" y2="19540" stroke-width="35"/><line class="seen" x1="12510" y1="19540" x2="13440" y2="19540" stroke-width="35"/><line class="seen" x1="11460" y1="19880" x2="12390" y2="19880" stroke-width="35"/><line class="seen" x1="12510" y1="19880" x2="13440" y2="19880" stroke-width="35"/><line class="seen" x1="11460" y1="20220" x2="12390" y2="20220" stroke-width="35"/><line class="seen" x1="12510" y1="20220" x2="13440" y2="20220" stroke-width="35"/><line class="seen" x1="11460" y1="20560" x2="12390" y2="20560" stroke-width="35"/><line class="seen" x1="12510" y1="20560" x2="13440" y2="20560" stroke-width="35"/><line class="seen" x1="11460" y1="20900" x2="12390" y2="20900" stroke-width="35"/><line class="seen" x1="12510" y1="20900" x2="13440" y2="20900" stroke-width="35"/><line class="seen" x1="11460" y1="21240" x2="12390" y2="21240" stroke-width="35"/><line class="seen" x1="12510" y1="21240" x2="13440" y2="21240" stroke-width="35"/><line class="seen" x1="11460" y1="21580" x2="12390" y2="21580" stroke-width="35"/><line class="seen" x1="12510" y1="21580" x2="13440" y2="21580" stroke-width="35"/><line class="seen" x1="11460" y1="21920" x2="12390" y2="21920" stroke-width="35"/><line class="seen" x1="12510" y1="21920" x2="13440" y2="21920" stroke-width="35"/><line class="seen" x1="11460" y1="22260" x2="12390" y2="22260" stroke-width="35"/><line class="seen" x1="12510" y1="22260" x2="13440" y2="22260" stroke-width="35"/><line class="seen" x1="11460" y1="22600" x2="12390" y2="22600" stroke-width="35"/><line class="seen" x1="12510" y1="22600" x2="13440" y2="22600" stroke-width="35"/><line class="seen" x1="12450" y1="19200" x2="12450" y2="22600" stroke-width="35"/><path class="arrow" d="M11460,20628 L12390,21172" fill="none" stroke-width="35"/><text class="lbl" transform="translate(12450,23000) scale(1,-1)" text-anchor="middle" font-size="220">UP</text><path class="swing" d="M11200,22200 L11357,22208 L11512,22231 L11664,22269 L11812,22322 L11954,22389 L12089,22470 L12215,22563 L12331,22669 L12437,22785 L12530,22911 L12611,23046 L12678,23188 L12731,23336 L12769,23488 L12792,23643 L12800,23800" fill="none" stroke-width="13"/><line class="leaf" x1="11200" y1="23800" x2="12800" y2="23800" stroke-width="25"/><line class="win" x1="4000" y1="11200" x2="6800" y2="11200" stroke-width="25"/><rect class="win" x="4000" y="11000" width="2800" height="400" fill="none" stroke-width="9"/><line class="win" x1="9600" y1="11200" x2="14400" y2="11200" stroke-width="25"/><rect class="win" x="9600" y="11000" width="4800" height="400" fill="none" stroke-width="9"/><line class="win" x1="17000" y1="11200" x2="19800" y2="11200" stroke-width="25"/><rect class="win" x="17000" y="11000" width="2800" height="400" fill="none" stroke-width="9"/><line class="win" x1="3200" y1="12200" x2="3200" y2="15600" stroke-width="25"/><rect class="win" x="3000" y="12200" width="400" height="3400" fill="none" stroke-width="9"/><line class="win" x1="20800" y1="12200" x2="20800" y2="15600" stroke-width="25"/><rect class="win" x="20600" y="12200" width="400" height="3400" fill="none" stroke-width="9"/><line class="win" x1="20800" y1="18200" x2="20800" y2="22400" stroke-width="25"/><rect class="win" x="20600" y="18200" width="400" height="4200" fill="none" stroke-width="9"/><line class="win" x1="4200" y1="23800" x2="8600" y2="23800" stroke-width="25"/><rect class="win" x="4200" y="23600" width="4400" height="400" fill="none" stroke-width="9"/><path class="swing" d="M4400,17300 L4394,17418 L4377,17534 L4348,17648 L4309,17759 L4258,17866 L4198,17967 L4128,18061 L4049,18149 L3961,18228 L3867,18298 L3766,18358 L3659,18409 L3548,18448 L3434,18477 L3318,18494 L3200,18500" fill="none" stroke-width="13"/><line class="leaf" x1="3200" y1="17300" x2="3200" y2="18500" stroke-width="25"/><path class="swing" d="M12275,17900 L12270,17998 L12256,18095 L12232,18190 L12199,18283 L12157,18371 L12106,18456 L12048,18534 L11982,18607 L11909,18673 L11831,18731 L11746,18782 L11658,18824 L11565,18857 L11470,18881 L11373,18895 L11275,18900" fill="none" stroke-width="13"/><line class="leaf" x1="11275" y1="17900" x2="11275" y2="18900" stroke-width="25"/><path class="swing" d="M16275,19500 L16267,19657 L16244,19812 L16206,19964 L16153,20112 L16086,20254 L16005,20389 L15912,20515 L15806,20631 L15690,20737 L15564,20830 L15429,20911 L15287,20978 L15139,21031 L14987,21069 L14832,21092 L14675,21100" fill="none" stroke-width="13"/><line class="leaf" x1="14675" y1="19500" x2="14675" y2="21100" stroke-width="25"/><path class="swing" d="M9325,22400 L9168,22392 L9013,22369 L8861,22331 L8713,22278 L8571,22211 L8436,22130 L8310,22037 L8194,21931 L8088,21815 L7995,21689 L7914,21554 L7847,21412 L7794,21264 L7756,21112 L7733,20957 L7725,20800" fill="none" stroke-width="13"/><line class="leaf" x1="9325" y1="20800" x2="7725" y2="20800" stroke-width="25"/><line class="open" x1="11400" y1="16750" x2="14200" y2="16750" stroke-width="25"/><path class="swing" d="M6400,15725 L6508,15730 L6615,15746 L6719,15772 L6821,15809 L6919,15855 L7011,15910 L7098,15975 L7178,16047 L7250,16127 L7315,16214 L7370,16306 L7416,16404 L7453,16506 L7479,16610 L7495,16717 L7500,16825" fill="none" stroke-width="13"/><line class="leaf" x1="6400" y1="16825" x2="7500" y2="16825" stroke-width="25"/><path class="swing" d="M17200,15225 L17357,15233 L17512,15256 L17664,15294 L17812,15347 L17954,15414 L18089,15495 L18215,15588 L18331,15694 L18437,15810 L18530,15936 L18611,16071 L18678,16213 L18731,16361 L18769,16513 L18792,16668 L18800,16825" fill="none" stroke-width="13"/><line class="leaf" x1="17200" y1="16825" x2="18800" y2="16825" stroke-width="25"/><path class="swing" d="M4200,18325 L4318,18331 L4434,18348 L4548,18377 L4659,18416 L4766,18467 L4867,18527 L4961,18597 L5049,18676 L5128,18764 L5198,18858 L5258,18959 L5309,19066 L5348,19177 L5377,19291 L5394,19407 L5400,19525" fill="none" stroke-width="13"/><line class="leaf" x1="4200" y1="19525" x2="5400" y2="19525" stroke-width="25"/><path class="swing" d="M7000,18325 L7118,18331 L7234,18348 L7348,18377 L7459,18416 L7566,18467 L7667,18527 L7761,18597 L7849,18676 L7928,18764 L7998,18858 L8058,18959 L8109,19066 L8148,19177 L8177,19291 L8194,19407 L8200,19525" fill="none" stroke-width="13"/><line class="leaf" x1="7000" y1="19525" x2="8200" y2="19525" stroke-width="25"/><rect class="furn" x="4700" y="12200" width="1555" height="1200" fill="none" stroke-width="13"/><rect class="furn" x="3500" y="15900" width="914" height="635" fill="none" stroke-width="13"/><rect class="furn" x="9500" y="11700" width="1800" height="800" fill="none" stroke-width="13"/><rect class="furn" x="12800" y="11700" width="1800" height="1800" fill="none" stroke-width="13"/><rect class="furn" x="10600" y="13100" width="1200" height="700" fill="none" stroke-width="13"/><rect class="furn" x="9400" y="15300" width="647" height="914" fill="none" stroke-width="13"/><rect class="furn" x="3600" y="22600" width="914" height="635" fill="none" stroke-width="13"/><rect class="furn" x="5000" y="22700" width="570" height="500" fill="none" stroke-width="13"/><rect class="furn" x="6000" y="22900" width="600" height="600" fill="none" stroke-width="13"/><rect class="furn" x="8300" y="22800" width="572" height="600" fill="none" stroke-width="13"/><rect class="furn" x="5200" y="20000" width="1555" height="1200" fill="none" stroke-width="13"/><rect class="furn" x="15100" y="17200" width="1800" height="800" fill="none" stroke-width="13"/><rect class="furn" x="18500" y="17200" width="1800" height="800" fill="none" stroke-width="13"/><rect class="furn" x="15100" y="21600" width="1800" height="1800" fill="none" stroke-width="13"/><rect class="furn" x="16800" y="19400" width="1200" height="700" fill="none" stroke-width="13"/><rect class="furn" x="9600" y="17700" width="520" height="400" fill="none" stroke-width="13"/><rect class="furn" x="10500" y="17700" width="450" height="468" fill="none" stroke-width="13"/><rect class="furn" x="5450" y="18400" width="635" height="914" fill="none" stroke-width="13"/><rect class="furn" x="5450" y="17700" width="600" height="600" fill="none" stroke-width="13"/><rect class="furn" x="16600" y="13000" width="647" height="914" fill="none" stroke-width="13"/><rect class="furn" x="16700" y="11700" width="1800" height="800" fill="none" stroke-width="13"/><text class="lbl" transform="translate(12000,21390) scale(1,-1)" text-anchor="middle" font-size="250">ENTRANCE HALL</text><text class="lblnum" transform="translate(12000,20930) scale(1,-1)" text-anchor="middle" font-size="200">34.8 m2</text><text class="lbl" transform="translate(10300,17960) scale(1,-1)" text-anchor="middle" font-size="210">GUEST WC</text><text class="lblnum" transform="translate(10300,17570) scale(1,-1)" text-anchor="middle" font-size="180">3.6 m2</text><text class="lbl" transform="translate(17675,20390) scale(1,-1)" text-anchor="middle" font-size="250">WOMEN'S MAJLIS</text><text class="lblnum" transform="translate(17675,19930) scale(1,-1)" text-anchor="middle" font-size="200">39.2 m2</text><text class="lbl" transform="translate(6325,21740) scale(1,-1)" text-anchor="middle" font-size="250">SHOW KITCHEN</text><text class="lblnum" transform="translate(6325,21280) scale(1,-1)" text-anchor="middle" font-size="200">23.4 m2</text><text class="lbl" transform="translate(4800,18315) scale(1,-1)" text-anchor="middle" font-size="250">DIRTY KITCHEN</text><text class="lblnum" transform="translate(4800,17855) scale(1,-1)" text-anchor="middle" font-size="200">7.1 m2</text><text class="lbl" transform="translate(7800,18315) scale(1,-1)" text-anchor="middle" font-size="250">PANTRY</text><text class="lblnum" transform="translate(7800,17855) scale(1,-1)" text-anchor="middle" font-size="200">7.4 m2</text><text class="lbl" transform="translate(5500,14215) scale(1,-1)" text-anchor="middle" font-size="250">FORMAL DINING</text><text class="lblnum" transform="translate(5500,13755) scale(1,-1)" text-anchor="middle" font-size="200">22.5 m2</text><text class="lbl" transform="translate(12000,14215) scale(1,-1)" text-anchor="middle" font-size="250">FAMILY LIVING</text><text class="lblnum" transform="translate(12000,13755) scale(1,-1)" text-anchor="middle" font-size="200">31.0 m2</text><text class="lbl" transform="translate(18500,14215) scale(1,-1)" text-anchor="middle" font-size="250">STUDY</text><text class="lblnum" transform="translate(18500,13755) scale(1,-1)" text-anchor="middle" font-size="200">22.5 m2</text><line class="dim" x1="3000" y1="9200" x2="21000" y2="9200" stroke-width="13"/><line class="dim" x1="2910" y1="9110" x2="3090" y2="9290" stroke-width="13"/><line class="dim" x1="3000" y1="11000" x2="3000" y2="9200" stroke-width="9"/><line class="dim" x1="20910" y1="9110" x2="21090" y2="9290" stroke-width="13"/><line class="dim" x1="21000" y1="11000" x2="21000" y2="9200" stroke-width="9"/><text class="dimtxt" transform="translate(12000,9290) scale(1,-1)" text-anchor="middle" font-size="220">18000</text><line class="dim" x1="1200" y1="11000" x2="1200" y2="24000" stroke-width="13"/><line class="dim" x1="1110" y1="10910" x2="1290" y2="11090" stroke-width="13"/><line class="dim" x1="3000" y1="11000" x2="1200" y2="11000" stroke-width="9"/><line class="dim" x1="1110" y1="23910" x2="1290" y2="24090" stroke-width="13"/><line class="dim" x1="3000" y1="24000" x2="1200" y2="24000" stroke-width="9"/><text class="dimtxt" transform="translate(1110,17500) scale(1,-1) rotate(-90)" text-anchor="middle" font-size="220">13000</text><path class="north" d="M22400,23700 L22172,22770 L22400,22968 L22628,22770 Z" fill="currentColor" stroke-width="35"/><circle class="dim" cx="22400" cy="23100" r="900" fill="none" stroke-width="9"/><text class="lbl" transform="translate(22400,24240) scale(1,-1)" text-anchor="middle" font-size="300">N</text><rect class="bar-on" x="3000" y="25500" width="5000" height="70" fill="currentColor" stroke-width="9"/><rect class="bar-off" x="8000" y="25500" width="5000" height="70" fill="currentColor" stroke-width="9"/><rect class="bar-on" x="13000" y="25500" width="5000" height="70" fill="currentColor" stroke-width="9"/><rect class="bar-off" x="18000" y="25500" width="5000" height="70" fill="currentColor" stroke-width="9"/><text class="dimtxt" transform="translate(3000,25240) scale(1,-1)" text-anchor="middle" font-size="200">0</text><text class="dimtxt" transform="translate(8000,25240) scale(1,-1)" text-anchor="middle" font-size="200">5</text><text class="dimtxt" transform="translate(13000,25240) scale(1,-1)" text-anchor="middle" font-size="200">10</text><text class="dimtxt" transform="translate(18000,25240) scale(1,-1)" text-anchor="middle" font-size="200">15</text><text class="dimtxt" transform="translate(23000,25240) scale(1,-1)" text-anchor="middle" font-size="200">20</text><text class="dimtxt" transform="translate(23120,25240) scale(1,-1)" text-anchor="start" font-size="200">m</text></g></svg></div>
+    <div class="titleblock">
+      <div><span>Project</span><b>Villa &mdash; 696 m&sup2; plot</b></div>
+      <div><span>Drawing</span><b>Ground floor plan</b></div>
+      <div><span>Scale</span><b class="mono">1:100 @ A2</b></div>
+      <div><span>Sheet</span><b class="mono">A-102</b></div>
+      <div><span>Status</span><b>Design &mdash; validated</b></div>
+    </div>
+  </div>
+</section>
+<section class="plate" id="A-103">
+  <div class="rail"><span class="sheet">A-103</span></div>
+  <div class="plate-body">
+    <div class="sheet-head"><h3>First floor plan</h3><span class="mono">1:100</span></div>
+    <p class="blurb">Four bedrooms, four en-suites, one corridor spine. Every en-suite is nested inside the bedroom it serves, so no bedroom is reached through another.</p>
+    <div class="drawing"><svg class="plate-svg" viewBox="0 -26200 23800 18200" role="img" aria-label="A-103 First floor"><g transform="scale(1,-1)"><path class="w-ext" d="M21000,21100 L20600,21100 L20600,22800 L19800,22800 L19800,23200 L21000,23200 L21000,21100 Z M21000,18350 L18400,18350 L18400,17150 L21000,17150 L21000,16400 L20600,16400 L20600,16750 L18000,16750 L18000,18750 L20600,18750 L20600,19400 L21000,19400 L21000,18350 Z M21000,11000 L20200,11000 L20200,11400 L20600,11400 L20600,13700 L21000,13700 L21000,11000 Z M18200,11000 L18200,11400 L19000,11400 L19000,11000 L18200,11000 Z M16000,11000 L16000,16500 L8000,16500 L8000,11000 L7400,11000 L7400,11400 L7600,11400 L7600,16900 L16400,16900 L16400,11400 L16700,11400 L16700,11000 L16000,11000 Z M4900,11000 L4900,11400 L5900,11400 L5900,11000 L4900,11000 Z M3000,11000 L3000,13700 L3400,13700 L3400,11400 L3700,11400 L3700,11000 L3000,11000 Z M3000,19200 L3400,19200 L3400,16400 L3000,16400 L3000,19200 Z M3000,21700 L3400,21700 L3400,20700 L3000,20700 L3000,21700 Z M3000,23200 L4200,23200 L4200,22800 L3400,22800 L3400,22600 L3000,22600 L3000,23200 Z M15600,23200 L15600,22800 L8400,22800 L8400,23200 L15600,23200 Z" fill="var(--poche)" stroke-width="70"/><path class="w-part" d="M9400,18750 L10200,18750 L10200,18600 L7600,18600 L7600,18750 L9250,18750 L9250,22800 L9400,22800 L9400,18750 Z M13600,18750 L13600,22800 L13750,22800 L13750,18750 L16400,18750 L16400,18600 L11800,18600 L11800,18750 L13600,18750 Z M18000,18750 L18000,18600 L17600,18600 L17600,18750 L18000,18750 Z M3400,18600 L3400,18750 L5900,18750 L5900,19100 L6050,19100 L6050,18750 L6400,18750 L6400,18600 L3400,18600 Z M5900,21400 L3400,21400 L3400,21550 L6050,21550 L6050,20100 L5900,20100 L5900,21400 Z M18300,21600 L18300,20200 L18150,20200 L18150,21750 L20600,21750 L20600,21600 L18300,21600 Z M18300,18750 L18150,18750 L18150,19200 L18300,19200 L18300,18750 Z M17800,16750 L17800,16900 L18000,16900 L18000,16750 L17800,16750 Z M16400,16750 L16400,16900 L16600,16900 L16600,16750 L16400,16750 Z M18400,13400 L18400,12800 L18250,12800 L18250,13550 L20600,13550 L20600,13400 L18400,13400 Z M18400,11400 L18250,11400 L18250,11800 L18400,11800 L18400,11400 Z M5800,16750 L5800,16900 L7600,16900 L7600,16750 L5800,16750 Z M3400,16750 L3400,16900 L4600,16900 L4600,16750 L3400,16750 Z M5600,11800 L5750,11800 L5750,11400 L5600,11400 L5600,11800 Z M5600,13400 L3400,13400 L3400,13550 L5750,13550 L5750,12800 L5600,12800 L5600,13400 Z" fill="var(--poche)" stroke-width="50"/><line class="seen" x1="11460" y1="19200" x2="12390" y2="19200" stroke-width="35"/><line class="seen" x1="12510" y1="19200" x2="13440" y2="19200" stroke-width="35"/><line class="seen" x1="11460" y1="19540" x2="12390" y2="19540" stroke-width="35"/><line class="seen" x1="12510" y1="19540" x2="13440" y2="19540" stroke-width="35"/><line class="seen" x1="11460" y1="19880" x2="12390" y2="19880" stroke-width="35"/><line class="seen" x1="12510" y1="19880" x2="13440" y2="19880" stroke-width="35"/><line class="seen" x1="11460" y1="20220" x2="12390" y2="20220" stroke-width="35"/><line class="seen" x1="12510" y1="20220" x2="13440" y2="20220" stroke-width="35"/><line class="seen" x1="11460" y1="20560" x2="12390" y2="20560" stroke-width="35"/><line class="seen" x1="12510" y1="20560" x2="13440" y2="20560" stroke-width="35"/><line class="seen" x1="11460" y1="20900" x2="12390" y2="20900" stroke-width="35"/><line class="seen" x1="12510" y1="20900" x2="13440" y2="20900" stroke-width="35"/><line class="seen" x1="11460" y1="21240" x2="12390" y2="21240" stroke-width="35"/><line class="seen" x1="12510" y1="21240" x2="13440" y2="21240" stroke-width="35"/><line class="seen" x1="11460" y1="21580" x2="12390" y2="21580" stroke-width="35"/><line class="seen" x1="12510" y1="21580" x2="13440" y2="21580" stroke-width="35"/><line class="seen" x1="11460" y1="21920" x2="12390" y2="21920" stroke-width="35"/><line class="seen" x1="12510" y1="21920" x2="13440" y2="21920" stroke-width="35"/><line class="seen" x1="11460" y1="22260" x2="12390" y2="22260" stroke-width="35"/><line class="seen" x1="12510" y1="22260" x2="13440" y2="22260" stroke-width="35"/><line class="seen" x1="11460" y1="22600" x2="12390" y2="22600" stroke-width="35"/><line class="seen" x1="12510" y1="22600" x2="13440" y2="22600" stroke-width="35"/><line class="seen" x1="12450" y1="19200" x2="12450" y2="22600" stroke-width="35"/><path class="arrow" d="M11460,20628 L12390,21172" fill="none" stroke-width="35"/><text class="lbl" transform="translate(12450,23000) scale(1,-1)" text-anchor="middle" font-size="220">DN</text><line class="win" x1="5900" y1="11200" x2="7400" y2="11200" stroke-width="25"/><rect class="win" x="5900" y="11000" width="1500" height="400" fill="none" stroke-width="9"/><line class="win" x1="3700" y1="11200" x2="4900" y2="11200" stroke-width="25"/><rect class="win" x="3700" y="11000" width="1200" height="400" fill="none" stroke-width="9"/><line class="win" x1="16700" y1="11200" x2="18200" y2="11200" stroke-width="25"/><rect class="win" x="16700" y="11000" width="1500" height="400" fill="none" stroke-width="9"/><line class="win" x1="19000" y1="11200" x2="20200" y2="11200" stroke-width="25"/><rect class="win" x="19000" y="11000" width="1200" height="400" fill="none" stroke-width="9"/><line class="win" x1="3200" y1="13700" x2="3200" y2="16400" stroke-width="25"/><rect class="win" x="3000" y="13700" width="400" height="2700" fill="none" stroke-width="9"/><line class="win" x1="20800" y1="13700" x2="20800" y2="16400" stroke-width="25"/><rect class="win" x="20600" y="13700" width="400" height="2700" fill="none" stroke-width="9"/><line class="win" x1="4200" y1="23000" x2="8400" y2="23000" stroke-width="25"/><rect class="win" x="4200" y="22800" width="4200" height="400" fill="none" stroke-width="9"/><line class="win" x1="15600" y1="23000" x2="19800" y2="23000" stroke-width="25"/><rect class="win" x="15600" y="22800" width="4200" height="400" fill="none" stroke-width="9"/><line class="win" x1="20800" y1="19400" x2="20800" y2="21100" stroke-width="25"/><rect class="win" x="20600" y="19400" width="400" height="1700" fill="none" stroke-width="9"/><line class="win" x1="3200" y1="21700" x2="3200" y2="22600" stroke-width="25"/><rect class="win" x="3000" y="21700" width="400" height="900" fill="none" stroke-width="9"/><line class="win" x1="3200" y1="19200" x2="3200" y2="20700" stroke-width="25"/><rect class="win" x="3000" y="19200" width="400" height="1500" fill="none" stroke-width="9"/><path class="swing" d="M11800,18675 L11792,18832 L11769,18987 L11731,19139 L11678,19287 L11611,19429 L11530,19564 L11437,19690 L11331,19806 L11215,19912 L11089,20005 L10954,20086 L10812,20153 L10664,20206 L10512,20244 L10357,20267 L10200,20275" fill="none" stroke-width="13"/><line class="leaf" x1="10200" y1="18675" x2="10200" y2="20275" stroke-width="25"/><path class="swing" d="M17600,18675 L17594,18793 L17577,18909 L17548,19023 L17509,19134 L17458,19241 L17398,19342 L17328,19436 L17249,19524 L17161,19603 L17067,19673 L16966,19733 L16859,19784 L16748,19823 L16634,19852 L16518,19869 L16400,19875" fill="none" stroke-width="13"/><line class="leaf" x1="16400" y1="18675" x2="16400" y2="19875" stroke-width="25"/><path class="swing" d="M7600,18675 L7594,18793 L7577,18909 L7548,19023 L7509,19134 L7458,19241 L7398,19342 L7328,19436 L7249,19524 L7161,19603 L7067,19673 L6966,19733 L6859,19784 L6748,19823 L6634,19852 L6518,19869 L6400,19875" fill="none" stroke-width="13"/><line class="leaf" x1="6400" y1="18675" x2="6400" y2="19875" stroke-width="25"/><path class="swing" d="M4600,15625 L4718,15631 L4834,15648 L4948,15677 L5059,15716 L5166,15767 L5267,15827 L5361,15897 L5449,15976 L5528,16064 L5598,16158 L5658,16259 L5709,16366 L5748,16477 L5777,16591 L5794,16707 L5800,16825" fill="none" stroke-width="13"/><line class="leaf" x1="4600" y1="16825" x2="5800" y2="16825" stroke-width="25"/><path class="swing" d="M16600,15625 L16718,15631 L16834,15648 L16948,15677 L17059,15716 L17166,15767 L17267,15827 L17361,15897 L17449,15976 L17528,16064 L17598,16158 L17658,16259 L17709,16366 L17748,16477 L17777,16591 L17794,16707 L17800,16825" fill="none" stroke-width="13"/><line class="leaf" x1="16600" y1="16825" x2="17800" y2="16825" stroke-width="25"/><path class="swing" d="M19225,19200 L19220,19298 L19206,19395 L19182,19490 L19149,19583 L19107,19671 L19056,19756 L18998,19834 L18932,19907 L18859,19973 L18781,20031 L18696,20082 L18608,20124 L18515,20157 L18420,20181 L18323,20195 L18225,20200" fill="none" stroke-width="13"/><line class="leaf" x1="18225" y1="19200" x2="18225" y2="20200" stroke-width="25"/><path class="swing" d="M5975,20100 L5877,20095 L5780,20081 L5685,20057 L5592,20024 L5504,19982 L5419,19931 L5341,19873 L5268,19807 L5202,19734 L5144,19656 L5093,19571 L5051,19483 L5018,19390 L4994,19295 L4980,19198 L4975,19100" fill="none" stroke-width="13"/><line class="leaf" x1="5975" y1="19100" x2="4975" y2="19100" stroke-width="25"/><path class="swing" d="M5675,12800 L5577,12795 L5480,12781 L5385,12757 L5292,12724 L5204,12682 L5119,12631 L5041,12573 L4968,12507 L4902,12434 L4844,12356 L4793,12271 L4751,12183 L4718,12090 L4694,11995 L4680,11898 L4675,11800" fill="none" stroke-width="13"/><line class="leaf" x1="5675" y1="11800" x2="4675" y2="11800" stroke-width="25"/><path class="swing" d="M19325,11800 L19320,11898 L19306,11995 L19282,12090 L19249,12183 L19207,12271 L19156,12356 L19098,12434 L19032,12507 L18959,12573 L18881,12631 L18796,12682 L18708,12724 L18615,12757 L18520,12781 L18423,12795 L18325,12800" fill="none" stroke-width="13"/><line class="leaf" x1="18325" y1="11800" x2="18325" y2="12800" stroke-width="25"/><rect class="furn" x="13800" y="19000" width="520" height="800" fill="none" stroke-width="13"/><rect class="furn" x="13800" y="19850" width="520" height="800" fill="none" stroke-width="13"/><rect class="furn" x="13800" y="20700" width="520" height="800" fill="none" stroke-width="13"/><rect class="furn" x="13800" y="21550" width="520" height="800" fill="none" stroke-width="13"/><rect class="furn" x="15200" y="20400" width="1600" height="2000" fill="none" stroke-width="13"/><line class="furn" x1="15200" y1="21900" x2="16800" y2="21900" stroke-width="13"/><rect class="furn" x="14750" y="22100" width="400" height="400" fill="none" stroke-width="13"/><rect class="furn" x="16850" y="22100" width="400" height="400" fill="none" stroke-width="13"/><rect class="furn" x="19750" y="18800" width="800" height="1700" fill="none" stroke-width="13"/><rect class="furn" x="18400" y="21100" width="520" height="400" fill="none" stroke-width="13"/><rect class="furn" x="19100" y="21050" width="450" height="468" fill="none" stroke-width="13"/><rect class="furn" x="7100" y="20400" width="1600" height="2000" fill="none" stroke-width="13"/><line class="furn" x1="7100" y1="21900" x2="8700" y2="21900" stroke-width="13"/><rect class="furn" x="6650" y="22380" width="400" height="400" fill="none" stroke-width="13"/><rect class="furn" x="8750" y="22380" width="400" height="400" fill="none" stroke-width="13"/><rect class="furn" x="3500" y="22280" width="800" height="520" fill="none" stroke-width="13"/><rect class="furn" x="4400" y="22280" width="800" height="520" fill="none" stroke-width="13"/><rect class="furn" x="3450" y="18750" width="800" height="1700" fill="none" stroke-width="13"/><rect class="furn" x="3500" y="21000" width="520" height="400" fill="none" stroke-width="13"/><rect class="furn" x="4400" y="21000" width="450" height="468" fill="none" stroke-width="13"/><rect class="furn" x="6300" y="13900" width="900" height="2100" fill="none" stroke-width="13"/><line class="furn" x1="6300" y1="15500" x2="7200" y2="15500" stroke-width="13"/><rect class="furn" x="6300" y="16050" width="400" height="400" fill="none" stroke-width="13"/><rect class="furn" x="3600" y="13600" width="800" height="520" fill="none" stroke-width="13"/><rect class="furn" x="3500" y="11500" width="520" height="400" fill="none" stroke-width="13"/><rect class="furn" x="3500" y="12300" width="450" height="468" fill="none" stroke-width="13"/><rect class="furn" x="16500" y="11600" width="900" height="2100" fill="none" stroke-width="13"/><line class="furn" x1="16500" y1="13200" x2="17400" y2="13200" stroke-width="13"/><rect class="furn" x="16500" y="13750" width="400" height="400" fill="none" stroke-width="13"/><rect class="furn" x="16500" y="14400" width="800" height="520" fill="none" stroke-width="13"/><rect class="furn" x="19400" y="11500" width="520" height="400" fill="none" stroke-width="13"/><rect class="furn" x="19400" y="12400" width="450" height="468" fill="none" stroke-width="13"/><text class="lbl" transform="translate(10700,17890) scale(1,-1)" text-anchor="middle" font-size="250">CORRIDOR</text><text class="lblnum" transform="translate(10700,17430) scale(1,-1)" text-anchor="middle" font-size="200">24.8 m2</text><text class="lbl" transform="translate(11500,20915) scale(1,-1)" text-anchor="middle" font-size="250">LANDING</text><text class="lblnum" transform="translate(11500,20455) scale(1,-1)" text-anchor="middle" font-size="200">17.0 m2</text><text class="lbl" transform="translate(16025,20315) scale(1,-1)" text-anchor="middle" font-size="250">MASTER BEDROOM</text><text class="lblnum" transform="translate(16025,19855) scale(1,-1)" text-anchor="middle" font-size="200">27.7 m2</text><text class="lbl" transform="translate(19450,20235) scale(1,-1)" text-anchor="middle" font-size="210">MASTER ENSUITE</text><text class="lblnum" transform="translate(19450,19845) scale(1,-1)" text-anchor="middle" font-size="180">6.6 m2</text><text class="lbl" transform="translate(7575,20215) scale(1,-1)" text-anchor="middle" font-size="250">BEDROOM 2</text><text class="lblnum" transform="translate(7575,19755) scale(1,-1)" text-anchor="middle" font-size="200">23.7 m2</text><text class="lbl" transform="translate(4650,20135) scale(1,-1)" text-anchor="middle" font-size="210">BEDROOM 2 ENS</text><text class="lblnum" transform="translate(4650,19745) scale(1,-1)" text-anchor="middle" font-size="180">6.6 m2</text><text class="lbl" transform="translate(5500,15215) scale(1,-1)" text-anchor="middle" font-size="250">BEDROOM 3</text><text class="lblnum" transform="translate(5500,14755) scale(1,-1)" text-anchor="middle" font-size="200">22.5 m2</text><text class="lbl" transform="translate(4500,12460) scale(1,-1)" text-anchor="middle" font-size="210">BEDROOM 3 ENS</text><text class="lblnum" transform="translate(4500,12070) scale(1,-1)" text-anchor="middle" font-size="180">4.4 m2</text><text class="lbl" transform="translate(18500,15215) scale(1,-1)" text-anchor="middle" font-size="250">BEDROOM 4</text><text class="lblnum" transform="translate(18500,14755) scale(1,-1)" text-anchor="middle" font-size="200">22.5 m2</text><text class="lbl" transform="translate(19500,12460) scale(1,-1)" text-anchor="middle" font-size="210">BEDROOM 4 ENS</text><text class="lblnum" transform="translate(19500,12070) scale(1,-1)" text-anchor="middle" font-size="180">4.4 m2</text><line class="dim" x1="3000" y1="9200" x2="21000" y2="9200" stroke-width="13"/><line class="dim" x1="2910" y1="9110" x2="3090" y2="9290" stroke-width="13"/><line class="dim" x1="3000" y1="11000" x2="3000" y2="9200" stroke-width="9"/><line class="dim" x1="20910" y1="9110" x2="21090" y2="9290" stroke-width="13"/><line class="dim" x1="21000" y1="11000" x2="21000" y2="9200" stroke-width="9"/><text class="dimtxt" transform="translate(12000,9290) scale(1,-1)" text-anchor="middle" font-size="220">18000</text><line class="dim" x1="1200" y1="11000" x2="1200" y2="23200" stroke-width="13"/><line class="dim" x1="1110" y1="10910" x2="1290" y2="11090" stroke-width="13"/><line class="dim" x1="3000" y1="11000" x2="1200" y2="11000" stroke-width="9"/><line class="dim" x1="1110" y1="23110" x2="1290" y2="23290" stroke-width="13"/><line class="dim" x1="3000" y1="23200" x2="1200" y2="23200" stroke-width="9"/><text class="dimtxt" transform="translate(1110,17100) scale(1,-1) rotate(-90)" text-anchor="middle" font-size="220">12200</text><path class="north" d="M22400,22900 L22172,21970 L22400,22168 L22628,21970 Z" fill="currentColor" stroke-width="35"/><circle class="dim" cx="22400" cy="22300" r="900" fill="none" stroke-width="9"/><text class="lbl" transform="translate(22400,23440) scale(1,-1)" text-anchor="middle" font-size="300">N</text><rect class="bar-on" x="3000" y="24700" width="5000" height="70" fill="currentColor" stroke-width="9"/><rect class="bar-off" x="8000" y="24700" width="5000" height="70" fill="currentColor" stroke-width="9"/><rect class="bar-on" x="13000" y="24700" width="5000" height="70" fill="currentColor" stroke-width="9"/><rect class="bar-off" x="18000" y="24700" width="5000" height="70" fill="currentColor" stroke-width="9"/><text class="dimtxt" transform="translate(3000,24440) scale(1,-1)" text-anchor="middle" font-size="200">0</text><text class="dimtxt" transform="translate(8000,24440) scale(1,-1)" text-anchor="middle" font-size="200">5</text><text class="dimtxt" transform="translate(13000,24440) scale(1,-1)" text-anchor="middle" font-size="200">10</text><text class="dimtxt" transform="translate(18000,24440) scale(1,-1)" text-anchor="middle" font-size="200">15</text><text class="dimtxt" transform="translate(23000,24440) scale(1,-1)" text-anchor="middle" font-size="200">20</text><text class="dimtxt" transform="translate(23120,24440) scale(1,-1)" text-anchor="start" font-size="200">m</text></g></svg></div>
+    <div class="titleblock">
+      <div><span>Project</span><b>Villa &mdash; 696 m&sup2; plot</b></div>
+      <div><span>Drawing</span><b>First floor plan</b></div>
+      <div><span>Scale</span><b class="mono">1:100 @ A2</b></div>
+      <div><span>Sheet</span><b class="mono">A-103</b></div>
+      <div><span>Status</span><b>Design &mdash; validated</b></div>
+    </div>
+  </div>
+</section>
+<section class="plate" id="A-201">
+  <div class="rail"><span class="sheet">A-201</span></div>
+  <div class="plate-body">
+    <div class="sheet-head"><h3>Section AA</h3><span class="mono">1:100</span></div>
+    <p class="blurb">Cut on the centre line at x = 12000, looking west: the 6400 double height, the 3000 cantilever over the terrace, and the pool falling to its balance tank.</p>
+    <div class="drawing"><svg class="plate-svg" viewBox="-2500 -13200 41000 18300" role="img" aria-label="A-201 Section AA"><g transform="scale(1,-1)"><line class="ground" x1="-1500" y1="0" x2="30500" y2="0" stroke-width="50"/><line class="hatch" x1="-1000" y1="0" x2="-1420" y2="-420" stroke-width="9"/><line class="hatch" x1="-300" y1="0" x2="-720" y2="-420" stroke-width="9"/><line class="hatch" x1="400" y1="0" x2="-20" y2="-420" stroke-width="9"/><line class="hatch" x1="1100" y1="0" x2="680" y2="-420" stroke-width="9"/><line class="hatch" x1="1800" y1="0" x2="1380" y2="-420" stroke-width="9"/><line class="hatch" x1="2500" y1="0" x2="2080" y2="-420" stroke-width="9"/><line class="hatch" x1="3200" y1="0" x2="2780" y2="-420" stroke-width="9"/><line class="hatch" x1="3900" y1="0" x2="3480" y2="-420" stroke-width="9"/><line class="hatch" x1="4600" y1="0" x2="4180" y2="-420" stroke-width="9"/><line class="hatch" x1="5300" y1="0" x2="4880" y2="-420" stroke-width="9"/><line class="hatch" x1="6000" y1="0" x2="5580" y2="-420" stroke-width="9"/><line class="hatch" x1="6700" y1="0" x2="6280" y2="-420" stroke-width="9"/><line class="hatch" x1="7400" y1="0" x2="6980" y2="-420" stroke-width="9"/><line class="hatch" x1="8100" y1="0" x2="7680" y2="-420" stroke-width="9"/><line class="hatch" x1="8800" y1="0" x2="8380" y2="-420" stroke-width="9"/><line class="hatch" x1="9500" y1="0" x2="9080" y2="-420" stroke-width="9"/><line class="hatch" x1="10200" y1="0" x2="9780" y2="-420" stroke-width="9"/><line class="hatch" x1="10900" y1="0" x2="10480" y2="-420" stroke-width="9"/><line class="hatch" x1="11600" y1="0" x2="11180" y2="-420" stroke-width="9"/><line class="hatch" x1="12300" y1="0" x2="11880" y2="-420" stroke-width="9"/><line class="hatch" x1="13000" y1="0" x2="12580" y2="-420" stroke-width="9"/><line class="hatch" x1="13700" y1="0" x2="13280" y2="-420" stroke-width="9"/><line class="hatch" x1="14400" y1="0" x2="13980" y2="-420" stroke-width="9"/><line class="hatch" x1="15100" y1="0" x2="14680" y2="-420" stroke-width="9"/><line class="hatch" x1="15800" y1="0" x2="15380" y2="-420" stroke-width="9"/><line class="hatch" x1="16500" y1="0" x2="16080" y2="-420" stroke-width="9"/><line class="hatch" x1="17200" y1="0" x2="16780" y2="-420" stroke-width="9"/><line class="hatch" x1="17900" y1="0" x2="17480" y2="-420" stroke-width="9"/><line class="hatch" x1="18600" y1="0" x2="18180" y2="-420" stroke-width="9"/><line class="hatch" x1="19300" y1="0" x2="18880" y2="-420" stroke-width="9"/><line class="hatch" x1="20000" y1="0" x2="19580" y2="-420" stroke-width="9"/><line class="hatch" x1="20700" y1="0" x2="20280" y2="-420" stroke-width="9"/><line class="hatch" x1="21400" y1="0" x2="20980" y2="-420" stroke-width="9"/><line class="hatch" x1="22100" y1="0" x2="21680" y2="-420" stroke-width="9"/><line class="hatch" x1="22800" y1="0" x2="22380" y2="-420" stroke-width="9"/><line class="hatch" x1="23500" y1="0" x2="23080" y2="-420" stroke-width="9"/><line class="hatch" x1="24200" y1="0" x2="23780" y2="-420" stroke-width="9"/><line class="hatch" x1="24900" y1="0" x2="24480" y2="-420" stroke-width="9"/><line class="hatch" x1="25600" y1="0" x2="25180" y2="-420" stroke-width="9"/><line class="hatch" x1="26300" y1="0" x2="25880" y2="-420" stroke-width="9"/><line class="hatch" x1="27000" y1="0" x2="26580" y2="-420" stroke-width="9"/><line class="hatch" x1="27700" y1="0" x2="27280" y2="-420" stroke-width="9"/><line class="hatch" x1="28400" y1="0" x2="27980" y2="-420" stroke-width="9"/><line class="hatch" x1="29100" y1="0" x2="28680" y2="-420" stroke-width="9"/><line class="hatch" x1="29800" y1="0" x2="29380" y2="-420" stroke-width="9"/><rect class="w-ext" x="0" y="0" width="350" height="2400" fill="var(--poche)" stroke-width="70"/><rect class="w-ext" x="28650" y="0" width="350" height="2000" fill="var(--poche)" stroke-width="70"/><rect class="w-ext" x="2800" y="-1100" width="7400" height="1800" fill="var(--poche)" stroke-width="70"/><rect class="water" x="3200" y="-700" width="6600" height="1400" fill="var(--water)" stroke-width="35"/><rect class="water" x="2000" y="-1400" width="1200" height="1800" fill="var(--water)" stroke-width="25"/><text class="lblnum" transform="translate(6500,1400) scale(1,-1)" text-anchor="middle" font-size="200">TW +700</text><text class="lblnum" transform="translate(2600,-900) scale(1,-1)" text-anchor="middle" font-size="180">BALANCE</text><rect class="slab" x="11000" y="400" width="13000" height="500" fill="var(--poche)" stroke-width="70"/><rect class="slab" x="16750" y="4500" width="6450" height="500" fill="var(--poche)" stroke-width="70"/><rect class="slab" x="11000" y="8700" width="12200" height="500" fill="var(--poche)" stroke-width="70"/><rect class="slab" x="11000" y="9200" width="350" height="1100" fill="var(--poche)" stroke-width="50"/><rect class="slab" x="22850" y="9200" width="350" height="1100" fill="var(--poche)" stroke-width="50"/><rect class="w-ext" x="11000" y="900" width="350" height="7800" fill="var(--poche)" stroke-width="70"/><rect class="w-ext" x="22850" y="900" width="350" height="7800" fill="var(--poche)" stroke-width="70"/><rect class="w-part" x="16750" y="5000" width="150" height="3700" fill="var(--poche)" stroke-width="50"/><rect class="slab" x="8000" y="8700" width="3000" height="500" fill="var(--poche)" stroke-width="70"/><line class="dim" x1="24400" y1="900" x2="27400" y2="900" stroke-width="9"/><path class="dim" d="M27400,900 L27700,1200 L28000,900" fill="none" stroke-width="9"/><text class="lblnum" transform="translate(28200,1060) scale(1,-1)" text-anchor="start" font-size="200">+900  GROUND</text><line class="dim" x1="24400" y1="5000" x2="27400" y2="5000" stroke-width="9"/><path class="dim" d="M27400,5000 L27700,5300 L28000,5000" fill="none" stroke-width="9"/><text class="lblnum" transform="translate(28200,5160) scale(1,-1)" text-anchor="start" font-size="200">+5000  FIRST</text><line class="dim" x1="24400" y1="9200" x2="27400" y2="9200" stroke-width="9"/><path class="dim" d="M27400,9200 L27700,9500 L28000,9200" fill="none" stroke-width="9"/><text class="lblnum" transform="translate(28200,9360) scale(1,-1)" text-anchor="start" font-size="200">+9200  ROOF</text><text class="lbl" transform="translate(19975,2400) scale(1,-1)" text-anchor="middle" font-size="10"></text><text class="lbl" transform="translate(13875,4200) scale(1,-1)" text-anchor="middle" font-size="260">DOUBLE HEIGHT</text><text class="lblnum" transform="translate(13875,3200) scale(1,-1)" text-anchor="middle" font-size="210">6400 CLEAR</text><text class="lbl" transform="translate(19975,2400) scale(1,-1)" text-anchor="middle" font-size="230">MAJLIS / HALL</text><text class="lbl" transform="translate(19975,6400) scale(1,-1)" text-anchor="middle" font-size="230">BEDROOMS</text><text class="lblnum" transform="translate(6500,-1600) scale(1,-1)" text-anchor="middle" font-size="200">POOL 1400 CONSTANT</text><text class="lblnum" transform="translate(9500,10000) scale(1,-1)" text-anchor="middle" font-size="200">CANTILEVER 3000</text><line class="dim" x1="9600" y1="900" x2="9600" y2="8700" stroke-width="13"/><line class="dim" x1="9510" y1="810" x2="9690" y2="990" stroke-width="13"/><line class="dim" x1="11000" y1="900" x2="9600" y2="900" stroke-width="9"/><line class="dim" x1="9510" y1="8610" x2="9690" y2="8790" stroke-width="13"/><line class="dim" x1="11000" y1="8700" x2="9600" y2="8700" stroke-width="9"/><text class="dimtxt" transform="translate(9510,4800) scale(1,-1) rotate(-90)" text-anchor="middle" font-size="220">7800</text><rect class="bar-on" x="11000" y="-3600" width="5000" height="70" fill="currentColor" stroke-width="9"/><rect class="bar-off" x="16000" y="-3600" width="5000" height="70" fill="currentColor" stroke-width="9"/><rect class="bar-on" x="21000" y="-3600" width="5000" height="70" fill="currentColor" stroke-width="9"/><rect class="bar-off" x="26000" y="-3600" width="5000" height="70" fill="currentColor" stroke-width="9"/><text class="dimtxt" transform="translate(11000,-3860) scale(1,-1)" text-anchor="middle" font-size="200">0</text><text class="dimtxt" transform="translate(16000,-3860) scale(1,-1)" text-anchor="middle" font-size="200">5</text><text class="dimtxt" transform="translate(21000,-3860) scale(1,-1)" text-anchor="middle" font-size="200">10</text><text class="dimtxt" transform="translate(26000,-3860) scale(1,-1)" text-anchor="middle" font-size="200">15</text><text class="dimtxt" transform="translate(31000,-3860) scale(1,-1)" text-anchor="middle" font-size="200">20</text><text class="dimtxt" transform="translate(31120,-3860) scale(1,-1)" text-anchor="start" font-size="200">m</text></g></svg></div>
+    <div class="titleblock">
+      <div><span>Project</span><b>Villa &mdash; 696 m&sup2; plot</b></div>
+      <div><span>Drawing</span><b>Section AA</b></div>
+      <div><span>Scale</span><b class="mono">1:100 @ A2</b></div>
+      <div><span>Sheet</span><b class="mono">A-201</b></div>
+      <div><span>Status</span><b>Design &mdash; validated</b></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Schedule of accommodation</h2>
+  <p>Indented rooms are nested inside the room named beneath them &mdash; an
+  en-suite inside its bedroom &mdash; and are excluded from the net figure so
+  nothing is counted twice.</p>
+  <div class="scheds"><div class="sched">
+<h4>Ground floor</h4>
+<table><thead><tr><th>Room</th><th>Type</th><th>m&sup2;</th></tr></thead>
+<tbody><tr class=""><td>SHOW KITCHEN</td><td class="k">habitable</td><td class="n">23.4</td></tr>
+<tr class=""><td>ENTRANCE HALL</td><td class="k">circulation</td><td class="n">30.6</td></tr>
+<tr class=""><td>WOMEN'S MAJLIS</td><td class="k">habitable</td><td class="n">39.2</td></tr>
+<tr class=""><td>DIRTY KITCHEN</td><td class="k">service</td><td class="n">7.1</td></tr>
+<tr class=""><td>PANTRY</td><td class="k">service</td><td class="n">7.4</td></tr>
+<tr class="is-nested"><td>GUEST WC<span class="in">in ENTRANCE HALL</span></td><td class="k">wet</td><td class="n">3.6</td></tr>
+<tr class=""><td>FORMAL DINING</td><td class="k">habitable</td><td class="n">22.5</td></tr>
+<tr class=""><td>FAMILY LIVING</td><td class="k">habitable</td><td class="n">31.0</td></tr>
+<tr class=""><td>STUDY</td><td class="k">habitable</td><td class="n">22.5</td></tr></tbody>
+<tfoot><tr><td>Net internal, excluding nested</td><td class="k"></td>
+<td class="n">183.7</td></tr>
+<tr><td>Of which habitable</td><td class="k"></td>
+<td class="n">138.6</td></tr></tfoot></table></div> <div class="sched">
+<h4>First floor</h4>
+<table><thead><tr><th>Room</th><th>Type</th><th>m&sup2;</th></tr></thead>
+<tbody><tr class=""><td>BEDROOM 2</td><td class="k">habitable</td><td class="n">16.3</td></tr>
+<tr class=""><td>LANDING</td><td class="k">circulation</td><td class="n">17.0</td></tr>
+<tr class=""><td>MASTER BEDROOM</td><td class="k">habitable</td><td class="n">20.4</td></tr>
+<tr class="is-nested"><td>MASTER ENSUITE<span class="in">in MASTER BEDROOM</span></td><td class="k">wet</td><td class="n">6.6</td></tr>
+<tr class="is-nested"><td>BEDROOM 2 ENS<span class="in">in BEDROOM 2</span></td><td class="k">wet</td><td class="n">6.6</td></tr>
+<tr class=""><td>CORRIDOR</td><td class="k">circulation</td><td class="n">24.8</td></tr>
+<tr class=""><td>BEDROOM 3</td><td class="k">habitable</td><td class="n">17.4</td></tr>
+<tr class=""><td>BEDROOM 4</td><td class="k">habitable</td><td class="n">17.4</td></tr>
+<tr class="is-nested"><td>BEDROOM 3 ENS<span class="in">in BEDROOM 3</span></td><td class="k">wet</td><td class="n">4.4</td></tr>
+<tr class="is-nested"><td>BEDROOM 4 ENS<span class="in">in BEDROOM 4</span></td><td class="k">wet</td><td class="n">4.4</td></tr></tbody>
+<tfoot><tr><td>Net internal, excluding nested</td><td class="k"></td>
+<td class="n">113.3</td></tr>
+<tr><td>Of which habitable</td><td class="k"></td>
+<td class="n">71.5</td></tr></tfoot></table></div></div>
+</section>
+
+<section>
+  <h2>How the set was proved</h2>
+  <p>The first version of this villa was critiqued by a fleet of agents across
+  six lenses. It cost roughly 7.4 million tokens and returned 160 findings
+  &mdash; 52 of them fatal. Reading them back, almost every confirmed finding
+  was <em>mechanically detectable</em>: areas are arithmetic, an inner room is a
+  graph traversal, bathrooms-per-bedroom is counting.</p>
+  <p>So the design was rewritten as data, and the fifteen rules below were
+  written against it. They run in about a second and cost nothing. Agents are
+  worth their price on judgement that cannot be computed &mdash; whether an
+  elevation reads as architect-designed &mdash; and nothing else.</p>
+  <p>Rules 13 to 15 were added while loading the set into AutoCAD, and each one
+  found something the previous fourteen had passed. That is the honest
+  argument for writing checks: not that the current set is complete, but that
+  every new one is permanent.</p>
+  <ol class="checks"><li><span class="cnum">01</span><div><h5>Opening penetration</h5><p>Every door and window void must be deeper than the wall it cuts. A void sized to the wall face leaves a skin and cuts nothing.</p><p class="found">This is the class that produced 52 fatal findings in the first scheme.</p></div></li>
+<li><span class="cnum">02</span><div><h5>Door lands where it says</h5><p>A door's threshold strip must fall in the room it names, not inside a sub-room nested there.</p><p class="found">Found three doors opening into an en-suite or dressing room instead of the bedroom.</p></div></li>
+<li><span class="cnum">03</span><div><h5>Reachability</h5><p>A graph over every door from the entry. Any room not reached is fatal.</p><p class="found">Zero on the first run, because the data makes it hard to get wrong.</p></div></li>
+<li><span class="cnum">04</span><div><h5>No inner rooms</h5><p>Re-run the graph with all other bedrooms deleted. A bedroom you can only reach through another bedroom fails.</p><p class="found">Drove the single-corridor replan of the first floor.</p></div></li>
+<li><span class="cnum">05</span><div><h5>A bathroom per bedroom</h5><p>Four bedrooms, four en-suites, each doored from its own bedroom.</p></div></li>
+<li><span class="cnum">06</span><div><h5>Areas against researched minima</h5><p>Measured on the NET polygon &mdash; the room less anything nested in it and less the partition between them.</p><p class="found">The master bedroom was reading 27.7 m&sup2; while actually being 15.5. A comment had also swallowed two entries in the minima table, so bedrooms 2 and 3 had no area check at all.</p></div></li>
+<li><span class="cnum">07</span><div><h5>Overlap and voids</h5><p>Rooms may not partially overlap; full containment is read as a nested sub-room. No void may cut a habitable room.</p><p class="found">Caught the stair well landing inside the relocated master bedroom.</p></div></li>
+<li><span class="cnum">08</span><div><h5>Pool</h5><p>Crest 2&ndash;6 mm below top water, basin cut below the crest, terrace &ge; 1200 mm.</p><p class="found">4 mm differential, 1200 mm terrace.</p></div></li>
+<li><span class="cnum">09</span><div><h5>Forecourt</h5><p>A car must stand clear of the street between gate line and house.</p><p class="found">5200 mm &mdash; a car fits; the comfort figure is 5500&ndash;6000. The one note the set still carries.</p></div></li>
+<li><span class="cnum">10</span><div><h5>Stair</h5><p>Flights must fit the well; rise &le; 220 mm; 2R + G between 550 and 700.</p><p class="found">20 risers at 205 mm, 2R+G = 660. A dog-leg, because 19 goings at 250 will not fit a 4050 landing.</p></div></li>
+<li><span class="cnum">11</span><div><h5>Circulation share</h5><p>Dedicated corridor &le; 8 % of gross internal area.</p></div></li>
+<li><span class="cnum">12</span><div><h5>Furniture</h5><p>Every one of the 49 blocks inside its room, clear of every other block, clear of every door swing, with 550 mm at a WC or basin and 700 mm to one side of a bath or bed.</p><p class="found">Found two en-suites too small to hold a bath at all. Both were enlarged.</p></div></li>
+<li><span class="cnum">13</span><div><h5>An opening must sit ON a wall</h5><p>Intersect every void with the derived wall fabric. Check 01 proves the void is deep enough; this proves it is in the right place.</p><p class="found">Twenty-five openings were cutting thin air &mdash; every external window and two doors, left behind by an 800 mm plan shift. They were the right thickness, so nothing else had noticed.</p></div></li>
+<li><span class="cnum">14</span><div><h5>Rooms must share a wall</h5><p>An internal door's two rooms must be exactly one partition apart.</p><p class="found">A door was declared between the show kitchen and the formal dining room. They are two rooms apart &mdash; the pantry sits between them.</p></div></li>
+<li><span class="cnum">15</span><div><h5>Walls exist where rooms are nested</h5><p>A nested room is carved out of its host together with a partition band, so there is real wall for its door to sit in.</p><p class="found">Without it there was no wall at all between a bedroom and its en-suite, and a 550&ndash;1050 mm strip between the north block and the south wing belonged to no room, which the fabric read as a metre of solid masonry.</p></div></li></ol>
+  <div class="note">
+    <p><b>The one note the set still carries.</b> The forecourt is 5,200 mm
+    between gate line and house. A car fits; the researched comfort figure is
+    5,500&ndash;6,000. Buying it back means shortening the pool below 6.0 m, at
+    which point the water stops reading as a pool. It is a trade, made
+    deliberately, and it is on the drawing rather than buried.</p>
+  </div>
+</section>
+
+<section>
+  <h2>What is actually in AutoCAD</h2>
+  <div class="two">
+    <div>
+      <p>The drawings are authored by ezdxf and the model is built from the
+      same room polygons; AutoCAD is used only for what it alone provides
+      &mdash; inserting real content blocks and holding the DWG. Nothing is
+      drawn twice.</p>
+      <p>Both sheets were then measured back out of AutoCAD. Every block's
+      bounding box is compared against the footprint the plan demands: blocks
+      are scaled <em>uniformly</em>, never distorted to fit, so placement must
+      be exact and size is allowed the residual that leaves.</p>
+      <p>The model was probed rather than admired. A 500 mm sphere is dropped
+      at the centre of every room and intersected with the solid: a room must
+      return nothing, a wall must return the whole sphere. The first version of
+      that probe swallowed an exception and scored every point as void &mdash;
+      it reported 19/19 on a model it had never read. A check that cannot fail
+      is worse than no check.</p>
+    </div>
+    <dl class="kv">
+      <div><dt>A-102 blocks matching the plan</dt><dd>21 / 21</dd></div>
+      <div><dt>A-103 blocks matching the plan</dt><dd>28 / 28</dd></div>
+      <div><dt>Rooms that probe as void</dt><dd>19 / 19</dd></div>
+      <div><dt>Fabric controls that probe solid</dt><dd>6 / 6</dd></div>
+      <div><dt>3D solids in the model</dt><dd>1</dd></div>
+      <div><dt>Model volume</dt><dd>630.4 m&sup3;</dd></div>
+      <div><dt>Model extents</dt><dd>24.0 &times; 29.0 &times; 11.4 m</dd></div>
+      <div><dt>Drawing files</dt><dd>A-101, A-102, A-103, 3D</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section>
+  <h2>Materials</h2>
+  <div class="two">
+    <div>
+      <p>Four materials, one 300 mm setting-out grid. Stone joint, ceiling
+      joint, door head, window head and skirting line all land on it. That
+      discipline, not the cost of any single item, is what reads as
+      expensive.</p>
+      <p>The move worth protecting above everything else on the page: the same
+      travertine runs from the family living room straight out onto the pool
+      terrace at one level, with a 20 mm slot drain at the threshold and no
+      upstand, and the glazing sits <em>in</em> that slot.</p>
+    </div>
+    <dl class="kv">
+      <div><dt>Ground plane</dt><dd>Travertine 40 mm, honed</dd></div>
+      <div><dt>Structure, exposed</dt><dd>Board-marked C32/40</dd></div>
+      <div><dt>Joinery</dt><dd>Fumed European oak</dd></div>
+      <div><dt>Metalwork</dt><dd>Bronze-anodised aluminium</dd></div>
+      <div><dt>Door height</dt><dd>2700 mm, trimless</dd></div>
+      <div><dt>Glazing sightline</dt><dd>18&ndash;22 mm</dd></div>
+      <div><dt>Shadow gap</dt><dd>20 mm, everywhere</dd></div>
+      <div><dt>Colour temperature</dt><dd>3000 K, no exceptions</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section>
+  <h2>The pool, in numbers that decide it</h2>
+  <div class="two">
+    <div>
+      <p>An overflow edge is a tolerance problem, not a plumbing one. The crest
+      sits 4 mm below top water level; that differential, not the pump, sets the
+      thickness of the sheet. A 25 mm error destroys the effect.</p>
+      <p>The number that decides whether the pool works at all is the level
+      tolerance: <b>&plusmn;0.8 mm over the whole perimeter</b>, set with a
+      rotating laser during the pour and again at tiling.</p>
+      <p>Balance volume was built up honestly rather than taken from a rule of
+      thumb &mdash; bather displacement, water in transit, backwash and surge
+      come to 2,510 L against a 1,612 L rule-of-thumb cross-check, so the tank
+      is sized on the larger.</p>
+    </div>
+    <dl class="kv">
+      <div><dt>Water surface</dt><dd>39.6 m&sup2;</dd></div>
+      <div><dt>Depth</dt><dd>1400 mm constant</dd></div>
+      <div><dt>Crest below top water</dt><dd>4 mm</dd></div>
+      <div><dt>Perimeter level tolerance</dt><dd>&plusmn;0.8 mm</dd></div>
+      <div><dt>Overflow flow</dt><dd>240&ndash;360 L/min</dd></div>
+      <div><dt>Balance working volume</dt><dd>2600 L</dd></div>
+      <div><dt>Evaporation</dt><dd>200&ndash;400 L/day</dd></div>
+      <div><dt>Terrace to house</dt><dd>1200 mm</dd></div>
+    </dl>
+  </div>
+</section>
+
+<footer>
+  <span>Villa &mdash; design set</span>
+  <span class="mono">A-101 &middot; A-102 &middot; A-103 &middot; A-201</span>
+  <span>Drawings generated from villa_design.py</span>
+  <span>Validated 0 fatal, 0 major</span>
+</footer>
+</div>
